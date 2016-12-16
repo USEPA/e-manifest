@@ -14,11 +14,15 @@ Between July of 2015 and March of 2016 EPA developed an inital prototype
 
 Since April of 2016 e-Manifest has been leveraging modules within the RCRAInfo V6 application, taking advantage of reusing the data and technology that already existed in RCRAInfo.
 
-All our [active cards and issues] (/issues) are posted on this GitHub Repository.  We will be posting additional documents as well as issues that we want user feedback on in the near future.  
-   
 ## Reference
 
 EPA's [Hazardous Waste Electronic Manifest System (E-Manifest)](https://www.epa.gov/hwgenerators/hazardous-waste-electronic-manifest-system-e-manifest) page 
+
+All our [active cards and issues] (/issues) are posted in this GitHub Repository.  We will be posting additional documents as well as issues that we want user feedback on in the near future.  
+
+The latest sprint is 31, view our [stand ups for the current sprint](https://github.com/USEPA/e-manifest/issues/338)
+
+Additional Resources: 
 
 [Sample Paper Manifest](https://www.epa.gov/sites/production/files/2015-06/documents/newform.pdf) 
 
