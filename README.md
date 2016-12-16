@@ -16,3 +16,10 @@
 
    All our [active cards and issues] (/issues) are posted on this GitHub Repository.  We will be posting additional documents as well as 
    issues that we want user feedback on in the near future.  
+   
+## Reference
+
+Sample Manifest:https://www.epa.gov/sites/production/files/2015-06/documents/newform.pdf 
+
+Manifest Instructions:http://www3.epa.gov/epawaste/hazard/transportation/manifest/pdf/man-inst.pdf
+
