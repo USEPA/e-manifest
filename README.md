@@ -32,7 +32,9 @@ Join the conversation and keep up on the latest e-Manifest news
 The e-Manifest ListServ provides an open forum for the posting and discussion of news and information relating to the e-Manifest program. This Listserv can also be used to facilitate e-Manifest conversations amongst the stakeholder and user community.
 
 General Program listserv
+
 Subscribe:Send a blank message to: eManifest-subcribe@lists.epa.gov
 
-Developers only listserv (Are you a developer that will consume e-Manifests Services?)
+Developers only listserv (Are you a developer that will consume e-Manifest's APIs?)
+
 Subscribe:Send a blank message to: e-manifestdev-subscribe@lists.epa.gov
