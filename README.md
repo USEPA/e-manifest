@@ -12,7 +12,7 @@
 
   [View the legacy Trello board »](https://e-manifest.epa.gov)
 
-*Since April of 2016 e-Manifest has been merging with the RCRAInfo V6 application taking advantage of reusing the data and technology that already existed in RCRAInfo.
+*Since April of 2016 e-Manifest has been leveraging modules within the RCRAInfo V6 application, taking advantage of reusing the data and technology that already existed in RCRAInfo.
 
    All our [active cards and issues] (/issues) are posted on this GitHub Repository.  We will be posting additional documents as well as 
    issues that we want user feedback on in the near future.  
