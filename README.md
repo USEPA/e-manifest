@@ -8,9 +8,9 @@ In 2014 and 2015 EPA developed a technical architecture for e-Manifest.
 
 Between July of 2015 and March of 2016 EPA developed an inital prototype
 
-  [View the live prototype »](https://e-manifest.epa.gov)
+  * [View the live prototype »](https://e-manifest.epa.gov)
 
-  [View the legacy Trello board »](https://e-manifest.epa.gov)
+  * [View the legacy Trello board »](https://e-manifest.epa.gov)
 
 Since April of 2016 e-Manifest has been leveraging modules within the RCRAInfo V6 application, taking advantage of reusing the data and technology that already existed in RCRAInfo.
 
@@ -18,11 +18,11 @@ All our [active cards and issues] (/issues) are posted on this GitHub Repository
    
 ## Reference
 
-EPA's [Hazardous Waste Electronic Manifest System (E-Manifest)] page (https://www.epa.gov/hwgenerators/hazardous-waste-electronic-manifest-system-e-manifest)
+EPA's [Hazardous Waste Electronic Manifest System (E-Manifest)](https://www.epa.gov/hwgenerators/hazardous-waste-electronic-manifest-system-e-manifest) page 
 
-Sample Manifest: https://www.epa.gov/sites/production/files/2015-06/documents/newform.pdf 
+[Sample Paper Manifest](https://www.epa.gov/sites/production/files/2015-06/documents/newform.pdf) 
 
-Manifest Instructions: http://www3.epa.gov/epawaste/hazard/transportation/manifest/pdf/man-inst.pdf
+[Paper Manifest Instructions](http://www3.epa.gov/epawaste/hazard/transportation/manifest/pdf/man-inst.pdf)
 
 
 ## Contact Information
