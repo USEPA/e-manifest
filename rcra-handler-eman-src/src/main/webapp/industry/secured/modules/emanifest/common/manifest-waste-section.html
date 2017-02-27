@@ -1,0 +1,79 @@
+<!-- Modal -->
+<div class="modal fade" id="manifestWasteSectionModal" tabindex="-1"
+	role="dialog" aria-labelledby="wasteModalLabel" data-backdrop="static"
+	data-keyboard="true">
+	<div class="modal-dialog modal-lg modal-xlg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal"><span
+	                  aria-hidden="true">&times;</span><span
+	                  class="sr-only">Close</span></button>			
+				<h4 class="modal-title" id="wasteModalLabel">Add Waste To
+					Manifest</h4>
+			</div>
+			<!-- ko if: wasteSection().currentlyEditedWaste -->
+			<div class="modal-body" data-bind="with: wasteSection">
+						<div class="row" data-bind="with: currentlyEditedWaste">
+							<div class="col-sm-12">
+								<div class="form-group required">
+									<label class="control-label" for="hazWaste"> 9a.
+										Hazardous Material? </label>
+									<div style="height: 34px;">
+										<input type="checkbox" class="switch switch-lg" id="hazWaste"
+											data-bind="attr: {readonly: $parents[2].form.generatorPartialEdit}, bootstrapSwitchOn: isHazardous" data-on-text="Yes"
+											data-off-text="No">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default panel-info">
+							<div class="panel-heading">9b. U.S. DOT Description</div>
+							<div class="panel-body">
+								<!-- ko if: $parents[1].form.generatorPartialEdit -->
+									<dot-description-review params="data: $data"></dot-description-review>
+								<!-- /ko -->
+								<!-- ko ifnot: $parents[1].form.generatorPartialEdit -->
+									<dot-description params="data: $data"></dot-description>
+								<!-- /ko -->
+							</div>
+						</div>
+						<div class="panel panel-default panel-info">
+							<div class="panel-heading">10-12. Containers and Quantity</div>
+							<div class="panel-body">
+								<containers params="data: $data"></containers>
+							</div>
+						</div>
+				<div class="panel panel-default panel-info">
+                    <div class="panel-heading">13. Hazardous Waste Codes</div>
+                    <div class="panel-body">
+                        <waste-codes params="data: $data"></waste-codes>
+                    </div>
+                </div>
+				<!--<div class="panel panel-default panel-info">
+                    <div class="panel-heading">Special Handling Instructions
+                        and Additional Information</div>
+                    <div class="panel-body">
+                        <waste-handling-instructions params="data: $data"></waste-handling-instructions>
+                    </div>
+                </div>-->
+			</div>
+			<div class="modal-footer">
+				<div class="row" data-bind="with: wasteSection().currentlyEditedWaste">
+					<div id="wasteButtonToolbar" class="col-sm-12 btn-toolbar">
+						<button class="btn btn-primary pull-left"
+							data-bind="click: function(){validateAndSaveWaste($parent.wasteSection,false);}">Save
+							&amp; Return</button>
+						<button id="addAndContinueWasteButton" type="button"
+							class="btn btn-primary pull-left addAndContinueWasteButton"
+							data-bind="click: function(){validateAndSaveWaste($parent.wasteSection,true);}">Save
+							&amp; Add New</button>
+						<button type="button" class="btn btn-default pull-left"
+							data-bind="click: function(){$parent.wasteSection().cancel();$('#manifestWasteSectionModal').modal('hide');}">Cancel</button>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+</div>
+</form>

@@ -1,0 +1,65 @@
+[
+	{
+		"id": 1,
+		"epaSiteId": "VAR000525113",
+		"siteName": "AUTO BODY REPAIR",
+		"contactPhoneNumber" : "555-555-5555",
+		"contactPhoneNumberExt": "333",
+		"emergencyPhone" : "555-555-5555",
+		"emergencyPhoneExt": "333",
+		"siteAddress": {
+            "street": "88112 SOUTH AVENUE",
+            "city": "ALEXANDRIA",
+            "state": "VA",
+            "zip": "10001"
+        },
+		"address": {
+            "street": "88112 SOUTH AVENUE",
+            "city": "ALEXANDRIA",
+            "state": "VA",
+            "zip": "10001"
+        }        
+	},
+	{
+		"id": 2,
+		"epaSiteId": "VAD988177803",
+		"siteName": "HEATING & OIL",
+		"contactPhoneNumber" : "866-866-8666",
+		"contactPhoneNumberExt": "333",
+		"emergencyPhone" : "866-866-8666",
+		"emergencyPhoneExt": "333",
+		"siteAddress": {
+            "street": "10182 101ST AVE.",
+            "city": "FREDERICKSBURG",
+            "state": "VA",
+            "zip": "10002"
+        },
+		"address": {
+            "street": "10182 101ST AVE.",
+            "city": "FREDERICKSBURG",
+            "state": "VA",
+            "zip": "10002"
+        }        
+	},
+	{
+	    "id": 3,
+		"epaSiteId": "VAR000521534",
+		"siteName": "JOHN'S ASPHALT",
+		"contactPhoneNumber" : "888-888-8888",
+		"contactPhoneNumberExt": "333",
+		"emergencyPhone" : "866-866-8666",
+		"emergencyPhoneExt": "333",		
+		"siteAddress": {
+            "street": "93816 CHERRY ST.",
+            "city": "FREDERICKSBURG",
+            "state": "VA",
+            "zip": "10002"
+        },
+		"address": {
+            "street": "93816 CHERRY ST.",
+            "city": "FREDERICKSBURG",
+            "state": "VA",
+            "zip": "10002"
+        }
+	}
+]

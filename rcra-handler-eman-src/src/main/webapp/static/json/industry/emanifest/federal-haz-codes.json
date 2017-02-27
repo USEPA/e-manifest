@@ -1,0 +1,187 @@
+[ {
+      "id" : 13065,
+      "code" : "D001",
+      "description" : "IGNITABLE WASTE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13066,
+      "code" : "D002",
+      "description" : "CORROSIVE WASTE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13067,
+      "code" : "D003",
+      "description" : "REACTIVE WASTE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13068,
+      "code" : "D004",
+      "description" : "ARSENIC",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13069,
+      "code" : "D005",
+      "description" : "BARIUM",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13070,
+      "code" : "D006",
+      "description" : "CADMIUM",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13071,
+      "code" : "D007",
+      "description" : "CHROMIUM",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13072,
+      "code" : "D008",
+      "description" : "LEAD",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13073,
+      "code" : "D009",
+      "description" : "MERCURY",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13074,
+      "code" : "D010",
+      "description" : "SELENIUM",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13075,
+      "code" : "D011",
+      "description" : "SILVER",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13076,
+      "code" : "D012",
+      "description" : "ENDRIN (1,2,3,4,10,10-HEXACHLORO-1,7-EPOXY-1,4,4A,5,6,7,8,8A-OCTAHYDRO-1,4-ENDO, ENDO-5,8-DIMETH-ANO-NAPHTHALENE)",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13077,
+      "code" : "D013",
+      "description" : "LINDANE (1,2,3,4,5,6-HEXA-CHLOROCYCLOHEXANE, GAMMA ISOMER)",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13078,
+      "code" : "D014",
+      "description" : "METHOXYCHLOR (1,1,1-TRICHLORO-2,2-BIS [P-METHOXYPHENYL] ETHANE)",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13079,
+      "code" : "D015",
+      "description" : "TOXAPHENE (C10 H10 CL8, TECHNICAL CHLORINATED CAMPHENE, 67-69 PERCENT CHLORINE)",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13382,
+      "code" : "D016",
+      "description" : "2,4-D (2,4-DICHLOROPHENOXYACETIC ACID)",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13383,
+      "code" : "D017",
+      "description" : "2,4,5-TP SILVEX (2,4,5-TRICHLOROPHENOXYPROPIONIC ACID)",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13384,
+      "code" : "D018",
+      "description" : "BENZENE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13385,
+      "code" : "D019",
+      "description" : "CARBON TETRACHLORIDE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13386,
+      "code" : "D020",
+      "description" : "CHLORDANE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13387,
+      "code" : "D021",
+      "description" : "CHLOROBENZENE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13388,
+      "code" : "D022",
+      "description" : "CHLOROFORM",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13389,
+      "code" : "D023",
+      "description" : "O-CRESOL",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13390,
+      "code" : "D024",
+      "description" : "M-CRESOL",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13391,
+      "code" : "D025",
+      "description" : "P-CRESOL",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13392,
+      "code" : "D026",
+      "description" : "CRESOL",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 13393,
+      "code" : "D027",
+      "description" : "1,4-DICHLOROBENZENE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 14188,
+      "code" : "D028",
+      "description" : "1,2-DICHLOROETHANE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 14189,
+      "code" : "D029",
+      "description" : "1,1-DICHLOROETHYLENE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 14190,
+      "code" : "D030",
+      "description" : "2,4-DINITROTOLUENE",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }, {
+      "id" : 14191,
+      "code" : "D031",
+      "description" : "HEPTACHLOR (AND ITS EPOXIDE)",
+      "active" : true,
+      "activityLocation" : "HQ"
+    }]

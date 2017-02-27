@@ -1,0 +1,189 @@
+{
+    "transporter":null,
+    "tsdf":{
+        "epaSiteId":"VAR000525220",
+        "siteName":"DISPOSAL SERVICES",
+        "contactPhoneNumber":"555-555-5555",
+        "contactPhoneNumberExt":"333",
+        "address":{
+            
+        },
+        "siteAddress":{
+            "street":"9000 SOUTH BLVD",
+            "city":"RUTSBURG",
+            "state":"VA",
+            "zip":"10002"
+        },
+        "emergencyPhone":null,
+        "emergencyPhoneExt":null,
+        "id":1
+    },
+    "generator":{
+        "epaSiteId":"VAD988177803",
+        "siteName":"HEATING & OIL",
+        "contactPhoneNumber":"888-999-0000",
+        "contactPhoneNumberExt":"222",
+        "address":{
+            "street":"123 MAIN ST",
+            "city":"FAIRFAX",
+            "state":"VA",
+            "zip":"22033"
+        },
+        "siteAddress":{
+            "street":"144 FIRST ST.",
+            "city":"FREDERICKSBURG",
+            "state":"VA",
+            "zip":"22033"
+        },
+        "emergencyPhone":"888-999-0000",
+        "emergencyPhoneExt":"222",
+        "signature": {
+            "printedName": null,
+            "signatureDate": null
+        }
+    },
+    "status":{
+        "id":3,
+        "code":"Scheduled",
+        "description":"Ready for transport; official manifest can be printed",
+        "icon":"fa-calendar-check-o",
+        "order":3
+    },
+    "manifestTrackingNumber":"599723448ELC",
+    "handlingInstructions":null,
+    "internationalShipment":null,
+    "internationalShipmentInfo":{
+        "importToUs":null,
+        "city":null,
+        "state":null,
+        "dateLeaving":null,
+        "consentNumber":null
+    },
+    "wasteSection":{
+        "wasteCollection":[
+            {
+                "lineNumber": 1,
+                "isHazardous":true,
+                "federalHazCodes":[
+                    "D001"
+                ],
+                "stateGenHazCodes":[
+                    
+                ],
+                "stateTsdfHazCodes":[
+                    
+                ],
+                "handlerComments":[
+                    
+                ],
+                "dotDescription":{
+                    "shippingName":{
+                        "hazardClass":["2.2"],
+                        "packingGroup":null,
+                        "shippingName":"1,1,1,2-Tetrafluoroethane or Refrigerant gas R 134a",
+                        "unIDNumber":["UN3159"],
+                        "emergencyGuideNumber": "126"                        
+                    },
+                    "hazardClass":null,
+                    "packingGroup":null,
+                    "unIdNumber":null,
+                    "additionalDotInformation":"UN3159, 1,1,1,2-Tetrafluoroethane or Refrigerant gas R 134a, 2.2",
+                    "wasteDescription":null,
+                    "erResponseGuidebookNumber":"1234567890",
+                    "emergencyPhone":"",
+                    "emergencyPhoneExt":null
+                },
+                "containerInfo":{
+                    "number":"12",
+                    "type":{
+                        "code":"CW",
+                        "description":"Wooden boxes, cartons, cases"
+                    },
+                    "notListedType":null,
+                    "quantity":"887",
+                    "unit":{
+                        "code":"Y",
+                        "description":"CubicYards"
+                    },
+                    "density":null
+                },
+                "formCode":null,
+                "formCodeComment":null,
+                "sourceCode":null,
+                "sourceCodeComment":null,
+                "managementCode":{
+                    "code":null,
+                    "description":null,
+                    "isHazardous":true,
+                    "federalHazCodes":[
+                        
+                    ],
+                    "stateGenHazCodes":[
+                        
+                    ],
+                    "stateTsdfHazCodes":[
+                        
+                    ],
+                    "handlerComments":[
+                        
+                    ],
+                    "dotDescription":{
+                        
+                    },
+                    "containerInfo":{
+                        
+                    },
+                    "formCode":null,
+                    "formCodeComment":null,
+                    "sourceCode":null,
+                    "sourceCodeComment":null,
+                    "managementCode":null,
+                    "managementCodeComment":null,
+                    "specialHandlingInstructions":null,
+                    "provideBRInfo":true
+                },
+                "managementCodeComment":null,
+                "specialHandlingInstructions":null,
+                "provideBRInfo":true
+            }
+        ]
+    },
+    "updatedDate":null,
+    "certifiedDate":null,
+    "updatedBy":{
+        "firstName":"John",
+        "lastName":"Smith"
+    },
+    "createdDate":"10/12/2016",
+    "createdBy":{
+        "firstName":"Jane",
+        "lastName":"Doe"
+    },
+    "transporters":[
+        {
+            "epaSiteId":"MDE345783957",
+            "siteName":"Transporter4",
+            "contactPhoneNumber":null,
+            "contactPhoneNumberExt":null,
+            "address":{
+                
+            },
+            "siteAddress":{
+                
+            },
+            "emergencyPhone":null,
+            "emergencyPhoneExt":null,
+            "signature": {
+                "printedName": null,
+                "signatureDate": null
+            }
+        }
+    ],
+    "additionalInfo": {
+        "originalManifestTrackingNumber": null
+    },
+    "handlerComments":[
+        
+    ],
+    "discrepancy": null
+}

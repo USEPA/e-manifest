@@ -1,0 +1,37 @@
+[
+    {
+        "id":1,
+        "code":"Draft",
+        "description":"Visible only to users registered for this site",
+        "icon": "fa-star-half-o",
+        "order":1
+    },
+    {
+        "id":2,
+        "code":"Pending",
+        "description":"Shared with users registered for the Generator, Transporters and Designated Facility selected below",
+        "icon": "fa-calendar-o",
+        "order":2
+    },
+    {
+        "id":3,
+        "code":"Scheduled",
+        "description":"Ready for transport; official manifest can be printed",
+        "icon": "fa-calendar-check-o",
+        "order":3
+    },
+    {
+        "id":4,
+        "code":"In Transit",
+        "description":"Transporter has picked up waste from the Generator",
+        "icon": "fa-truck fa-flip-horizontal",
+        "order":4
+    },
+    {
+        "id":5,
+        "code":"Received",
+        "description":"Received by Designated Facility",
+        "icon": "fa-star",
+        "order":5
+    }
+]

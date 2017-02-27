@@ -1,0 +1,34 @@
+[
+    {
+        "code":"G",
+        "description":"Gallons"
+    },
+    {
+        "code":"K",
+        "description":"Killograms"
+    },
+    {
+        "code":"L",
+        "description":"Liters"
+    },
+    {
+        "code":"M",
+        "description":"Metrictons"
+    },
+    {
+        "code":"N",
+        "description":"Cubicmeters"
+    },
+    {
+        "code":"P",
+        "description":"Pounds"
+    },
+    {
+        "code":"T",
+        "description":"Tons"
+    },
+    {
+        "code":"Y",
+        "description":"CubicYards"
+    }
+]

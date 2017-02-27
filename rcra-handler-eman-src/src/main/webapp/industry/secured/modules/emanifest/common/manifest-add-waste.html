@@ -1,0 +1,438 @@
+<div class="panel panel-info"
+	data-bind="with: wasteSection.currentlyEditedWaste">
+	<div class="panel-heading">
+		<h4 class="panel-title" id="myModalLabel_addWaste">Add Waste To
+			Manifest</h4>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group required">
+					<label class="control-label" for="hazWaste"> Is This
+						Hazardous Material? </label>
+					<div>
+						<input type="checkbox" class="switch" id="hazWaste"
+							data-bind="bootstrapSwitchOn: isHazardous" data-on-text="Yes"
+							data-off-text="No">
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="panel panel-default" data-bind="with: dotDescription">
+			<div class="panel-heading">9b. U.S. DOT Description</div>
+			<div class="panel-body">
+
+				<div class="row" data-bind="slideVisible: $root.wasteSection.currentlyEditedWaste().isHazardous">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label class="control-label" for="usDotDescription_waste">Proper
+								Shipping Name - ID Number </label> <select id="usDotDescription_waste"
+								class="form-control"
+								data-bind="lookup: 'dotDescriptions', optionsCaption: 'Select...',
+							  optionsText: function(item){return item.shippingName+' - '+item.unIDNumber;}, optionsCaption: 'Select...', optionsValue: 'shippingName', value: shippingName, select2: { theme: 'bootstrap'}">
+							</select>
+
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="row">
+							<div class="col-sm-12">
+								<label class="control-label">Hazard Class </label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<span data-bind="text: hazardClass"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="row">
+							<div class="col-sm-12">
+								<label class="control-label">Packing Group </label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<span data-bind="text: packingGroup"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group" data-bind="visible: $root.wasteSection.currentlyEditedWaste().isHazardous">
+							<label for="additionalDotInformation" class="control-label">
+								Additional
+								DOT Information								
+							</label>
+							<textarea id="additionalDotInformation" class="form-control"
+								data-bind="textInput:  additionalDotInformation"></textarea>
+						</div>
+						<div class="form-group required" data-bind="visible: $root.wasteSection.currentlyEditedWaste().isHazardous()==false">
+							<label for="wasteDescription" class="control-label">
+								Waste Description								
+							</label>
+							<textarea id="wasteDescription" class="form-control"
+								data-bind="textInput: wasteDescription"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6 form-group">
+						<label for="erResponseGuidebookNumber" class="control-label">Emergency
+							Response Guidebook Number</label> <select id="erResponseGuidebookNumber"
+							class="form-control"
+							data-bind="lookup: 'guideBookNumbers', optionsCaption: 'Select...',
+                		value: erResponseGuidebookNumber, select2: { theme: 'bootstrap'}">
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default" data-bind="with: containerInfo">
+			<div class="panel-heading">10-12. Containers and Quantity</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-1">
+						<div class="form-group">
+							<label for="containersNumber" class="control-label">Number</label>
+							<input type="text" id="containersNumber" class="form-control"
+								data-bind="textInput: number" />
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="containersType" class="control-label">Type</label> <select
+								id="containersType" class="form-control"
+								data-bind="lookup: 'containerTypes', optionsText: function(item){ return item.code +'-'+item.description;}, optionsCaption: 'Select...', value: type"></select>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="containersTotalQuantity" class="control-label">Total
+								Quantity</label> <input id="containersTotalQuantity" type="text"
+								class="form-control" data-bind="textInput: quantity" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="containersUnit" class="control-label">Unit Wt./Vol.</label> <select
+								id="containersUnit" class="form-control"
+								data-bind="options: $root.lookups.units, optionsText: function(item){ return item.code +'-'+item.description;}, optionsCaption: 'Select...', value: unit"></select>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<div class="form-group" data-bind="fadeVisible: showDensity">
+							<label for="containersDensity" class="control-label">Density</label>
+							<input id="containersDensity" type="text" class="form-control"
+								data-bind="textInput: density" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group" data-bind="fadeVisible: showDensity">
+							<label for="containersDensityUnits" class="control-label">Density
+								Units</label> <select id="containersDensityUnits" class="form-control"
+								data-bind='options: $root.lookups.densityUnits, optionsCaption: "Select...", value: densityUnit'></select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">13. Hazardous Waste Codes</div>
+			<div class="panel-body">
+				<div id="federalHazWasteCodes" data-bind="slideVisible: $root.wasteSection.currentlyEditedWaste().isHazardous">
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label class="control-label" for="federalHazCodeMulti">
+									Federal </label> <select id="federalHazCodeMulti" class="form-control"
+									data-auto-select="false" multiple
+									data-bind="attr: { disabled: $root.lookups.federalHazardousWasteCodeOptions().length <= 0 },
+                                                                      options: $root.lookups.federalHazardousWasteCodeOptions,
+                                                                      optionsText: function (item) { 
+                                                                         return ko.unwrap(item.code);
+                                                                      },
+                                                                      optionsValue: 'code', 
+                                                                      multiselect: { 
+                                                                         buttonWidth: '100%',
+                                                                         numberDisplayed: 0,
+                                                                         maxHeight: 200,
+                                                                         enableFiltering: true, 
+                                                                         enableCaseInsensitiveFiltering: true},
+                                                                     selectedOptions: federalHazCodes">
+								</select>
+							</div>
+							<a href="#" id="clearAllFederalCodes"
+								data-bind="click: clearFederalHazCodes, clickBubble: false"
+								class="btn btn-success">Clear All</a>
+
+						</div>
+						<div class="col-sm-9">
+							<div class="form-group">
+								<label class="control-label" for="hazCodeMultiSelected">
+									Selected </label> <input id="hazCodeMultiSelected" class="form-control"
+									value=""
+									data-bind="tokenfield: federalHazCodes,
+                                                tokenListLookup: {
+                                                     values: $root.lookups.federalHazardousWasteCodeOptions,
+                                                     key: 'code',
+                                                     description: 'description'
+                                                 }">
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr data-bind="visible: $root.wasteSection.currentlyEditedWaste().isHazardous"></hr>
+				<div id="stateGenHazWasteCodes">
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label class="control-label" for="stateGenHazCodeMulti">
+									State - Generator </label> <select id="stateGenHazCodeMulti"
+									class="form-control" data-auto-select="false" multiple
+									data-bind="attr: { disabled: $root.lookups.stateHazardousWasteCodeOptions().length <= 0 },
+                                                                      options: $root.lookups.stateHazardousWasteCodeOptions,
+                                                                      optionsText: function (item) { 
+                                                                         return ko.unwrap(item.code);
+                                                                      },
+                                                                      optionsValue: 'code', 
+                                                                      multiselect: { 
+                                                                         buttonWidth: '100%',
+                                                                         numberDisplayed: 0,
+                                                                         maxHeight: 200,
+                                                                         enableFiltering: true, 
+                                                                         enableCaseInsensitiveFiltering: true},
+                                                                     selectedOptions: stateGenHazCodes">
+								</select>
+							</div>
+							<a href="#" id="clearAllStateGenCodes"
+								data-bind="click: clearStateGenHazCodes, clickBubble: false"
+								class="btn btn-success">Clear All</a>
+
+						</div>
+						<div class="col-sm-9">
+							<div class="form-group">
+								<label class="control-label" for="stateGenHazCodeMultiSelected">
+									Selected </label> <input id="stateGenHazCodeMultiSelected"
+									class="form-control" value=""
+									data-bind="tokenfield: stateGenHazCodes,
+                                                tokenListLookup: {
+                                                     values: $root.lookups.stateHazardousWasteCodeOptions,
+                                                     key: 'code',
+                                                     description: 'description'
+                                                 }">
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr></hr>
+				<div id="stateTsdfHazWasteCodes"  data-bind="visible: $root.tsdf.id() != null">
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label class="control-label" for="stateTsdfHazCodeMulti">
+									State - TSDF </label> <select id="stateTsdfHazCodeMulti"
+									class="form-control" data-auto-select="false" multiple
+									data-bind="attr: { disabled: $root.lookups.stateHazardousWasteCodeOptions().length <= 0 },
+                                                                      options: $root.lookups.stateHazardousWasteCodeOptions,
+                                                                      optionsText: function (item) { 
+                                                                         return ko.unwrap(item.code);
+                                                                      },
+                                                                      optionsValue: 'code', 
+                                                                      multiselect: { 
+                                                                         buttonWidth: '100%',
+                                                                         numberDisplayed: 0,
+                                                                         maxHeight: 200,
+                                                                         enableFiltering: true, 
+                                                                         enableCaseInsensitiveFiltering: true},
+                                                                     selectedOptions: stateTsdfHazCodes">
+								</select>
+							</div>
+							<a href="#" id="clearAllStateTsdfCodes"
+								data-bind="click: clearStateTsdfHazCodes, clickBubble: false"
+								class="btn btn-success">Clear All</a>
+
+						</div>
+						<div class="col-sm-9">
+							<div class="form-group">
+								<label class="control-label" for="stateTsdfHazCodeMultiSelected">
+									Selected </label> <input id="stateTsdfHazCodeMultiSelected"
+									class="form-control" value=""
+									data-bind="tokenfield: stateTsdfHazCodes,
+                                                tokenListLookup: {
+                                                     values: $root.lookups.stateHazardousWasteCodeOptions,
+                                                     key: 'code',
+                                                     description: 'description'
+                                                 }">
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr  data-bind="visible: $root.tsdf.id() != null"></hr>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="managementCode" class="control-label">Management Method
+								Code</label> <select id="managementCode" class="form-control"
+								data-bind="options: $root.lookups.methodCodes, optionsCaption: 'Select...',
+										  optionsText: function(item){ return item.code +'-'+item.description;}, optionsCaption: 'Select...', optionsValue: 'code', value: managementCode, select2: { theme: 'bootstrap'}">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group"
+							data-bind="slideVisible: managementCodeCommentVisible()">
+							<label for="managementCodeComment" class="control-label">Management Method
+								 Code Comment</label>
+							<textarea id="managementCodeComment" class="form-control"
+								data-bind="textInput: managementCodeComment"></textarea>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Biennial Report Information</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="control-label" for="hazWaste">Provide BR Information? </label>
+							<div>
+								<input type="checkbox" class="switch" id="hazWaste"
+									data-bind="bootstrapSwitchOn: provideBRInfo" data-on-text="Yes"
+									data-off-text="No">
+							</div>
+						</div>		
+					</div>
+				</div>
+<div id="brInfo" data-bind="slideVisible: provideBRInfo">		
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="formCode" class="control-label">Form Code</label> <select
+								id="formCode" class="form-control"
+								data-bind="options: $root.lookups.formCodes, optionsCaption: 'Select...',
+										  optionsText: function(item){ return item.code +'-'+item.description;}, optionsCaption: 'Select...', optionsValue: 'code', value: formCode, select2: { theme: 'bootstrap'}">
+							</select>
+
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group"
+							data-bind="slideVisible: formCommentVisible()">
+							<label for="formCodeComment" class="control-label">Form
+								Code Comment</label>
+							<textarea id="formCodeComment" class="form-control"
+								data-bind="textInput: formCodeComment"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="sourceCode" class="control-label">Source Code</label>
+							<select id="sourceCode" class="form-control"
+								data-bind="options: $root.lookups.sourceCodes, optionsCaption: 'Select...',
+										  optionsText: function(item){ return item.code +'-'+item.description;}, optionsCaption: 'Select...', optionsValue: 'code', value: sourceCode, select2: { theme: 'bootstrap'}">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group"
+							data-bind="slideVisible: sourceCommentVisible()">
+							<label for="sourceCodeComment" class="control-label">Source
+								Code Comment</label>
+							<textarea id="sourceCodeComment" class="form-control"
+								data-bind="textInput: sourceCodeComment"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">14. Special Handling Instructions for
+				This Waste</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<textarea id="specialHandlingInstructions" class="form-control"
+								data-bind="textInput: specialHandlingInstructions"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Handler Comments for This Waste</div>
+			<div class="panel-body">
+				<div id="wasteHandlerCommentsDiv">
+					<div class="row"
+						data-bind="slideVisible: handlerComments().length>0">
+						<div class="col-sm-12 table-responsive">
+							<table style="width: 100%" id="wasteHandlerCommentsTable"
+								class="table table-striped table-bordered table-hover dataTable no-wrap">
+								<thead>
+									<tr>
+										<th class="top-align" width="15%">Label</th>
+										<th class="top-align" width="60%">Description</th>
+										<th class="top-align" width="15%">U.S. EPA ID Number</th>
+										<th class="top-align" width="5%">Action</th>
+									</tr>
+								</thead>
+								
+							<tbody data-bind="foreach: handlerComments">
+								<tr>								
+									<td width="15%"><input id="wasteHandlerCommentLabel"
+										class="form-control" type="text" data-bind="value: label" />
+									</td>
+									<td width="60%"><input
+										id="wasteHandlerCommentDescription" class="form-control"
+										style="width: 100%;" type="text"
+										data-bind="value: description" /></td>
+									<td width="15%"><span data-bind="text: epaId"></span></td>
+									<td width="5%" style="text-align: center;"><a href="#"
+										data-bind="click: function(){$parent.removeWasteHandlerComment($data);}"><span
+											title="Remove" class="glyphicon glyphicon-remove"
+											aria-hidden="true"></span></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 form-group">
+							<button class="btn btn-success"
+								data-bind="click: addWasteHandlerComment, text: handlerComments().length>0?'Add Another Comment':'Add Comment'"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 btn-toolbar">
+				<button type="button" class="btn btn-success pull-left"
+					data-bind="click: function(){$root.wasteSection.addOrSaveWaste();}">Save
+					&amp; Return</button>
+				<button type="button" class="btn btn-primary pull-left"
+					data-bind="click: function(){$root.wasteSection.addAndContinue();}">Save
+					&amp; Add Another Waste</button>
+				<button type="button" class="btn btn-default pull-left"
+					data-bind="click: function(){$root.wasteSection.cancel();}">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>

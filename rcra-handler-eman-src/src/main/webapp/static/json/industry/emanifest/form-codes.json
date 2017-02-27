@@ -1,0 +1,42 @@
+[
+	{
+		"code": "W001",
+		"description": "LAB PACKS FROM ANY SOURCE NOT CONTAINING ACUTE HAZARDOUS WASTE"
+	},
+	{
+		"code": "W101",
+		"description": "VERY DILUTE AQUEOUS WASTE CONTAINING MORE THAN 99% WATER"
+	},
+	{
+		"code": "W200",
+		"description": "STILL BOTTOMS IN LIQUID FORM"
+	},
+	{
+		"code": "W202",
+		"description": "CONCENTRATED HALOGENATED (E.G. CHLORINATED) SOLVENT"
+	},
+	{
+		"code": "W609",
+		"description": "OTHER ORGANIC SLUDGE"
+	},
+	{
+		"code": "W119",
+		"description": "OTHER INORGANIC LIQUID"
+	},
+	{
+	  "code": "W219",
+	  "description": "UNKNOWN"
+	},
+	{
+	  "code": "W319",
+	  "description": "OTHER INORGANIC SOLIDS"
+	},
+	{
+	  "code": "W409",
+	  "description": "OTHER ORGANIC SOLIDS"
+	},
+	{
+	  "code": "W519",
+	  "description": "OTHER INORGANIC SLUDGES"
+	}
+]

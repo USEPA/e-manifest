@@ -1,0 +1,26 @@
+[
+	{
+		"code": "H061",
+		"description": "FUEL BLENDING"
+	},
+	{
+		"code": "H040",
+		"description": "INCINERATION"
+	},
+	{
+		"code": "H020",
+		"description": "SOLVENTS RECOVERY"
+	},
+	{
+		"code": "H132",
+		"description": "LANDFILL OR SURFACE IMPOUNDMENT"
+	},
+	{
+		"code": "H039",
+		"description": "OTHER RECOVERY OR RECLAMATION FOR REUSE"
+	},
+	{
+		"code": "H129",
+		"description": "OTHER TREATMENT"
+	}
+]

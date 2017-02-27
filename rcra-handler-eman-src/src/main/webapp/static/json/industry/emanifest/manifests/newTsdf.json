@@ -1,0 +1,50 @@
+{
+    "manifestTrackingNumber":"861438851ELC",
+    "status": {
+        "id":1,
+        "code":"DRAFT",
+        "description":"",
+        "icon": "fa-star-half-o",
+        "order":1
+    },
+    "generator":null,
+    "tsdf": {
+		"id": 2,
+		"epaSiteId": "OHR000116806",
+		"siteName": "ABC CORP.",
+		"contactPhoneNumber" : "866-866-8666",
+		"contactPhoneNumberExt": "333",
+		"siteAddress": {
+            "street": "946 N 13TH ST",
+            "city": "SEBRING",
+            "state": "OH",
+            "zip": "10002"
+        }
+	},
+    "updatedDate":null,
+    "certifiedDate":null,
+    "updatedBy":{
+        "firstName":"John",
+        "lastName":"Smith"
+    },
+    "createdDate":"10/12/2016",
+    "createdBy":{
+        "firstName":"Jane",
+        "lastName":"Doe"
+    },
+    "transporters": [
+        
+    ],
+    "internationalShipment":null,
+    "internationalShipmentInfo": null,
+    "waste":[
+        
+    ],
+    "handlingInstructions":null,
+    "additionalInfo": {
+        "originalManifestTrackingNumber": null
+    },
+    "handlerComments":[
+    ],
+    "discrepancy": null
+}

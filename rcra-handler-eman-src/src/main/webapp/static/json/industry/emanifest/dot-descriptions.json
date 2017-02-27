@@ -1,0 +1,30 @@
+[
+	{
+		"shippingName": "1, 3-Dimethylbutylamine",
+		"hazardClass": ["3"],
+		"packingGroup": ["II"],
+		"unIDNumber"  : ["UN2379"],
+	  	"emergencyGuideNumber": ["132"]
+	},
+	{
+		"shippingName": "1,1,1,2-Tetrafluoroethane or Refrigerant gas R 134a",
+		"hazardClass": ["2.2"],
+		"packingGroup": null,
+		"unIDNumber"  : ["UN3159"],
+	  	"emergencyGuideNumber": ["126"]
+	},
+	{
+	  "shippingName": "Tear gas devices with more than 2 percent tear gas substances, by mass",
+	  "hazardClass": ["6.1"],
+	  "packingGroup": ["I", "II"],
+	  "unIDNumber"  : ["NA1693"],
+	  "emergencyGuideNumber": ["159"]
+	},
+	{
+	  "shippingName": "Model rocket motor",
+	  "hazardClass": ["1.4C", "1.4S"],
+	  "packingGroup": ["II"],
+	  "unIDNumber"  : ["NA0276", "NA0323"],
+	  "emergencyGuideNumber": null
+	}
+]

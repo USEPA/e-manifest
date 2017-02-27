@@ -1,0 +1,191 @@
+{
+    "transporter":null,
+    "tsdf":{
+        "epaSiteId":"OHR000116806",
+        "siteName":"ABC CORP.",
+        "contactPhoneNumber":"866-866-8666",
+        "contactPhoneNumberExt":"333",
+        "address":{
+            
+        },
+        "siteAddress":{
+            "street":"946 N 13TH ST",
+            "city":"SEBRING",
+            "state":"OH",
+            "zip":"10002"
+        },
+        "emergencyPhone":null,
+        "emergencyPhoneExt":null,
+        "id":2
+    },
+    "generator":{
+        "epaSiteId":"VAD988177803",
+        "siteName":"HEATING & OIL",
+        "contactPhoneNumber":"888-999-0000",
+        "contactPhoneNumberExt":"222",
+        "address":{
+            "street":"123 MAIN ST",
+            "city":"FAIRFAX",
+            "state":"VA",
+            "zip":"22033"
+        },
+        "siteAddress":{
+            "street":"144 FIRST ST.",
+            "city":"FREDERICKSBURG",
+            "state":"VA",
+            "zip":"22033"
+        },
+        "emergencyPhone":"888-999-0000",
+        "emergencyPhoneExt":"222",
+        "signature": {
+            "printedName": null,
+            "signatureDate": null
+        }
+    },
+    "status":{
+        "id":4,
+        "code":"In Transit",
+        "description":"Transporter has picked up waste from the Generator",
+        "icon":"fa-truck fa-flip-horizontal",
+        "order":4
+    },
+    "manifestTrackingNumber":"918411674ELC",
+    "handlingInstructions":null,
+    "internationalShipment":null,
+    "internationalShipmentInfo":{
+        "importToUs":true,
+        "city":null,
+        "state":null,
+        "dateLeaving":null
+    },
+    "wasteSection":{
+        "wasteCollection":[
+            {
+                "lineNumber": 1,
+                "isHazardous":true,
+                "federalHazCodes":[
+                    "D002",
+                    "D004"
+                ],
+                "stateGenHazCodes":[
+                    
+                ],
+                "stateTsdfHazCodes":[
+                    
+                ],
+                "handlerComments":[
+                    {
+                        "label":"reminder",
+                        "description":"First Tuesday Pickup",
+                        "epaSiteId":"VAP407201512"
+                    }
+                ],
+                "dotDescription":{
+                    "shippingName":{
+                        "hazardClass":["2.2"],
+                        "packingGroup":null,
+                        "shippingName":"1,1,1,2-Tetrafluoroethane or Refrigerant gas R 134a",
+                        "unIDNumber":["UN3159"],
+                        "emergencyGuideNumber": "126"                        
+                    },
+                    "hazardClass":null,
+                    "packingGroup":null,
+                    "unIdNumber":null,
+                    "additionalDotInformation":"UN3159, 1,1,1,2-Tetrafluoroethane or Refrigerant gas R 134a, 2.2",
+                    "wasteDescription":null,
+                    "erResponseGuidebookNumber":"0987654321",
+                    "emergencyPhone":"555-555-5555",
+                    "emergencyPhoneExt":null
+                },
+                "containerInfo":{
+                    "number":"52",
+                    "type":{
+                        "code":"TP",
+                        "description":"Portable tanks"
+                    },
+                    "notListedType":null,
+                    "quantity":"6398",
+                    "unit":{
+                        "code":"L",
+                        "description":"Liters"
+                    },
+                    "density":null
+                },
+                "formCode":{
+                    "code":"W001",
+                    "description":"LAB PACKS FROM ANY SOURCE NOT CONTAINING ACUTE HAZARDOUS WASTE"
+                },
+                "formCodeComment":null,
+                "sourceCode":{
+                    "code":"G03",
+                    "description":"PLATING AND PHOSPHATING"
+                },
+                "sourceCodeComment":null,
+                "managementCode":{
+                    "code":"H020",
+                    "description":"SOLVENTS RECOVERY"
+                },
+                "managementCodeComment":null,
+                "specialHandlingInstructions":"Multi\nLine\n\n\ncomment",
+                "provideBRInfo":true,
+                "consentNumber":null
+            }
+        ]
+    },
+    "updatedDate":"09/19/2016",
+    "certifiedDate":null,
+    "updatedBy":{
+        "firstName":"John",
+        "lastName":"Smith"
+    },
+    "createdDate":"09/18/2016",
+    "createdBy":{
+        "firstName":"Jane",
+        "lastName":"Doe"
+    },
+    "transporters":[
+        {
+            "epaSiteId":"TXV857872348",
+            "siteName":"Transporter2",
+            "contactPhoneNumber":null,
+            "contactPhoneNumberExt":null,
+            "address":{
+                
+            },
+            "siteAddress":{
+                
+            },
+            "emergencyPhone":null,
+            "emergencyPhoneExt":null,
+            "signature": {
+                "printedName": null,
+                "signatureDate": null
+            }
+        },
+        {
+            "epaSiteId":"PAK838243482",
+            "siteName":"Transporter6",
+            "contactPhoneNumber":null,
+            "contactPhoneNumberExt":null,
+            "address":{
+                
+            },
+            "siteAddress":{
+                
+            },
+            "emergencyPhone":null,
+            "emergencyPhoneExt":null,
+            "signature": {
+                "printedName": null,
+                "signatureDate": null
+            }
+        }
+    ],
+    "additionalInfo": {
+        "originalManifestTrackingNumber": null
+    },
+    "handlerComments":[
+        
+    ],
+    "discrepancy": null
+}

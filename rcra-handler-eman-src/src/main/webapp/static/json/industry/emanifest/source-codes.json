@@ -1,0 +1,42 @@
+[
+	{
+		"code": "G01",
+		"description": "DIP, FLUSH OR SPRAY RINSING"
+	},
+	{
+		"code": "G02",
+		"description": "STRIPPING AND ACID OR CAUSTIC CLEANING"
+	},
+	{
+		"code": "G03",
+		"description": "PLATING AND PHOSPHATING"
+	},
+	{
+		"code": "G04",
+		"description": "ETCHING"
+	},
+	{
+		"code": "G09",
+		"description": "OTHER PRODUCTION OR SERVICE-RELATED PROCESSES"
+	},
+	{
+	  	"code": "G19",
+	  	"description": "OTHER ONE-TIME OR INTERMITTENT PROCESSES"
+	},
+	{
+		"code": "G39",
+		"description": "OTHER CLEANUP OF CURRENT CONTAMINATION"
+	},
+	{
+		"code": "G49",
+		"description": "OTHER REMEDIATION"
+	},
+	{
+		"code": "G75",
+		"description": "HW RECEIVED FROM OTHER FOREIGN COUNTRY"
+	},
+	{
+	  "code": "G25",
+	  "description": "TREATMENT, DISPOSAL, OR RECYCLING OF HAZARDOUS WASTE"
+	}
+]

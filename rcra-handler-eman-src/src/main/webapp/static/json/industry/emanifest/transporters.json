@@ -1,0 +1,26 @@
+[
+    {
+        "epaSiteId":"VAK123456789",
+        "siteName":"Transporter1"
+    },
+    {
+        "epaSiteId":"TXV857872348",
+        "siteName":"Transporter2"
+    },
+    {
+        "epaSiteId":"ALH353453455",
+        "siteName":"Transporter3"
+    },
+    {
+        "epaSiteId":"MDE345783957",
+        "siteName":"Transporter4"
+    },
+    {
+        "epaSiteId":"CA3573845793",
+        "siteName":"Transporter5"
+    },
+    {
+        "epaSiteId":"PAK838243482",
+        "siteName":"Transporter6"
+    }
+]
