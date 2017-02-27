@@ -6,11 +6,7 @@
 ## What is going on
 In 2014 and 2015 EPA developed a technical architecture for e-Manifest.
 
-Between July of 2015 and March of 2016 EPA developed an inital prototype
-
-  * [View the live prototype »](https://e-manifest.epa.gov)
-
-  * [View the legacy Trello board »](https://e-manifest.epa.gov)
+Between July of 2015 and March of 2016 EPA developed an inital prototype.  The initial prototype has been decomissioned, but you can see the code for it at (https://github.com/18F/e-manifest).  If you want to see how the initial prototype was built see [the legacy Trello board »](https://e-manifest.epa.gov)
 
 Since April of 2016 e-Manifest has been leveraging modules within the RCRAInfo V6 application, taking advantage of reusing the data and technology that already existed in RCRAInfo.
 
