@@ -19,12 +19,13 @@ Registration:
 
 In order to access the test environment, all users will be required to set up a test account on EPA’s Central Data Exchange (CDX). Please note, this account will be used for this review and all subsequent reviews and/or testing of e-Manifest software. A more detailed guide is available on the  (https://github.com/USEPA/e-manifest/tree/master/Reference).
 
-Visit:  https://test.epacdx.net and click the button that says “Register with CDX.”  
-Review and agree to the Terms and Conditions 
-From the Active Program Services List, select “RCRAInfo: Resource Conservation and Recovery Act Information” 
-Fill out the User Information For Organization Info, enter the name of your organization (company) or your organization’s CDX ID and click on the button “Search.” If you find the correct organization, click on the hyperlink with your Organization ID to select it.  If you don’t find your organization with the basic search, please refer to the (https://github.com/USEPA/e-manifest/tree/master/Reference) 
-Complete the remainder of the registration fields under Part 2, and click on the button “Submit Request for Access”Check your email to verify accountLog back into your CDX account at https://test.epacdx.net
-Click on the hyperlink for “Industry Application” to begin using RCRAInfo and e-Manifest!
+Visit:  https://test.epacdx.net 
+* Click the button that says “Register with CDX.”  
+* Review and agree to the Terms and Conditions 
+* From the Active Program Services List, select “RCRAInfo: Resource Conservation and Recovery Act Information” 
+* Fill out the User Information For Organization Info, enter the name of your organization (company) or your organization’s CDX ID and click on the button “Search.” If you find the correct organization, click on the hyperlink with your Organization ID to select it.  If you don’t find your organization with the basic search, please refer to the (https://github.com/USEPA/e-manifest/tree/master/Reference) 
+* Complete the remainder of the registration fields under Part 2, and click on the button “Submit Request for Access”Check your email to verify accountLog back into your CDX account at https://test.epacdx.net
+* Click on the hyperlink for “Industry Application” to begin using RCRAInfo and e-Manifest!
 
 Post Registration
 
@@ -37,13 +38,11 @@ Upcoming Iterations
 
 In the upcoming weeks, we will add more screens and request feedback from States, Brokers, and Transporters.  In addition, we will also release new versions of our Application Programming Interfaces (APIs) for users wishing to implement e-Manifest in their existing manifest systems.
 
-
 Additional Information
 
 Please open an issue for all questions, requests for assistance, and comments.  The team has put together a detailed presentation to assist with registration which can be found at (https://github.com/USEPA/e-manifest/tree/master/Reference)
  
-
-
+ 
 ## Reference
 
 EPA's [Hazardous Waste Electronic Manifest System (E-Manifest)](https://www.epa.gov/hwgenerators/hazardous-waste-electronic-manifest-system-e-manifest) page 
