@@ -1,4 +1,4 @@
-# e-Manifest
+﻿# e-Manifest
 
 ## Background
   The overarching purpose of e-Manifest is to establish a national information technology system that will enable the Agency and the hazardous waste program’s industry and state stakeholders to transition the manifest system from one that is paper-intensive and burdensome to a system that is much more efficient, because it will rely on information technology to track hazardous waste shipments
@@ -10,9 +10,11 @@ Between July of 2015 and March of 2016 EPA developed an inital prototype.  The i
 
 Since April of 2016 e-Manifest has been leveraging modules within the RCRAInfo V6 application, taking advantage of reusing the data and technology that already existed in RCRAInfo.
 
-In February 2017, the team has functional mock ups in our test environment.  
+In February 2017, the team released functional mock ups in our test environment.  
 
-Contained in this release are functional mockups that focus on the Generator and Treatment, Storage and Disposal Facility (TSDF) view. The purpose of this iteration is to provide an opportunity for you to provide user experience feedback on our development efforts, so as we progress, we are providing you the best-possible application.  Please note, for the purpose of this release, the mockups contain static data and do not interface with a database. 
+In March of 2017, the team release Generator and TSD Facility screens in the test environment.  These screens communicate with our test database.  This also marks the first time users can register to create test manifests for their own handler id.
+
+Contained in this release are screens that focus on the Generator and Treatment, Storage and Disposal Facility (TSDF) view. The purpose of this iteration is to provide an opportunity for you to provide user experience feedback on our development efforts and to test the applicaton against a database, so as we progress, we are providing you the best-possible application. 
 
 ## Accessing the Test Environment
 Registration:
@@ -29,10 +31,12 @@ Visit:  https://test.epacdx.net
 
 Post Registration
 
-Currently, we are conducting a controlled review so only the state of Virginia can access e-Manifest.  We are asking that after you
+Currently, generators or TSD facilities may sign up and use their own handler id(s) to test.  We are asking that after you
 register you use the following information to conduct your review: 
 
-After registering in CDX, click on the link “Industry Application” which you will take you to the RCRAInfo Industry application and the MySites page.  On the MySites page click on the “Add Existing Site” button and search on EPA ID number VA988177803 in the Site ID box and then select the facility named “Heating and Oil”.  Please request to be a “Preparer” for “Heating and Oil”.After you submit your request for “Heating and Oil”,  please understand this is not an instant access process and EPA will need to manually activate your request during business hours.
+After registering in CDX, click on the link “Industry Application” which you will take you to the RCRAInfo Industry application and the MySites page.  On the MySites page click on the “Add Existing Site” button and search for your EPA ID number in the Site ID box and then select that facility.  Please request to be a “Preparer” for your facility.  After you submit your request, the request will go to your state administrator. Please understand this is not an instant access process and the state will need to manually activate your request during normal business hours.  EPA is working on the concept of an industry administrator which will allow users to manage their own users.
+
+Once you have completed this registration you may use either https://test.epacdx.net/ or https://rcrainfopreprod.epa.gov/rcrainfo/ to log on to the application.
 
 Upcoming Iterations
 
