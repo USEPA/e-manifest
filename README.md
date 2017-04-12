@@ -70,7 +70,7 @@ The e-Manifest ListServ provides an open forum for the posting and discussion of
 
 General Program listserv
 
-* Subscribe: Send a blank message to: eManifest-subcribe@lists.epa.gov
+* Subscribe: Send a blank message to: eManifest-subscribe@lists.epa.gov
 
 Developers only listserv (Are you a developer that will consume e-Manifest's APIs?)
 
