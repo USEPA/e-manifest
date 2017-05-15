@@ -12,7 +12,13 @@ Since April of 2016 e-Manifest has been leveraging modules within the RCRAInfo V
 
 In February 2017, the team released functional mock ups in our test environment.  
 
-In March of 2017, the team release Generator and TSD Facility screens in the test environment.  These screens communicate with our test database.  This also marks the first time users can register to create test manifests for their own handler id.
+In March and April of 2017, the team released a series of Generator and TSD Facility screens in the test environment.  These screens communicate with our test database.  This also marks the first time users can register to create test manifests for their own handler id.  If your state is participating in approving e-Manifest test users, you may request access to your handler id(s).  Otherwise please register to use one of our test sites:
+
+VAD000532119, "TEST TSDF OF VA", Virginia 22202 (Generator and TSDF)
+VA988177803,  "HEATING AND OIL", Virginia 22033 (Generator Only)
+VAR000532432, "TEST GENERATOR OF VA", Virginia 22202 (Generator Only)
+
+Please note; The test environment for the most part mirrors the handler information in our production environment. When testing, please also make sure your site information is up to date, if it is not please use myRCRAid or your State’s paper notification process to update your site.
 
 Contained in this release are screens that focus on the Generator and Treatment, Storage and Disposal Facility (TSDF) view. The purpose of this iteration is to provide an opportunity for you to provide user experience feedback on our development efforts and to test the applicaton against a database, so as we progress, we are providing you the best-possible application. 
 
