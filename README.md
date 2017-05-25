@@ -42,7 +42,10 @@ Post Registration
 Currently, generators or TSD facilities may sign up and use their own handler id(s) to test.  We are asking that after you
 register you use the following information to conduct your review: 
 
-After registering in CDX, click on the link “Industry Application” which you will take you to the RCRAInfo Industry application and the MySites page.  On the MySites page click on the “Add Existing Site” button and search for your EPA ID number in the Site ID box and then select that facility.  Please request to be a “Preparer” for your facility.  After you submit your request, the request will go to your state administrator. Please understand this is not an instant access process and the state will need to manually activate your request during normal business hours.  EPA is working on the concept of an industry administrator which will allow users to manage their own users.
+* After registering in CDX, click on the link “Industry Application” which you will take you to the RCRAInfo Industry application and the MySites page.  
+* On the MySites page click on the “Add Existing Site” button and search for your EPA ID number in the Site ID box and then select that facility. (You may also select a test site; VA000532119 "TEST TSDF OF VA", VA988177803 "HEATING AND OIL", VAR000532432, "TEST GENERATOR OF VA") 
+* Please request to be a “Preparer” for your facility.  
+* After you submit your request, the request will go to your state administrator. Please understand this is not an instant access process and the state will need to manually activate your request during normal business hours.  EPA is working on the concept of an industry administrator which will allow users to manage their own users.
 
 Once you have completed this registration you may use either https://test.epacdx.net/ or https://rcrainfopreprod.epa.gov/rcrainfo/ to log on to the application.
 
