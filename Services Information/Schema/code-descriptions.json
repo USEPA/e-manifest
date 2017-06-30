@@ -1,0 +1,28 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"description": "Schema for Response by Services returning list of Codes and Description. Also Used for passing and returning entities which contain Codes plus Description such as Form Code, Waste Codes, etc",
+	"$ref": "#/definitions/CodeDescriptions",
+	"definitions": {
+		"CodeDescriptions": {
+			"type": "array",
+			"items": {
+					"$ref": "#/definitions/CodeDescription"
+			}
+		}, 	
+		"CodeDescription": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"code"
+			],
+			"additionalProperties": false
+		}		
+	}
+}

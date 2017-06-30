@@ -1,0 +1,38 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"description": "Schema for the Error Response",
+	"$ref": "#/definitions/Error",
+	"definitions": {
+		"Error": {
+			"type": "object",
+			"properties": {
+					"code": {
+					"description": "Error code is machine readable error. Error codes can be of the following format: E_InvalidType. Each error code has specific Error message ",
+					"type": "string"
+				},
+				"message": {
+					"description": "Error message is human readable error and corresponds to specific Error code",
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 255
+				},
+				"errorId": {
+					"description": "Unique error id for auditing and tracking purposes",
+					"type": "string"
+				},
+				"date": {
+					"description": "Date/time of the error for auditing and tracking purposes",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"code",
+				"message",
+				"errorId",
+				"date"
+			],
+			"additionalProperties": false
+		}
+	}
+}
