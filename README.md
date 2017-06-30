@@ -11,7 +11,7 @@ In June of 2017 the team released a series of web services, front end screens, a
 * Authentication Services and ID/Key Registration
 * Get manifest and handler services
 * Data look up services
-* Swagger page for testing and documenting the services (See: rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/ (You must be registered to access this site.))
+* Swagger page for testing and documenting the services (See: https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/ (You must be registered to access this site.))
 * Sample Client for accessing the services (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information/emanifest-industry-sample-client)
 3)	Generator and TSDF screens and workflow, including adding facilities not in our database
 4)	Bulk Signing of manifests (using EPA standard signature services (CDX))
