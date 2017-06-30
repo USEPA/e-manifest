@@ -7,11 +7,12 @@
 In June of 2017 the team released a series of web services, front end screens, and responses to user experience testing.  Specifically, we released for user testing and feedback:
 
 1) Changes based on user feedback
-2)	Initial web services (See: )
+2)	Initial web services (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information)
 * Authentication Services and ID/Key Registration
 * Get manifest and handler services
 * Data look up services
-* Sample Client for accessing the services (See: )
+* Swagger page for testing and documenting the services (See: rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/ (You must be registered to access this site.))
+* Sample Client for accessing the services (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information/emanifest-industry-sample-client)
 3)	Generator and TSDF screens and workflow, including adding facilities not in our database
 4)	Bulk Signing of manifests (using EPA standard signature services (CDX))
 
@@ -52,7 +53,7 @@ VAR000532432, "TEST GENERATOR OF VA", Virginia 22202 (Generator Only)
 Once you have completed this registration you may use either https://test.epacdx.net/ or https://rcrainfopreprod.epa.gov/rcrainfo/ to log on to the application.
 
 Obtaining an API Key
-If you signed up for an API Key, you may select one by clicking on the 'Tools' menu and API selection.  The API page will allow you to generate your unique API ID and Key.   The API ID and Key can be used to access our webservices which are documented at: (https://github.com/USEPA/e-manifest/blob/master/Services%20Information/June%20Release%20Supported%20Services%2006%2030.pdf) and if logged into e-Manifest at:
+If you signed up for an API Key, you may select one by clicking on the 'Tools' menu and API selection.  The API page will allow you to generate your unique API ID and Key.   The API ID and Key can be used to access our webservices which are documented at: (https://github.com/USEPA/e-manifest/tree/master/Services-Information) and if logged into e-Manifest at:
 
 Upcoming Iterations
 
