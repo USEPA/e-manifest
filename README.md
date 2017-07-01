@@ -18,8 +18,6 @@ In June of 2017 the team released a series of web services, front end screens, a
 
 Please note; The test environment for the most part mirrors the handler information in our production environment. When testing, please also make sure your site information is up to date, if it is not please use myRCRAid or your State’s paper notification process to update your site.
 
-Contained in this release are screens that focus on the Generator and Treatment, Storage and Disposal Facility (TSDF) view. The purpose of this iteration is to provide an opportunity for you to provide user experience feedback on our development efforts and to test the applicaton against a database, so as we progress, we are providing you the best-possible application. 
-
 ## Accessing the Test Environment
 Registration:
 
@@ -82,7 +80,7 @@ Additional Resources:
 ## Project History
 In 2014 and 2015 EPA developed a technical architecture for e-Manifest.
 
-Between July of 2015 and March of 2016 EPA developed an inital prototype.  The initial prototype has been decomissioned, but you can see the code for it at (https://github.com/18F/e-manifest).  If you want to see how the initial prototype was built see [the legacy Trello board »](https://e-manifest.epa.gov)
+Between July of 2015 and March of 2016 EPA developed an inital prototype.  The initial prototype has been decommissioned, but you can see the code for it at (https://github.com/18F/e-manifest).  If you want to see how the initial prototype was built see [the legacy Trello board »](https://e-manifest.epa.gov)
 
 Since April of 2016 e-Manifest has been leveraging modules within the RCRAInfo V6 application, taking advantage of reusing the data and technology that already existed in RCRAInfo.
 
