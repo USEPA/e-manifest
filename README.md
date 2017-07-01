@@ -4,10 +4,10 @@
   The overarching purpose of e-Manifest is to establish a national information technology system that will enable the Agency and the hazardous waste program’s industry and state stakeholders to transition the manifest system from one that is paper-intensive and burdensome to a system that is much more efficient, because it will rely on information technology to track hazardous waste shipments
 
 ## What is going on
-In June of 2017 the team released a series of web services, front end screens, and responses to user experience testing.  Specifically, we released for user testing and feedback:
+In June of 2017 the team released a series of web services, front end screens, and modifications based on responses from user experience testing.  Specifically, we released for user testing and feedback:
 
 1) Changes based on user feedback
-2)	Initial web services (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information)
+2)	Initial web services (See: https://github.com/USEPA/e-manifest/blob/master/Services-Information/June-Release-Supported-Services-0630.pdf)
 * Authentication Services and ID/Key Registration
 * Get manifest and handler services
 * Data look up services
@@ -21,7 +21,7 @@ Please note; The test environment for the most part mirrors the handler informat
 ## Accessing the Test Environment
 Registration:
 
-In order to access the test environment, all users will be required to set up a test account on EPA’s Central Data Exchange (CDX). Please note, this account will be used for this review and all subsequent reviews and/or testing of e-Manifest software. A more detailed guide is available on the  (https://github.com/USEPA/e-manifest/tree/master/Reference).
+In order to access the test environment, all users will be required to set up a test account on EPA’s Central Data Exchange (CDX).  If youa re interested in testing services, please read https://github.com/USEPA/e-manifest/blob/master/Services-Information/June-Release-Supported-Services-0630.pdf .  Please note, this account will be used for this review and all subsequent reviews and/or testing of e-Manifest software. A more detailed guide is available on the  (https://github.com/USEPA/e-manifest/tree/master/Reference).
 
 CDX Registration:
 
@@ -51,24 +51,20 @@ VAR000532432, "TEST GENERATOR OF VA", Virginia 22202 (Generator Only)
 Once you have completed this registration you may use either https://test.epacdx.net/ or https://rcrainfopreprod.epa.gov/rcrainfo/ to log on to the application.
 
 Obtaining an API Key
-If you signed up for an API Key, you may select one by clicking on the 'Tools' menu and API selection.  The API page will allow you to generate your unique API ID and Key.   The API ID and Key can be used to access our webservices which are documented at: (https://github.com/USEPA/e-manifest/tree/master/Services-Information) and if logged into e-Manifest at:
+
+If you want to register for an API ID and Key to test the services, you may create one by clicking on the 'Tools' menu and API selection.  The API page will allow you to generate your unique API ID and Key.   The API ID and Key can be used to access our webservices which are documented at: (https://github.com/USEPA/e-manifest/tree/master/Services-Information) and if logged into e-Manifest at:https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/
 
 Upcoming Iterations
 
-In the upcoming weeks, we will add more screens and request feedback from States, Brokers, and Transporters.  In addition, we will also release new versions of our Application Programming Interfaces (APIs) for users wishing to implement e-Manifest in their existing manifest systems.
+In the upcoming months, we will add more screens and request feedback from States, Brokers, and Transporters.  In addition, we will also release new versions of our Application Programming Interfaces (APIs) for users wishing to implement e-Manifest in their existing manifest systems.
 
-Additional Information
 
-Please open an issue for all questions, requests for assistance, and comments.  The team has put together a detailed presentation to assist with registration which can be found at (https://github.com/USEPA/e-manifest/tree/master/Reference)
- 
  
 ## Reference
 
 EPA's [Hazardous Waste Electronic Manifest System (E-Manifest)](https://www.epa.gov/hwgenerators/hazardous-waste-electronic-manifest-system-e-manifest) page 
 
 All our [active cards and issues] (/issues) are posted in this GitHub Repository.  We will be posting additional documents as well as issues that we want user feedback on in the near future.  
-
-The latest sprint is 31, view our [stand ups for the current sprint](https://github.com/USEPA/e-manifest/issues/338)
 
 Additional Resources: 
 
