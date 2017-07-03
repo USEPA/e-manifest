@@ -50,6 +50,9 @@ public class AuthInfoLoader {
 				IOUtils.closeQuietly(in);
 			}
 		}
+		if (p.size() != 2 || p.getProperty("baseUrl") == null || p.getProperty("token") == null ) {
+			throw new IllegalArgumentException("No valid auth info found, please run auth command first.");
+		}		
 		return p;
 
 	}

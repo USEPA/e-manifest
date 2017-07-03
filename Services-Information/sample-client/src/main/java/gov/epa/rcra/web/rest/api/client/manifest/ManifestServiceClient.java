@@ -13,7 +13,7 @@ public class ManifestServiceClient extends BaseServicesClient {
 
 
 	public ManifestServiceClient(String restBase, String token) {
-		this.restBase = restBase+"/manifest";
+		this.restBase = restBase+"/emanifest";
 		this.token = token;
 	}
 }
