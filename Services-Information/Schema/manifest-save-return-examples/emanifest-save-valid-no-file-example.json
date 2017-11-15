@@ -106,9 +106,7 @@
       }, {
         "code" : "D021"
       } ],
-      "tsdfStateWasteCodes" : [ {
-        "code" : "TEST3"
-      } ],
+      "tsdfStateWasteCodes" : [],
       "generatorStateWasteCodes" : [ ]
     },
     "additionalInfo" : {
