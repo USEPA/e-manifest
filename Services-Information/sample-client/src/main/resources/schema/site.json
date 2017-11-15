@@ -44,6 +44,21 @@
 					},
 					"additionalProperties": false
 				},
+				"electronicSignatureInfo": {
+					"title": "electronicSignatureInfo",
+					"description": "Contains Generator or TSDF or Transporter Signer Info and Date of Signature",
+					"type": "object",
+					"properties": {
+						"signer": {
+							"$ref": "#/definitions/Signer"
+						},
+						"signatureDate": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					"additionalProperties": false
+				},
 				"order": {
 					"description": "Transporter Order. Used for Transporters only",
 					"type": "number"
@@ -135,6 +150,25 @@
 			"required": [
 				"code"
 			],
+			"additionalProperties": false
+		},
+		"Signer": {
+			"type": "object",
+			"properties": {
+				"firstName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 38
+				},
+				"lastName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 38
+				},
+				"userId": {
+					"type": "string"
+				}
+			},
 			"additionalProperties": false
 		},
 		"Address": {

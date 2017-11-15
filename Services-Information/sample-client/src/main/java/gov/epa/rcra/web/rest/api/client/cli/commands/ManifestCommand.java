@@ -14,7 +14,7 @@ import gov.epa.rcra.web.rest.api.client.manifest.ManifestServiceClient;
 public class ManifestCommand extends BaseCommand{
 	
 	@Parameter(names = { "--operation"}, description = "Specific Manifest Operation, possible values: 'get', "
-			+ "'manifest-tracking-numbers', 'site-ids'", required=true)	
+			+ "'manifest-tracking-numbers', 'site-ids', 'get-with-attachments, 'save'", required=true)	
 	protected String operation;
 	
 	
@@ -29,6 +29,15 @@ public class ManifestCommand extends BaseCommand{
 
 	@Parameter(names = { "--state-code"}, description = "State Code (used with 'site-ids' operation)")			
 	protected String stateCode;
+
+	@Parameter(names = { "--output-dir"}, description = "Directory where to save the attachments")			
+	protected String outputDir;
+
+	@Parameter(names = { "--json-path"}, description = "Path to emanifest JSON to be saved via save operation")			
+	protected String jsonPath;
+
+	@Parameter(names = { "--attachment-path"}, description = "Path to attachment to be save with emanifest JSON via save operation")			
+	protected String attachmentPath;
 	
 	public String getTrackingNumber() {
 		return trackingNumber;
@@ -69,6 +78,15 @@ public class ManifestCommand extends BaseCommand{
 	public void setStateCode(String stateCode) {
 		this.stateCode = stateCode;
 	}
+	
+
+	public String getOutputDir() {
+		return outputDir;
+	}
+
+	public void setOutputDir(String outputDir) {
+		this.outputDir = outputDir;
+	}
 
 	public void run() {
 		if (StringUtils.isNotBlank(operation)) {
@@ -94,7 +112,22 @@ public class ManifestCommand extends BaseCommand{
 				}else {
 					throw new IllegalArgumentException("Site Id and Site Type are required");
 				}
-			} else {
+			} 
+			if ("get-with-attachments".equals(operation)) {
+				if (StringUtils.isNotBlank(trackingNumber)) {
+					maClient.executeMultipart("manifest/"+trackingNumber+"/attachments",outputDir);
+				}else {
+					throw new IllegalArgumentException("Manifest tracking number is required");
+				}
+			}
+			else if ("save".equals(operation)) {
+				if (StringUtils.isNotBlank(jsonPath)) {
+					maClient.executeSave("manifest/save",jsonPath,"--attachment-path".equals(attachmentPath)?null:attachmentPath);
+				}else {
+					throw new IllegalArgumentException("Path to emanifest JSON is required");
+				}
+			}			
+			else {
 				throw new IllegalArgumentException("Applicable operation is required");
 			}					
 		} else {

@@ -1,16 +1,18 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"description": "Schema for manifest response",
+	"description": "Schema for emanifest submit and response",
 	"$ref": "#/definitions/Emanifest",
 	"definitions": {
 		"Emanifest": {
 			"type": "object",
 			"properties": {
 				"createdDate": {
+					"description": "Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest.",
 					"type": "string",
 					"format": "date-time"
 				},
 				"updatedDate": {
+					"description": "Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest.",
 					"type": "string",
 					"format": "date-time"
 				},
@@ -18,10 +20,9 @@
 					"$ref": "#/definitions/ManifestTrackingNumber"
 				},
 				"status": {
-					"description": "Emanifest Submission Status",
+					"description": "Manifest will be created in Scheduled status. Will be returned by Get Manifest. Status shall not be provided for Save Manifest Service. Status must be provided for Update Manifest Service.",
 					"type": "string",
 					"enum": [
-						"Pending",
 						"Scheduled",
 						"InTransit",
 						"Received",
@@ -30,15 +31,12 @@
 						"Signed"
 					]
 				},
-				"validationStatus": {
-					"description": "Specifies if Manifest is valid",
-					"type": "boolean"
-				},
 				"isPublic": {
+					"description": "Will be returned by Get Manifest. Shall not be provided by Save and Update Manifest",
 					"type": "boolean"
 				},
 				"submissionType": {
-					"description": "Only DataImage1Copy submission type is supported for June Release",
+					"description": "Only DataImage1Copy submission type is supported for the current Release",
 					"type": "string",
 					"enum": [
 						"Data",
@@ -49,10 +47,11 @@
 					]
 				},
 				"signatureStatus": {
+					"description": "Will be returned by Get Manifest. Shall not be provided by Save and Update Manifest",
 					"type": "boolean"
 				},
 				"originType": {
-					"description": "Describes the the origin of Manifest. Which can be received either electronicaly via Web Submission or electronicaly via SErvices Submission or via Mail by Paper Processing Center. Web and Service are orgin types which are supported for June Release",
+					"description": "Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest. ",
 					"type": "string",
 					"enum": [
 						"Web",
@@ -61,19 +60,22 @@
 					]
 				},
 				"shippedDate": {
+					"description": "Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest.",
 					"type": "string",
 					"format": "date-time"
 				},
 				"receivedDate": {
+					"description": "Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest.",
 					"type": "string",
 					"format": "date-time"
 				},
 				"certifiedDate": {
+					"description": "Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest.",
 					"type": "string",
 					"format": "date-time"
 				},
 				"certifiedBy": {
-					"type": "string"
+					"$ref": "#/definitions/Signer"
 				},
 				"generator": {
 					"$ref": "#/definitions/ManifestHandlerSite"
@@ -98,13 +100,20 @@
 				"discrepancyInfo": {
 					"$ref": "#/definitions/Discrepancy"
 				},
+				"printedDocument": {
+					"$ref": "#/definitions/Document"
+				},
+				"humanReadableDocument": {
+					"$ref": "#/definitions/Document"
+				},
+				"formDocument": {
+					"$ref": "#/definitions/Document"
+				},
 				"additionalInfo": {
 					"$ref": "#/definitions/AdditionalInfo"
 				}
 			},
 			"required": [
-				"createdDate",
-				"status",
 				"submissionType",
 				"generator",
 				"designatedFacility"
@@ -130,8 +139,8 @@
 			"additionalProperties": false
 		},
 		"ManifestTrackingNumber": {
-			"type": "string",
-			"pattern": "[0-9]{9}[A-Z]{3}"
+			"description": "Will be returned by Get Manifest. Shall not be provided for Save Manifest. Must be provided for Update Manifest. Applied pattern for validation: [0-9]{9}[A-Z]{3}",
+			"type": "string"
 		},
 		"ProperShippingName": {
 			"type": "string",
@@ -155,7 +164,20 @@
 			"type": "object",
 			"properties": {
 				"properShippingName": {
-					"$ref": "#/definitions/Code"
+					"$ref": "#/definitions/ProperShippingName"
+				},
+				"rqIndicator": {
+					"type": "boolean"
+				},
+				"rqDescription": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 105
+				},
+				"technicalName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 75
 				},
 				"idNumber": {
 					"$ref": "#/definitions/Code"
@@ -167,12 +189,10 @@
 					"$ref": "#/definitions/Code"
 				},
 				"printedDotInformation": {
-					"description": "Contains Proper Shipping Name, ID Number, Hazard Class, Packing Group",
+					"description": "Contains Proper Shipping Name, RQ Description, Technical Name, ID Number, Hazard Class, Packing Group",
 					"type": "string",
+					"minLength": 1,
 					"maxLength": 500
-				},
-				"emergencyPhone": {
-					"$ref": "#/definitions/Phone"
 				},
 				"emergencyGuideNumber": {
 					"$ref": "#/definitions/Code"
@@ -181,24 +201,8 @@
 			"required": [
 				"properShippingName",
 				"idNumber",
-				"hazardClass"
-			],
-			"additionalProperties": false
-		},
-		"WasteDescription": {
-			"title": "wasteDescription",
-			"type": "object",
-			"properties": {
-				"wasteDescription": {
-					"type": "string",
-					"maxLength": 500
-				},
-				"emergencyPhone": {
-					"$ref": "#/definitions/Phone"
-				}
-			},
-			"required": [
-				"wasteDescription"
+				"hazardClass",
+				"printedDotInformation"
 			],
 			"additionalProperties": false
 		},
@@ -311,6 +315,54 @@
 			],
 			"additionalProperties": false
 		},
+		"Waste": {
+			"type": "object",
+			"properties": {
+				"hazardous": {
+					"description": "If hazardous is true then dotInformation is required. If hazardous is false then wasteDescription is required",
+					"type": "boolean"
+				},
+				"dotInformation": {
+					"$ref": "#/definitions/DotInformation"
+				},
+				"wasteDescription": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 500
+				},
+				"consentNumber": {
+					"type": "string",
+					"maxLength": 12
+				},
+				"quantity": {
+					"$ref": "#/definitions/Quantity"
+				},
+				"br": {
+					"$ref": "#/definitions/Br"
+				},
+				"brInfo": {
+					"description": "Specifies if BR information is provided",
+					"type": "boolean"
+				},
+				"hazardousWaste": {
+					"$ref": "#/definitions/HazardousWaste"
+				},
+				"managementMethod": {
+					"$ref": "#/definitions/CodeDescription"
+				},
+				"additionalInfo": {
+					"$ref": "#/definitions/AdditionalInfo"
+				},
+				"lineNumber": {
+					"type": "number"
+				}
+			},
+			"required": [
+				"hazardous",
+				"lineNumber"
+			],
+			"additionalProperties": false
+		},
 		"Br": {
 			"title": "br",
 			"description": "Entity containing Biennial Report Fields",
@@ -344,7 +396,8 @@
 			"type": "object",
 			"properties": {
 				"containerNumber": {
-					"type": "number"
+					"type": "number",
+					"maximum": 999
 				},
 				"containerType": {
 					"$ref": "#/definitions/ContainerType"
@@ -357,9 +410,6 @@
 				},
 				"unitOfMeasurement": {
 					"$ref": "#/definitions/QuantityUnitsOfMeasurement"
-				},
-				"br": {
-					"$ref": "#/definitions/Br"
 				}
 			},
 			"dependencies": {
@@ -449,41 +499,6 @@
 			},
 			"additionalProperties": false
 		},
-		"Waste": {
-			"type": "object",
-			"properties": {
-				"hazardous": {
-					"type": "boolean"
-				},
-				"dotInformation": {
-					"$ref": "#/definitions/DotInformation"
-				},
-				"wasteDescription": {
-					"$ref": "#/definitions/WasteDescription"
-				},
-				"consentNumber": {
-					"type": "string",
-					"maxLength": 12
-				},
-				"quantity": {
-					"$ref": "#/definitions/Quantity"
-				},
-				"hazardousWaste": {
-					"$ref": "#/definitions/HazardousWaste"
-				},
-				"additionalInfo": {
-					"$ref": "#/definitions/AdditionalInfo"
-				},
-				"lineNumber": {
-					"type": "number"
-				}
-			},
-			"required": [
-				"hazardous",
-				"lineNumber"
-			],
-			"additionalProperties": false
-		},
 		"Discrepancy": {
 			"title": "discrepancyInfo",
 			"description": "Not implemented for June Release",
@@ -523,7 +538,7 @@
 			],
 			"additionalProperties": false
 		},
-	"ManifestHandlerSite": {
+		"ManifestHandlerSite": {
 			"type": "object",
 			"properties": {
 				"siteType": {
@@ -564,12 +579,34 @@
 					},
 					"additionalProperties": false
 				},
+				"electronicSignatureInfo": {
+					"title": "electronicSignatureInfo",
+					"description": "Contains Generator or TSDF or Transporter Signer Info, Date of Signature and Sgned document metadata",
+					"type": "object",
+					"properties": {
+						"signer": {
+							"$ref": "#/definitions/Signer"
+						},
+						"signatureDate": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"humanReadableDocument": {
+							"$ref": "#/definitions/Document"
+						}
+					},
+					"additionalProperties": false
+				},
 				"order": {
 					"description": "Transporter Order. Used for Transporters only",
 					"type": "number"
 				},
 				"registered": {
 					"description": "Indicates if the site is registered in RCRAInfo. Used for Transporters and Generators only.",
+					"type": "boolean"
+				},
+				"modified": {
+					"description": "Indicates if the site information was modified",
 					"type": "boolean"
 				}
 			},
@@ -592,7 +629,7 @@
 			"properties": {
 				"number": {
 					"type": "string",
-					"pattern": "((\\(\\d{3}\\) ?)|(\\d{3}-))?\\d{3}-\\d{4}"
+					"pattern": "^[2-9]\\d{2}-\\d{3}-\\d{4}$"
 				},
 				"extension": {
 					"type": "string",
@@ -690,8 +727,49 @@
 			"required": [
 				"address1",
 				"city",
-				"state"
+				"state",
+				"zip"
 			],
+			"additionalProperties": false
+		},
+		"Signer": {
+			"description": "w",
+			"type": "object",
+			"properties": {
+				"firstName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 38
+				},
+				"lastName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 38
+				},
+				"userId": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+		"Document": {
+			"description": "Attachments metadata",
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"pattern": "^[0-9a-zA-Z_\\-. ]+$"
+				},
+				"size": {
+					"type": "number"
+				},
+				"mimeType": {
+					"type": "string",
+					"enum": [
+						"APPLICATION_PDF"
+					]
+				}
+			},
 			"additionalProperties": false
 		},
 		"CodeDescription": {
@@ -709,8 +787,22 @@
 			],
 			"additionalProperties": false
 		},
+		"ProperShippingName": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "string"
+				},
+				"technicalNameIndicator": {
+					"type": "boolean"
+				}
+			},
+			"required": [
+				"code"
+			],
+			"additionalProperties": false
+		},
 		"Code": {
-
 			"type": "object",
 			"properties": {
 				"code": {
@@ -721,6 +813,6 @@
 				"code"
 			],
 			"additionalProperties": false
-		}	
+		}
 	}
 }

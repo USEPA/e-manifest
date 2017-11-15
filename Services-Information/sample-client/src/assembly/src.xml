@@ -27,6 +27,7 @@
       <outputDirectory>docs</outputDirectory>
         <includes>
             <include>*.pdf</include>
+            <include>**/manifest-save-return-examples/*</include>
         </includes>
     </fileSet>    
   </fileSets>

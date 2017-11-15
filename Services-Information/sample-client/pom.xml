@@ -133,6 +133,17 @@
             <artifactId>jul-to-slf4j</artifactId>
             <version>1.7.12</version>
         </dependency>
+        
+        
+<!-- https://mvnrepository.com/artifact/com.github.mjeanroy/exiftool-lib -->
+<!-- https://mvnrepository.com/artifact/com.github.mjeanroy/exiftool-lib -->
+<dependency>
+    <groupId>com.github.mjeanroy</groupId>
+    <artifactId>exiftool-lib</artifactId>
+    <version>2.2.1</version>
+</dependency>
+
+        
     </dependencies>
     <build>
         <finalName>sample-client</finalName>
@@ -169,13 +180,13 @@
 										</mainClass>
 									</manifest>
 								</archive>
+								<descriptorRefs>
+									<descriptorRef>jar-with-dependencies</descriptorRef>
+								</descriptorRefs>
                                 <descriptors>
                                     <descriptor>src/assembly/bin.xml</descriptor>
                                     <descriptor>src/assembly/src.xml</descriptor>
                                 </descriptors>
-								<descriptorRefs>
-									<descriptorRef>jar-with-dependencies</descriptorRef>
-								</descriptorRefs>
 							</configuration>
 						</execution>
 					</executions>

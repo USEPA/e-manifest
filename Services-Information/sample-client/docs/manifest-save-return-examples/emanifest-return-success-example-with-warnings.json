@@ -1,0 +1,68 @@
+{
+	"manifestTrackingNumber": "100005103ELC",
+	"warningsReport": {
+		"reportId": "012345",
+		"date": "2017-07-27T19:13:28.628+0000",
+		"manifestWarnings": [
+			{
+			"message": "Invalid Format. TExt not exceeding 255 characters is expected",
+			"field": "Emanifest.additionalInfo.comments.label",
+			"value": "too many characters"
+			}
+		],
+		"generatorReport": {
+			"entityId": {
+				"entityIdField": "siteId",
+				"entityIdValue": "MDR12345125"
+			},
+			"warnings": [
+				{
+					"message": "Invalid Format. Numbers not exceeding 6 characters is expected",
+					"field": "Emanifest.generator.emergencyPhone.extension",
+					"value": "N789"
+				}
+			]
+		},
+		"tsdfReport": {
+			"entityId": {
+				"entityIdField": "siteId",
+				"entityIdValue": "MDR12345125"
+			},
+			"warnings": [
+				{
+					"message": "Invalid Format. Alphanumeric characters not exceeding 50 characters is expected",
+					"field": "Emanifest.designatedFacility.siteAddress.address2",
+					"value": ";^"				
+				}
+			]
+		},
+		"wastesReports": [
+			{
+			"entityId": {
+				"entityIdField": "lineNumber",
+				"entityIdValue": "1"
+			},
+				"warnings": [
+					{
+						"message": "Invalid Format. Numeric characters is expected",
+						"field": "Emanifest.wastes.additionalInfo.handlerId",
+						"value": "FG056"
+					}
+				]
+			},
+			{
+			"entityId": {
+				"entityIdField": "lineNumber",
+				"entityIdValue": "2"
+			},
+				"warnings": [
+					{
+						"message": "Invalid Format. Text not exceeding 4000 is expected",
+						"field": "Emanifest.wastes.additionalInfo.handlingInstructions",
+						"value": "Way too long..."
+					}
+				]
+			}
+		]
+	}
+}
