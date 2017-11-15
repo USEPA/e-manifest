@@ -51,7 +51,7 @@ Handler Registration:
 
 If your state is participating in approving e-Manifest test users, you may request access to your handler id(s).  Otherwise please register to use one of our test sites:
 
-VAD000532119, "TEST TSDF OF VA", Virginia 22202 (Generator and TSDF)
+VAD000532119, "TEST TSDF OF VA", Virginia 22202 (Generator and TSDF, only test site that can be used for testing web services (at this time.))
 
 VA988177803,  "HEATING AND OIL", Virginia 22033 (Generator Only)
 
