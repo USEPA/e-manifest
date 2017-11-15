@@ -4,18 +4,21 @@
 The overarching purpose of e-Manifest is to establish a national information technology system that will enable the Agency and the hazardous waste program’s industry and state stakeholders to transition the manifest system from one that is paper-intensive and burdensome to a system that is much more efficient, because it will rely on information technology to track hazardous waste shipments
 
 ## What is going on
-In November of 2017 the web services released in June were updated and now include the ability to send manifests to EPA.
+In November of 2017 the web services released in June were updated and now include the ability for industry testers to send manifests to EPA.
 
-EPA strongly encourages testing of the services:
+EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
 
 Services Available
 * Authentication Services and ID/Key Registration
 * GET manifest and handler services
 * Data look up services
 * POST manifest services
+
+Tools for Testers
+* [JSON Schema](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema)
+* Sample JSON for submitting manifests to EPA, including both a good example and a bad example (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples)
 * Swagger page for testing and documenting the services (See: https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/ (You must be registered as a site manager for a TSDF site to access this site, see Accessing the Test Environment, below.))
 * Sample Client for accessing the services (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information/sample-client)
-* Sample JSON for submitting manifests to EPA, including both a good example and a bad example (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples)
 
 Please note; The test environment for the most part mirrors the handler information in our production environment. When testing, please also make sure your site information is up to date, if it is not please use myRCRAid or your State’s paper notification process to update your site.
 
