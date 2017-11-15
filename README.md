@@ -8,7 +8,7 @@ In November of 2017 the web services released in June were updated and now inclu
 
 EPA strongly encourages testing of the services:
 
-1) Services Available
+Services Available
 * Authentication Services and ID/Key Registration
 * GET manifest and handler services
 * Data look up services
