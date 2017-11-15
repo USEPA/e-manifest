@@ -1,0 +1,141 @@
+{
+  "status" : "Scheduled",
+  "submissionType" : "DataImage1Copy",
+  "shippedDate" : "2017-10-23T04:00:00.000+0000",
+  "receivedDate" : "2017-10-23T04:00:00.000+0000",
+  "generator" : {
+    "mailingAddress" : {
+      "address1" : "1028 ROCKVILLE PK",
+      "city" : "ROCKVILLE",
+      "state" : {
+        "code" : "MD"
+      },
+      "country" : {
+        "code" : "US"
+      },
+      "zip" : "20852"
+    },
+    "siteAddress" : {
+      "address1" : "1028 ROCKVILLE PK",
+      "city" : "ROCKVILLE",
+      "state" : {
+        "code" : "MD"
+      },
+      "country" : {
+        "code" : "US"
+      },
+      "zip" : "20852"
+    },
+    "name" : "A-1 CLEANERS",
+    "paperSignatureInfo" : {
+      "printedName" : "generator",
+      "signatureDate" : "2017-10-23T04:00:00.000+0000"
+    },
+    "contact" : {
+      "phone" : {
+        "number" : "301-294-9727"
+      },
+      "email": "EPA@EPATEST.com"
+    },
+    "emergencyPhone" : {
+      "number" : "301-423-5455"
+    }
+  },
+  "transporters" : [ {
+     "epaSiteId" : "CAR000189282",
+    "paperSignatureInfo" : {
+      "printedName" : "transporter 1",
+      "signatureDate" : "2017-10-23T04:00:00.000+0000"
+    },
+    "order" : 1
+  }, 
+  {
+    "epaSiteId" : "CAD982000564",
+     "paperSignatureInfo" : {
+      "printedName" : "transporter 2",
+      "signatureDate" : "2017-10-23T04:00:00.000+0000"
+    },
+     "order" : 2
+  } ],
+  "designatedFacility" : {
+     "epaSiteId": "VAD000532119",
+     "paperSignatureInfo" : {
+      "printedName" : "tsdf",
+      "signatureDate" : "2017-10-23T04:00:00.000+0000"
+   }
+ 
+  },
+  "wastes" : [ {
+    "hazardous" : "true",
+    "dotInformation" : {
+      "idNumber" : {
+        "code" : "UN1988"
+      },
+      "hazardClass" : {
+        "code" : "3"
+      },
+      "properShippingName" : {
+        "code" : "Aldehydes, flammable, toxic, n.o.s."
+      },
+      "technicalName" : "technical name",
+      "packingGroup" : {
+        "code" : "I"
+      },
+      "rqDescription" : "rq descruiption",
+      "printedDotInformation" : "UN1988, Waste Aldehydes, flammable, toxic, n.o.s., (technical name), 3, I, RQ(rq descruiption)",
+      "emergencyGuideNumber" : {
+        "code" : "131"
+      }
+    },
+    "quantity" : {
+      "containerNumber" : 100,
+      "containerType" : {
+        "code" : "BA"
+      },
+      "quantity" : 1.67,
+      "unitOfMeasurement" : {
+        "code" : "L"
+      }
+    },
+    "hazardousWaste" : {
+      "federalWasteCodes" : [ {
+        "code" : "D023"
+      }, {
+        "code" : "D001"
+      }, {
+        "code" : "D021"
+      } ],
+      "tsdfStateWasteCodes" : [ {
+        "code" : "TEST3"
+      } ],
+      "generatorStateWasteCodes" : [ ]
+    },
+    "additionalInfo" : {
+      "comments" : [ ]
+    },
+    "lineNumber" : 1,
+    "brInfo" : true,
+    "br" : {
+      "densityUnitOfMeasurement" : {
+        "code" : "1"
+      },
+      "formCode" : {
+        "code" : "W107"
+      },
+      "sourceCode" : {
+        "code" : "G07"
+      },
+      "density" : 1.0
+    },
+    "managementMethod" : {
+      "code" : "H020"
+    }
+  } ],
+  "additionalInfo" : {
+    "comments" : [ ]
+  },
+  "printedDocument" : {
+    "name" : "form-2050.pdf",
+    "mimeType" : "APPLICATION_PDF"
+  }
+}
