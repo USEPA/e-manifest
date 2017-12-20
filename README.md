@@ -4,6 +4,8 @@
 The overarching purpose of e-Manifest is to establish a national information technology system that will enable the Agency and the hazardous waste program’s industry and state stakeholders to transition the manifest system from one that is paper-intensive and burdensome to a system that is much more efficient, because it will rely on information technology to track hazardous waste shipments
 
 ## What is going on
+In December of 2018 the web services were updated to include the update service.  Documentation will be updated in the coming weeks.  Registered users can visit the [Swagger](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/) page for more information
+
 In November of 2017 the web services released in June were updated and now include the ability for industry testers to send manifests to EPA.
 
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
@@ -54,8 +56,6 @@ If your state is participating in approving e-Manifest test users, you may reque
 VAD000532119, "TEST TSDF OF VA", Virginia 22202 (Generator and TSDF, only test site that can be used for testing web services (at this time.))
 
 VA988177803,  "HEATING AND OIL", Virginia 22033 (Generator Only)
-
-VAR000532432, "TEST GENERATOR OF VA", Virginia 22202 (Generator Only)
 
 * On the My Sites page click on the “Add Existing Site” button and search for your EPA ID number in the Site ID box  or a test site and then select that facility. (For example; VA000532119) 
 * Request a role for the site.  The 'Site Manager' Role will allow you to use the services.  
