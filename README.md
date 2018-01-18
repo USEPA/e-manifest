@@ -34,7 +34,7 @@ Please note; The test environment for the most part mirrors the handler informat
 ## Accessing the Test Environment
 Registration:
 
-In order to access the test environment, all users will be required to set up a test account at https://rcrainfopreprod.epa.gov/rcrainfo/.  If you are interested in testing services, please read https://github.com/USEPA/e-manifest/blob/master/Services-Information/June-Release-Supported-Services-0630.pdf .  Please note, this account will be used for this review and all subsequent reviews and/or testing of e-Manifest software. 
+In order to access the test environment, all users will be required to set up a test account at https://rcrainfopreprod.epa.gov/rcrainfo/.  If you are interested in testing services, please read https://github.com/USEPA/e-manifest/blob/master/Services-Information/Lookup%20and%20Get%20Services%20as%20of%2001%2010.pdf.  Please note, this account will be used for this review and all subsequent reviews and/or testing of e-Manifest software. 
 
 User Registration:
 
@@ -100,7 +100,7 @@ In March and April of 2017, the team released a series of Generator and TSD Faci
 In June of 2017 the team released a series of web services, front end screens, and modifications based on responses from user experience testing.  Specifically, we released for user testing and feedback:
 
 1) Changes based on user feedback
-2)	Initial web services (See: https://github.com/USEPA/e-manifest/blob/master/Services-Information/June-Release-Supported-Services-0630.pdf)
+2)	Initial web services (See: https://github.com/USEPA/e-manifest/blob/master/Services-Information/Lookup%20and%20Get%20Services%20as%20of%2001%2010.pdf)
 * Authentication Services and ID/Key Registration
 * Get manifest and handler services
 * Data look up services
