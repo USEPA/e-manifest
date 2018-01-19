@@ -42,7 +42,7 @@
 						"Data",
 						"Image",
 						"DataImage1Copy",
-						"DataImage6Copy",
+						"DataImage5Copy",
 						"Hybrid"
 					]
 				},
@@ -114,9 +114,7 @@
 				}
 			},
 			"required": [
-				"submissionType",
-				"generator",
-				"designatedFacility"
+				"submissionType"
 			],
 			"additionalProperties": false
 		},
@@ -193,7 +191,6 @@
 			"required": [
 				"properShippingName",
 				"idNumber",
-				"hazardClass",
 				"printedDotInformation"
 			],
 			"additionalProperties": false
@@ -460,12 +457,10 @@
 						"type": "object",
 						"properties": {
 							"label": {
-								"type": "string",
-								"maxLength": 255
+								"type": "string"
 							},
 							"description": {
-								"type": "string",
-								"maxLength": 4000
+								"type": "string"
 							},
 							"handlerId": {
 								"type": "string"
@@ -475,8 +470,7 @@
 					}
 				},
 				"handlingInstructions": {
-					"type": "string",
-					"maxLength": 4000
+					"type": "string"
 				}
 			},
 			"additionalProperties": false
@@ -643,8 +637,7 @@
 					"$ref": "#/definitions/Phone"
 				},
 				"email": {
-					"type": "string",
-					"pattern": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+					"type": "string"
 				},
 				"companyName": {
 					"type": "string"
