@@ -53,13 +53,21 @@ Handler Registration:
 
 If your state is participating in approving e-Manifest test users, you may request access to your handler id(s).  Otherwise please register to use one of our test sites:
 
-VAD000532119, "TEST TSDF OF VA", Virginia 22202 (Generator and TSDF, only test site that can be used for testing web services (at this time.))
+VAD000532119, "TEST TSDF OF VA", Virginia 22202 (Generator and TSDF, test site can be used for testing web services.)
 
 VA988177803,  "HEATING AND OIL", Virginia 22033 (Generator Only)
 
+VATEST000001, "TEST TRANSPORTER 1 OF VA", Virginia 22202 (Generator or Transporter)
+
+VATEST000002, "TEST TRANSPORTER 2 OF VA", Virginia 22202 (Generator or Transporter)
+
+VATEST000003, "TEST TSDF OF VA TWO", Virginia 22202  (Generator and TSDF, test site can be used for testing web services.)
+
+VATEST000004, "TEST GENERATOR OF VA", Virginia 22202 (Generator Only)
+
 * On the My Sites page click on the “Add Existing Site” button and search for your EPA ID number in the Site ID box  or a test site and then select that facility. (For example; VA000532119) 
 * Request a role for the site.  The 'Site Manager' Role will allow you to use the services.  
-* After you submit your request, the request will go to your state administrator. Please understand this is not an instant access process and the state will need to manually activate your request during normal business hours.  EPA is continuing to work on the concept of a Site Manager which will allow users to manage their own users.
+* After you submit your request, the request will go to your state or an EPA administrator. Please understand this is not an instant access process and the administrator will need to manually activate your request during normal business hours.  EPA is continuing to work on the concept of a Site Manager which will allow users to manage their own users.
 
 Once you have completed this registration you may use either https://test.epacdx.net/ or https://rcrainfopreprod.epa.gov/rcrainfo/ to log on to the application.
 
