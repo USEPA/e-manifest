@@ -656,19 +656,16 @@
 						"type": "object",
 						"properties": {
 							"label": {
-								"description": "Label describing the reference information ",
-								"type": "string",
-								"maxLength": 255
+								"description": "Label describing the reference information.  Max length: 255 characters ",
+								"type": "string"
 							},
 							"description": {
-								"description": "Data for the reference information descrbied by the label.",
-								"type": "string",
-								"maxLength": 4000
+								"description": "Data for the reference information descrbied by the label. Max length: 4000 characters",
+								"type": "string"
 							},
 							"handlerId": {
-								"description": "Handler ID of site related to this reference information",
-								"type": "string",
-								"pattern": "^([A-Z][A-Z][A-Za-z0-9]{2,10})$"
+								"description": "Handler ID of site related to this reference information. Pattern ^([A-Z][A-Z][A-Za-z0-9]{2,10})$",
+								"type": "string"								
 							}
 						},
 						"additionalProperties": false
