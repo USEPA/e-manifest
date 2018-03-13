@@ -91,7 +91,7 @@ Additional Resources:
 
 [Sample Paper Manifest](https://www.epa.gov/sites/production/files/2015-06/documents/newform.pdf) 
 
-[Paper Manifest Instructions](http://www3.epa.gov/epawaste/hazard/transportation/manifest/pdf/man-inst.pdf)
+[Paper Manifest Instructions](https://www.epa.gov/sites/production/files/2015-06/documents/man-inst.pdf)
 
 
 ## Project History
