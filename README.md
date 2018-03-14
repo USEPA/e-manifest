@@ -4,7 +4,7 @@
 The overarching purpose of e-Manifest is to establish a national information technology system that will enable the Agency and the hazardous waste program’s industry and state stakeholders to transition the manifest system from one that is paper-intensive and burdensome to a system that is much more efficient, because it will rely on information technology to track hazardous waste shipments
 
 ## Recent Update - Frequently Asked Questions
-The e-Manifest team has uploaded an **[Updated FAQ]**(https://github.com/USEPA/e-manifest/blob/master/Reference/e-Manifest FAQs FINAL.March 2018.pdf). These are based on user questions through March 2018.
+The e-Manifest team has uploaded an **[Updated FAQ](https://github.com/USEPA/e-manifest/blob/master/Reference/e-Manifest FAQs FINAL.March 2018.pdf)**. These are based on user questions through March 2018.
 
 ## What is going on
 In December of 2018 the web services were updated to include the update service.  Documentation will be updated in the coming weeks.  Registered users can visit the [Swagger](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/) page for more information
