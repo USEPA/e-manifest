@@ -259,7 +259,7 @@
 			"additionalProperties": false
 		},
 		"ManifestTrackingNumber": {
-			"description": "Will be returned by Get Manifest. Shall not be provided for Save Manifest. Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
+			"description": "Will be returned by Get Manifest. Shall not be provided for aFullElectronic or Hybrid Save Manifest.  Required for a DataImage5Copy and Image Only manifest. Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
 			"type": "string"
 		},
 		"ProperShippingName": {
@@ -445,7 +445,7 @@
 			"type": "object",
 			"properties": {
 				"hazardous": {
-					"description": "If hazardous is true then dotInformation is required. If hazardous is false then wasteDescription is required",
+					"description": "hazardous pertains to what the substance is and may not whether the waste is hazardsou or not.  If hazardous is true then dotInformation is required. If hazardous is false then wasteDescription is required",
 					"type": "boolean"
 				},
 				"dotInformation": {
@@ -538,7 +538,7 @@
 					"type": "number"
 				},
 				"waste": {
-					"description": "Specifies if it is waste",
+					"description": "Specifies if the substance is a waste.  This does not mean the subastance is hazardous or not, but that it is waste.",
 					"type": "boolean"
 				}
 			},
@@ -738,7 +738,7 @@
 					"type": "boolean"
 				},
 				"modified": {
-					"description": "Indicates if the site information was modified from what was on the handler’s notification form",
+					"description": "Indicates if the site information was modified from what was on the handler’s notification form and the submitter wants to use different information.",
 					"type": "boolean"
 				}
 			},
@@ -783,7 +783,7 @@
 			"additionalProperties": false
 		},
 		"SiteType": {
-			"description": "How a site interacts with this manifest",
+			"description": "How a site interacts with this manifest.  For example, if the site is the Generator in section 5 then the siteType will be Generator",
 			"type": "string",
 			"enum": [
 				"Tsdf",
