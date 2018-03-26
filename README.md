@@ -7,7 +7,9 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://github.com/USEPA/e-manifest/blob/master/Reference/eManifestFAQsMarch2018.pdf)**. These are based on user questions through March 2018.
 
 ## What is going on
-In December of 2018 the web services were updated to include the update service.  Documentation will be updated in the coming weeks.  Registered users can visit the [Swagger](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/) page for more information
+In March of 2018 the team updated the Schema and documentation please review the new documents.
+
+In December of 2017 the web services were updated to include the update service.  Documentation will be updated in the coming weeks.  Registered users can visit the [Swagger](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/) page for more information
 
 In November of 2017 the web services released in June were updated and now include the ability for industry testers to send manifests to EPA.
 
