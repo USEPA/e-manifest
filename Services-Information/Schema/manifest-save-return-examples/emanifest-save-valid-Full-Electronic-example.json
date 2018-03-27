@@ -3,27 +3,7 @@
 	"discrepancy": false,
 	"submissionType": "FullElectronic",
 	"generator": {
-		"mailingAddress": {
-			"address1": "2777 S CRYSTAL DRIVE",
-			"city": "ARLINGTON",
-			"state": {
-				"code": "VA",
-				"name": "VIRGINIA"
-			},
-			"zip": "22202"
-		},
-		"siteAddress": {
-			"address1": "2777 S CRYSTAL DRIVE",
-			"city": "ARLINGTON",
-			"state": {
-				"code": "VA",
-				"name": "VIRGINIA"
-			},
-			"zip": "22202"
-		},
 		"epaSiteId": "VATEST000004",
-		"name": "TEST GENERATOR OF VA",
-		"registered": true,
 		"contact": {
 			"phone": {
 				"number": "703-308-0023"
@@ -32,38 +12,11 @@
 		},
 		"emergencyPhone": {
 			"number": "888-456-1234"
-		},
-		"electronicSignatureInfo": {
-			"humanReadableDocument": {
-				"name": "human-readable.html",
-				"size": 167195,
-				"mimeType": "TEXT_HTML"
-			}
 		}
 	},
 	"transporters": [
 		{
-			"mailingAddress": {
-				"address1": "2777 SOUTH CRYSTAL DRIVE",
-				"city": "ARLINGTON",
-				"state": {
-					"code": "VA",
-					"name": "VIRGINIA"
-				},
-				"zip": "22202"
-			},
-			"siteAddress": {
-				"address1": "2777 SOUTH CRYSTAL DRIVE",
-				"city": "ARLINGTON",
-				"state": {
-					"code": "VA",
-					"name": "VIRGINIA"
-				},
-				"zip": "22202"
-			},
 			"epaSiteId": "VATEST000001",
-			"name": "TEST TRANSPORTER 1 OF VA",
-			"registered": true,
 			"contact": {
 				"phone": {
 					"number": "703-308-0023"
@@ -72,27 +25,7 @@
 			"order": 1
 		},
 		{
-			"mailingAddress": {
-				"address1": "2777 S CRYSTAL DRIVE",
-				"city": "ARLINGTON",
-				"state": {
-					"code": "VA",
-					"name": "VIRGINIA"
-				},
-				"zip": "22202"
-			},
-			"siteAddress": {
-				"address1": "2777 S CRYSTAL DRIVE",
-				"city": "ARLINGTON",
-				"state": {
-					"code": "VA",
-					"name": "VIRGINIA"
-				},
-				"zip": "22202"
-			},
 			"epaSiteId": "VATEST000002",
-			"name": "TEST TRANSPORTER 2 OF VA",
-			"registered": true,
 			"contact": {
 				"phone": {
 					"number": "703-308-0023"
@@ -102,27 +35,8 @@
 			"order": 2
 		},
 		{
-			"mailingAddress": {
-				"address1": "2777 SOUTH CRYSTAL DRIVE",
-				"city": "ARLINGTON",
-				"state": {
-					"code": "VA",
-					"name": "VIRGINIA"
-				},
-				"zip": "22202"
-			},
-			"siteAddress": {
-				"address1": "2777 SOUTH CRYSTAL DRIVE",
-				"city": "ARLINGTON",
-				"state": {
-					"code": "VA",
-					"name": "VIRGINIA"
-				},
-				"zip": "22202"
-			},
 			"epaSiteId": "VATEST000001",
 			"name": "TEST TRANSPORTER 1 OF VA",
-			"registered": true,
 			"contact": {
 				"phone": {
 					"number": "703-308-0023"
@@ -132,27 +46,7 @@
 		}
 	],
 	"designatedFacility": {
-		"mailingAddress": {
-			"address1": "123 MAIN ST",
-			"city": "ARLINGTON",
-			"state": {
-				"code": "VA",
-				"name": "VIRGINIA"
-			},
-			"zip": "22202"
-		},
-		"siteAddress": {
-			"address1": "123 MAIN ST",
-			"city": "ARLINGTON",
-			"state": {
-				"code": "VA",
-				"name": "VIRGINIA"
-			},
-			"zip": "22202"
-		},
 		"epaSiteId": "VAD000532119",
-		"name": "TEST TSDF OF VA",
-		"registered": true,
 		"contact": {
 			"phone": {
 				"number": "703-308-0023"
@@ -162,7 +56,8 @@
 	},
 	"wastes": [
 		{
-			"hazardous": true,
+			"dotHazardous": true,
+			"epaWaste": true,
 			"dotInformation": {
 				"idNumber": {
 					"code": "NA1993"
@@ -216,7 +111,7 @@
 				"handlingInstructions": "This Manifest is for testing purposes and does not match reality it's more to show what you can do."
 			},
 			"lineNumber": 1,
-			"brInfo": false,
+			"br": false,
 			"managementMethod": {
 				"code": "H020",
 				"description": "SOLVENTS RECOVERY"
@@ -229,7 +124,8 @@
 			}
 		},
 		{
-			"hazardous": false,
+			"dotHazardous": false,
+			"epaWaste":false,
 			"wasteDescription": "PCB contaminated bags",
 			"quantity": {
 				"containerNumber": 12,
@@ -257,7 +153,7 @@
 				"handlingInstructions": "This Manifest is for testing purposes and does not match reality it's more to show what you can do."
 			},
 			"lineNumber": 2,
-			"brInfo": false,
+			"br": false,
 			"managementMethod": {
 				"code": "H040",
 				"description": "INCINERATION"
@@ -276,69 +172,13 @@
 				"wasteType": false,
 				"residue": false
 			}
-		},
-		{
-			"hazardous": true,
-			"dotInformation": {
-				"idNumber": {
-					"code": "UN1976"
-				},
-				"hazardClass": {
-					"code": "2.2"
-				},
-				"properShippingName": {
-					"code": "Octafluorocyclobutane, or Refrigerant gas RC 318"
-				},
-				"printedDotInformation": "UN1976, Waste Octafluorocyclobutane, or Refrigerant gas RC 318, 2.2",
-				"emergencyGuideNumber": {
-					"code": "126"
-				}
-			},
-			"quantity": {
-				"containerNumber": 452,
-				"containerType": {
-					"code": "CF",
-					"description": "Fiber or plastic boxes, cartons, cases"
-				},
-				"quantity": 54242,
-				"unitOfMeasurement": {
-					"code": "K",
-					"description": "Kilograms"
-				}
-			},
-			"hazardousWaste": {
-				"federalWasteCodes": [
-					{
-						"code": "D001",
-						"description": "IGNITABLE WASTE"
-					}
-				],
-				"tsdfStateWasteCodes": [
-				],
-				"generatorStateWasteCodes": [
-				]
-			},
-			"additionalInfo": {
-				"comments": [
-				]
-			},
-			"lineNumber": 3,
-			"brInfo": false,
-			"managementMethod": {
-				"code": "H050",
-				"description": "ENERGY RECOVERY"
-			},
-			"pcb": false,
-			"discrepancyResidueInfo": {
-				"wasteQuantity": false,
-				"wasteType": false,
-				"residue": false
-			}
 		}
 	],
 	"additionalInfo": {
 		"comments": [
-		]
+		],
+		"handlingInstructions": "On the Manifest level. This Manifest is for testing purposes and does not match reality it's more to show what you can do."
+		
 	},
 	"rejection": false,
 	"residue": false,

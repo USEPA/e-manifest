@@ -1,9 +1,8 @@
 {
-	"manifestTrackingNumber": "CHANGE ME TO A VALID MANIFEST ID For example 123456789FLE",
+	"manifestTrackingNumber": "CHANGE ME",
 	"status": "ReadyForSignature",
 	"discrepancy": false,
 	"submissionType": "DataImage5Copy",
-	"originType": "Web",
 	"shippedDate": "2018-03-14T04:00:00.000+0000",
 	"receivedDate": "2018-03-17T04:00:00.000+0000",
 	"generator": {
@@ -187,7 +186,7 @@
 	},
 	"wastes": [
 		{
-			"hazardous": true,
+			"dotHazardous": true,
 			"dotInformation": {
 				"idNumber": {
 					"code": "UN3432"
@@ -235,7 +234,7 @@
 				]
 			},
 			"lineNumber": 1,
-			"brInfo": false,
+			"br": false,
 			"managementMethod": {
 				"code": "H010",
 				"description": "METALS RECOVERY"
@@ -249,6 +248,7 @@
 				"weight": 456,
 				"bulkIdentity": "Soil"
 			},
+			"epaWaste":true,
 			"discrepancyResidueInfo": {
 				"wasteQuantity": true,
 				"wasteType": false,
@@ -257,7 +257,8 @@
 			}
 		},
 		{
-			"hazardous": false,
+			"dotHazardous": false,
+			"epaWaste": false,
 			"wasteDescription": "PCB contaminated caulk",
 			"quantity": {
 				"containerNumber": 32,
@@ -283,8 +284,14 @@
 				"comments": [
 				]
 			},
+			"discrepancyResidueInfo": {
+				"wasteQuantity": true,
+				"wasteType": false,
+				"residue": false,
+				"discrepancyComments": "6500 KG"
+			},
 			"lineNumber": 2,
-			"brInfo": false,
+			"br": false,
 			"managementMethod": {
 				"code": "H040",
 				"description": "INCINERATION"
@@ -292,7 +299,8 @@
 			"pcb": false
 		},
 		{
-			"hazardous": false,
+			"dotHazardous": false,
+			"epaWaste": false, 
 			"wasteDescription": "Misc. Office Trash",
 			"quantity": {
 				"containerNumber": 43,
@@ -318,8 +326,13 @@
 				"comments": [
 				]
 			},
+			"discrepancyResidueInfo": {
+				"wasteQuantity": false,
+				"wasteType": false,
+				"residue": false
+			},
 			"lineNumber": 4,
-			"brInfo": false,
+			"br": false,
 			"managementMethod": {
 				"code": "H132",
 				"description": "LANDFILL (WITH PRIOR TREATMENT AND/OR STABILIZATION)"
@@ -327,7 +340,8 @@
 			"pcb": false
 		},
 		{
-			"hazardous": true,
+			"dotHazardous": true,
+			"epaWaste": true,
 			"dotInformation": {
 				"idNumber": {
 					"code": "NA1993"
@@ -379,8 +393,13 @@
 					}
 				]
 			},
+			"discrepancyResidueInfo": {
+				"wasteQuantity": false,
+				"wasteType": false,
+				"residue": false
+			},
 			"lineNumber": 5,
-			"brInfo": false,
+			"br": false,
 			"managementMethod": {
 				"code": "H039",
 				"description": "OTHER RECOVERY OR RECLAMATION FOR REUSE"
@@ -388,7 +407,8 @@
 			"pcb": false
 		},
 		{
-			"hazardous": true,
+			"dotHazardous": true,
+			"epaWaste":true,
 			"dotInformation": {
 				"idNumber": {
 					"code": "UN3210"
@@ -436,9 +456,14 @@
 				"comments": [
 				]
 			},
+			"discrepancyResidueInfo": {
+				"wasteQuantity": false,
+				"wasteType": false,
+				"residue": false
+			},
 			"lineNumber": 6,
-			"brInfo": true,
-			"br": {
+			"br": true,
+			"brInfo": {
 				"densityUnitOfMeasurement": {
 					"code": "1",
 					"description": "lbs/gal"
@@ -451,6 +476,9 @@
 					"code": "G05",
 					"description": "METAL FORMING AND TREATMENT"
 				},
+				"wasteMinimizationCode":{
+						"code": "A"
+				},
 				"density": 123
 			},
 			"managementMethod": {
@@ -461,7 +489,6 @@
 		}
 	],
 	"additionalInfo": {
-		"originalManifestTrackingNumber": "464664646ELC",
 		"comments": [
 			{
 				"label": "Truck #",
