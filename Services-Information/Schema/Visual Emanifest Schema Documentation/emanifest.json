@@ -21,7 +21,7 @@
 					"$ref": "#/definitions/ManifestTrackingNumber"
 				},
 				"status": {
-					"description": " Will be returned by Get Manifest. Status shall not be provided for Save Manifest Service.  The status is assigned by the submissionType.  status is required for the Update Service.  ",
+					"description": " Will be returned by Get Manifest. Status shall not be provided for Save Manifest Service. ",
 					"type": "string",
 					"enum": [
 						"NotSelected",
@@ -34,7 +34,7 @@
 					]
 				},
 				"isPublic": {
-					"description": "Will be returned by Get Manifest. Shall not be provided by Save and Update Manifest",
+					"description": "Indicates if the manifest is public. Will be returned by Get Manifest. Shall not be provided by Save and Update Manifest",
 					"type": "boolean"
 				},
 				"submissionType": {
@@ -49,11 +49,11 @@
 					]
 				},
 				"signatureStatus": {
-					"description": "Will be returned by Get Manifest. Shall not be provided by Save and Update Manifest",
+					"description": "Indicates if manifest was signed by TSDF. Will be returned by Get Manifest. Shall not be provided by Save and Update Manifest",
 					"type": "boolean"
 				},
 				"originType": {
-					"description": "Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest. ",
+					"description": "Specifies how the manifest was created. Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest. ",
 					"type": "string",
 					"enum": [
 						"Web",
@@ -84,6 +84,7 @@
 					"$ref": "#/definitions/ManifestHandlerSite"
 				},
 				"transporters": {
+					"description": "contains list of transporters",
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/ManifestHandlerSite"
@@ -100,12 +101,15 @@
 					}
 				},
 				"rejection": {
+					"description": "Specifies if manifest is rejected",
 					"type": "boolean"
 				},
 				"rejectionInfo": {
+					"description": "If manifest is rejected the entitiy shall cotntain rejection information",
 					"type": "object",
 					"properties": {
 						"transporterOnSite": {
+							"description": "Specifies if transporter is on site at the time of rejection",
 							"type": "boolean"
 						},
 						"rejectionType": {
@@ -116,6 +120,7 @@
 							]
 						},
 						"alternateDesignatedFacilityType": {
+							"description": "Specifies the type of the alternate facility for shipping rejected waste",
 							"type": "string",
 							"enum": [
 								"Generator",
@@ -132,7 +137,7 @@
 							"$ref": "#/definitions/ManifestHandlerSite"
 						},
 						"newManifestTrackingNumbers": {
-							"description": "Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
+							"description": "Contains the list of MTNs for shipping of the rejected waste. Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
 							"type": "array",
 							"items": {
 								"type": "string"
@@ -144,19 +149,14 @@
 							"maxLength": 255
 						}
 					},
-					"additionalProperties": false,
-					"residueNewManifestTrackingNumbers": {
-						"description": "Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					}
+					"additionalProperties": false
 				},
 				"discrepancy": {
+					"description": "Discrepancy indicator. Will be set to true if at least one Waste contains a discrepancy",
 					"type": "boolean"
 				},
 				"residue": {
+					"description": "Residue indicator. Will be set to true if at least one Waste contains a residue",
 					"type": "boolean"
 				},
 				"residueNewManifestTrackingNumbers": {
@@ -167,9 +167,11 @@
 					}
 				},
 				"import": {
+					"description": "Import indicator.",
 					"type": "boolean"
 				},
 				"ImportInfo": {
+					"description": "Contains Import relatated information",
 					"type": "object",
 					"properties": {
 						"importGenerator": {
@@ -203,7 +205,7 @@
 							"additionalProperties": false
 						},
 						"importPortInfo": {
-							"description": "City and State of port of entry",
+							"description": "City and State of Port of entry",
 							"type": "object",
 							"properties": {
 								"city": {
@@ -259,7 +261,7 @@
 			"additionalProperties": false
 		},
 		"ManifestTrackingNumber": {
-			"description": "Will be returned by Get Manifest. Shall not be provided for Save Manifest. Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
+			"description": "Will be returned by Get Manifest. Shall not be provided for aFullElectronic or Hybrid Manifest using the Save service.  Required for a DataImage5Copy and Image Only manifest. Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
 			"type": "string"
 		},
 		"ProperShippingName": {
@@ -289,10 +291,11 @@
 					"$ref": "#/definitions/ProperShippingName"
 				},
 				"psnComment": {
-					"description": "max lengs: 255",
+					"description": "Proper Shipping Name comment. max lengs: 255",
 					"type": "string"
 				},
 				"rqIndicator": {
+					"description": "Specifies if rqDescription is required",
 					"type": "boolean"
 				},
 				"rqDescription": {
@@ -329,7 +332,7 @@
 			"additionalProperties": false
 		},
 		"QuantityUnitsOfMeasurement": {
-			"description": "Units of Measurement for the waste line",
+			"description": "Units of Measurement for the waste line quantity",
 			"type": "object",
 			"properties": {
 				"code": {
@@ -444,24 +447,24 @@
 			"description": "Object containing the each waste line",
 			"type": "object",
 			"properties": {
-				"hazardous": {
-					"description": "If hazardous is true then dotInformation is required. If hazardous is false then wasteDescription is required",
+				"dotHazardous": {
+					"description": "Specifies that the substance is hazardous by DOT definition. This indicator does not specify if the substance is a waste If dotHazardous is true then dotInformation is required. If dotHazardous is false then wasteDescription is required",
 					"type": "boolean"
 				},
 				"dotInformation": {
 					"$ref": "#/definitions/DotInformation"
 				},
 				"wasteDescription": {
-					"description": "Max length: 500 charachters",
+					"description": "Max length: 500 charachters, only required if dotHazardous is false",
 					"type": "string"
 				},
 				"quantity": {
 					"$ref": "#/definitions/Quantity"
 				},
-				"br": {
-					"$ref": "#/definitions/Br"
-				},
 				"brInfo": {
+					"$ref": "#/definitions/BrInfo"
+				},
+				"br": {
 					"description": "Specifies if BR information is provided",
 					"type": "boolean"
 				},
@@ -469,6 +472,7 @@
 					"$ref": "#/definitions/HazardousWaste"
 				},
 				"pcb": {
+					"description": "Specifies if the waste contains PCB",
 					"type": "boolean"
 				},
 				"pcbInfo": {
@@ -502,21 +506,25 @@
 					"additionalProperties": false
 				},
 				"discrepancyResidueInfo": {
-					"description": "Object containing the discrepancy residue information for the waste line",
+					"description": "Object containing the discrepancy and residue information for the waste line",
 					"type": "object",
 					"properties": {
 						"wasteQuantity": {
+							"description": "Indicates if the Waste has quantity type discrepancy. Shall be provided in Save and Update Manifest services",
 							"type": "boolean"
 						},
 						"wasteType": {
+							"description": "Indicates if the Waste has waste type discrepancy. Shall be provided in Save and Update Manifest services",
 							"type": "boolean"
 						},
 						"discrepancyComments": {
+							"description": "Discrepancy comments are mandatory if either wasteQuantity is true or wasteType is true",
 							"type": "string",
 							"minLength": 1,
 							"maxLength": 255
 						},
 						"residue": {
+							"description": "Indicates if the Waste has a residue",
 							"type": "boolean"
 						},
 						"residueComments": {
@@ -534,26 +542,27 @@
 					"$ref": "#/definitions/AdditionalInfo"
 				},
 				"lineNumber": {
-					"description": "Integer number starting at 1",
+					"description": "The Wate line number. Integer number starting at 1",
 					"type": "number"
 				},
-				"waste": {
-					"description": "Specifies if it is waste",
+				"epaWaste": {
+					"description": "Specifies if the substance is a waste by EPA definition. This indicator does not specify if the substance is hazardous",
 					"type": "boolean"
 				}
 			},
 			"required": [
-				"hazardous",
+				"dotHazardous",
 				"pcb",
 				"lineNumber"
 			],
 			"additionalProperties": false
 		},
-		"Br": {
+		"BrInfo": {
 			"description": "Entity containing Biennial Report Fields",
 			"type": "object",
 			"properties": {
 				"density": {
+					"description": "Contains waste density if Quantity UOM are volume ",
 					"type": "number",
 					"minimum": 0,
 					"exclusiveMinimum": true,
@@ -567,8 +576,14 @@
 				},
 				"sourceCode": {
 					"$ref": "#/definitions/CodeDescription"
+				},
+				"wasteMinimizationCode": {
+					"$ref": "#/definitions/CodeDescription"
 				}
 			},
+			"required": [
+				"wasteMinimizationCode"
+			],
 			"dependencies": {
 				"density": [
 					"densityUnitOfMeasurement"
@@ -581,6 +596,7 @@
 			"type": "object",
 			"properties": {
 				"containerNumber": {
+					"description": "Number of containers thsi waste line occupies",
 					"type": "number",
 					"maximum": 999
 				},
@@ -588,6 +604,7 @@
 					"$ref": "#/definitions/ContainerType"
 				},
 				"quantity": {
+					"description": "Waste line quantity",
 					"type": "number",
 					"minimum": 0,
 					"exclusiveMinimum": true,
@@ -665,7 +682,7 @@
 					}
 				},
 				"consentNumber": {
-					"description": "Used only for the WasteadditionalInfo in case of Import. Expected format 12 digits.  6 digits \"I\" and then 5 digits. Pattern  ([0-9]{6}I[0-9]{5}) ",
+					"description": "Used only for the Waste.additionalInfo in case of Import. Expected format 12 digits.  6 digits \"I\" and then 5 digits. Pattern  ([0-9]{6}I[0-9]{5}) ",
 					"type": "string"
 				},
 				"comments": {
@@ -734,11 +751,11 @@
 					"type": "number"
 				},
 				"registered": {
-					"description": "Indicates if the site is registered in RCRAInfo. Used for Transporters and Generators only.",
+					"description": "Indicates if the site is registered in RCRAInfo. Used for Transporters and Generators only. Shall not be provided for Save and update services",
 					"type": "boolean"
 				},
 				"modified": {
-					"description": "Indicates if the site information was modified from what was on the handler’s notification form",
+					"description": "Indicates if the site information was modified from what was on the handler’s notification form. Shall not be provided for Save and update services",
 					"type": "boolean"
 				}
 			},
@@ -760,7 +777,7 @@
 			"additionalProperties": false
 		},
 		"ElectronicSignature": {
-			"description": "Contains Generator or TSDF or Transporter Signer Info, Date of Signature and Signed document metadata",
+			"description": "Contains Generator or TSDF or Transporter Signer Info, Date of Signature and Signed document metadata. Shall not be provided for Save and Update services",
 			"type": "object",
 			"properties": {
 				"signer": {
@@ -912,7 +929,7 @@
 			"additionalProperties": false
 		},
 		"Signer": {
-			"description": "Contains Signer Information",
+			"description": "Contains TSDF Signer Information",
 			"type": "object",
 			"properties": {
 				"firstName": {
@@ -936,7 +953,7 @@
 			"type": "object",
 			"properties": {
 				"name": {
-					"description": "file name of PDF",
+					"description": "file name ",
 					"type": "string",
 					"pattern": "^[0-9a-zA-Z_\\-. ]+$"
 				},
@@ -945,6 +962,7 @@
 					"type": "number"
 				},
 				"mimeType": {
+					"description": "file mime type",
 					"type": "string",
 					"enum": [
 						"APPLICATION_PDF",
@@ -955,7 +973,7 @@
 			"additionalProperties": false
 		},
 		"CodeDescription": {
-			"description": "Object for handling codes and their descriptions.  This object will have a parent object that will describe the code.  ",
+			"description": "Object for handling codes and their descriptions.  This object will have a parent object that will describe the code.  For specific codes please use the e-Manifest look up services",
 			"type": "object",
 			"properties": {
 				"code": {
