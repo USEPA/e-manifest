@@ -24,7 +24,7 @@ public class ClientRunner {
 			b.parse(args);
 			if (b.getParsedCommand() == null)
 				throw new IllegalArgumentException();
-			((BaseCommand)b.getCommands().get(b.getParsedCommand()).getObjects().get(0)).run();
+			((BaseCommand)b.getCommands().get(b.getParsedCommand()).getObjects().get(0)).run();			
 		} catch (Throwable e) {
 			logger.error(e.getMessage());			
 			b.usage();

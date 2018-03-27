@@ -1,5 +1,7 @@
 package gov.epa.rcra.web.rest.api.client.cli.commands;
 
+import javax.ws.rs.core.NewCookie;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.beust.jcommander.Parameter;
@@ -54,6 +56,12 @@ public class AuthenticateCommand extends BaseCommand {
 		} else {
 			throw new IllegalArgumentException("api id, key and url required");
 		}
+	}
+	
+	private NewCookie c;
+	
+	public NewCookie getCookie() {
+		return c;
 	}
 	
 }

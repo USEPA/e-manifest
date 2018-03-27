@@ -14,7 +14,7 @@ import gov.epa.rcra.web.rest.api.client.manifest.ManifestServiceClient;
 public class ManifestCommand extends BaseCommand{
 	
 	@Parameter(names = { "--operation"}, description = "Specific Manifest Operation, possible values: 'get', "
-			+ "'manifest-tracking-numbers', 'site-ids', 'get-with-attachments, 'save'", required=true)	
+			+ "'manifest-tracking-numbers', 'site-ids', 'get-with-attachments, 'save','search'", required=true)	
 	protected String operation;
 	
 	
@@ -33,7 +33,7 @@ public class ManifestCommand extends BaseCommand{
 	@Parameter(names = { "--output-dir"}, description = "Directory where to save the attachments")			
 	protected String outputDir;
 
-	@Parameter(names = { "--json-path"}, description = "Path to emanifest JSON to be saved via save operation")			
+	@Parameter(names = { "--json-path"}, description = "Path to emanifest JSON to be saved via save operation or search criteria json used for search")			
 	protected String jsonPath;
 
 	@Parameter(names = { "--attachment-path"}, description = "Path to attachment to be save with emanifest JSON via save operation")			
@@ -88,6 +88,23 @@ public class ManifestCommand extends BaseCommand{
 		this.outputDir = outputDir;
 	}
 
+	
+	public String getJsonPath() {
+		return jsonPath;
+	}
+
+	public void setJsonPath(String jsonPath) {
+		this.jsonPath = jsonPath;
+	}
+
+	public String getAttachmentPath() {
+		return attachmentPath;
+	}
+
+	public void setAttachmentPath(String attachmentPath) {
+		this.attachmentPath = attachmentPath;
+	}
+
 	public void run() {
 		if (StringUtils.isNotBlank(operation)) {
 			Properties props = AuthInfoLoader.load();					
@@ -125,6 +142,13 @@ public class ManifestCommand extends BaseCommand{
 					maClient.executeSave("manifest/save",jsonPath,"--attachment-path".equals(attachmentPath)?null:attachmentPath);
 				}else {
 					throw new IllegalArgumentException("Path to emanifest JSON is required");
+				}
+			}			
+			else if ("search".equals(operation)) {
+				if (StringUtils.isNotBlank(jsonPath)) {
+					maClient.executeSearch("search",jsonPath);
+				}else {
+					throw new IllegalArgumentException("Path to search criteria JSON is required");
 				}
 			}			
 			else {

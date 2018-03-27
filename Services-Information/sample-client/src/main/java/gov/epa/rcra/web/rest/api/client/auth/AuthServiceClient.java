@@ -47,7 +47,6 @@ public class AuthServiceClient extends BaseServicesClient {
 					.accept(MediaType.APPLICATION_JSON_TYPE);
 			Response response = invocationBuilder.get();
 			handleAuthResponse(genericType, response);
-				
 		} catch (Throwable e) {
 			logger.error("Error during authentication",e);
 		}

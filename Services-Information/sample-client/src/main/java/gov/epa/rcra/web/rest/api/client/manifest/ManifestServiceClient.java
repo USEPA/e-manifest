@@ -3,14 +3,15 @@ package gov.epa.rcra.web.rest.api.client.manifest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -23,14 +24,13 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.media.multipart.BodyPart;
-import org.glassfish.jersey.media.multipart.FormDataBodyPart;
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.MultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.media.multipart.MultiPartMediaTypes;
 import org.glassfish.jersey.media.multipart.file.FileDataBodyPart;
 import org.glassfish.jersey.uri.UriComponent;
+
 
 import gov.epa.rcra.web.rest.api.client.BaseServicesClient;
 
@@ -101,7 +101,6 @@ public class ManifestServiceClient extends BaseServicesClient {
 					.request(MediaType.MULTIPART_FORM_DATA)
 					.accept(MediaType.APPLICATION_JSON);
 			invocationBuilder.header("Authorization", "Bearer " + token);
-			
 			MultiPart multipartEntity = null;
 			if (attachmentPath != null) {
 		        FileDataBodyPart fileDataBodyPart = new FileDataBodyPart("attachment",
@@ -121,4 +120,26 @@ public class ManifestServiceClient extends BaseServicesClient {
 			logger.error("Error while executing save",e);
 		}		
 	}
+	
+	public void executeSearch(String servicePath, String jsonPath) {
+		try {
+			String criteria = FileUtils.readFileToString(new File(jsonPath));
+			client = ClientBuilder.newClient(new ClientConfig()
+					.register(LoggingFilter.class)).
+					 register(JacksonFeature.class);
+			
+			WebTarget webTarget = client.target(restBase).path(UriComponent.encode(servicePath,UriComponent.Type.PATH));
+			GenericType<List> genericType = new GenericType<List>(){};	
+			Invocation.Builder invocationBuilder = webTarget
+					.request(MediaType.TEXT_PLAIN)
+					.accept(MediaType.APPLICATION_JSON);
+			invocationBuilder.header("Authorization", "Bearer " + token);
+			List response = invocationBuilder.post(
+		            Entity.text(criteria),genericType);
+			logger.info(response);
+		} catch (Throwable e) {
+			logger.error("Error while executing search",e);
+		}		
+	}
+	
 }
