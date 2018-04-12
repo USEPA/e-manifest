@@ -134,7 +134,7 @@
         "comments": [],
         "handlingInstructions": "This manifest is for testing purposes and does not match reality"
       },
-      "lineNumber": 1,
+      "lineNumber": 2,
       "br": false,
       "managementMethod": {
         "code": "H141",
