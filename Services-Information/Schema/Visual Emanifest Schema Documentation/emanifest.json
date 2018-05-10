@@ -1,6 +1,7 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"description": "Schema for emanifest submit and response. v1.2",
+	"version": "1.2",
 	"$ref": "#/definitions/Emanifest",
 	"definitions": {
 		"Emanifest": {
@@ -152,15 +153,15 @@
 					"additionalProperties": false
 				},
 				"discrepancy": {
-					"description": "Discrepancy indicator. Will be set to true if at least one Waste contains a discrepancy",
+					"description": "Discrepancy indicator. Will be set to true if at least one Waste contains a discrepancy. Shall not be provided for Save and Update Manifest Services. Will be returned by Get Manifest service",
 					"type": "boolean"
 				},
 				"residue": {
-					"description": "Residue indicator. Will be set to true if at least one Waste contains a residue",
+					"description": "Residue indicator. Will be set to true if at least one Waste contains a residue. Shall not be provided for Save and Update Manifest Services. Will be returned by Get Manifest service",
 					"type": "boolean"
 				},
 				"residueNewManifestTrackingNumbers": {
-					"description": "If the Manifest.residue is true the entity contains the list of Manifest Tracking Numbers of the Manifests created for shipment to another facilities ",
+					"description": "If the Manifest.residue is true the entity contains the list of Manifest Tracking Numbers of the Manifests created for shipment to another facilities. Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3} ",
 					"type": "array",
 					"items": {
 						"type": "string"
@@ -170,8 +171,8 @@
 					"description": "Import indicator.",
 					"type": "boolean"
 				},
-				"ImportInfo": {
-					"description": "Contains Import relatated information",
+				"importInfo": {
+					"description": "Contains Import related information",
 					"type": "object",
 					"properties": {
 						"importGenerator": {
@@ -204,19 +205,8 @@
 							},
 							"additionalProperties": false
 						},
-						"importPortInfo": {
-							"description": "City and State of Port of entry",
-							"type": "object",
-							"properties": {
-								"city": {
-									"description": "max length 25",
-									"type": "string"
-								},
-								"state": {
-									"$ref": "#/definitions/Locality"
-								}
-							},
-							"additionalProperties": false
+						"portOfEntry": {
+							"$ref": "#/definitions/PortOfEntry"
 						}
 					},
 					"additionalProperties": false
@@ -236,8 +226,7 @@
 				}
 			},
 			"required": [
-				"rejection",
-				"import"
+				"rejection"
 			],
 			"additionalProperties": false
 		},
@@ -261,7 +250,7 @@
 			"additionalProperties": false
 		},
 		"ManifestTrackingNumber": {
-			"description": "Will be returned by Get Manifest. Shall not be provided for aFullElectronic or Hybrid Manifest using the Save service.  Required for a DataImage5Copy and Image Only manifest. Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
+			"description": "Will be returned by Get Manifest. Shall not be provided for a FullElectronic or Hybrid using the Save Manifest Service.  Required for a DataImage5Copy and Image Only manifest. Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
 			"type": "string"
 		},
 		"ProperShippingName": {
@@ -287,45 +276,16 @@
 			"description": "Object containing all DOT information",
 			"type": "object",
 			"properties": {
-				"properShippingName": {
-					"$ref": "#/definitions/ProperShippingName"
-				},
-				"psnComment": {
-					"description": "Proper Shipping Name comment. max lengs: 255",
-					"type": "string"
-				},
-				"rqIndicator": {
-					"description": "Specifies if rqDescription is required",
-					"type": "boolean"
-				},
-				"rqDescription": {
-					"description": "Max length: 105 characters",
-					"type": "string"
-				},
-				"technicalName": {
-					"description": "Max length: 75 characters",
-					"type": "string"
-				},
 				"idNumber": {
-					"$ref": "#/definitions/Code"
-				},
-				"packingGroup": {
-					"$ref": "#/definitions/Code"
-				},
-				"hazardClass": {
 					"$ref": "#/definitions/Code"
 				},
 				"printedDotInformation": {
 					"description": "Contains Proper Shipping Name, RQ Description, Technical Name, ID Number, Hazard Class, Packing Group and any user edits",
 					"type": "string",
 					"maxLength": 500
-				},
-				"emergencyGuideNumber": {
-					"$ref": "#/definitions/Code"
 				}
 			},
 			"required": [
-				"properShippingName",
 				"idNumber",
 				"printedDotInformation"
 			],
@@ -448,14 +408,14 @@
 			"type": "object",
 			"properties": {
 				"dotHazardous": {
-					"description": "Specifies that the substance is hazardous by DOT definition. This indicator does not specify if the substance is a waste If dotHazardous is true then dotInformation is required. If dotHazardous is false then wasteDescription is required",
+					"description": "Specifies that the substance is hazardous by DOT definition. This indicator does not specify if the substance is a waste. If dotHazardous is true then dotInformation is required. If dotHazardous is false then wasteDescription is required",
 					"type": "boolean"
 				},
 				"dotInformation": {
 					"$ref": "#/definitions/DotInformation"
 				},
 				"wasteDescription": {
-					"description": "Max length: 500 charachters, only required if dotHazardous is false",
+					"description": "Only required if dotHazardous is false. Max length: 500 charachters",
 					"type": "string"
 				},
 				"quantity": {
@@ -475,35 +435,11 @@
 					"description": "Specifies if the waste contains PCB",
 					"type": "boolean"
 				},
-				"pcbInfo": {
-					"description": "Object containing PCB information",
-					"type": "object",
-					"properties": {
-						"loadType": {
-							"$ref": "#/definitions/Code"
-						},
-						"articleContainerId": {
-							"description": "Max Length: 255",
-							"type": "string"
-						},
-						"dateOfRemoval": {
-							"type": "string",
-							"format": "date-time"
-						},
-						"weight": {
-							"description": "UOM are Killograms. Decimal number containing no more than 11 whole digit(s) and 6 decimal digit(s) ",
-							"type": "number"
-						},
-						"wasteType": {
-							"description": "Max Length: 255",
-							"type": "string"
-						},
-						"bulkIdentity": {
-							"description": "Max Length: 255",
-							"type": "string"
-						}
-					},
-					"additionalProperties": false
+				"pcbInfos": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/PcbInfo"
+					}
 				},
 				"discrepancyResidueInfo": {
 					"description": "Object containing the discrepancy and residue information for the waste line",
@@ -542,7 +478,7 @@
 					"$ref": "#/definitions/AdditionalInfo"
 				},
 				"lineNumber": {
-					"description": "The Wate line number. Integer number starting at 1",
+					"description": "The Waste line number. Integer number starting at 1",
 					"type": "number"
 				},
 				"epaWaste": {
@@ -555,6 +491,36 @@
 				"pcb",
 				"lineNumber"
 			],
+			"additionalProperties": false
+		},
+		"PcbInfo": {
+			"description": "Object containing PCB information",
+			"type": "object",
+			"properties": {
+				"loadType": {
+					"$ref": "#/definitions/Code"
+				},
+				"articleContainerId": {
+					"description": "Max Length: 255",
+					"type": "string"
+				},
+				"dateOfRemoval": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"weight": {
+					"description": "UOM are Killograms. Decimal number containing no more than 11 whole digit(s) and 6 decimal digit(s) ",
+					"type": "number"
+				},
+				"wasteType": {
+					"description": "Max Length: 255",
+					"type": "string"
+				},
+				"bulkIdentity": {
+					"description": "Max Length: 255",
+					"type": "string"
+				}
+			},
 			"additionalProperties": false
 		},
 		"BrInfo": {
@@ -605,10 +571,10 @@
 				},
 				"quantity": {
 					"description": "Waste line quantity",
-					"type": "number",
+					"type": "integer",
 					"minimum": 0,
 					"exclusiveMinimum": true,
-					"maximum": 99999999999.999999
+					"maximum": 99999999999
 				},
 				"unitOfMeasurement": {
 					"$ref": "#/definitions/QuantityUnitsOfMeasurement"
@@ -675,7 +641,7 @@
 			"type": "object",
 			"properties": {
 				"originalManifestTrackingNumbers": {
-					"description": "Used only for the Manifest additionalInfo if Eanifest.containsPreviousRejectOrResidue== true  Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
+					"description": "Used only for the Manifest.additionalInfo if Eanifest.containsPreviousRejectOrResidue== true  Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
 					"type": "array",
 					"items": {
 						"type": "string"
@@ -751,18 +717,18 @@
 					"type": "number"
 				},
 				"registered": {
-					"description": "Indicates if the site is registered in RCRAInfo. Used for Transporters and Generators only. Shall not be provided for Save and update services",
+					"description": "Indicates if the site is registered in RCRAInfo. Used for Transporters and Generators only. Shall not be provided for Save and update services.  Will be returned by Get Manifest Service",
 					"type": "boolean"
 				},
 				"modified": {
-					"description": "Indicates if the site information was modified from what was on the handler’s notification form. Shall not be provided for Save and update services",
+					"description": "Indicates if the site information was modified from what was on the handler’s notification form. Shall not be provided for Save and update services.  Will be returned by Get Manifest Service",
 					"type": "boolean"
 				}
 			},
 			"additionalProperties": false
 		},
 		"PaperSignature": {
-			"description": "Contains  printed name of the Generator or TSDF or Transporter Signee and Date of Signature",
+			"description": "Contains  printed name of the Generator or TSDF or Transporter Signee and Date of Signature. ",
 			"type": "object",
 			"properties": {
 				"printedName": {
@@ -777,7 +743,7 @@
 			"additionalProperties": false
 		},
 		"ElectronicSignature": {
-			"description": "Contains Generator or TSDF or Transporter Signer Info, Date of Signature and Signed document metadata. Shall not be provided for Save and Update services",
+			"description": "Contains Generator or TSDF or Transporter Signer Info, Date of Signature and Signed document metadata. Shall not be provided for Save and Update services. Will be returned by Get Manifest Service if the participant (Generator, Transporter, TSDF) Electronicaly signed the manifest",
 			"type": "object",
 			"properties": {
 				"signer": {
@@ -800,7 +766,7 @@
 			"additionalProperties": false
 		},
 		"SiteType": {
-			"description": "How a site interacts with this manifest",
+			"description": "Specifies How a site interacts with this manifest",
 			"type": "string",
 			"enum": [
 				"Tsdf",
@@ -944,6 +910,20 @@
 				},
 				"userId": {
 					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+		"PortOfEntry": {
+			"description": "Contains Port of entry State code and City or City name plus Port or Airport name separated by comma.",
+			"type": "object",
+			"properties": {
+				"state": {
+					"$ref": "#/definitions/Locality"
+				},
+				"cityPort": {
+					"type": "string",
+					"maxLength": 100
 				}
 			},
 			"additionalProperties": false
