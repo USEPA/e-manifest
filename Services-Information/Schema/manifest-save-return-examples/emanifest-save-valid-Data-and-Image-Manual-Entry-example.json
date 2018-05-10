@@ -16,12 +16,12 @@
       "address1": "456 T ST",
       "city": "Boston",
       "state": {
-        "code": "MA",
-        "name": "MASSACHUSETTS"
+        "code": "TX",
+        "name": "TEXAS"
       },
-      "zip": "02111"
+      "zip": "75570"
     },
-    "epaSiteId": "MV1234567890",
+    "epaSiteId": "CESQG",
     "name": "Manual Entry Generator",
     "paperSignatureInfo": {
 				"printedName": "Gen 1 Name",
@@ -113,6 +113,7 @@
     {
       "dotHazardous": false,
       "wasteDescription": "PCB Wastes",
+      "epaWaste": false,
       "quantity": {
         "containerNumber": 10,
         "containerType": {
@@ -128,31 +129,43 @@
       "hazardousWaste": {
         "federalWasteCodes": [],
         "tsdfStateWasteCodes": [],
-        "generatorStateWasteCodes": []
+        "generatorStateWasteCodes": [],
+        "generatorTxWasteCodes": ["87654321"]
       },
       "additionalInfo": {
         "comments": [],
-        "handlingInstructions": "This manifest is for testing purposes and does not match reality"
+        "handlingInstructions": "This manifest is for testing purposes and does not match reality",
+        "consentNumber": "123456I12345"
       },
-      "lineNumber": 2,
+      "lineNumber": 1,
       "br": false,
       "managementMethod": {
         "code": "H141",
         "description": "STORAGE, BULKING AND/OR TRANSFER OFF SITE"
       },
       "pcb": true,
-      "pcbInfo": {
+      "pcbInfos": [{
         "loadType": {
           "code": "Container"
         },
         "articleContainerId": "123-321-12345",
         "dateOfRemoval": "2018-04-12T04:00:00.000+0000",
-        "weight": 1815,
-        "wasteType": "Testing Purposes"
+        "weight": 1800,
+        "wasteType": "Testing Purposes 1"
       },
+      {
+        "loadType": {
+          "code": "Container"
+        },
+        "articleContainerId": "987-321-12345",
+        "dateOfRemoval": "2018-04-14T04:00:00.000+0000",
+        "weight": 15,
+        "wasteType": "Testing Purposes 2"
+      }],
       "discrepancyResidueInfo": {
         "wasteQuantity": false,
-        "wasteType": false,
+        "wasteType": true,
+        "discrepancyComments": "This is for testing purposes Type discrepancy.",
         "residue": false
       }
     }
@@ -163,5 +176,24 @@
   "discrepancy": false,  
   "rejection": false,
   "residue": false,
-  "import": false
+  "import": true,
+  "importInfo": {
+	"importGenerator": {
+		"name": "Importer",
+		"address": "12 address",
+		"city": "CityImp",
+		"country": {
+			"code": "CA"
+		},
+		"postalCode": "E4H 4S9",
+		"province": "NB"
+		},
+	"portOfEntry": {
+		"cityPort": "New York",
+		"state": {
+			"code": "NY"
+			}
+		}
+	},
+  "containsPreviousRejectOrResidue": false
 }
