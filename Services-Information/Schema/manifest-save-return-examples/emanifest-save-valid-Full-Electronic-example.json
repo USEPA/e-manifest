@@ -62,19 +62,7 @@
 				"idNumber": {
 					"code": "NA1993"
 				},
-				"hazardClass": {
-					"code": "3"
-				},
-				"properShippingName": {
-					"code": "Diesel fuel"
-				},
-				"packingGroup": {
-					"code": "III"
-				},
-				"printedDotInformation": "NA1993, Waste Diesel fuel, 3, III",
-				"emergencyGuideNumber": {
-					"code": "128"
-				}
+				"printedDotInformation": "NA1993, Waste Diesel fuel, 3, III"
 			},
 			"quantity": {
 				"containerNumber": 12,
@@ -159,7 +147,7 @@
 				"description": "INCINERATION"
 			},
 			"pcb": true,
-			"pcbInfo": {
+			"pcbInfos":[ {
 				"loadType": {
 					"code": "BulkWaste"
 				},
@@ -167,6 +155,14 @@
 				"weight": 432,
 				"bulkIdentity": "Bulk Waste ID"
 			},
+			{
+				"loadType": {
+					"code": "BulkWaste"
+				},
+				"dateOfRemoval": "2018-04-18T04:00:00.000+0000",
+				"weight": 432,
+				"bulkIdentity": "Bulk Waste ID2"
+			}],
 			"discrepancyResidueInfo": {
 				"wasteQuantity": false,
 				"wasteType": false,

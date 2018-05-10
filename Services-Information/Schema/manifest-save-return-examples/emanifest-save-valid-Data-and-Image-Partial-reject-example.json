@@ -1,0 +1,128 @@
+{
+  "manifestTrackingNumber": "CHANGE ME",
+  "status": "ReadyForSignature",
+  "discrepancy": false,
+  "submissionType": "DataImage5Copy",
+  "generator": {
+    "epaSiteId": "VATEST000004",
+    "registered": true,
+    "paperSignatureInfo": {
+      "printedName": "Tester Generator",
+      "signatureDate": "2018-05-09T04:00:00.000+0000"
+    },
+    "contact": {
+      "phone": {
+        "number": "484-848-6888"
+      }
+    },
+    "emergencyPhone": {
+      "number": "468-448-6464"
+    }
+  },
+  "transporters": [
+    {
+      "epaSiteId": "VATEST000002",
+      "registered": true,
+      "paperSignatureInfo": {
+        "printedName": "Tester Transporter",
+        "signatureDate": "2018-05-09T04:00:00.000+0000"
+      },
+      "contact": {
+        "phone": {
+          "number": "703-904-8300"
+        }
+      },
+      "order": 1
+    }
+  ],
+  "designatedFacility": {
+    "epaSiteId": "VAD000532119",
+    "registered": true,
+    "paperSignatureInfo": {
+      "printedName": "Testing Designated",
+      "signatureDate": "2018-05-09T04:00:00.000+0000"
+    },
+    "contact": {
+      "phone": {
+        "number": "888-858-8585",
+        "extension": "214"
+      }
+    }
+  },
+  "wastes": [
+    {
+      "dotHazardous": true,
+      "dotInformation": {
+        "idNumber": {
+          "code": "UN3354"
+        },
+        "printedDotInformation": "UN3354, Waste Insecticide gases, flammable, n.o.s., 2.1, PSN"
+      },
+      "quantity": {
+        "containerNumber": 20,
+        "containerType": {
+          "code": "BA",
+          "description": "Burlap, cloth, paper, or plastic bags"
+        },
+        "quantity": 22,
+        "unitOfMeasurement": {
+          "code": "G",
+          "description": "Gallons"
+        }
+      },
+      "hazardousWaste": {
+        "federalWasteCodes": [
+          {
+            "code": "D003",
+            "description": "REACTIVE WASTE"
+          }
+        ],
+        "tsdfStateWasteCodes": [],
+        "generatorStateWasteCodes": [],
+        "tsdfTxWasteCodes": [],
+        "generatorTxWasteCodes": []
+      },
+      "additionalInfo": {
+        "originalManifestTrackingNumbers": [],
+        "comments": []
+      },
+      "lineNumber": 1,
+      "br": false,
+      "managementMethod": {
+        "code": "H070",
+        "description": "CHEMICAL TREATMENT"
+      },
+      "pcb": false,
+      "pcbInfos": [],
+      "discrepancyResidueInfo": {
+        "wasteQuantity": false,
+        "wasteType": false,
+        "residue": false
+      },
+      "epaWaste": true
+    }
+  ],
+  "additionalInfo": {
+    "originalManifestTrackingNumbers": [],
+    "comments": []
+  },
+  "printedDocument": {
+    "name": "687654321FLE-print.pdf",
+    "size": 7647486,
+    "mimeType": "APPLICATION_PDF"
+  },
+  "rejection": true,
+  "residue": false,
+  "import": false,
+  "containsPreviousRejectOrResidue": false,
+  "residueNewManifestTrackingNumbers": [],
+  "rejectionInfo": {
+    "transporterOnSite": false,
+    "rejectionType": "PartialReject",
+    "newManifestTrackingNumbers": [
+      "123456789JJK",
+      "234567890JJK"
+    ],
+    "rejectionComments": "Testing Rejection Comments"
+  }
+}

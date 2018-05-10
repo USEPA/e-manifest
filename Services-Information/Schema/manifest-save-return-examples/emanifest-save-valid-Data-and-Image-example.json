@@ -1,10 +1,8 @@
 {
-	"manifestTrackingNumber": "CHANGE ME",
+	"manifestTrackingNumber": "400000005JJK",
 	"status": "ReadyForSignature",
 	"discrepancy": false,
 	"submissionType": "DataImage5Copy",
-	"shippedDate": "2018-03-14T04:00:00.000+0000",
-	"receivedDate": "2018-03-17T04:00:00.000+0000",
 	"generator": {
 		"mailingAddress": {
 			"address1": "2777 S CRYSTAL DRIVE",
@@ -191,19 +189,7 @@
 				"idNumber": {
 					"code": "UN3432"
 				},
-				"hazardClass": {
-					"code": "9"
-				},
-				"properShippingName": {
-					"code": "Polychlorinated biphenyls, solid"
-				},
-				"packingGroup": {
-					"code": "II"
-				},
-				"printedDotInformation": "UN3432, Waste Polychlorinated biphenyls, solid, 9, II",
-				"emergencyGuideNumber": {
-					"code": "171"
-				}
+				"printedDotInformation": "UN3432, Waste Polychlorinated biphenyls, solid, 9, II"
 			},
 			"quantity": {
 				"containerNumber": 123,
@@ -240,14 +226,14 @@
 				"description": "METALS RECOVERY"
 			},
 			"pcb": true,
-			"pcbInfo": {
+			"pcbInfos": [{
 				"loadType": {
 					"code": "BulkWaste"
 				},
 				"dateOfRemoval": "2018-03-17T04:00:00.000+0000",
 				"weight": 456,
 				"bulkIdentity": "Soil"
-			},
+			}],
 			"epaWaste":true,
 			"discrepancyResidueInfo": {
 				"wasteQuantity": true,
@@ -346,19 +332,7 @@
 				"idNumber": {
 					"code": "NA1993"
 				},
-				"hazardClass": {
-					"code": "3"
-				},
-				"properShippingName": {
-					"code": "Diesel fuel"
-				},
-				"packingGroup": {
-					"code": "III"
-				},
-				"printedDotInformation": "NA1993, Waste Diesel fuel, 3, III",
-				"emergencyGuideNumber": {
-					"code": "128"
-				}
+				"printedDotInformation": "NA1993, Waste Diesel fuel, 3, III"
 			},
 			"quantity": {
 				"containerNumber": 1,
@@ -413,20 +387,7 @@
 				"idNumber": {
 					"code": "UN3210"
 				},
-				"hazardClass": {
-					"code": "5.1"
-				},
-				"properShippingName": {
-					"code": "Chlorates, inorganic, aqueous solution, n.o.s",
-					"technicalNameIndicator": true
-				},
-				"packingGroup": {
-					"code": "II"
-				},
-				"printedDotInformation": "UN3210, Waste Chlorates, inorganic, aqueous solution, n.o.s, 5.1, II",
-				"emergencyGuideNumber": {
-					"code": "140"
-				}
+				"printedDotInformation": "UN3210, Waste Chlorates, inorganic, aqueous solution, n.o.s, 5.1, II"
 			},
 			"quantity": {
 				"containerNumber": 12,
@@ -493,7 +454,7 @@
 			{
 				"label": "Truck #",
 				"description": "323 VED",
-				"handlerId": "VAD000532119"
+				"handlerId": "VAR000503920"
 			}
 		],
 		"handlingInstructions": "This manifest is for demonstrating the JSON.  No real mainfests were used and some of these scenarios are completely invalid."
@@ -505,5 +466,6 @@
 	},
 	"rejection": false,
 	"residue": false,
-	"import": false
+	"import": false,
+	"containsPreviousRejectOrResidue": false
 }
