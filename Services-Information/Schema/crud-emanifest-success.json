@@ -1,0 +1,122 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"description": "Schema for the save (create), update, delete manifest succesful response",
+	"$ref": "#/definitions/ManifestSuccessReturn",
+	"definitions": {
+		"ManifestSuccessReturn":{
+			"type": "object",
+			"properties": {
+				"manifestTrackingNumber": {
+				"type": "string",
+				"pattern": "[0-9]{9}[A-Z]{3}"
+				},
+				"status": {
+					"description": "Contains status of operation",
+					"type": "string",
+					"enum": [
+						"Saved",
+						"Updated",
+						"Deleted"
+					]
+				},
+				"date": {
+					"description": "Date/time of the operation for auditing and tracking purposes",
+					"type": "string",
+					"format": "date-time"
+				},
+				"warningsReport": {
+					"description": "Warning Report can be returned only for Save and Update services",
+					"$ref": "#/definitions/WarningsReport"
+				}
+			},
+			"additionalProperties": false
+		},
+		"Validation": {
+			"type": "object",
+			"properties": {
+				"message": {
+					"description": "error description",
+					"type": "string",
+					"minLength": 0,
+					"maxLength": 255
+				},
+				"field": {
+					"description": "field name",
+					"type": "string"
+				},
+				"value": {
+					"description": "field value",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"additionalProperties": false
+		},
+		"EntityId":{
+			"type": "object",
+			"description": "Entity Id fields for Waste - entityIdField is lineNumber, entityIdValue is lineNumber value; for Generator/Transporter/TSDF entityIdField is siteId, entityIdValue is siteId value",
+			"properties": {
+				"entityIdField": {
+					"type": "string"
+				},
+				"entityIdValue": {
+					"type": "string"
+				}
+			}
+		},
+		"EntityReport": {
+			"type": "object",
+			"properties": {
+				"entityId": {
+					"$ref": "#/definitions/EntityId"
+				},
+				"warnings": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Validation"
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"WarningsReport": {
+			"type": "object",
+			"properties": {
+				"reportId": {
+					"description": "report id is used to search report in auding database",
+					"type": "string"
+				},
+				"date": {
+					"type": "string",
+					"format": "date-time"
+				},
+
+				"manifestWarnings": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Validation"
+					}
+				},
+				"generatorReport": {
+					"$ref": "#/definitions/EntityReport"
+				},
+				"tsdfReport": {
+					"$ref": "#/definitions/EntityReport"
+				},
+				"transportersReports": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/EntityReport"
+					}
+				},
+				"wastesReports": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/EntityReport"
+					}
+				}
+			},
+			"additionalProperties": false
+		}
+	}
+}
