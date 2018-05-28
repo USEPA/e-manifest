@@ -78,9 +78,7 @@
           }
         ],
         "tsdfStateWasteCodes": [],
-        "generatorStateWasteCodes": [],
-        "tsdfTxWasteCodes": [],
-        "generatorTxWasteCodes": []
+        "generatorStateWasteCodes": []
       },
       "additionalInfo": {
         "originalManifestTrackingNumbers": [],

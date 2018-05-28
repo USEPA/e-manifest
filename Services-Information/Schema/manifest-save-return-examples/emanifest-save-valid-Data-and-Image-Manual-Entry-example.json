@@ -1,5 +1,5 @@
 {
-  "manifestTrackingNumber": "000000004JJK",
+  "manifestTrackingNumber": "CHANGE ME",
   "status": "ReadyForSignature",
   "submissionType": "DataImage5Copy",
   "generator": {
@@ -21,7 +21,7 @@
       },
       "zip": "75570"
     },
-    "epaSiteId": "CESQG",
+    "epaSiteId": "40 CFR PART 761",
     "name": "Manual Entry Generator",
     "paperSignatureInfo": {
 				"printedName": "Gen 1 Name",
@@ -130,7 +130,7 @@
         "federalWasteCodes": [],
         "tsdfStateWasteCodes": [],
         "generatorStateWasteCodes": [],
-        "generatorTxWasteCodes": ["87654321"]
+		"txWasteCodes": ["32112345"]
       },
       "additionalInfo": {
         "comments": [],

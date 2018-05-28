@@ -72,9 +72,7 @@
             "code": "BCRUSH",
             "description": "Bulb or Lamp Crusher"
           }
-        ],
-        "tsdfTxWasteCodes": [],
-        "generatorTxWasteCodes": []
+        ]
       },
       "additionalInfo": {
         "originalManifestTrackingNumbers": [],
