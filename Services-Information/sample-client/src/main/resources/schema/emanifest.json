@@ -22,7 +22,7 @@
 					"$ref": "#/definitions/ManifestTrackingNumber"
 				},
 				"status": {
-					"description": " Will be returned by Get Manifest. Status shall not be provided for Save Manifest Service. ",
+					"description": " Will be returned by Get Manifest. Status shall not be provided for Save and Update Manifest Service for Image and DataImage5Copy. ",
 					"type": "string",
 					"enum": [
 						"NotSelected",
@@ -39,11 +39,9 @@
 					"type": "boolean"
 				},
 				"submissionType": {
-					"description": "Only FullElectronic and DataImage5Copy submission types are supported for the current Release",
 					"type": "string",
 					"enum": [
 						"FullElectronic",
-						"DataImage1Copy",
 						"DataImage5Copy",
 						"Hybrid",
 						"Image"
@@ -106,7 +104,7 @@
 					"type": "boolean"
 				},
 				"rejectionInfo": {
-					"description": "If manifest is rejected the entitiy shall cotntain rejection information",
+					"description": "If manifest is rejected the entitiy shall contain rejection information",
 					"type": "object",
 					"properties": {
 						"transporterOnSite": {
@@ -212,7 +210,7 @@
 					"additionalProperties": false
 				},
 				"containsPreviousRejectOrResidue": {
-					"description": "If the manifest is created for shiping the waste to another TSDF or back to the Generator for rejection or residure reasons then containsPreviousRejectOrResidue=true otherwise it is false",
+					"description": "If the new manifest is created for shiping the waste to another TSDF or back to the Generator for rejection or residure reasons then containsPreviousRejectOrResidue=true otherwise it is false",
 					"type": "boolean"
 				},
 				"printedDocument": {
@@ -436,6 +434,7 @@
 					"type": "boolean"
 				},
 				"pcbInfos": {
+					"description": "Contains list of PCB info",
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/PcbInfo"
@@ -488,8 +487,10 @@
 			},
 			"required": [
 				"dotHazardous",
+				"br",
 				"pcb",
-				"lineNumber"
+				"lineNumber",
+				"epaWaste"
 			],
 			"additionalProperties": false
 		},
@@ -547,9 +548,6 @@
 					"$ref": "#/definitions/CodeDescription"
 				}
 			},
-			"required": [
-				"wasteMinimizationCode"
-			],
 			"dependencies": {
 				"density": [
 					"densityUnitOfMeasurement"
@@ -605,8 +603,8 @@
 						"$ref": "#/definitions/CodeDescription"
 					}
 				},
-				"tsdfTxWasteCodes": {
-					"description": "Entity containing Waste Codes if TSDF is located in TX",
+				"txWasteCodes": {
+					"description": "Entity containing Waste Codes if Generator or/and TSDF is located in TX",
 					"type": "array",
 					"items": {
 						"type": "string",
@@ -620,18 +618,6 @@
 					"items": {
 						"$ref": "#/definitions/CodeDescription"
 					}
-				},
-				"generatorTxWasteCodes": {
-					"description": "Entity containing Waste Codes if Generator is loccated in TX",
-					"type": "array",
-					"items": {
-						"type": "string",
-						"minLength": 8,
-						"maxLength": 8
-					}
-				},
-				"managementMethod": {
-					"$ref": "#/definitions/CodeDescription"
 				}
 			},
 			"additionalProperties": false
@@ -646,6 +632,14 @@
 					"items": {
 						"type": "string"
 					}
+				},
+				"newManifestDestination": {
+					"description": "Used only for the Manifest.additionalInfo if Eanifest.containsPreviousRejectOrResidue== true. Specifies destination of the new manifest created \"as result\" of the rejection or residue of the original manifest.",
+					"type": "string",
+					"enum": [
+						"OriginalGenerator",
+						"Tsdf"
+					]
 				},
 				"consentNumber": {
 					"description": "Used only for the Waste.additionalInfo in case of Import. Expected format 12 digits.  6 digits \"I\" and then 5 digits. Pattern  ([0-9]{6}I[0-9]{5}) ",
@@ -780,9 +774,8 @@
 			"maxLength": 80
 		},
 		"EpaSiteId": {
-			"description": "The handler ID for each site on the manifest",
-			"type": "string",
-			"pattern": "^([A-Z][A-Z][A-Za-z0-9]{2,10})$"
+			"description": "The handler ID for each site on the manifest. For TSDF and registered Generators and Transporters must follow following format: Two Letter Activity Location Code + Up to 10. alphanumeric characters",
+			"type": "string"
 		},
 		"Phone": {
 			"description": "Object for Phone numbers",
@@ -895,7 +888,7 @@
 			"additionalProperties": false
 		},
 		"Signer": {
-			"description": "Contains TSDF Signer Information",
+			"description": "Contains TSDF Signer Information. Shall not be provided for Save and Update Manifest.",
 			"type": "object",
 			"properties": {
 				"firstName": {
