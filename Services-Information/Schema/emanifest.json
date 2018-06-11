@@ -560,9 +560,10 @@
 			"type": "object",
 			"properties": {
 				"containerNumber": {
-					"description": "Number of containers thsi waste line occupies",
-					"type": "number",
-					"maximum": 999
+					"description": "Number of containers this waste line occupies",
+					"type": "integer",
+					"minimum": 0,
+					"maximum": 9999
 				},
 				"containerType": {
 					"$ref": "#/definitions/ContainerType"
@@ -571,7 +572,6 @@
 					"description": "Waste line quantity",
 					"type": "integer",
 					"minimum": 0,
-					"exclusiveMinimum": true,
 					"maximum": 99999999999
 				},
 				"unitOfMeasurement": {

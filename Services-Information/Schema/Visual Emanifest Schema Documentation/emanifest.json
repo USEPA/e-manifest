@@ -562,7 +562,7 @@
 				"containerNumber": {
 					"description": "Number of containers thsi waste line occupies",
 					"type": "number",
-					"maximum": 999
+					"maximum": 9999
 				},
 				"containerType": {
 					"$ref": "#/definitions/ContainerType"
