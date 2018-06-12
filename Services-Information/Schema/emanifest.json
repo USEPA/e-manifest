@@ -251,25 +251,6 @@
 			"description": "Will be returned by Get Manifest. Shall not be provided for a FullElectronic or Hybrid using the Save Manifest Service.  Required for a DataImage5Copy and Image Only manifest. Expected format: 9 digits followed by suffix containing 3 upper case letters. Use printed-tracking-number-suffixes service to obtain the list of valide suffixes.  Regex expression validation: [0-9]{9}[A-Z]{3}",
 			"type": "string"
 		},
-		"ProperShippingName": {
-			"description": "ProperShippingName",
-			"type": "string",
-			"maxLength": 255
-		},
-		"IdNumber": {
-			"description": "UN or NA ID number ",
-			"type": "string",
-			"minLength": 6,
-			"maxLength": 6,
-			"pattern": "^(UN|NA)[0-9]{4}"
-		},
-		"PackingGroup": {
-			"description": "Packing Group",
-			"type": "string",
-			"minLength": 1,
-			"maxLength": 3,
-			"pattern": "^I{1,3}$"
-		},
 		"DotInformation": {
 			"description": "Object containing all DOT information",
 			"type": "object",
