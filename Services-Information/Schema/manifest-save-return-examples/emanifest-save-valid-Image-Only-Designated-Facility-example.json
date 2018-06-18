@@ -1,0 +1,15 @@
+{
+  "manifestTrackingNumber": "CHANGE ME",
+  "originType": "Service",
+  "submissionType": "Image",
+  "status": "ReadyForSignature",
+  "designatedFacility": {
+    "epaSiteId": "VATEST000003"
+  },
+  "printedDocument": {
+	"name": "manifest.pdf", 
+	"size": 81904,
+	"mimeType": "APPLICATION_PDF"
+},
+"rejection": false
+}
