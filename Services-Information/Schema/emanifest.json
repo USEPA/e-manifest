@@ -223,9 +223,6 @@
 					"$ref": "#/definitions/AdditionalInfo"
 				}
 			},
-			"required": [
-				"rejection"
-			],
 			"additionalProperties": false
 		},
 		"Warning": {
