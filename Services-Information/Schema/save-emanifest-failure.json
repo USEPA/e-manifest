@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"description": "Schema for the save manifest error response",
+	"description": "Schema for the save and update manifest error response",
 	"$ref": "#/definitions/ManifestReport",
 	"definitions": {
 		"Validation": {
@@ -24,9 +24,9 @@
 			},
 			"additionalProperties": false
 		},
-		"EntityId":{
-			"type": "object",
+		"EntityId": {
 			"description": "Entity Id fields for Waste - entityIdField is lineNumber, entityIdValue is lineNumber value; for Generator/Transporter/TSDF entityIdField is siteId, entityIdValue is siteId value",
+			"type": "object",
 			"properties": {
 				"entityIdField": {
 					"type": "string"
@@ -68,13 +68,13 @@
 					"type": "string",
 					"format": "date-time"
 				},
-				"manifestErrors": {
+				"errors": {
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/Validation"
 					}
 				},
-				"manifestWarnings": {
+				"warnings": {
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/Validation"
