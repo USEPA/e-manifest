@@ -1,0 +1,49 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"description": "Schema for the UiLink input parameters",
+	"$ref": "#/definitions/UiLink",
+	"definitions": {
+		"UiLink": {
+			"description": "Input parameters for the UI link service.",
+			"type": "object",
+			"properties": {
+				"page": {
+					"description": "Page in the e-Manifest module to send the user to. Required parameter.",
+					"type": "string",
+					"enum": [
+						"DashBoard",
+						"BulkSign",
+						"View",
+						"Edit",
+						"Sign"
+					]
+				},
+				"epaSiteId": {
+					"description": "EPA Site Id to view the manifest as. The user of the link must have access to this site id. Required parameter.",
+					"type": "string",
+					"pattern": "^([A-Z][A-Z][A-Za-z0-9]{2,10})$"
+				},
+				"manifestTrackingNumber": {
+					"description": "Manifest Tracking Number. Required for pages that involve a single manifest such as View, Edit, Sign.",
+					"$ref": "#/definitions/ManifestTrackingNumber"
+				},
+				"filter": {
+					"description": "Optional Manifest Tracking Numbers. Used for filter out manifests for DashBoard and BulkSign",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ManifestTrackingNumber"
+					}
+				}
+			},
+			"required": [
+				"page",
+				"epaSiteId"
+			],
+			"additionalProperties": false
+		},
+		"ManifestTrackingNumber": {
+			"type": "string",
+			"pattern": "^[0-9]{9}[A-Z]{3}$"
+		}
+	}
+}
