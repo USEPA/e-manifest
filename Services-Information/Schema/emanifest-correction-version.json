@@ -1,0 +1,39 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"description": "Schema for the input parameters to the Get Manifest Correction Version service ",
+	"$ref": "#/definitions/CorrectionVersion",
+	"definitions": {
+		"CorrectionVersion": {
+			"description": "Schema for the input parameters to the Get Manifest Correction Version service ",
+			"type": "object",
+			"properties": {
+				"manifestTrackingNumber": {
+					"type": "string",
+					"pattern": "^[0-9]{9}[A-Z]{3}$"
+				},
+				"status": {
+					"description": "Specifies the Status of the version which shall be returned",
+					"type": "string",
+					"enum": [
+						"Signed",
+						"UnderCorrection",
+						"Corrected"
+					]
+				},
+				"versionNumber": {
+					"description": "Speciifes Version number of the version which shall be returned",
+					"type": "integer",
+					"minimum": 1
+				},
+				"attachments": {
+					"description": "Specifies if attachements shall be returned",
+					"type": "boolean"
+				}
+			},
+			"required": [
+				"manifestTrackingNumber"
+			],
+			"additionalProperties": false
+		}
+	}
+}
