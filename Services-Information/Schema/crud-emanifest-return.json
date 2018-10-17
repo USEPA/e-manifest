@@ -64,9 +64,9 @@
 					"description": "report id is used to search report in auding database",
 					"type": "string"
 				},
-			"manifestTrackingNumber": {
-				"type": "string",
-				"pattern": "[0-9]{9}[A-Z]{3}"
+				"manifestTrackingNumber": {
+					"type": "string",
+					"pattern": "[0-9]{9}[A-Z]{3}"
 				},
 				"operationStatus": {
 					"description": "Contains status of operation",
@@ -76,14 +76,15 @@
 						"Updated",
 						"Deleted",
 						"CorrectionCreated",
-						"CorrectionUpdated",						
-						"Reverted"
+						"CorrectionUpdated",
+						"Reverted",
+						"Failed"
 					]
 				},
-				"currentVersionNumber":{
+				"currentVersionNumber": {
 					"description": "Contains maifest current version number. Will be returned for UnderCorrection and Reverted",
 					"type": "integer"
-				},				
+				},
 				"date": {
 					"type": "string",
 					"format": "date-time"
