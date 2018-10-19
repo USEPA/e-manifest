@@ -19,11 +19,13 @@
 					"description": "Manifest Status",
 					"type": "string",
 					"enum": [
+						"Pending",
 						"Scheduled",
 						"InTransit",
-						"Received",
 						"ReadyForSignature",
-						"Signed"
+						"Signed",
+						"UnderCorrection",
+						"Corrected"
 					]
 				},
 				"siteType": {
