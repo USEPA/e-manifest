@@ -225,6 +225,18 @@
 				},
 				"correctionInfo": {
 					"$ref": "#/definitions/CorrectionInfo"
+				},
+				"ppcStatus": {
+					"description": "Contains PPC processing status for Mail and DataImage5Copy manifests. Shall not be provided for Save and Update services. Will be returned by Get Manifest service",
+					"type": "string",
+					"enum": [
+						"Draft",
+						"PendingDataEntry",
+						"DataEntryInProgress",
+						"PendingDataQc",
+						"PendingDataQa",
+						"DataQaCompleted"
+					]
 				}
 			},
 			"additionalProperties": false
@@ -983,7 +995,11 @@
 					"type": "integer"
 				},
 				"active": {
-					"description": "Indicates if the Manifest version is active or outdated. Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest.",
+					"description": "Indicates if the Manifest version is active or outdatedfor the industry. Will be returned by Correction Details, Correction Version, Get Manifest. Shall not be provided for Save and Update Manifest.",
+					"type": "boolean"
+				},
+				"ppcActive": {
+					"description": "Indicates if the Manifest version is active or outdatedfor the PPC. Will be returned by Correction Details, Correction Version, Get Manifest. Shall not be provided for Save and Update Manifest.",
 					"type": "boolean"
 				},
 				"electronicSignatureInfo": {

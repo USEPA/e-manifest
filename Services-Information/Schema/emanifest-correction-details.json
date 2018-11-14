@@ -36,14 +36,18 @@
 					"type": "integer"
 				},
 				"active": {
-					"description": "Indicates if the Manifest version is active or outdated. ",
+					"description": "Indicates if the Manifest version is active or outdated for the industry. ",
+					"type": "boolean"
+				},
+				"ppcActive": {
+					"description": "Indicates if the Manifest version is active or outdated for the PPC. ",
 					"type": "boolean"
 				},
 				"electronicSignature": {
 					"$ref": "#/definitions/ElectronicSignature"
 				},
 				"epaSiteId": {
-					"description": "Contains the site id associated with the user which signed the correction version.",					
+					"description": "Contains the site id associated with the user which signed the correction version.",
 					"type": "string"
 				},
 				"createdDate": {
@@ -83,7 +87,6 @@
 			},
 			"additionalProperties": false
 		},
-	
 		"ElectronicSignature": {
 			"description": "Contains Generator or TSDF or Transporter Signer Info, Date of Signature and Signed document metadata. Shall not be provided for Save and Update services. Will be returned by Get Manifest Service if the participant (Generator, Transporter, TSDF) Electronicaly signed the manifest",
 			"type": "object",
