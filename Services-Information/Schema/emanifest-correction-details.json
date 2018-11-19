@@ -39,10 +39,6 @@
 					"description": "Indicates if the Manifest version is active or outdated for the industry. ",
 					"type": "boolean"
 				},
-				"ppcActive": {
-					"description": "Indicates if the Manifest version is active or outdated for the PPC. ",
-					"type": "boolean"
-				},
 				"electronicSignature": {
 					"$ref": "#/definitions/ElectronicSignature"
 				},
