@@ -20,6 +20,14 @@
 						"Corrected"
 					]
 				},
+				"ppcStatus": {
+					"description": "Specifies ppcStatus of the version which shall be returned.",
+					"type": "string",
+					"enum": [
+						"DataQaCompleted",
+						"PendingDataEntry"
+					]
+				},
 				"versionNumber": {
 					"description": "Speciifes Version number of the version which shall be returned",
 					"type": "integer",
