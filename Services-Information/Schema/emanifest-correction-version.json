@@ -32,10 +32,6 @@
 					"description": "Speciifes Version number of the version which shall be returned",
 					"type": "integer",
 					"minimum": 1
-				},
-				"attachments": {
-					"description": "Specifies if attachements shall be returned",
-					"type": "boolean"
 				}
 			},
 			"required": [
