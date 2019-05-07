@@ -1,0 +1,471 @@
+{
+	"manifestTrackingNumber": "CHANGE ME",
+	"status": "ReadyForSignature",
+	"discrepancy": false,
+	"submissionType": "DataImage5Copy",
+	"generator": {
+		"mailingAddress": {
+			"address1": "2777 S CRYSTAL DRIVE",
+			"city": "ARLINGTON",
+			"state": {
+				"code": "VA",
+				"name": "VIRGINIA"
+			},
+			"zip": "22202"
+		},
+		"siteAddress": {
+			"address1": "2777 S CRYSTAL DRIVE",
+			"city": "ARLINGTON",
+			"state": {
+				"code": "VA",
+				"name": "VIRGINIA"
+			},
+			"zip": "22202"
+		},
+		"epaSiteId": "VATEST000004",
+		"name": "TEST GENERATOR OF VA",
+		"registered": true,
+		"paperSignatureInfo": {
+			"printedName": "Generator Name",
+			"signatureDate": "2018-03-13T04:00:00.000+0000"
+		},
+		"contact": {
+			"phone": {
+				"number": "703-308-0023"
+			},
+			"email": "EMANIFEST@EPA.GOV"
+		},
+		"emergencyPhone": {
+			"number": "888-867-2485"
+		}
+	},
+	"transporters": [
+		{
+			"mailingAddress": {
+				"address1": "2777 S CRYSTAL DRIVE",
+				"city": "ARLINGTON",
+				"state": {
+					"code": "VA",
+					"name": "VIRGINIA"
+				},
+				"zip": "22202"
+			},
+			"siteAddress": {
+				"address1": "2777 S CRYSTAL DRIVE",
+				"city": "ARLINGTON",
+				"state": {
+					"code": "VA",
+					"name": "VIRGINIA"
+				},
+				"zip": "22202"
+			},
+			"epaSiteId": "VATEST000002",
+			"name": "TEST TRANSPORTER 2 OF VA",
+			"registered": true,
+			"paperSignatureInfo": {
+				"printedName": "Tran 1 Name",
+				"signatureDate": "2018-03-14T04:00:00.000+0000"
+			},
+			"contact": {
+				"phone": {
+					"number": "703-308-0023"
+				},
+				"email": "EMANIFEST@EPA.GOV"
+			},
+			"order": 1
+		},
+		{
+			"mailingAddress": {
+				"address1": "2777 SOUTH CRYSTAL DRIVE",
+				"city": "ARLINGTON",
+				"state": {
+					"code": "VA",
+					"name": "VIRGINIA"
+				},
+				"zip": "22202"
+			},
+			"siteAddress": {
+				"address1": "2777 SOUTH CRYSTAL DRIVE",
+				"city": "ARLINGTON",
+				"state": {
+					"code": "VA",
+					"name": "VIRGINIA"
+				},
+				"zip": "22202"
+			},
+			"epaSiteId": "VATEST000001",
+			"name": "TEST TRANSPORTER 1 OF VA",
+			"registered": true,
+			"paperSignatureInfo": {
+				"printedName": "Tran 2 name",
+				"signatureDate": "2018-03-15T04:00:00.000+0000"
+			},
+			"contact": {
+				"phone": {
+					"number": "703-308-0023"
+				}
+			},
+			"order": 2
+		},
+		{
+			"mailingAddress": {
+				"address1": "2777 S CRYSTAL DRIVE",
+				"city": "ARLINGTON",
+				"state": {
+					"code": "VA",
+					"name": "VIRGINIA"
+				},
+				"zip": "22202"
+			},
+			"siteAddress": {
+				"address1": "2777 S CRYSTAL DRIVE",
+				"city": "ARLINGTON",
+				"state": {
+					"code": "VA",
+					"name": "VIRGINIA"
+				},
+				"zip": "22202"
+			},
+			"epaSiteId": "VATEST000002",
+			"name": "TEST TRANSPORTER 2 OF VA",
+			"registered": true,
+			"paperSignatureInfo": {
+				"printedName": "Tran 3 Name",
+				"signatureDate": "2018-03-16T04:00:00.000+0000"
+			},
+			"contact": {
+				"phone": {
+					"number": "703-308-0023"
+				},
+				"email": "EMANIFEST@EPA.GOV"
+			},
+			"order": 3
+		}
+	],
+	"designatedFacility": {
+		"mailingAddress": {
+			"address1": "123 MAIN ST",
+			"city": "ARLINGTON",
+			"state": {
+				"code": "VA",
+				"name": "VIRGINIA"
+			},
+			"zip": "22202"
+		},
+		"siteAddress": {
+			"address1": "123 MAIN ST",
+			"city": "ARLINGTON",
+			"state": {
+				"code": "VA",
+				"name": "VIRGINIA"
+			},
+			"zip": "22202"
+		},
+		"epaSiteId": "VAD000532119",
+		"name": "TEST TSDF OF VA",
+		"registered": true,
+		"paperSignatureInfo": {
+			"printedName": "Designated Fac Name",
+			"signatureDate": "2018-03-17T04:00:00.000+0000"
+		},
+		"contact": {
+			"phone": {
+				"number": "703-308-0023"
+			},
+			"email": "EMANIFEST@EPA.GOV"
+		},
+		"electronicSignatureInfo": {
+			"humanReadableDocument": {
+				"name": "human-readable.html",
+				"size": 184440,
+				"mimeType": "TEXT_HTML"
+			}
+		}
+	},
+	"wastes": [
+		{
+			"dotHazardous": true,
+			"dotInformation": {
+				"idNumber": {
+					"code": "UN3432"
+				},
+				"printedDotInformation": "UN3432, Waste Polychlorinated biphenyls, solid, 9, II"
+			},
+			"quantity": {
+				"containerNumber": 123,
+				"containerType": {
+					"code": "CF",
+					"description": "Fiber or plastic boxes, cartons, cases"
+				},
+				"quantity": 456,
+				"unitOfMeasurement": {
+					"code": "K",
+					"description": "Kilograms"
+				}
+			},
+			"hazardousWaste": {
+				"federalWasteCodes": [
+					{
+						"code": "D001",
+						"description": "IGNITABLE WASTE"
+					}
+				],
+				"tsdfStateWasteCodes": [
+				],
+				"generatorStateWasteCodes": [
+				]
+			},
+			"additionalInfo": {
+				"comments": [
+				]
+			},
+			"lineNumber": 1,
+			"br": false,
+			"managementMethod": {
+				"code": "H010",
+				"description": "METALS RECOVERY"
+			},
+			"pcb": true,
+			"pcbInfos": [{
+				"loadType": {
+					"code": "BulkWaste"
+				},
+				"dateOfRemoval": "2018-03-17T04:00:00.000+0000",
+				"weight": 456,
+				"bulkIdentity": "Soil"
+			}],
+			"epaWaste":true,
+			"discrepancyResidueInfo": {
+				"wasteQuantity": true,
+				"wasteType": false,
+				"residue": false,
+				"discrepancyComments": "6500 KG"
+			}
+		},
+		{
+			"dotHazardous": false,
+			"epaWaste": false,
+			"wasteDescription": "PCB contaminated caulk",
+			"quantity": {
+				"containerNumber": 32,
+				"containerType": {
+					"code": "BA",
+					"description": "Burlap, cloth, paper, or plastic bags"
+				},
+				"quantity": 55,
+				"unitOfMeasurement": {
+					"code": "K",
+					"description": "Kilograms"
+				}
+			},
+			"hazardousWaste": {
+				"federalWasteCodes": [
+				],
+				"tsdfStateWasteCodes": [
+				],
+				"generatorStateWasteCodes": [
+				]
+			},
+			"additionalInfo": {
+				"comments": [
+				]
+			},
+			"discrepancyResidueInfo": {
+				"wasteQuantity": true,
+				"wasteType": false,
+				"residue": false,
+				"discrepancyComments": "6500 KG"
+			},
+			"lineNumber": 2,
+			"br": false,
+			"managementMethod": {
+				"code": "H040",
+				"description": "INCINERATION"
+			},
+			"pcb": false
+		},
+		{
+			"dotHazardous": false,
+			"epaWaste": false, 
+			"wasteDescription": "Misc. Office Trash",
+			"quantity": {
+				"containerNumber": 43,
+				"containerType": {
+					"code": "CF",
+					"description": "Fiber or plastic boxes, cartons, cases"
+				},
+				"quantity": 345,
+				"unitOfMeasurement": {
+					"code": "P",
+					"description": "Pounds"
+				}
+			},
+			"hazardousWaste": {
+				"federalWasteCodes": [
+				],
+				"tsdfStateWasteCodes": [
+				],
+				"generatorStateWasteCodes": [
+				]
+			},
+			"additionalInfo": {
+				"comments": [
+				]
+			},
+			"discrepancyResidueInfo": {
+				"wasteQuantity": false,
+				"wasteType": false,
+				"residue": false
+			},
+			"lineNumber": 4,
+			"br": false,
+			"managementMethod": {
+				"code": "H132",
+				"description": "LANDFILL (WITH PRIOR TREATMENT AND/OR STABILIZATION)"
+			},
+			"pcb": false
+		},
+		{
+			"dotHazardous": true,
+			"epaWaste": true,
+			"dotInformation": {
+				"idNumber": {
+					"code": "NA1993"
+				},
+				"printedDotInformation": "NA1993, Waste Diesel fuel, 3, III"
+			},
+			"quantity": {
+				"containerNumber": 1,
+				"containerType": {
+					"code": "DM",
+					"description": "Metal drums, barrels, kegs"
+				},
+				"quantity": 55,
+				"unitOfMeasurement": {
+					"code": "G",
+					"description": "Gallons"
+				}
+			},
+			"hazardousWaste": {
+				"federalWasteCodes": [
+					{
+						"code": "D001",
+						"description": "IGNITABLE WASTE"
+					}
+				],
+				"tsdfStateWasteCodes": [
+				],
+				"generatorStateWasteCodes": [
+				]
+			},
+			"additionalInfo": {
+				"comments": [
+					{
+						"label": "Container Size",
+						"description": "DM55",
+						"handlerId": "VAD000532119"
+					}
+				]
+			},
+			"discrepancyResidueInfo": {
+				"wasteQuantity": false,
+				"wasteType": false,
+				"residue": false
+			},
+			"lineNumber": 5,
+			"br": false,
+			"managementMethod": {
+				"code": "H039",
+				"description": "OTHER RECOVERY OR RECLAMATION FOR REUSE"
+			},
+			"pcb": false
+		},
+		{
+			"dotHazardous": true,
+			"epaWaste":true,
+			"dotInformation": {
+				"idNumber": {
+					"code": "UN3210"
+				},
+				"printedDotInformation": "UN3210, Waste Chlorates, inorganic, aqueous solution, n.o.s, 5.1, II"
+			},
+			"quantity": {
+				"containerNumber": 12,
+				"containerType": {
+					"code": "CM",
+					"description": "Metal boxes, cartons, cases (including roll offs)"
+				},
+				"quantity": 43,
+				"unitOfMeasurement": {
+					"code": "G",
+					"description": "Gallons"
+				}
+			},
+			"hazardousWaste": {
+				"federalWasteCodes": [
+					{
+						"code": "D003",
+						"description": "REACTIVE WASTE"
+					}
+				],
+				"tsdfStateWasteCodes": [
+				],
+				"generatorStateWasteCodes": [
+				]
+			},
+			"additionalInfo": {
+				"comments": [
+				]
+			},
+			"discrepancyResidueInfo": {
+				"wasteQuantity": false,
+				"wasteType": false,
+				"residue": false
+			},
+			"lineNumber": 6,
+			"br": true,
+			"brInfo": {
+				"densityUnitOfMeasurement": {
+					"code": "1",
+					"description": "lbs/gal"
+				},
+				"formCode": {
+					"code": "W103",
+					"description": "SPENT CONCENTRATED ACID"
+				},
+				"sourceCode": {
+					"code": "G05",
+					"description": "METAL FORMING AND TREATMENT"
+				},
+				"wasteMinimizationCode":{
+						"code": "A"
+				},
+				"density": 123
+			},
+			"managementMethod": {
+				"code": "H039",
+				"description": "OTHER RECOVERY OR RECLAMATION FOR REUSE"
+			},
+			"pcb": false
+		}
+	],
+	"additionalInfo": {
+		"comments": [
+			{
+				"label": "Truck #",
+				"description": "323 VED",
+				"handlerId": "VAR000503920"
+			}
+		],
+		"handlingInstructions": "This manifest is for demonstrating the JSON.  No real mainfests were used and some of these scenarios are completely invalid."
+	},
+	"printedDocument": {
+		"name": "687654321FLE-print.pdf",
+		"size": 7265262,
+		"mimeType": "APPLICATION_PDF"
+	},
+	"rejection": false,
+	"residue": false,
+	"import": false,
+	"containsPreviousRejectOrResidue": false
+}

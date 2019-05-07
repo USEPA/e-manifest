@@ -1,134 +1,31 @@
 {
-	"reportId": "012345",
-	"date": "2017-07-27T19:13:28.628+0000",
-	"manifestErrors": [
-		{
-			"message": "Invalid Field Format. DataImage1Copy is expected",
-			"field": "Emanifest.submissionType",
-			"value": "DataImage"
-		},
-		{
-			"message": "Mandatory Field is not provided",
-			"field": "Emanifest.designatedFacility"
-		},
-		{
-			"message": "No Transporters specified. At least one Transporter is required for Scheduled Status",
-			"field": "Emanifest.transporter"
-		}		
-	],
-	"manifestWarnings": [
-		{
-			"message": "Invalid Field Format. Text value not exceeding 255 characters is expected",
-			"field": "Emanifest.additionalInfo.comments.label",
-			"value": "too many characters"
-		}
-	],
-	"generatorReport": {
-		"entityId": {
-			"entityIdField": "siteId",
-			"entityIdValue": "MDD003473337"
-		},
-		"errors": [
-			{
-				"message": "Mandatory Field is not provided",
-				"field": "Emanifest.generator.name"
-			},
-			{
-				"message": "Lookup Value Not Found",
-				"field": "Emanifest.generator.siteAddress.state.code",
-				"value": "NA"
-			},
-			{
-				"message": "Mandatory Field is not provided",
-				"field": "Emanifest.generator.mailingAddress"
-			}
-		],
-		"warnings": [
-			{
-				"message": "Invalid Format",
-				"field": "Emanifest.generator.emergencyPhone.extension",
-				"value": "N789"
-			}
-		]
-	},
-	"tsdfReport": {
-		"entityId": {
-			"entityIdField": "siteId",
-			"entityIdValue": "N/A"
-		},
-		"errors": [
-			{
-				"message": "Mandatory Field is not provided",
-				"field": "Emanifest.designatedFacility.siteId"
-			},
-			{
-				"message": "Invalid Format",
-				"field": "Emanifest.designatedFacility.siteAddress.zip",
-				"value": "X345"
-			},
-			{
-				"message": "Mandatory Field is not provided",
-				"field": "Emanifest.designatedFacility.emergencyPhone.number"
-			}
-		],
-		"warnings": [
-			{
-				"message": "Invalid Format",
-				"field": "Emanifest.designatedFacility.siteAddress.address2",
-				"value": ";^"
-			}
-		]
-	},
-	"wastesReports": [
-		{
-			"entityId": {
-				"entityIdField": "lineNumber",
-				"entityIdValue": "1"
-			},
-			"errors": [
-					{
-					"message": "Lookup Value Not Found",
-					"field": "Emanifest.wastes.dotInformation.idNumber",
-					"value": "UN4345"
-				},
-				{
-					"message": "Mandatory Field is not provided",
-					"field": "Emanifest.wastes.quantity.quantity"
-				},
-				{
-					"message": "Invalid Field Format.Integer number not exceeding 999 is expected",
-					"field": "Emanifest.wastes.quantity.containerNumber",
-					"value": "n"
-				}
-			],
-			"warnings": [
-				{
-					"message": "Invalid Field Format.",
-					"field": "Emanifest.wastes.additionalInfo.handlerId",
-					"value": "FG056"
-				}
-			]
-		},
-		{
-			"entityId": {
-				"entityIdField": "lineNumber",
-				"entityIdValue": "2"
-			},	
-			"errors": [
-				{
-					"message": "Waste Description is not provided. Waste Description must be provided if hazardous is false",
-					"field": "Emanifest.wastes.wasteDescription"
-				},
-				{
-					"message": "Density is not provided. Density must be provided if quantity UOM is Gallons, Liters or Cubic meters",
-					"field": "Emanifest.wastes.br.density"
-				},
-				{
-					"message": "Lookup Value Not Found",
-					"field": "Emanifest.wastes.managementMethod.code",
-					"value": "X25"
-				}
-			]
-		}
-	]
+  "reportId": "abc123456",
+  "date": "2018-10-17T18:12:14.573+0000",
+  "operationStatus": "Failed",
+  "errors": [
+    {
+      "message": "Object instance has properties which are not allowed by the schema: [\"hazardous\"]",
+      "field": "Emanifest.wastes.0"
+    },
+    {
+      "message": "Object has missing required properties ([\"dotHazardous\",\"epaWaste\",\"pcb\"])",
+      "field": "Emanifest.wastes.0"
+    },
+    {
+      "message": "Instance type (object) does not match any allowed primitive type (allowed: [\"boolean\"])",
+      "field": "Emanifest.wastes.0.br"
+    },
+    {
+      "message": "Instance type (boolean) does not match any allowed primitive type (allowed: [\"object\"])",
+      "field": "Emanifest.wastes.0.brInfo"
+    },
+    {
+      "message": "Object instance has properties which are not allowed by the schema: [\"emergencyGuideNumber\",\"hazardClass\",\"packingGroup\",\"properShippingName\",\"rqDescription\",\"technicalName\"]",
+      "field": "Emanifest.wastes.0.dotInformation"
+    },
+    {
+      "message": "Instance type (number) does not match any allowed primitive type (allowed: [\"integer\"])",
+      "field": "Emanifest.wastes.0.quantity.quantity"
+    }
+  ]
 }

@@ -1,0 +1,199 @@
+{
+  "manifestTrackingNumber": "CHANGE ME",
+  "status": "ReadyForSignature",
+  "submissionType": "DataImage5Copy",
+  "generator": {
+    "mailingAddress": {
+      "address1": "321 S ST",
+      "city": "Torrington",
+      "state": {
+        "code": "CT",
+        "name": "CONNECTICUT"
+      },
+      "zip": "06792"
+    },
+    "siteAddress": {
+      "address1": "456 T ST",
+      "city": "Boston",
+      "state": {
+        "code": "TX",
+        "name": "TEXAS"
+      },
+      "zip": "75570"
+    },
+    "epaSiteId": "40 CFR PART 761",
+    "name": "Manual Entry Generator",
+    "paperSignatureInfo": {
+				"printedName": "Gen 1 Name",
+				"signatureDate": "2018-03-14T04:00:00.000+0000"
+			},
+
+    "registered": false,
+    "contact": {
+      "phone": {
+        "number": "403-300-2302"
+      },
+      "email": "HisName@HisCo.com"
+    },
+    "emergencyPhone": {
+      "number": "787-222-2302"
+    }
+  },
+  "transporters": [
+	{
+			"mailingAddress": {
+				"address1": "2777 S CRYSTAL DRIVE",
+				"city": "ARLINGTON",
+				"state": {
+					"code": "VA",
+					"name": "VIRGINIA"
+				},
+				"zip": "22202"
+			},
+			"siteAddress": {
+				"address1": "2777 S CRYSTAL DRIVE",
+				"city": "ARLINGTON",
+				"state": {
+					"code": "VA",
+					"name": "VIRGINIA"
+				},
+				"zip": "22202"
+			},
+			"epaSiteId": "VATEST000002",
+			"name": "TEST TRANSPORTER 2 OF VA",
+			"registered": true,
+			"paperSignatureInfo": {
+				"printedName": "Tran 1 Name",
+				"signatureDate": "2018-03-14T04:00:00.000+0000"
+			},
+			"contact": {
+				"phone": {
+					"number": "703-308-0023"
+				},
+				"email": "EMANIFEST@EPA.GOV"
+			},
+			"order": 1
+		}
+  ],
+  "designatedFacility": {
+    "mailingAddress": {
+      "address1": "123 MAIN ST",
+      "city": "ARLINGTON",
+      "state": {
+        "code": "VA",
+        "name": "VIRGINIA"
+      },
+      "zip": "22202"
+    },
+    "siteAddress": {
+      "address1": "123 MAIN ST",
+      "city": "ARLINGTON",
+      "state": {
+        "code": "VA",
+        "name": "VIRGINIA"
+      },
+      "zip": "22202"
+    },
+    "epaSiteId": "VAD000532119",
+    "name": "TEST TSDF OF VA",
+    "paperSignatureInfo": {
+				"printedName": "Des 1 Name",
+				"signatureDate": "2018-03-14T04:00:00.000+0000"
+			},
+
+    "registered": true,
+    "contact": {
+      "phone": {
+        "number": "703-308-0023"
+      },
+      "email": "EMANIFEST@EPA.GOV"
+    }
+  },
+  "wastes": [
+    {
+      "dotHazardous": false,
+      "wasteDescription": "PCB Wastes",
+      "epaWaste": false,
+      "quantity": {
+        "containerNumber": 10,
+        "containerType": {
+          "code": "DM",
+          "description": "Metal drums, barrels, kegs"
+        },
+        "quantity": 1815,
+        "unitOfMeasurement": {
+          "code": "K",
+          "description": "Kilograms"
+        }
+      },
+      "hazardousWaste": {
+        "federalWasteCodes": [],
+        "tsdfStateWasteCodes": [],
+        "generatorStateWasteCodes": [],
+		"txWasteCodes": ["32112345"]
+      },
+      "additionalInfo": {
+        "comments": [],
+        "handlingInstructions": "This manifest is for testing purposes and does not match reality",
+        "consentNumber": "123456I12345"
+      },
+      "lineNumber": 1,
+      "br": false,
+      "managementMethod": {
+        "code": "H141",
+        "description": "STORAGE, BULKING AND/OR TRANSFER OFF SITE"
+      },
+      "pcb": true,
+      "pcbInfos": [{
+        "loadType": {
+          "code": "Container"
+        },
+        "articleContainerId": "123-321-12345",
+        "dateOfRemoval": "2018-04-12T04:00:00.000+0000",
+        "weight": 1800,
+        "wasteType": "Testing Purposes 1"
+      },
+      {
+        "loadType": {
+          "code": "Container"
+        },
+        "articleContainerId": "987-321-12345",
+        "dateOfRemoval": "2018-04-14T04:00:00.000+0000",
+        "weight": 15,
+        "wasteType": "Testing Purposes 2"
+      }],
+      "discrepancyResidueInfo": {
+        "wasteQuantity": false,
+        "wasteType": true,
+        "discrepancyComments": "This is for testing purposes Type discrepancy.",
+        "residue": false
+      }
+    }
+  ],
+  "additionalInfo": {
+    "comments": []
+  },
+  "discrepancy": false,  
+  "rejection": false,
+  "residue": false,
+  "import": true,
+  "importInfo": {
+	"importGenerator": {
+		"name": "Importer",
+		"address": "12 address",
+		"city": "CityImp",
+		"country": {
+			"code": "CA"
+		},
+		"postalCode": "E4H 4S9",
+		"province": "NB"
+		},
+	"portOfEntry": {
+		"cityPort": "New York",
+		"state": {
+			"code": "NY"
+			}
+		}
+	},
+  "containsPreviousRejectOrResidue": false
+}
