@@ -1,0 +1,21 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"description": "Schema for Response by site-exist service",
+	"$ref": "#/definitions/SiteExistReturn",
+	"definitions": {
+		"SiteExistReturn": {
+			"type": "object",
+			"properties": {
+				"epaSiteId": {
+					"description": "Site id provided to the service",
+					"type": "string"
+				},
+				"result": {
+					"description": "true will be returned if the site with provided EPA Site Id is registered in the e-Manifest system, false will be returned if the site with provided EPA Site Id is not registered in the e-Manifest system or invalid",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false
+		}
+	}
+}

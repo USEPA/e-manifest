@@ -1,0 +1,53 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"description": "Schema for Response by mtn-exist service",
+	"$ref": "#/definitions/MtnExistReturn",
+	"definitions": {
+		"MtnExistReturn": {
+			"type": "object",
+			"properties": {
+				"manifestTrackingNumber": {
+					"description": "Manifest Tracking Number provided to the service",
+					"type": "string"
+				},
+				"status": {
+					"description": "Will be returned if manifest with provided Manifest Tracking Number exist",
+					"type": "string",
+					"enum": [
+						"Pending",
+						"Scheduled",
+						"InTransit",
+						"ReadyForSignature",
+						"Signed",
+						"Corrected",
+						"UnderCorrection"
+					]
+				},
+				"submissionType": {
+					"description": "Will be returned if manifest with provided Manifest Tracking Number exist",
+					"type": "string",
+					"enum": [
+						"FullElectronic",
+						"DataImage5Copy",
+						"Hybrid",
+						"Image"
+					]
+				},
+				"originType": {
+					"description": "Will be returned if manifest with provided Manifest Tracking Number exist",
+					"type": "string",
+					"enum": [
+						"Web",
+						"Service",
+						"Mail"
+					]
+				},
+				"result": {
+					"description": "true will be returned if manifest with provided Manifest Tracking Number exist, false will be returned if manifest with provided Manifest Tracking Number does not exist",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false
+		}
+	}
+}
