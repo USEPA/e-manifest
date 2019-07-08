@@ -25,7 +25,7 @@
     "name": "Manual Entry Generator",
     "paperSignatureInfo": {
 				"printedName": "Gen 1 Name",
-				"signatureDate": "2018-03-14T04:00:00.000+0000"
+				"signatureDate": "2019-03-14T04:00:00.000+0000"
 			},
 
     "registered": false,
@@ -64,7 +64,7 @@
 			"registered": true,
 			"paperSignatureInfo": {
 				"printedName": "Tran 1 Name",
-				"signatureDate": "2018-03-14T04:00:00.000+0000"
+				"signatureDate": "2019-03-14T04:00:00.000+0000"
 			},
 			"contact": {
 				"phone": {
@@ -98,7 +98,7 @@
     "name": "TEST TSDF OF VA",
     "paperSignatureInfo": {
 				"printedName": "Des 1 Name",
-				"signatureDate": "2018-03-14T04:00:00.000+0000"
+				"signatureDate": "2019-03-14T04:00:00.000+0000"
 			},
 
     "registered": true,
@@ -149,7 +149,7 @@
           "code": "Container"
         },
         "articleContainerId": "123-321-12345",
-        "dateOfRemoval": "2018-04-12T04:00:00.000+0000",
+        "dateOfRemoval": "2019-04-12T04:00:00.000+0000",
         "weight": 1800,
         "wasteType": "Testing Purposes 1"
       },
@@ -158,7 +158,7 @@
           "code": "Container"
         },
         "articleContainerId": "987-321-12345",
-        "dateOfRemoval": "2018-04-14T04:00:00.000+0000",
+        "dateOfRemoval": "2019-04-14T04:00:00.000+0000",
         "weight": 15,
         "wasteType": "Testing Purposes 2"
       }],
