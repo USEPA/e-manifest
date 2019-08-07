@@ -1,7 +1,7 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"description": "Schema for emanifest submit and response. v1.2",
-	"version": "1.2",
+	"description": "Schema for emanifest submit (save, update, correct). v1.3. Added entities: mtnValidationInfo, broker",
+	"version": "1.3",
 	"$ref": "#/definitions/Emanifest",
 	"definitions": {
 		"Emanifest": {
@@ -66,6 +66,10 @@
 					"type": "string",
 					"format": "date-time"
 				},
+				"potentialShippedDate": {
+					"type": "string",
+					"format": "date-time"
+				},
 				"receivedDate": {
 					"description": "Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest.",
 					"type": "string",
@@ -91,6 +95,9 @@
 					}
 				},
 				"designatedFacility": {
+					"$ref": "#/definitions/ManifestHandlerSite"
+				},
+				"broker": {
 					"$ref": "#/definitions/ManifestHandlerSite"
 				},
 				"wastes": {
@@ -237,6 +244,9 @@
 						"PendingDataQa",
 						"DataQaCompleted"
 					]
+				},
+				"mtnValidationInfo": {
+					"$ref": "#/definitions/MtnValidationInfo"
 				}
 			},
 			"additionalProperties": false
@@ -711,6 +721,10 @@
 				"modified": {
 					"description": "Indicates if the site information was modified from what was on the handler’s notification form. Shall not be provided for Save and update services.  Will be returned by Get Manifest Service",
 					"type": "boolean"
+				},
+				"canEsign": {
+					"description": "Indicates if there is  at least one user associated with the site which can electronicaly sign. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
+					"type": "boolean"
 				}
 			},
 			"additionalProperties": false
@@ -759,7 +773,8 @@
 			"enum": [
 				"Tsdf",
 				"Generator",
-				"Transporter"
+				"Transporter",
+				"Broker"
 			]
 		},
 		"CompanyName": {
@@ -777,13 +792,11 @@
 			"properties": {
 				"number": {
 					"description": "Following format pattern shall be used:  ###-###-####",
-					"type": "string",
-					"minLength": 12,
-					"maxLength": 12
+					"type": "string"
 				},
 				"extension": {
-					"type": "string",
-					"maxLength": 6
+					"description": "max length 6",
+					"type": "string"
 				}
 			},
 			"required": [
@@ -796,28 +809,22 @@
 			"type": "object",
 			"properties": {
 				"firstName": {
-					"type": "string",
-					"minLength": 1,
-					"maxLength": 38
+					"description": "Max length is 38",
+					"type": "string"
 				},
 				"middleInitial": {
-					"type": "string",
-					"minLength": 1,
-					"maxLength": 1
+					"description": " max lengs 1",
+					"type": "string"
 				},
 				"lastName": {
-					"type": "string",
-					"minLength": 1,
-					"maxLength": 38
+					"description": "Max length is 38",
+					"type": "string"
 				},
 				"phone": {
 					"$ref": "#/definitions/Phone"
 				},
 				"email": {
 					"type": "string"
-				},
-				"companyName": {
-					"$ref": "#/definitions/CompanyName"
 				}
 			},
 			"additionalProperties": false
@@ -869,15 +876,13 @@
 					"$ref": "#/definitions/Locality"
 				},
 				"zip": {
-					"type": "string",
-					"pattern": "\\d{5}(?:[-\\s]\\d{4})?"
+					"description": "zip is required only for the US. If in US following pattern is used for the validation: \\d{5}(?:[-\\s]\\d{4})? ",
+					"type": "string"
 				}
 			},
 			"required": [
 				"address1",
-				"city",
-				"state",
-				"zip"
+				"city"
 			],
 			"additionalProperties": false
 		},
@@ -1007,6 +1012,46 @@
 				},
 				"epaSiteId": {
 					"$ref": "#/definitions/EpaSiteId"
+				}
+			},
+			"additionalProperties": false
+		},
+		"MtnValidationInfo": {
+			"description": "Contains Manifest Discrepancy Validation information. Shall not be provided for Save Manifest service.For Update service two fields can be provided (mtnsCorrect, mtnCorrectionReason). Will be returned by Save and Update services as a part of ManifestReport for the manifests with Image and DataImage5Copy submission types",
+			"type": "object",
+			"properties": {
+				"mtnExtractionStatus": {
+					"description": "Indicates the status of the MTN extraction from the pdf attachment form 8700-22. System generated field. Shall not be provided for any services",
+					"type": "string",
+					"enum": [
+						"NotStarted",
+						"Completed",
+						"Failed"
+					]
+				},
+				"mtnsMatch": {
+					"description": "Indicates if the electronic MTN matches MTN extracted from the pdf attachment form 8700-22. System generated field. Shall not be provided for any services",
+					"type": "boolean"
+				},
+				"pdfMtn": {
+					"description": "Contains MTN extracted from the pdf attachment form 8700-22. System generated field. Shall not be provided for any services",
+					"type": "string"
+				},
+				"pdfMtnUnique": {
+					"description": "Indicates if the MTN extracted from the pdf attachment form 8700-22 is unique in the e-Manifest system. System generated field. Shall not be provided for any services",
+					"type": "boolean"
+				},
+				"mtnCorrect": {
+					"description": "User provided field indicating that submitted electronic and pdf mtns are correct",
+					"type": "boolean"
+				},
+				"mtnRerunCounter": {
+					"description": "Indicates how many times MTN validations was performed. System generated field. Shall not be provided for any services",
+					"type": "integer"
+				},
+				"mtnDiscrepancyCorrection": {
+					"description": "User provided field to indicate if PDF change is for MTN discrepancy correction or other reason. 'true' shall be provided if the user changes pdf for MTN discrepancy correction, 'false' shall be provided if the user changes pdf for any other reason ",
+					"type": "boolean"
 				}
 			},
 			"additionalProperties": false
