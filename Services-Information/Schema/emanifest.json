@@ -247,10 +247,6 @@
 				},
 				"mtnValidationInfo": {
 					"$ref": "#/definitions/MtnValidationInfo"
-				},
-				"provideImageGeneratorInfo": {
-					"description": "Indicates if Generator information and Generator printed signature date was provided for the Image submission type manifest. Shall not be provided  for Save Manifest service.  Will be returned by get manifest service as a part of Manifest for the manifests with Image and submission type",
-					"type": "boolean"
 				}
 			},
 			"additionalProperties": false
@@ -725,10 +721,6 @@
 				"modified": {
 					"description": "Indicates if the site information was modified from what was on the handler’s notification form. Shall not be provided for Save and update services.  Will be returned by Get Manifest Service",
 					"type": "boolean"
-				},
-				"canEsign": {
-					"description": "Indicates if there is  at least one user associated with the site which can electronicaly sign. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
-					"type": "boolean"
 				}
 			},
 			"additionalProperties": false
@@ -829,7 +821,11 @@
 				},
 				"email": {
 					"type": "string"
+				},
+				"companyName": {
+					"$ref": "#/definitions/CompanyName"
 				}
+
 			},
 			"additionalProperties": false
 		},
@@ -1021,7 +1017,7 @@
 			"additionalProperties": false
 		},
 		"MtnValidationInfo": {
-			"description": "Contains Manifest Discrepancy Validation information. Shall not be provided for Save Manifest service.For Update service two fields can be provided (mtnsCorrect, mtnCorrectionReason). Will be returned by get manifest service as a part of Manifest for the manifests with Image and DataImage5Copy submission types",
+			"description": "Contains Manifest Discrepancy Validation information. Shall not be provided for Save Manifest service.For Update service two fields can be provided (mtnsCorrect, mtnCorrectionReason). Will be returned by Save and Update services as a part of ManifestReport for the manifests with Image and DataImage5Copy submission types",
 			"type": "object",
 			"properties": {
 				"mtnExtractionStatus": {
