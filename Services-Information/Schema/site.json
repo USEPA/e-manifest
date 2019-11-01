@@ -66,8 +66,15 @@
 				"registered": {
 					"description": "Indicates if the site is registered in RCRAInfo. Used for Transporters and Generators only.",
 					"type": "boolean"
+				},
+				"canEsign": {
+					"description": "Indicates if there is at least one user registered for this site which can sign electronically",
+					"type": "boolean"
 				}
 			},
+			"required": [
+				"canEsign"
+			],
 			"additionalProperties": false
 		},
 		"SiteType": {
@@ -75,7 +82,8 @@
 			"enum": [
 				"Tsdf",
 				"Generator",
-				"Transporter"
+				"Transporter",
+				"Broker"
 			]
 		},
 		"EpaSiteId": {
@@ -209,5 +217,4 @@
 			"additionalProperties": false
 		}
 	}
-
 }
