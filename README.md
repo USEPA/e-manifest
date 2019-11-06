@@ -8,8 +8,6 @@ The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manife
 
 ## What is going on
 
-For the latest in what has been deployed to test/preprod and production please see the [Deployment Calendar](https://calendar.google.com/calendar/embed?src=cbg29nj98u94np3c4pp5vjdph8%40group.calendar.google.com&ctz=America%2FNew_York)
-
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
 
 Services Available
