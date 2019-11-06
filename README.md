@@ -4,16 +4,11 @@
 The overarching purpose of e-Manifest is to establish a national information technology system that will enable the Agency and the hazardous waste program’s industry and state stakeholders to transition the manifest system from one that is paper-intensive and burdensome to a system that is much more efficient, because it will rely on information technology to track hazardous waste shipments
 
 ## Recent Update - Frequently Asked Questions
-The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. These are based on user questions through March 2018.
+The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-In May of 2018 the team updated the Schema and associated files.
 
-In March of 2018 the team updated the Schema and documentation please review the new documents.
-
-In December of 2017 the web services were updated to include the update service.  Documentation will be updated in the coming weeks.  Registered users can visit the [Swagger](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/) page for more information
-
-In November of 2017 the web services released in June were updated and now include the ability for industry testers to send manifests to EPA.
+For the latest in what has been deployed to test/preprod and production please see the [Deployment Calendar](https://calendar.google.com/calendar/embed?src=cbg29nj98u94np3c4pp5vjdph8%40group.calendar.google.com&ctz=America%2FNew_York)
 
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
 
