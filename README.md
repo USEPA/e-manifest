@@ -8,6 +8,14 @@ The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manife
 
 ## What is going on
 
+The next Preproduction is November 13, 2019.
+
+The November 1, 2019 Production release, contained:
+- Updated validation for BR Information fields to make all fields optional
+- Increased e-Manifest search maximum date range from 180 to 185 days
+- Fixed e-Manifest search issue where data was persisting from previous searches
+- Updated system to save EPA IDs in uppercase and cleaned up existing data containing lowercase EPA IDs
+
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
 
 Services Available
