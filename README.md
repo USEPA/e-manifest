@@ -8,7 +8,15 @@ The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manife
 
 ## What is going on
 
-The next Preproduction is November 13, 2019.
+The next Preproduction is November 13, 2019, the following information will be available for testing:
+- Bulk Sign Filters for Generators, Transporters and Manifests under correction
+- Generators and Transporters can correct transporters in under correction manifests
+- BR Information can be entered partially, meaning a site can just send density information and not form or source code information in the BR section
+- Show if a site has a registered user in the user interface (services will be added later)
+- Fixed issue with country being required on certain manifests.  Also fixed issue with foreign states not appearing in the UI
+- Changed Searches to include same day searches Meaning the Start and end dates can be the same date
+- Back end broker services
+
 
 The November 1, 2019 Production release, contained:
 - Updated validation for BR Information fields to make all fields optional
