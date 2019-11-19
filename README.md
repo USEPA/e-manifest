@@ -8,21 +8,8 @@ The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manife
 
 ## What is going on
 
-The next Preproduction is November 13, 2019, the following information will be available for testing:
-- Bulk Sign Filters for Generators, Transporters and Manifests under correction
-- Generators and Transporters can correct transporters in under correction manifests
-- BR Information can be entered partially, meaning a site can just send density information and not form or source code information in the BR section
-- Show if a site has a registered user in the user interface (services will be added later)
-- Fixed issue with country being required on certain manifests.  Also fixed issue with foreign states not appearing in the UI
-- Changed Searches to include same day searches Meaning the Start and end dates can be the same date
-- Back end broker services
-
-
-The November 1, 2019 Production release, contained:
-- Updated validation for BR Information fields to make all fields optional
-- Increased e-Manifest search maximum date range from 180 to 185 days
-- Fixed e-Manifest search issue where data was persisting from previous searches
-- Updated system to save EPA IDs in uppercase and cleaned up existing data containing lowercase EPA IDs
+The next Production release is December, 6 2019, the following information will be available for testing:
+* Please see the [Issues](https://github.com/USEPA/e-manifest/issues) all issues with the "Ready for Prod" label will be going in the next Production release.  Please check back, as we many of the "Ready for Preprod" issues will be moved to "Ready for Prod."  Issues marked as Done, are in production.
 
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
 
