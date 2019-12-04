@@ -97,6 +97,20 @@ Additional Resources:
 [Paper Manifest Instructions](https://www.epa.gov/sites/production/files/2018-05/documents/instructions_for_completing_the_uniform_hazardous_waste_manifest.pdf)
 
 
+## Contact Information
+Additional Questions: emanifest@epa.gov
+
+Join the conversation and keep up on the latest e-Manifest news
+The e-Manifest ListServ provides an open forum for the posting and discussion of news and information relating to the e-Manifest program. This Listserv can also be used to facilitate e-Manifest conversations amongst the stakeholder and user community.
+
+General Program listserv
+
+* Subscribe: Send a blank message to: eManifest-subscribe@lists.epa.gov
+
+Developers only listserv (Are you a developer that will consume e-Manifest's APIs?)
+
+* Subscribe: Send a blank message to: e-manifestdev-subscribe@lists.epa.gov
+
 ## Project History
 In 2014 and 2015 EPA developed a technical architecture for e-Manifest.
 
@@ -119,17 +133,3 @@ In June of 2017 the team released a series of web services, front end screens, a
 * Sample Client for accessing the services (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information/sample-client)
 3)	Generator and TSDF screens and workflow, including adding facilities not in our database
 4)	Bulk Signing of manifests (using EPA standard signature services (CDX))
-
-## Contact Information
-Additional Questions: emanifest@epa.gov
-
-Join the conversation and keep up on the latest e-Manifest news
-The e-Manifest ListServ provides an open forum for the posting and discussion of news and information relating to the e-Manifest program. This Listserv can also be used to facilitate e-Manifest conversations amongst the stakeholder and user community.
-
-General Program listserv
-
-* Subscribe: Send a blank message to: eManifest-subscribe@lists.epa.gov
-
-Developers only listserv (Are you a developer that will consume e-Manifest's APIs?)
-
-* Subscribe: Send a blank message to: e-manifestdev-subscribe@lists.epa.gov
