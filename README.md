@@ -92,9 +92,9 @@ All our [active cards and issues] (/issues) are posted in this GitHub Repository
 
 Additional Resources: 
 
-[Sample Paper Manifest](https://www.epa.gov/sites/production/files/2015-06/documents/newform.pdf) 
+[Sample Paper Manifest](https://www.epa.gov/sites/production/files/2018-05/documents/uniform_hazardous_waste_manifest.pdf) 
 
-[Paper Manifest Instructions](https://www.epa.gov/sites/production/files/2015-06/documents/man-inst.pdf)
+[Paper Manifest Instructions](https://www.epa.gov/sites/production/files/2018-05/documents/instructions_for_completing_the_uniform_hazardous_waste_manifest.pdf)
 
 
 ## Project History
