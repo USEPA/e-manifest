@@ -3,13 +3,14 @@
 ## Background
 The overarching purpose of e-Manifest is to establish a national information technology system that will enable the Agency and the hazardous waste program’s industry and state stakeholders to transition the manifest system from one that is paper-intensive and burdensome to a system that is much more efficient, because it will rely on information technology to track hazardous waste shipments
 
-## Recent Update - Frequently Asked Questions
+## Frequently Asked Questions
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
+The next Production release is December, 6 2019, the following information will be available for testing:
+* Please see the [Issues](https://github.com/USEPA/e-manifest/issues) all issues with the "Ready for Prod" label will be going in the next Production release.  Please check back, as we many of the "Ready for Preprod" issues will be moved to "Ready for Prod."  Issues marked as Done, are in production.
 
-For the latest in what has been deployed to test/preprod and production please see the [Deployment Calendar](https://calendar.google.com/calendar/embed?src=cbg29nj98u94np3c4pp5vjdph8%40group.calendar.google.com&ctz=America%2FNew_York)
-
+## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
 
 Services Available
@@ -91,10 +92,24 @@ All our [active cards and issues] (/issues) are posted in this GitHub Repository
 
 Additional Resources: 
 
-[Sample Paper Manifest](https://www.epa.gov/sites/production/files/2015-06/documents/newform.pdf) 
+[Sample Paper Manifest](https://www.epa.gov/sites/production/files/2018-05/documents/uniform_hazardous_waste_manifest.pdf) 
 
-[Paper Manifest Instructions](https://www.epa.gov/sites/production/files/2015-06/documents/man-inst.pdf)
+[Paper Manifest Instructions](https://www.epa.gov/sites/production/files/2018-05/documents/instructions_for_completing_the_uniform_hazardous_waste_manifest.pdf)
 
+
+## Contact Information
+Additional Questions: emanifest@epa.gov
+
+Join the conversation and keep up on the latest e-Manifest news
+The e-Manifest ListServ provides an open forum for the posting and discussion of news and information relating to the e-Manifest program. This Listserv can also be used to facilitate e-Manifest conversations amongst the stakeholder and user community.
+
+General Program listserv
+
+* Subscribe: Send a blank message to: eManifest-subscribe@lists.epa.gov
+
+Developers only listserv (Are you a developer that will consume e-Manifest's APIs?)
+
+* Subscribe: Send a blank message to: e-manifestdev-subscribe@lists.epa.gov
 
 ## Project History
 In 2014 and 2015 EPA developed a technical architecture for e-Manifest.
@@ -118,17 +133,3 @@ In June of 2017 the team released a series of web services, front end screens, a
 * Sample Client for accessing the services (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information/sample-client)
 3)	Generator and TSDF screens and workflow, including adding facilities not in our database
 4)	Bulk Signing of manifests (using EPA standard signature services (CDX))
-
-## Contact Information
-Additional Questions: emanifest@epa.gov
-
-Join the conversation and keep up on the latest e-Manifest news
-The e-Manifest ListServ provides an open forum for the posting and discussion of news and information relating to the e-Manifest program. This Listserv can also be used to facilitate e-Manifest conversations amongst the stakeholder and user community.
-
-General Program listserv
-
-* Subscribe: Send a blank message to: eManifest-subscribe@lists.epa.gov
-
-Developers only listserv (Are you a developer that will consume e-Manifest's APIs?)
-
-* Subscribe: Send a blank message to: e-manifestdev-subscribe@lists.epa.gov
