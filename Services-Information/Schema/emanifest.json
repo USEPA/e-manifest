@@ -66,7 +66,7 @@
 					"type": "string",
 					"format": "date-time"
 				},
-				"potentialShippedDate": {
+				"potentialShipDate": {
 					"type": "string",
 					"format": "date-time"
 				},
@@ -247,6 +247,10 @@
 				},
 				"mtnValidationInfo": {
 					"$ref": "#/definitions/MtnValidationInfo"
+				},
+				"provideImageGeneratorInfo": {
+					"description": "Indicates if Generator information and Generator printed signature date was provided for the Image submission type manifest. Shall not be provided  for Save Manifest service.  Will be returned by get manifest service as a part of Manifest for the manifests with Image and submission type",
+					"type": "boolean"
 				}
 			},
 			"additionalProperties": false
@@ -380,29 +384,18 @@
 			"additionalProperties": false
 		},
 		"DensityUnitsOfMeasurement": {
-			"description": "Density Units",
+			"description": "Density Units shall be provided if density is provoided",
 			"type": "object",
 			"properties": {
 				"code": {
-					"type": "string",
-					"minLength": 1,
-					"maxLength": 1,
-					"enum": [
-						"1",
-						"2"
-					]
+					"description": "Either \"1\" or \"2\" can be provided",
+					"type": "string"
 				},
 				"description": {
-					"type": "string",
-					"enum": [
-						"lbs/gal",
-						"sg"
-					]
+					"description": "Either \"lbs/gal\" or \"sg\" can be provided",
+					"type": "string"
 				}
 			},
-			"required": [
-				"code"
-			],
 			"additionalProperties": false
 		},
 		"Waste": {
@@ -533,11 +526,8 @@
 			"type": "object",
 			"properties": {
 				"density": {
-					"description": "Contains waste density if Quantity UOM are volume ",
-					"type": "number",
-					"minimum": 0,
-					"exclusiveMinimum": true,
-					"maximum": 999.99
+					"description": "Contains waste density if Quantity UOM are volume.  0 < Positive number <= 999.99 shall be provided with 2 decimal points. ",
+					"type": "number"
 				},
 				"densityUnitOfMeasurement": {
 					"$ref": "#/definitions/DensityUnitsOfMeasurement"
@@ -551,11 +541,6 @@
 				"wasteMinimizationCode": {
 					"$ref": "#/definitions/CodeDescription"
 				}
-			},
-			"dependencies": {
-				"density": [
-					"densityUnitOfMeasurement"
-				]
 			},
 			"additionalProperties": false
 		},
@@ -721,6 +706,13 @@
 				"modified": {
 					"description": "Indicates if the site information was modified from what was on the handler’s notification form. Shall not be provided for Save and update services.  Will be returned by Get Manifest Service",
 					"type": "boolean"
+				},
+				"canEsign": {
+					"description": "Indicates if there is  at least one user associated with the site which can electronicaly sign. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
+					"type": "boolean"
+				},
+				"siteState": {
+					"$ref": "#/definitions/Locality"
 				}
 			},
 			"additionalProperties": false
@@ -759,6 +751,14 @@
 				},
 				"cromerrDocumentId": {
 					"type": "string"
+				},
+				"signerRole": {
+					"description": "Indicates which entity signed the manifest. Industry or State",
+					"type": "string",
+					"enum": [
+						"Industry",
+						"State"
+					]
 				}
 			},
 			"additionalProperties": false
@@ -823,9 +823,8 @@
 					"type": "string"
 				},
 				"companyName": {
-					"$ref": "#/definitions/CompanyName"
+					"description": "max length 80"
 				}
-
 			},
 			"additionalProperties": false
 		},
@@ -1012,12 +1011,16 @@
 				},
 				"epaSiteId": {
 					"$ref": "#/definitions/EpaSiteId"
+				},
+				"stateCorrected": {
+					"description": "Indicates if the manifest is under correction by the state. Will be returned by Correction Details, Correction Version, Get Manifest. Shall not be provided for Save and Update Manifest.",
+					"type": "boolean"
 				}
 			},
 			"additionalProperties": false
 		},
 		"MtnValidationInfo": {
-			"description": "Contains Manifest Discrepancy Validation information. Shall not be provided for Save Manifest service.For Update service two fields can be provided (mtnsCorrect, mtnCorrectionReason). Will be returned by Save and Update services as a part of ManifestReport for the manifests with Image and DataImage5Copy submission types",
+			"description": "Contains Manifest Discrepancy Validation information. Shall not be provided for Save Manifest service.For Update service two fields can be provided (mtnsCorrect, mtnCorrectionReason). Will be returned by get manifest service as a part of Manifest for the manifests with Image and DataImage5Copy submission types",
 			"type": "object",
 			"properties": {
 				"mtnExtractionStatus": {
