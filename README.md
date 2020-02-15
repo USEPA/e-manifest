@@ -7,7 +7,10 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next Production release is December, 6 2019, the following information will be available for testing:
+The next Production release is February, 21 2020, the following information will be available for testing:
+    Reporting Database fixes, ensuring the previous version of a manifest is showing in the reporting database when the manifest is put under correction
+    Zip Code regular expression enforcement
+    Bug Fixes *
 * Please see the [Issues](https://github.com/USEPA/e-manifest/issues) all issues with the "Ready for Prod" label will be going in the next Production release.  Please check back, as we many of the "Ready for Preprod" issues will be moved to "Ready for Prod."  Issues marked as Done, are in production.
 
 ## How to test and what is available
