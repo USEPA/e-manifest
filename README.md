@@ -20,7 +20,10 @@ The next PreProduction/Test release is March, 3 2020, the following information 
     -Bug Fixes *
 * Please see the [Issues](https://github.com/USEPA/e-manifest/issues) all issues with the "Ready for Prod" label will be going in the next Production release.  Please check back, as we many of the "Ready for Preprod" issues will be moved to "Ready for Prod."  Issues marked as Done, are in production.
 
-The next Production release is March, 20 2020, the following information will be available for testing:
+The next Production release is March, 20 2020.
+
+The next 5 preproduction releases are: 3/4/20, 4/1/20, 4/29/20, 5/27/20, 6/24/20
+The next 5 prodcution releases are: 3/20/20, 4/17/20, 5/15/20, 6/12/20, 7/10/20
 
 ## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
