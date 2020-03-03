@@ -7,11 +7,21 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next Production release is February, 21 2020, the following information will be available for testing:
-    Reporting Database fixes, ensuring the previous version of a manifest is showing in the reporting database when the manifest is put under correction
-    Zip Code regular expression enforcement
+The next PreProduction/Test release is March, 3 2020, the following information will be available for testing:
+
+Future proofing the transporter look ups
+Functionality for generators who operate in other states (Cruise ships, Trust Territories sites, and Navajo Nations sites)
+Increased logic for fee collections 
+Ensuring reporting and  live database are in sync.
+Preparations for Brokers and transporters functionality
+Enhancements for searching
+Data clean up for Middle Names, and Density Information
+Misc bug fixes and enhancements
+    
     Bug Fixes *
 * Please see the [Issues](https://github.com/USEPA/e-manifest/issues) all issues with the "Ready for Prod" label will be going in the next Production release.  Please check back, as we many of the "Ready for Preprod" issues will be moved to "Ready for Prod."  Issues marked as Done, are in production.
+
+The next Production release is March, 20 2020, the following information will be available for testing:
 
 ## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
