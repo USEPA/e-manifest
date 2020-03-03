@@ -9,16 +9,15 @@ The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manife
 ## What is going on
 The next PreProduction/Test release is March, 3 2020, the following information will be available for testing:
 
-Future proofing the transporter look ups
-Functionality for generators who operate in other states (Cruise ships, Trust Territories sites, and Navajo Nations sites)
-Increased logic for fee collections 
-Ensuring reporting and  live database are in sync.
-Preparations for Brokers and transporters functionality
-Enhancements for searching
-Data clean up for Middle Names, and Density Information
-Misc bug fixes and enhancements
-    
-    Bug Fixes *
+    -Future proofing the transporter look ups 
+    -Functionality for generators who operate in other states (Cruise ships, Trust Territories sites, and Navajo Nations sites) 
+    -Increased logic for fee collections 
+    -Ensuring reporting and  live database are in sync 
+    -Preparations for Brokers and transporters functionality 
+    -Enhancements for searching 
+    -Data clean up for Middle Names, and Density Information 
+    -Misc bug fixes and enhancements 
+    -Bug Fixes *
 * Please see the [Issues](https://github.com/USEPA/e-manifest/issues) all issues with the "Ready for Prod" label will be going in the next Production release.  Please check back, as we many of the "Ready for Preprod" issues will be moved to "Ready for Prod."  Issues marked as Done, are in production.
 
 The next Production release is March, 20 2020, the following information will be available for testing:
