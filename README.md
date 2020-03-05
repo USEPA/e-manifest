@@ -7,7 +7,7 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next PreProduction/Test release is March, 3 2020, the following information will be available for testing:
+The next Production release is March, 20 2020, the following information is available for testing in our preproduction environment:
 
     -Future proofing the transporter look ups 
     -Functionality for generators who operate in other states (Cruise ships, Trust Territories sites, and Navajo Nations sites) 
@@ -22,7 +22,7 @@ The next PreProduction/Test release is March, 3 2020, the following information 
 
 The next Production release is March, 20 2020.
 
-The next 5 preproduction releases are: 3/4/20, 4/1/20, 4/29/20, 5/27/20, 6/24/20
+The next 5 preproduction releases are: 4/1/20, 4/29/20, 5/27/20, 6/24/20, 7/22/20
 
 The next 5 production releases are: 3/20/20, 4/17/20, 5/15/20, 6/12/20, 7/10/20
 
