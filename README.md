@@ -12,7 +12,7 @@ The next Production release is March, 20 2020, the following information is avai
     - Ability for Brokers and Transporters to create manifests for Generators
     - The ability to make changes to transporters in transit
     - Counts of Manifests to be signed on the bulk signature page
-    - When changing the generator on a manifest the user interface no longer clears out the emergency response number
+    - When changing the generator on a manifest the user interface no longer clears out the emergency response number and generator           signature information
     - Adding a new potential ship date
     For more details see https://github.com/USEPA/e-manifest/issues
 * Please see the [Issues](https://github.com/USEPA/e-manifest/issues) all issues with the "Ready for Prod" label will be going in the next Production release.  Please check back, as we many of the "Ready for Preprod" issues will be moved to "Ready for Prod."  Issues marked as Done, are in production.
