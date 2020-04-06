@@ -9,22 +9,19 @@ The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manife
 ## What is going on
 The next Production release is March, 20 2020, the following information is available for testing in our preproduction environment:
 
-    -Future proofing the transporter look ups 
-    -Functionality for generators who operate in other states (Cruise ships, Trust Territories sites, and Navajo Nations sites) 
-    -Increased logic for fee collections 
-    -Ensuring reporting and  live database are in sync 
-    -Preparations for Brokers and transporters functionality 
-    -Enhancements for searching 
-    -Data clean up for Middle Names, and Density Information 
-    -Misc bug fixes and enhancements 
-    -Bug Fixes *
+    - Ability for Brokers and Transporters to create manifests for Generators
+    - The ability to make changes to transporters in transit
+    - Counts of Manifests to be signed on the bulk signature page
+    - When changing the generator on a manifest the user interface no longer clears out the emergency response number
+    - Adding a new potential ship date
+    For more details see https://github.com/USEPA/e-manifest/issues
 * Please see the [Issues](https://github.com/USEPA/e-manifest/issues) all issues with the "Ready for Prod" label will be going in the next Production release.  Please check back, as we many of the "Ready for Preprod" issues will be moved to "Ready for Prod."  Issues marked as Done, are in production.
 
-The next Production release is March, 20 2020.
+The next Production release is April, 17 2020.
 
-The next 5 preproduction releases are: 4/1/20, 4/29/20, 5/27/20, 6/24/20, 7/22/20
+The next 5 preproduction releases are: 4/29/20, 5/27/20, 6/24/20, 7/22/20, 8/19/2020
 
-The next 5 production releases are: 3/20/20, 4/17/20, 5/15/20, 6/12/20, 7/10/20
+The next 5 production releases are: 4/17/20, 5/15/20, 6/12/20, 7/10/20, 8/7/2020
 
 ## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
