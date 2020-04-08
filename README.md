@@ -7,7 +7,7 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next Production release is March, 20 2020, the following information is available for testing in our preproduction environment:
+The next Production release is April, 17 2020, the following functionality is available for testing in our preproduction environment:
 
     - Ability for Brokers and Transporters to create manifests for Generators
     - The ability to make changes to transporters in transit
@@ -15,7 +15,7 @@ The next Production release is March, 20 2020, the following information is avai
     - When changing the generator on a manifest the user interface no longer clears out the emergency response number and generator           signature information
     - Adding a new potential ship date
     For more details see https://github.com/USEPA/e-manifest/issues
-* Please see the [Issues](https://github.com/USEPA/e-manifest/issues) all issues with the "Ready for Prod" label will be going in the next Production release.  Please check back, as we many of the "Ready for Preprod" issues will be moved to "Ready for Prod."  Issues marked as Done, are in production.
+* Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
 
 The next Production release is April, 17 2020.
 
