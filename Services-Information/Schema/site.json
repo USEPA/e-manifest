@@ -70,7 +70,11 @@
 				"canEsign": {
 					"description": "Indicates if there is at least one user registered for this site which can sign electronically",
 					"type": "boolean"
-				}
+				},
+        "hasRegisteredEmanifestUser": {
+          "description": "Indicates if there is  at least one registered user associated with the site.",
+          "type": "boolean"
+        }
 			},
 			"required": [
 				"canEsign"
