@@ -7,19 +7,21 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next Production release is April, 17 2020, the following functionality is available for testing in our preproduction environment:
+The next Production release is May, 15 2020, the following functionality is available for testing in our preproduction environment:
 
-    - Ability for Brokers and Transporters to create manifests for Generators
-    - The ability to make changes to transporters in transit
-    - Counts of Manifests to be signed on the bulk signature page
-    - When changing the generator on a manifest the user interface no longer clears out the emergency response number and generator           signature information
-    - Adding a new potential ship date
+    -	Services handling lower case MTN suffixes
+    -	Functionality for gracefully handling missing mailing addresses
+    -   The ability for Industry users to change a manifest from Full Electronic to Hybrid or vise-versa.
+    -	Enhancements to industry billing
+    -	Enhancements to the current weekly Site activity notification email
+    -	A warning for State users correcting manifests if they are adding an “Extract to Public = No” site to a manifest.
+
     For more details see https://github.com/USEPA/e-manifest/issues
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
 
-The next Production release is April, 17 2020.
+The next Production release is May, 15 2020.
 
-The next 5 preproduction releases are: 4/29/20, 5/27/20, 6/24/20, 7/22/20, 8/19/2020
+The next 5 preproduction releases are: 5/27/20, 6/24/20, 7/22/20, 8/19/2020
 
 The next 5 production releases are: 4/17/20, 5/15/20, 6/12/20, 7/10/20, 8/7/2020
 
