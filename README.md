@@ -11,7 +11,7 @@ The next Production release is May, 15 2020, the following functionality is avai
 
     -	Services handling lower case MTN suffixes
     -	Functionality for gracefully handling missing mailing addresses
-    -   The ability for Industry users to change a manifest from Full Electronic to Hybrid or vise-versa.
+    -	The ability for Industry users to change a manifest from Full Electronic to Hybrid or vise-versa.
     -	Enhancements to industry billing
     -	Enhancements to the current weekly Site activity notification email
     -	A warning for State users correcting manifests if they are adding an “Extract to Public = No” site to a manifest.
