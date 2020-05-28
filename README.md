@@ -9,7 +9,7 @@ The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manife
 ## What is going on
 The next Production release is June, 12 2020, the following functionality is available for testing in our preproduction environment:
 
-    -	Added a "Site registered" flag to emanifest.json and site-details to let sites know if another site has a registered e-Manifest user.
+    -   Added a "Site registered" flag to emanifest.json and site-details to let sites know if another site has a registered e-Manifest user.
     -   MTN-exists can now handle lowercase MTN suffixes being passed via services to return valid results.
     -   Data quality checks, reminders, and assitance regarding generator data entry in the industry user interface. 
     -   Fixes th the user interface and an issue when copying a copy of a manifest.
