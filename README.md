@@ -7,10 +7,13 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next PreProduction/Test release is May, 29 2020, the following functionality is available for testing in our preproduction environment:
+The next Production release is June, 12 2020, the following functionality is available for testing in our preproduction environment:
 
-    -	Updates Forth coming
-
+    -	Added a "Site registered" flag to emanifest.json and site-details to let sites know if another site has a registered e-Manifest user.
+    -   MTN-exists can now handle lowercase MTN suffixes being passed via services to return valid results.
+    -   Data quality checks, reminders, and assitance regarding generator data entry in the industry user interface. 
+    -   Fixes th the user interface and an issue when copying a copy of a manifest.
+    -   Billing search enhancements and fixes
     For more details on current issues see https://github.com/USEPA/e-manifest/issues
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
 
