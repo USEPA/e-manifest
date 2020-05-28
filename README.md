@@ -12,7 +12,7 @@ The next Production release is June, 12 2020, the following functionality is ava
     -   Added a "Site registered" flag to emanifest.json and site-details to let sites know if another site has a registered e-Manifest user.
     -   MTN-exists can now handle lowercase MTN suffixes being passed via services to return valid results.
     -   Data quality checks, reminders, and assistance regarding generator data entry in the industry user interface. 
-    -   Fixes th the user interface and an issue when copying a copy of a manifest.
+    -   Fixes to the user interface and an issue when copying a copy of a manifest.
     -   Billing search enhancements and fixes
     For more details on current issues see https://github.com/USEPA/e-manifest/issues
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
