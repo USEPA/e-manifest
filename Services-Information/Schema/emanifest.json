@@ -905,6 +905,9 @@
           "description": "Max length is 38",
           "type": "string"
         },
+		"userId": {
+		  "type": "string"
+		},
         "phone": {
           "$ref": "#/definitions/Phone"
         },
