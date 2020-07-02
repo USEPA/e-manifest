@@ -7,21 +7,18 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next Production release is June, 12 2020, the following functionality is available for testing in our preproduction environment:
+The next Production release is July, 10 2020, the following functionality is available for testing in our preproduction environment:
 
-    -   Added a "Site registered" flag to emanifest.json and site-details to let sites know if another site has a registered e-Manifest user.
-    -   MTN-exists can now handle lowercase MTN suffixes being passed via services to return valid results.
     -   Data quality checks, reminders, and assistance regarding generator data entry in the industry user interface. 
-    -   Fixes to the user interface and an issue when copying a copy of a manifest.
-    -   Billing search enhancements and fixes
+
     For more details on current issues see https://github.com/USEPA/e-manifest/issues
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
 
-The next Production release is June, 12 2020.
+The next Production release is July, 10 2020.
 
-The next 5 preproduction releases are: 5/27/20, 6/24/20, 7/22/20, 8/19/2020, 9/16/20, 10/14/20
+The next 5 preproduction releases are: 7/22/20, 8/19/2020, 9/16/20, 10/14/20, 11/11/20
 
-The next 5 production releases are: 6/12/20, 7/10/20, 8/7/2020, 9/11/20, 10/2/20
+The next 5 production releases are: 6/12/20, 7/10/20, 8/7/2020, 9/11/20, 10/2/20, 10/30/20
 
 ## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
