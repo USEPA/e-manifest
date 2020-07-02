@@ -21,7 +21,7 @@ The next Production release is June, 12 2020.
 
 The next 5 preproduction releases are: 5/27/20, 6/24/20, 7/22/20, 8/19/2020, 9/16/20, 10/14/20
 
-The next 5 production releases are: 6/12/20, 7/10/20, 8/7/2020, 9/4/20, 10/2/20
+The next 5 production releases are: 6/12/20, 7/10/20, 8/7/2020, 9/11/20, 10/2/20
 
 ## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
