@@ -32,7 +32,8 @@
             "ReadyForSignature",
             "Signed",
             "Corrected",
-            "UnderCorrection"
+            "UnderCorrection",
+            "MtnValidationFailed"
           ]
         },
         "isPublic": {
@@ -249,6 +250,10 @@
         },
         "provideImageGeneratorInfo": {
           "description": "Indicates if Generator information and Generator printed signature date was provided for the Image submission type manifest. Shall not be provided  for Save Manifest service.  Will be returned by get manifest service as a part of Manifest for the manifests with Image and submission type",
+          "type": "boolean"
+        },
+        "unlocked": {
+          "description": "Indicates if manifest is unlocked for update, delete, correct, revert services. If unlocked is false the manifest is in signing queue",
           "type": "boolean"
         }
       },
@@ -716,6 +721,10 @@
         "hasRegisteredEmanifestUser": {
           "description": "Indicates if there is  at least one registered user associated with the site. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
           "type": "boolean"
+        },
+        "gisPrimary": {
+          "description": "Indicates if site address1 is lat/long primary. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
+          "type": "boolean"
         }
       },
       "additionalProperties": false
@@ -905,9 +914,6 @@
           "description": "Max length is 38",
           "type": "string"
         },
-		"userId": {
-		  "type": "string"
-		},
         "phone": {
           "$ref": "#/definitions/Phone"
         },
