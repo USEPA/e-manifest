@@ -774,10 +774,6 @@
             "Industry",
             "State"
           ]
-        },
-        "onBehalf": {
-          "description": "Specifies if the signature is provided on behalf of the user",
-          "type": "boolean"
         }
       },
       "additionalProperties": false
@@ -908,9 +904,6 @@
       "description": "Contains Signer Information. Shall not be provided for Save and Update Manifest.",
       "type": "object",
       "properties": {
-        "userId": {
-          "type": "string"
-        },
         "firstName": {
           "description": "Max length is 38",
           "type": "string"
@@ -928,18 +921,6 @@
         },
         "email": {
           "type": "string"
-        },
-        "companyName": {
-          "description": "max length 80",
-          "type": "string"
-        },
-        "contactType": {
-          "type": "string",
-          "enum": [
-            "Email",
-            "Text",
-            "Voice"
-          ]
         }
       },
       "additionalProperties": false
