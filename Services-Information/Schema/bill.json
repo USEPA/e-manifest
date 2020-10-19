@@ -1,0 +1,244 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Schema for the response by the get-bill service",
+  "$ref": "#/definitions/Bill",
+  "definitions": {
+    "Bill": {
+      "type": "object",
+      "properties": {
+        "billingAccount": {
+          "description": "Contains billing account (EPA site id).",
+          "type": "string"
+        },
+        "billId": {
+          "description": "Contains bill id.",
+          "type": "number"
+        },
+        "monthYear": {
+         "description": "Contains month number and year of the requested bill if provided in the request. Format 'mm/yyyy'",
+          "type": "string"
+        },
+        "billStatus": {
+          "description": " Contains bill status. Industry cannot see bills where billStatus = Active ",
+          "type": "string",
+          "enum": [
+            "Active",
+            "Unpaid",
+            "InProgress",
+            "ReadyForPayment",
+            "Paid",
+            "SentToCollections",
+            "Credit",
+            "ZeroBalance"
+          ]
+        },
+        "paymentType": {
+          "description": " Contains bill payment type ",
+          "type": "string",
+          "enum": [
+            "Credit",
+            "Ach",
+            "OutOfBand"
+          ]
+        },
+        "totalAmount": {
+          "description": "Contains bill total amount. ",
+          "type": "number"
+        },
+        "currentAmount": {
+          "description": "Contains bill current amount. ",
+          "type": "number"
+        },
+        "previousAmount": {
+          "description": "Contains previous months total current amounts. ",
+          "type": "number"
+        },
+        "previousInterestAmount": {
+          "description": "Contains previous months total interest amounts. ",
+          "type": "number"
+        },
+        "previousPenaltyAmount": {
+          "description": "Contains previous months total penalty amounts. ",
+          "type": "number"
+        },
+        "previousLateFeeAmount": {
+          "description": "Contains previous months total Late Fee amounts. ",
+          "type": "number"
+        },
+        "dueDate": {
+          "description": "Contains due date. ",
+          "type": "string",
+          "format": "date-time"
+        },
+        "paidBy": {
+          "description": "Contains the bill payee user id",
+          "type": "string"
+        },
+        "collectionStatus": {
+          "description": "Contains the status of collection. Won't be returned to industry.",
+          "type": "string",
+          "enum": [
+            "Collected",
+            "ManualyReconciledCollection",
+            "CollectedPendingErrors"
+          ]
+        },
+        "collectionStatusDate": {
+          "description": "Contains the creation date of the bill. Won't be returned to industry.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdDate": {
+          "description": "Contains the creation date of the bill",
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedDate": {
+          "description": "Contains the update date of the bill.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "billItems": {
+          "description": "contains list of bill items",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BillItem"
+          }
+        },
+        "lateFees": {
+          "description": "contains list of late fees",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LateFee"
+          }
+        },
+        "revisions": {
+          "description": "contains list of revisions",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Revision"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "LateFee": {
+      "type": "object",
+      "properties": {
+        "lateFeeBillId": {
+          "description": "Contains bill id Late Fee is calculated for.",
+          "type": "number"
+        },
+        "interestAmount": {
+          "description": "Contains calculated interest amount. ",
+          "type": "number"
+        },
+        "penaltyAmount": {
+          "description": "Contains calculated penalty amount. ",
+          "type": "number"
+        },
+        "lateFeeAmount": {
+          "description": "Contains calculated late fee amount.",
+          "type": "number"
+        },
+        "flatFeeAmount": {
+          "description": "Contains calculated flat fee amount.",
+          "type": "number"
+        },
+        "status": {
+          "description": " Contains status. Industry cannot see lateFees records where status = Inactive ",
+          "type": "string",
+          "enum": [
+            "Active",
+            "Inactive"
+          ]
+        },
+        "createdDate": {
+          "description": "Contains the creation date of the bill",
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "BillItem": {
+      "type": "object",
+      "properties": {
+        "manifestTrackingNumber": {
+          "description": "Contains manifest tracking number of the bill item.",
+          "type": "string"
+        },
+        "amount": {
+          "description": "Contains an amount charged for the manifest ",
+          "type": "number"
+        },
+        "submissionType": {
+          "description": "manifest submission type",
+          "type": "string",
+          "enum": [
+            "FullElectronic",
+            "DataImage5Copy",
+            "Hybrid",
+            "Image"
+          ]
+        },
+        "originType": {
+          "description": "manifest origin type",
+          "type": "string",
+          "enum": [
+            "Web",
+            "Service",
+            "Mail"
+          ]
+        },
+        "certifiedDate": {
+          "description": "Contains the manifest certified date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "generatorSiteId": {
+          "description": "Contains the the site id of the manifest generator",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Revision": {
+      "type": "object",
+      "properties": {
+        "adjustmentAmount": {
+          "description": "Contains either Bill Current or Bill Late fee or Total adjusted absolute amount. ",
+          "type": "number"
+        },
+        "amountType": {
+          "description": "Specifies what amount (Current or late fee or Total) was adjusted",
+          "type": "string",
+          "enum": [
+            "Current",
+            "LateFee",
+            "Total"
+          ]
+        },
+        "adjustmentType": {
+          "description": "Specifies how the amount was adjusted",
+          "type": "string",
+          "enum": [
+            "Increase",
+            "Decrease",
+            "FullPayment"
+          ]
+        },
+        "publicComments": {
+          "description": "adjustment comments",
+          "type": "string"
+        },
+        "createdDate": {
+          "description": "Contains the adjustment creation date",
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

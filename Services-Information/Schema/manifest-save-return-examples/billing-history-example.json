@@ -1,0 +1,25 @@
+{
+  "billingAccount": "AK000000009",
+  "billsInfo": [
+    {
+      "billStatus": "Active",
+      "billId": "PSEMANIFEST006875",
+      "totalAmount": 1.1,
+      "paymentType": "Ach",
+      "paidBy": "a@s.com",
+      "dueDate": "04/30/2019",
+      "createdDate": "04/01/2019",
+      "updatedDate": "04/30/2019"
+    },
+    {
+      "billStatus": "Active",
+      "billId": "PSEMANIFEST009080",
+      "totalAmount": 1.1,
+      "paymentType": "Credit",
+      "paidBy": "a@s.com",
+      "dueDate": "05/30/2019",
+      "createdDate": "04/01/2019",
+      "updatedDate": "04/30/2019"
+    }
+  ]
+}

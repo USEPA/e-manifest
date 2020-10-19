@@ -1,0 +1,27 @@
+{
+  "billingAccount": "AK000000009",
+  "startMonthYear": "03/2019",
+  "endMonthYear": "04/2019",
+  "billsInfo": [
+    {
+      "billStatus": "InProgress",
+      "billId": 126875,
+      "totalAmount": 1.1,
+      "paymentType": "Ach",
+      "paidBy": "a@s.com",
+      "dueDate": "04/30/2019",
+      "createdDate": "03/01/2019",
+      "updatedDate": "03/30/2019"
+    },
+    {
+      "billStatus": "ReadyForPayment",
+      "billId": 129080,
+      "totalAmount": 1.1,
+      "paymentType": "Credit",
+      "paidBy": "a@s.com",
+      "dueDate": "05/30/2019",
+      "createdDate": "04/01/2019",
+      "updatedDate": "04/30/2019"
+    }
+  ]
+}
