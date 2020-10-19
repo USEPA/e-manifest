@@ -22,9 +22,9 @@ The next Production release is October, 30 2020, the following functionality is 
                -User interface enhancements -10/30 release
 
     -    Upcoming functionality and release ETA:
-             Electronic Signature Information element (electronicSignatureInfo) will be changed to an array instead of an object (affects GETs only and only those sites that parse this element.)
+             Invoice Services, the ability for industry systems to download invoices and invoice history information via APIs (GET only).  In progress, 12/4/18 release.
+             Electronic Signature Information element (electronicSignatureInfo) will be changed to an array instead of an object (affects GETs only and only those sites that parse this element.) 12/4/18 release.
              Bulk Signatures 2.0 will allow sites to sign more than 50 manifests at a time and offer more stability in the connection with CDX, in progress full implementation planned for 1/8/21 release.
-             Invoice Services, the ability for industry systems to download invoices and invoice history information via APIs (GET only).  In progress, release schedule forthcoming.
              MTN Validation using Optical Character Recognition on Manifest images to help ensure the manifest tracking numbers submitted match the numbers on the manifests.  This functionality will be implemented in stages.  First as something that runs behind the scenes then via the user interface and finally via services.  Release schedule forthcoming 
 
     For more details on current issues see https://github.com/USEPA/e-manifest/issues
