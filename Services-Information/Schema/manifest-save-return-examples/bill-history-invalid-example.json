@@ -4,14 +4,24 @@
   "endMonthYear": "04/2019",
   "billsInfo": [
     {
+      "billStatus": "Paid",
+      "billId": 126875,
+      "totalAmount": 20,
+      "paymentType": "Ach",
+      "paidBy": "a@s.com",
+      "dueDate": "03/30/2019",
+      "createdDate": "02/01/2019",
+      "updatedDate": "02/28/2019"
+    },
+    {
       "billStatus": "InProgress",
       "billId": 126875,
       "totalAmount": 1.1,
       "paymentType": "Ach",
       "paidBy": "a@s.com",
-      "dueDate": "08/30/2018",
-      "createdDate": "07/01/2018",
-      "updatedDate": "07/30/2018"
+      "dueDate": "04/30/2019",
+      "createdDate": "03/01/2019",
+      "updatedDate": "03/31/2019"
     },
     {
       "billStatus": "ReadyForPayment",

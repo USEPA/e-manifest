@@ -27,7 +27,7 @@
 						"Signed",
 						"Corrected",
 						"UnderCorrection",
-						"UnderPpcDataEntry",
+						"PendingPpcDataEntry",
 						"PpcDataEntryCompleted"
 					]
 				},
@@ -39,9 +39,12 @@
 					"description": "Indicates if the Manifest version is active or outdated for the industry. ",
 					"type": "boolean"
 				},
-				"electronicSignature": {
-					"$ref": "#/definitions/ElectronicSignature"
-				},
+				"electronicSignaturesInfo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ElectronicSignature"
+          }
+        },
 				"epaSiteId": {
 					"description": "Contains the site id associated with the user which signed the correction version.",
 					"type": "string"
@@ -102,6 +105,14 @@
 				},
 				"cromerrDocumentId": {
 					"type": "string"
+				},
+				"signerRole": {
+					"description": "Indicates which entity signed the manifest. Industry or State",
+					"type": "string",
+					"enum": [
+						"Industry",
+						"State"
+					]
 				}
 			},
 			"additionalProperties": false
