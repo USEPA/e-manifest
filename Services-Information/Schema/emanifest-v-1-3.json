@@ -904,6 +904,9 @@
       "description": "Contains Signer Information. Shall not be provided for Save and Update Manifest.",
       "type": "object",
       "properties": {
+        "userId": {
+          "type": "string"
+        },
         "firstName": {
           "description": "Max length is 38",
           "type": "string"
@@ -921,6 +924,18 @@
         },
         "email": {
           "type": "string"
+        },
+        "companyName": {
+          "description": "max length 80",
+          "type": "string"
+        },
+        "contactType": {
+          "type": "string",
+          "enum": [
+            "Email",
+            "Text",
+            "Voice"
+          ]
         }
       },
       "additionalProperties": false
