@@ -19,7 +19,7 @@
         "monthYear": {
           "description": "Contains month number and year of the requested bill. Format 'mm/yyyy'",
           "type": "string",
-          "pattern": "(0[1-9]|10|11|12)/20[0-9]{2}$"
+          "pattern": "(0[1-9]|10|11|12)\/20[0-9]{2}$"
         }
       },
       "required": [

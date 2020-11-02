@@ -11,11 +11,15 @@
           "type": "string"
         },
         "billId": {
-          "description": "Contains bill id.",
+          "description": "Contains bill id if bill id is provided. If provided bill id is invalid then report will have an error stating that bill id is invalid",
           "type": "number"
         },
         "monthYear": {
-         "description": "Contains month number and year of the requested bill if provided in the request. Format 'mm/yyyy'",
+          "description": "Contains month number and year of the requested bill if monthYear is provided. If provided monthYear is invalid then report will have an error stating that monthYear is invalid",
+          "type": "string"
+        },
+        "report": {
+          "description": "Contains service report. Following reports are possible: 1. The service  returning bill by bill id. Valid bill id is provided, monthYear is not provided. 2. The service returning bill by monthYear . Valid monthYear is provided, bill id is not provided. 3. The service  returning bill by bill id.  Valid bill id is provided, valid monthYear is provided. 4. The service  returning bill by  monthYear . Invalid bill id is provided,  valid monthYear is provided. 5. The service  returning bill by bill id . Valid bill id is provided , invalid or out of range monthYear is provided.",
           "type": "string"
         },
         "billStatus": {

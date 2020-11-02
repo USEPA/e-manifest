@@ -1,0 +1,48 @@
+{
+  "billStatus": "Paid",
+  "paymentType": "Ach",
+  "billingAccount": "AK000000009",
+  "billId": 26875,
+  "monthYear": "12/2012",
+  "report": "The service  returning bill by bill id . Valid bill id is provided , invalid monthYear is provided",
+  "totalAmount": 10,
+  "currentAmount": 5,
+  "previousAmount": 1.1,
+  "previousInterestAmount": 1.1,
+  "previousPenaltyAmount": 0,
+  "previousLateFeeAmount": 1.1,
+  "paidBy": "a@s.com",
+  "dueDate": "04/30/2019",
+  "createdDate": "2019-03-10T22:35:08.405+0000",
+  "updatedDate": "2019-04-10T22:35:08.405+0000",
+  "billItems": [
+    {
+      "manifestTrackingNumber": "0000123458ELC",
+      "amount": 5,
+      "submissionType": "FullElectronic",
+      "originType": "Web",
+      "certifiedDate": "03/30/2019",
+      "generatorSiteId": "MD00000003"
+    }
+  ],
+  "lateFees": [
+    {
+      "lateFeeBillId": 23421,
+      "interestAmount": 1.1,
+      "penaltyAmount": 1.1,
+      "lateFeeAmount": 1.1,
+      "flatFeeAmount": 1.1,
+      "status": "Active",
+      "createdDate": "2019-03-10T22:35:08.405+0000"
+    }
+  ],
+  "revisions": [
+    {
+      "adjustmentAmount": 1.1,
+      "amountType": "Current",
+      "adjustmentType": "Increase",
+      "publicComments": "credit",
+      "createdDate": "2019-03-10T22:35:08.405+0000"
+    }
+  ]
+}
