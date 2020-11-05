@@ -56,8 +56,7 @@
           "type": "string",
           "enum": [
             "Credit",
-            "Ach",
-            "OutOfBand"
+            "Ach"
           ]
         },
         "paidBy": {
