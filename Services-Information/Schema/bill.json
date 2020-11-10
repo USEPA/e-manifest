@@ -209,7 +209,7 @@
     "Revision": {
       "type": "object",
       "properties": {
-        "adjustmentAmount": {
+        "amount": {
           "description": "Contains either Bill Current or Bill Late fee or Total adjusted absolute amount. ",
           "type": "number"
         },

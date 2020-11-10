@@ -4,7 +4,7 @@
   "billingAccount": "AK000000009",
   "billId": 26875,
   "monthYear": "12/2012",
-  "report": "The service  returning bill by bill id . Valid bill id is provided , invalid monthYear is provided",
+  "report": "The service  returning bill by bill id . Valid bill id is provided , out of date monthYear is provided",
   "totalAmount": 10,
   "currentAmount": 5,
   "previousAmount": 1.1,
@@ -38,7 +38,7 @@
   ],
   "revisions": [
     {
-      "adjustmentAmount": 1.1,
+      "amount": 1.1,
       "amountType": "Current",
       "adjustmentType": "Increase",
       "publicComments": "credit",

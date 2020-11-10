@@ -11,11 +11,12 @@
 					"description": "Page in the e-Manifest module to send the user to. Required parameter.",
 					"type": "string",
 					"enum": [
-						"DashBoard",
+						"Dashboard",
 						"BulkSign",
 						"View",
 						"Edit",
-						"Sign"
+						"Sign",
+						"BulkQuickSign"
 					]
 				},
 				"epaSiteId": {
