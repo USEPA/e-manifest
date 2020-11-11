@@ -7,34 +7,27 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next Production release is October, 30 2020, the following functionality is available for testing in our preproduction environment:
+The next Production release is December, 4 2020, the following functionality is available for testing in our preproduction environment:
 
-    -    Current preproduction release as of 10/14/2020 contains:
+    -    Current preproduction release as of 11/10/2020 contains:
                Services updates
-               -Changes to the Search Service -10/30 release
-               -Error handling updates -10/30 release
-               -Functionality for New Regional assigned handler IDs and GIS Primary sites (Sites that only have Lat/Long coordinates) -10/30 release
+               -Invoice Services, the ability for industry systems to download invoices and invoice history information via APIs (GET only). 12/4/18 release.
+               -Electronic Signature Information element (electronicSignatureInfo) will be changed to an array instead of an object. 12/4/18 release.
               User Interface updates
-               -Functionality for New Regional assigned handler IDs and GIS Primary sites (Sites that only have Lat/Long coordinates) -10/30 release
-               -Infrastructure for Bulk Signatures 2.0 -10/30 release, full implementation planned for 1/8/21 release.
-               -Industry Billing fixes and enhancements -10/30 release
-               -Fixes for PCB functionality -10/30 release
-               -User interface enhancements -10/30 release
+               - Quick Sign functionality for Generators, Transporters, and certain receiving facility users that receive manifests.  Please note, receiving facilities will still need to sign the completed manifests to place the manifests on their invoices.
 
     -    Upcoming functionality and release ETA:
-             Invoice Services, the ability for industry systems to download invoices and invoice history information via APIs (GET only).  In progress, 12/4/18 release.
-             Electronic Signature Information element (electronicSignatureInfo) will be changed to an array instead of an object (affects GETs only and only those sites that parse this element.) 12/4/18 release.
              Bulk Signatures 2.0 will allow sites to sign more than 50 manifests at a time and offer more stability in the connection with CDX, in progress full implementation planned for 1/8/21 release.
              MTN Validation using Optical Character Recognition on Manifest images to help ensure the manifest tracking numbers submitted match the numbers on the manifests.  This functionality will be implemented in stages.  First as something that runs behind the scenes then via the user interface and finally via services.  Release schedule forthcoming 
 
     For more details on current issues see https://github.com/USEPA/e-manifest/issues
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
 
-The next Production release is October, 30 2020.
+The next Production release is December, 4 2020.
 
-The next 5 preproduction releases are: 10/14/20, 11/11/20, 12/9/20, 2021 releases are forthcoming 
+The next 5 preproduction releases are: 11/11/20, 12/9/20, 1/13/20, 2/10/21, 3/10/21 
 
-The next 5 production releases are: 10/30/20, 12/4/20, 1/8/21, 2021 releases are forthcoming
+The next 5 production releases are: 12/4/20, 1/8/21, 1/29/21, 2/26/21, 3/26/21 
 
 ## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
