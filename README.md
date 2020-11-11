@@ -14,7 +14,7 @@ The next Production release is December, 4 2020, the following functionality is 
                -Invoice Services, the ability for industry systems to download invoices and invoice history information via APIs (GET only). 12/4/18 release.
                -Electronic Signature Information element (electronicSignatureInfo) will be changed to an array instead of an object. 12/4/18 release.
               User Interface updates
-               - Quick Sign functionality for Generators, Transporters, and certain receiving facility users that receive manifests.  Please note, receiving facilities will still need to sign the completed manifests to place the manifests on their invoices.
+               - Quick Sign functionality for generators, transporters, and initial signatures by the receiving facility, when receiving facilities sign to acknowledge receipt of a hazardous waste shipment from the transporter. EPA continues to require CROMERR-compliant electronic signatures for receiving facilities submitting a final manifest and any user submitting post-receipt corrections to manifests in e-Manifest.
 
     -    Upcoming functionality and release ETA:
              Bulk Signatures 2.0 will allow sites to sign more than 50 manifests at a time and offer more stability in the connection with CDX, in progress full implementation planned for 1/8/21 release.
