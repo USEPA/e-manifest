@@ -18,7 +18,7 @@ The next Production release is December, 4 2020, the following functionality is 
 
     -    Upcoming functionality and release ETA:
              Bulk Signatures 2.0 will allow sites to sign more than 50 manifests at a time and offer more stability in the connection with CDX, in progress full implementation planned for 1/8/21 release.
-             MTN Validation using Optical Character Recognition on Manifest images to help ensure the manifest tracking numbers submitted match the numbers on the manifests.  This functionality will be implemented in stages.  First as something that runs behind the scenes then via the user interface and finally via services.  Release schedule forthcoming 
+             MTN Validation using Optical Character Recognition on Manifest images to help ensure the manifest tracking numbers submitted match the numbers on the manifests.  This functionality will be implemented in stages.  First as a tool that runs behind the scenes then via the user interface and finally via services.  Release schedule forthcoming 
 
     For more details on current issues see https://github.com/USEPA/e-manifest/issues
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
