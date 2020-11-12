@@ -893,8 +893,7 @@
         }
       },
       "required": [
-        "address1",
-        "city"
+        "address1"
       ],
       "additionalProperties": false
     },
