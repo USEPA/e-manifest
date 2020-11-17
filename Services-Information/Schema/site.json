@@ -58,6 +58,10 @@
           "description": "Indicates if the site is registered in RCRAInfo. Used for Transporters and Generators only.",
           "type": "boolean"
         },
+        "limitedEsign": {
+          "description": "Indicates if there is  at least one preparer user associated with the site which can quick sign. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
+          "type": "boolean"
+        },       
         "canEsign": {
           "description": "Indicates if there is at least one user registered for this site which can sign electronically",
           "type": "boolean"

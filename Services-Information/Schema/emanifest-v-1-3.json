@@ -714,6 +714,10 @@
           "description": "Indicates if the site information was modified from what was on the handler’s notification form. Shall not be provided for Save and update services.  Will be returned by Get Manifest Service",
           "type": "boolean"
         },
+        "limitedEsign": {
+          "description": "Indicates if there is  at least one preparer user associated with the site which can quick sign. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
+          "type": "boolean"
+        },       
         "canEsign": {
           "description": "Indicates if there is  at least one user associated with the site which can electronicaly sign. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
           "type": "boolean"
