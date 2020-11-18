@@ -29,7 +29,7 @@
 					"$ref": "#/definitions/ManifestTrackingNumber"
 				},
 				"filter": {
-					"description": "Optional Manifest Tracking Numbers. Used for filter out manifests for DashBoard and BulkSign",
+					"description": "Optional Manifest Tracking Numbers. Used to filter manifests for DashBoard, BulkSign and BulkQuickSign",
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/ManifestTrackingNumber"
