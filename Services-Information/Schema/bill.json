@@ -19,7 +19,7 @@
           "type": "string"
         },
         "report": {
-          "description": "Contains service report. Following reports are possible: 1. The service  returning bill by bill id. Valid bill id is provided, monthYear is not provided. 2. The service returning bill by monthYear . Valid monthYear is provided, bill id is not provided. 3. The service  returning bill by bill id.  Valid bill id is provided, valid monthYear is provided. 4. The service  returning bill by  monthYear . Invalid bill id is provided,  valid monthYear is provided. 5. The service  returning bill by bill id . Valid bill id is provided , invalid or out of range monthYear is provided.",
+          "description": "Contains service report. Following reports are possible: 1. The service  returning bill by bill id. Valid bill id is provided, monthYear is not provided. 2. The service returning bill by monthYear . Valid monthYear is provided, bill id is not provided. 3. The service  returning bill by bill id.  Valid bill id is provided, valid monthYear is provided. 4. The service  returning bill by  monthYear . Invalid bill id is provided,  valid monthYear is provided. 5. The service  returning bill by bill id . Valid bill id is provided , invalid or out of range monthYear is provided. 6.Invalid bill id is provided , out of date monthYear is provided. 7.Invalid bill id is provided , invalid monthYear is provided. 8. Provided bill id not found,  invalid monthYear is provided. ",
           "type": "string"
         },
         "billStatus": {
