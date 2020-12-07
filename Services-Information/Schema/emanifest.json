@@ -252,8 +252,8 @@
           "description": "Indicates if Generator information and Generator printed signature date was provided for the Image submission type manifest. Shall not be provided  for Save Manifest service.  Will be returned by get manifest service as a part of Manifest for the manifests with Image and submission type",
           "type": "boolean"
         },
-        "unlocked": {
-          "description": "Indicates if manifest is unlocked for update, delete, correct, revert services. If unlocked is false the manifest is in signing queue",
+        "locked": {
+          "description": "Indicates if manifest is locked for update, delete, correct, revert services. If locked is true the manifest is in signing queue. Shall not be provided  for Save and Update Manifest service.  Will be returned by get manifest service",
           "type": "boolean"
         }
       },
@@ -696,8 +696,11 @@
         "paperSignatureInfo": {
           "$ref": "#/definitions/PaperSignature"
         },
-        "electronicSignatureInfo": {
-          "$ref": "#/definitions/ElectronicSignature"
+        "electronicSignaturesInfo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ElectronicSignature"
+          }
         },
         "order": {
           "description": "Transporter Order. Used for Transporters only",
@@ -711,6 +714,10 @@
           "description": "Indicates if the site information was modified from what was on the handler’s notification form. Shall not be provided for Save and update services.  Will be returned by Get Manifest Service",
           "type": "boolean"
         },
+        "limitedEsign": {
+          "description": "Indicates if there is  at least one preparer user associated with the site which can quick sign. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
+          "type": "boolean"
+        },   
         "canEsign": {
           "description": "Indicates if there is  at least one user associated with the site which can electronicaly sign. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
           "type": "boolean"
@@ -901,6 +908,9 @@
       "description": "Contains Signer Information. Shall not be provided for Save and Update Manifest.",
       "type": "object",
       "properties": {
+        "userId": {
+          "type": "string"
+        },
         "firstName": {
           "description": "Max length is 38",
           "type": "string"
@@ -918,6 +928,18 @@
         },
         "email": {
           "type": "string"
+        },
+        "companyName": {
+          "description": "max length 80",
+          "type": "string"
+        },
+        "contactType": {
+          "type": "string",
+          "enum": [
+            "Email",
+            "Text",
+            "Voice"
+          ]
         }
       },
       "additionalProperties": false
