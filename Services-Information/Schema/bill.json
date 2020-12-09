@@ -155,11 +155,6 @@
             "Active",
             "Inactive"
           ]
-        },
-        "createdDate": {
-          "description": "Contains the creation date of the bill",
-          "type": "string",
-          "format": "date-time"
         }
       },
       "additionalProperties": false
