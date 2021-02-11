@@ -7,27 +7,26 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next Production release is December, 4 2020, the following functionality is available for testing in our preproduction environment:
+The next Production release is February, 5 2020, the following functionality is available for testing in our preproduction environment:
 
-    -    Current preproduction release as of 11/10/2020 contains:
+    -    Current preproduction release as of 1/19/2020 contains:
                Services updates
-               -Invoice Services, the ability for industry systems to download invoices and invoice history information via APIs (GET only). 12/4/18 release.
-               -Electronic Signature Information element (electronicSignatureInfo) will be changed to an array instead of an object. 12/4/18 release.
+               -Generator Mailing address error messages, reducing the quantity of error messages only
               User Interface updates
-               - Quick Sign functionality for generators, transporters, and initial signatures by the receiving facility, when receiving facilities sign to acknowledge receipt of a hazardous waste shipment from the transporter. EPA continues to require CROMERR-compliant electronic signatures for receiving facilities submitting a final manifest and any user submitting post-receipt corrections to manifests in e-Manifest.
+               - bug fixes
 
     -    Upcoming functionality and release ETA:
-             Bulk Signatures 2.0 will allow sites to sign more than 50 manifests at a time and offer more stability in the connection with CDX, in progress full implementation planned for 1/8/21 release.
+             Billing interface imporvements
              MTN Validation using Optical Character Recognition on Manifest images to help ensure the manifest tracking numbers submitted match the numbers on the manifests.  This functionality will be implemented in stages.  First as a tool that runs behind the scenes then via the user interface and finally via services.  Release schedule forthcoming 
 
     For more details on current issues see https://github.com/USEPA/e-manifest/issues
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
 
-The next Production release is December, 4 2020.
+The next Production release is February, 5 2020.
 
-The next 5 preproduction releases are: 11/11/20, 12/9/20, 1/13/20, 2/10/21, 3/10/21 
+The next 5 preproduction releases are: 2/17/21, 3/17/21, 4/14/21, 5/12/21, 6/9/21
 
-The next 5 production releases are: 12/4/20, 1/8/21, 1/29/21, 2/26/21, 3/26/21 
+The next 5 production releases are: 2/5/21, 3/5/21, 4/2/21, 4/30/21, 5/28/21
 
 ## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
