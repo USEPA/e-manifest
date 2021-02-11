@@ -1,0 +1,21 @@
+{
+  "manifestTrackingNumber": "CHANGE ME",
+  "submissionType": "Image",
+  "status": "ReadyForSignature",
+  "designatedFacility": {
+    "epaSiteId": "VATEST000003"
+  },
+  "printedDocument": {
+	"name": "manifest.pdf", 
+	"size": 81904,
+	"mimeType": "APPLICATION_PDF"
+},
+
+	"generator": {
+		"epaSiteId": "VATEST000004",
+    "paperSignatureInfo": {
+      "printedName": "Gen Erator",
+      "signatureDate": "2019-10-25T12:00:00.000+0000"
+		}
+	}
+}
