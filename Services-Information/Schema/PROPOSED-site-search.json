@@ -1,0 +1,73 @@
+  {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Schema for site-search service",
+  "$ref": "#/definitions/SiteSearch",
+  "definitions": {
+    "SiteSearch": {
+      "type": "object",
+      "properties": {
+        "epaSiteId": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "streetNumber": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "address1": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "state": {
+          "$ref": "#/definitions/Locality"
+        },
+        "zip": {
+          "type": "string",
+          "maxLength": 14
+        },
+        "siteType": {
+          "$ref": "#/definitions/SiteType"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SiteType": {
+      "type": "string",
+      "enum": [
+        "Tsdf",
+        "Generator",
+        "Transporter",
+        "Broker"
+      ]
+    },
+  
+    "Locality": {
+      "description": "Used for passing and returning State and Country",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
