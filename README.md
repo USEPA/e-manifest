@@ -7,12 +7,10 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next Production release is March, 5 2020, the following functionality is available for testing in our preproduction environment:
+The next Production release is April, 30 2021, the following functionality is available for testing in our preproduction environment:
 
-    -    Current preproduction release as of 1/19/2020 contains:
-               Services updates
-               -Generator Mailing address error messages, reducing the quantity of error messages only
-              User Interface updates
+    -    Current preproduction release as of 4/14/2021 contains:
+               Billing interface imporvements
                - bug fixes
 
     -    Upcoming functionality and release ETA:
@@ -22,11 +20,11 @@ The next Production release is March, 5 2020, the following functionality is ava
     For more details on current issues see https://github.com/USEPA/e-manifest/issues
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
 
-The next Production release is March, 5 2020.
+The next Production release is April, 30 2021.
 
-The next 5 preproduction releases are: 2/17/21, 3/17/21, 4/14/21, 5/12/21, 6/9/21
+The next 5 preproduction releases are: 4/14/21, 5/12/21, 6/9/21, 7/7/21, 8/4/21
 
-The next 5 production releases are: 3/5/21, 4/2/21, 4/30/21, 5/28/21, 6/25/21
+The next 5 production releases are: 4/30/21, 5/28/21, 6/25/21, 7/23/21, 8/20/21
 
 ## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
