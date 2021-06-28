@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: emanifest
-Version: 0.0.1
+Version: 0.0.3
 Summary: An API utility wrapper for accessing the eManifest hazardous waste tracking system maintained by the US Environmental Protection Agency
 Home-page: https://github.com/USEPA/e-manifest/emanifest-py
 Author: William Nicholas
@@ -58,9 +58,9 @@ Before using the eManifest package, ensure you have a RCRAInfo user account and 
 To add eManifest to your current Python environment and authenticate your account, peform the following commands:
 
 ```python
-import emanifest
+from emanifest import emanifest as em
 
-eManAuth('YOUR_API_ID', 'YOUR_API_KEY', 'YOUR_ENVIRONMENT')
+em.eManAuth('YOUR_API_ID', 'YOUR_API_KEY', 'YOUR_ENVIRONMENT')
 ```
 
 Your environment variable can be any of the following for which you have permission: "dev", "sandbox", "preprod", "prod"
@@ -87,9 +87,9 @@ Most content will be returned as a [Pandas Dataframe item](https://pandas.pydata
 ```python
 import pandas as pd # Unnecessary if you have imported Pandas elsewhere
 
-GetSiteDetails('VATESTSD123').to_csv('your_new_file_name.csv')
+em.GetSiteDetails('VATESTSD123').to_csv('your_new_file_name.csv')
 
-GetSiteDetails('VATESTSD123').to_excel('your_new_file_name.xlsx')
+em.GetSiteDetails('VATESTSD123').to_excel('your_new_file_name.xlsx')
 
 ```
 
@@ -97,7 +97,7 @@ Functions that download file attachments will store these in the same folder as 
 
 ### Help
 
-If you are uncertain how to use a function, run help(Function name) in your Python environment. This will return a description of the function, any required inputs, and the formats of those inputs. For a list of all the functions contained in eManifest and additional information about this package, run help(emanifest) in your Python environment.
+If you are uncertain how to use a function, run help(em.FunctionName) in your Python environment. This will return a description of the function, any required inputs, and the formats of those inputs. For a list of all the functions contained in eManifest and additional information about this package, run help(emanifest) in your Python environment.
 
 ## Contact
 

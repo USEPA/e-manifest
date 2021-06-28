@@ -2,8 +2,6 @@ LICENSE.txt
 README.md
 pyproject.toml
 setup.cfg
-src/emanifest/__init__.py
-src/emanifest/emanifest.py
 src/emanifest.egg-info/PKG-INFO
 src/emanifest.egg-info/SOURCES.txt
 src/emanifest.egg-info/dependency_links.txt
