@@ -1,5 +1,7 @@
 # eManifest
 
+THIS PACKAGE IS IN ALPHA RELEASE AND IS CURRENTLY FOR TESTING PURPOSES ONLY. IT IS NOT YET SUITABLE FOR PRODUCTION USE.
+
 eManifest is a Python utility wrapper for accessing the eManifest API of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
 
 ## Contents
