@@ -247,7 +247,7 @@ def GetBill(**kwargs):
                             headers = {'Content-Type' : 'text/plain', 'Accept' : 'application/json', 'Authorization' : 'Bearer '+token},
                             data = json.dumps(dict(**kwargs)))  
     if bill.status_code == 200:
-        return pd.json_normalize(bill.json())
+        return bill.json()
     else:
         print('Error: '+ str(bill.json()['message']))
         
@@ -294,7 +294,7 @@ def GetCorrectionVersion(**kwargs):
                             headers = {'Content-Type' : 'text/plain', 'Accept' : 'application/json', 'Authorization' : 'Bearer '+token},
                             data = json.dumps(dict(**kwargs)))  
     if cvd.status_code == 200:
-        return pd.json_normalize(cvd.json())
+        return cvd.json()
     else:
         print('Error: '+ str(cvd.json()['message']))
         
@@ -310,7 +310,7 @@ def GetManByMTN(MTN):
     '''Retrieve eManifest for a given manifest tracking number'''
     eman = requests.get(base_url+'/api/v1/emanifest/manifest/'+MTN, headers = {'Accept' : 'application/json', 'Authorization' : 'Bearer '+token})
     if eman.status_code == 200:
-        return pd.json_normalize(eman.json())
+        return eman.json()
     else:
         print('Error: '+ str(eman.json()['message']))
         
@@ -504,7 +504,7 @@ def GetCorrectionVersionReg(**kwargs):
                             headers = {'Content-Type' : 'text/plain', 'Accept' : 'application/json', 'Authorization' : 'Bearer '+token},
                             data = json.dumps(dict(**kwargs)))  
     if cvd.status_code == 200:
-        return pd.json_normalize(cvd.json())
+        return cvd.json()
     else:
         print('Error: '+ str(cvd.json()['message']))
         
@@ -520,7 +520,7 @@ def GetManByMTNReg(MTN):
     '''Retrieve eManifest for a given manifest tracking number'''
     eman = requests.get(base_url+'/api/v1/state/emanifest/manifest/'+MTN, headers = {'Accept' : 'application/json', 'Authorization' : 'Bearer '+token})
     if eman.status_code == 200:
-        return pd.json_normalize(eman.json())
+        return eman.json()
     else:
         print('Error: '+ str(eman.json()['message']))
         

@@ -1,7 +1,5 @@
 # eManifest
 
-THIS PACKAGE IS IN ALPHA RELEASE AND IS CURRENTLY FOR TESTING PURPOSES ONLY. IT IS NOT YET SUITABLE FOR PRODUCTION USE.
-
 eManifest is a Python utility wrapper for accessing the eManifest API of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
 
 ## Contents
@@ -80,6 +78,8 @@ em.GetSiteDetails('VATESTSD123').to_csv('your_new_file_name.csv')
 em.GetSiteDetails('VATESTSD123').to_excel('your_new_file_name.xlsx')
 
 ```
+
+More complicated results will be returned as a JSON object.
 
 Functions that download file attachments will store these in the same folder as your Python document. Functions that update, correct, or save manifests by uploading new .json and/or .zip files must receive the specific location of these files on your computer. By default, these functions will assume the files are located in the same folder as your Python document.
 
