@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: emanifest
-Version: 0.0.6
+Version: 0.0.7
 Summary: An API utility wrapper for accessing the eManifest hazardous waste tracking system maintained by the US Environmental Protection Agency
 Home-page: https://github.com/USEPA/e-manifest/emanifest-py
 Author: William Nicholas
