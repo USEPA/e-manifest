@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
 Name: emanifest
-Version: 0.0.8
-Summary: An API utility wrapper for accessing the eManifest hazardous waste tracking system maintained by the US Environmental Protection Agency
+Version: 1.0.0
+Summary: An API utility wrapper for accessing the e-Manifest hazardous waste tracking system maintained by the US Environmental Protection Agency
 Home-page: https://github.com/USEPA/e-manifest/tree/master/emanifest-py
 Author: William Nicholas
 Author-email: nicholas.william@epa.gov
@@ -14,7 +14,7 @@ License-File: LICENSE.txt
 
 # eManifest
 
-eManifest is a Python utility wrapper for accessing the eManifest API of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
+**emanifest** is a Python utility wrapper for accessing the e-Manifest API of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
 
 ## Contents
 - [Requirements](#requirements)
@@ -43,7 +43,7 @@ eManifest is a Python utility wrapper for accessing the eManifest API of the US 
 
 ## Installation
 
-eManifest can be installed directly from the Python package directory using pip:
+**emanifest** can be installed directly from the Python package directory using pip:
 
 ```bash
 pip install emanifest
@@ -53,9 +53,9 @@ pip install emanifest
 
 ### Getting Started
 
-Before using the eManifest package, ensure you have a RCRAInfo user account and the necessary permissions to generate an API ID and key. Make note of your ID and key somewhere safe.
+Before using the **emanifest** package, ensure you have a RCRAInfo user account and the necessary permissions to generate an API ID and key. Make note of your ID and key somewhere safe.
 
-To add eManifest to your current Python environment and authenticate your account, peform the following commands:
+To add **emanifest** to your current Python environment and authenticate your account, peform the following commands:
 
 ```python
 from emanifest import emanifest as em
@@ -65,24 +65,24 @@ em.eManAuth('YOUR_API_ID', 'YOUR_API_KEY', 'YOUR_ENVIRONMENT')
 
 Your environment variable can be any of the following for which you have permission: "dev", "sandbox", "preprod", "prod"
 
-Once you receive a "Successfully authenticated" message, you are ready to use the full functionality of the eManifest package. Functions designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to view this content in RCRAInfo.
+Once you receive a "Successfully authenticated" message, you are ready to use the full functionality of the **emanifest** package. Functions designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to view this content in RCRAInfo.
 
 ### Functions
 
-There are ten categories of functions in the eManifest package. For more information about these services, visit the Swagger page of your selected environment. ([DEV](https://rcrainfodev.com/rcrainfo/rest), [SANDBOX](https://sandbox.rcrainfodev.net/rcrainfo/rest/), [PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/rest/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/rest/))
+There are ten categories of functions in the **emanifest** package. For more information about these services, visit the Swagger page of your selected environment. ([DEV](https://rcrainfodev.com/rcrainfo/rest), [SANDBOX](https://sandbox.rcrainfodev.net/rcrainfo/rest/), [PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/rest/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/rest/))
 
 1. [All users] Authentication services
-2. [All users] eManifest Lookup Services
+2. [All users] e-Manifest Lookup Services
 3. [All users] Lookup Services
 4. [All users] Site Services
-5. [Industry users] eManifest Services
-6. [Industry users] eManifest UI Link Services
+5. [Industry users] e-Manifest Services
+6. [Industry users] e-Manifest UI Link Services
 7. [Regulator users] CM&E Evaluation Services
-8. [Regulator users] eManifest Services
+8. [Regulator users] e-Manifest Services
 9. [Regulator users] Handler Services
 10. [Regulator users] User Services
 
-Most content will be returned as a [Pandas Dataframe item](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html). To output this data as a CSV or Excel file, you will need to ensure the Pandas library is active in your current Python environment, select a desired eManifest function (e.g. GetSiteDetails), and perform one of the following commands:
+Most content will be returned as a [Pandas Dataframe item](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html). To output this data as a CSV or Excel file, you will need to ensure the Pandas library is active in your current Python environment, select a desired **emanifest** function (e.g. GetSiteDetails), and perform one of the following commands:
 
 ```python
 import pandas as pd # Unnecessary if you have imported Pandas elsewhere
@@ -99,13 +99,13 @@ Functions that download file attachments will store these in the same folder as 
 
 ### Help
 
-If you are uncertain how to use a function, run help(em.FunctionName) in your Python environment. This will return a description of the function, any required inputs, and the formats of those inputs. For a list of all the functions contained in eManifest and additional information about this package, run help(emanifest) in your Python environment.
+If you are uncertain how to use a function, run help(em.FunctionName) in your Python environment. This will return a description of the function, any required inputs, and the formats of those inputs. For a list of all the functions contained in **emanifest** and additional information about this package, run help(emanifest) in your Python environment.
 
 ## Contact
 
-Please direct questions to the EPA eManifest team at [USEPA/e-manifest](https://github.com/USEPA/e-manifest)
+Please direct questions to the EPA e-Manifest team at [USEPA/e-manifest](https://github.com/USEPA/e-manifest)
 
 ## License
 
-eManifest is in the US Public Domain and licensed worldwide under CC0 1.0. [See LICENSE](https://github.com/USEPA/e-manifest/emanifest-py/blob/master/LICENSE) for details.
+**emanifest** is in the US Public Domain and licensed worldwide under CC0 1.0. [See LICENSE](https://github.com/USEPA/e-manifest/emanifest-py/blob/master/LICENSE) for details.
 
