@@ -1,4 +1,4 @@
-﻿# e-Manifest
+# e-Manifest
 
 ## Background
 The overarching purpose of e-Manifest is to establish a national information technology system that will enable the Agency and the hazardous waste program’s industry and state stakeholders to transition the manifest system from one that is paper-intensive and burdensome to a system that is much more efficient, because it will rely on information technology to track hazardous waste shipments
@@ -7,24 +7,14 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next Production release is April, 30 2021, the following functionality is available for testing in our preproduction environment:
+The next Production release is August 20, 2021.
 
-    -    Current preproduction release as of 4/14/2021 contains:
-               Billing interface imporvements
-               - bug fixes
-
-    -    Upcoming functionality and release ETA:
-             Billing interface imporvements
-             MTN Validation using Optical Character Recognition on Manifest images to help ensure the manifest tracking numbers submitted match the numbers on the manifests.  This functionality will be implemented in stages.  First as a tool that runs behind the scenes then via the user interface and finally via services.  Release schedule forthcoming 
-
-    For more details on current issues see https://github.com/USEPA/e-manifest/issues
+For more details on current issues see https://github.com/USEPA/e-manifest/issues
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
 
-The next Production release is April, 30 2021.
+The next 5 preproduction releases are: 8/6/21, 9/1/2021, 9/29/2021, 10/27/2021, 11/24/2021
 
-The next 5 preproduction releases are: 4/14/21, 5/12/21, 6/9/21, 7/7/21, 8/4/21
-
-The next 5 production releases are: 4/30/21, 5/28/21, 6/25/21, 7/23/21, 8/20/21
+The next 5 production releases are: 8/20/21, 9/17/2021, 10/15/2021, 11/12/2021, 12/10/2021
 
 ## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
@@ -47,6 +37,8 @@ Tools for Testers
     
 * Swagger page for testing and documenting the services (See: https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/ (You must be registered as a site manager for a TSDF site to access this site, see Accessing the Test Environment, below.))
 * Sample Client for accessing the services (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information/sample-client)
+* Python **emanifest** package for accessing the services (See: https://github.com/USEPA/e-manifest/tree/master/emanifest-py)
+* JavaScript **haztrak** package for accessing the services (See: https://github.com/dpgraham4401/haztrak)
 
 Please note; The test environment for the most part mirrors the handler information in our production environment. When testing, please also make sure your site information is up to date, if it is not please use myRCRAid or your State’s paper notification process to update your site.
 
@@ -97,8 +89,6 @@ If you want to register for an API ID and Key to test the services, you may crea
 Upcoming Iterations
 
 In the upcoming months, we will add more screens and request feedback from States, Brokers, and Transporters.  In addition, we will also release new versions of our Application Programming Interfaces (APIs) for users wishing to implement e-Manifest in their existing manifest systems.
-
-
  
 ## Reference
 
@@ -111,7 +101,6 @@ Additional Resources:
 [Sample Paper Manifest](https://www.epa.gov/sites/production/files/2018-05/documents/uniform_hazardous_waste_manifest.pdf) 
 
 [Paper Manifest Instructions](https://www.epa.gov/sites/production/files/2018-05/documents/instructions_for_completing_the_uniform_hazardous_waste_manifest.pdf)
-
 
 ## Contact Information
 Additional Questions: emanifest@epa.gov
