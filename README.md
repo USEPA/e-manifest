@@ -94,7 +94,7 @@ In the upcoming months, we will add more screens and request feedback from State
 
 EPA's [Hazardous Waste Electronic Manifest System (E-Manifest)](https://www.epa.gov/hwgenerators/hazardous-waste-electronic-manifest-system-e-manifest) page 
 
-All our [active cards and issues] (/issues) are posted in this GitHub Repository.  We will be posting additional documents as well as issues that we want user feedback on in the near future.  
+All our [active cards and issues](https://github.com/USEPA/e-manifest/issues) are posted in this GitHub Repository.  We will be posting additional documents as well as issues that we want user feedback on in the near future.  
 
 Additional Resources: 
 
