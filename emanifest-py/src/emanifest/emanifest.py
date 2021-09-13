@@ -393,7 +393,7 @@ def Update(JSON, ZIP=None):
     if update.status_code == 200:
         print(update.json()['operationStatus'])
     else:
-        print(update.json()['message'])
+        print(update.json()['errors'][0]['message'])
         
 def Delete(MTN):
     '''Delete selected manifest'''
