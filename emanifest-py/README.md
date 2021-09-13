@@ -54,7 +54,7 @@ em.eManAuth('YOUR_API_ID', 'YOUR_API_KEY', 'YOUR_ENVIRONMENT')
 
 Your environment variable can be any of the following for which you have permission: "dev", "sandbox", "preprod", "prod"
 
-Once you receive a "Successfully authenticated" message, you are ready to use the full functionality of the **emanifest** package. Functions designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to view this content in RCRAInfo.
+Once you receive a "Authentication successful" message, you are ready to use the full functionality of the **emanifest** package. Functions designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to view this content in RCRAInfo.
 
 ### Functions
 
@@ -94,6 +94,6 @@ If you are uncertain how to use a function, run help(em.FunctionName) in your Py
 
 Please direct questions to the EPA e-Manifest team at [USEPA/e-manifest](https://github.com/USEPA/e-manifest)
 
-## License
+## Disclaimer
 
-**emanifest** is in the US Public Domain and licensed worldwide under CC0 1.0. [See LICENSE](https://github.com/USEPA/e-manifest/emanifest-py/blob/master/LICENSE) for details.
+The United States Environmental Protection Agency (EPA) GitHub project code is provided on an "as is" basis and the user assumes responsibility for its use. EPA has relinquished control of the information and no longer has responsibility to protect the integrity , confidentiality, or availability of the information. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by EPA. The EPA seal and logo shall not be used in any manner to imply endorsement of any commercial product or activity by EPA or the United States Government.
