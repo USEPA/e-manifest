@@ -58,7 +58,7 @@ Once you receive a "Authentication successful" message, you are ready to use the
 
 ### Functions
 
-There are ten categories of functions in the **emanifest** package. For more information about these services, visit the Swagger page of your selected environment. ([DEV](https://rcrainfodev.com/rcrainfo/rest), [SANDBOX](https://sandbox.rcrainfodev.net/rcrainfo/rest/), [PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/rest/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/rest/))
+There are ten categories of functions in the **emanifest** package. For more information about these services, visit the Swagger page of your selected environment. ([DEV](https://rcrainfodev.com/rcrainfo/secured/swagger/), [SANDBOX](https://sandbox.rcrainfodev.net/rcrainfo/secured/swagger/), [PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/))
 
 1. [All users] Authentication services
 2. [All users] e-Manifest Lookup Services
