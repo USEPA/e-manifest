@@ -201,7 +201,7 @@ def GetSiteDetails(SiteID):
     '''Retrieve site details for a given Site ID'''
     details = requests.get(base_url+'/api/v1/site-details/'+SiteID, headers = {'Accept' : 'application/json', 'Authorization' : 'Bearer '+token})
     if details.status_code == 200:
-        return pd.json_normalize(details.json())
+        return details.json()
     else:
         print('Error: '+ str(details.json()['message']))
         
@@ -219,7 +219,7 @@ def SiteSearch(**kwargs):
                             headers = {'Content-Type' : 'text/plain', 'Accept' : 'application/json', 'Authorization' : 'Bearer '+token},
                             data = json.dumps(dict(**kwargs)))  
     if sitesearch.status_code == 200:
-        return pd.json_normalize(sitesearch.json(), 'sites')
+        return sitesearch.json()
     else:
         print('Error: '+ str(sitesearch.json()['message']))
         
@@ -336,18 +336,12 @@ def Correct(JSON, ZIP=None):
     correct = requests.put(base_url+'/api/v1/emanifest/manifest/correct', 
                          headers = {'Content-Type' : m.content_type, 'Accept' : 'application/json', 'Authorization' : 'Bearer '+token}, 
                          data = m)
-    if correct.status_code == 200:
-        print(correct.json()['operationStatus'])
-    else:
-        print(correct.json()['errors'][0]['message'])
+    print(correct.json())
         
 def Revert(MTN):
     '''Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version'''
     revert = requests.get(base_url+'/api/v1/emanifest/manifest/revert/'+MTN, headers = {'Accept' : 'application/json', 'Authorization' : 'Bearer '+token})
-    if revert.status_code == 200:
-        print(revert.json()['operationStatus'])
-    else:
-        print(revert.json()['message'])
+    print(revert.json())
         
 def GetCorrectionAttachments(**kwargs):
     '''Retrieve attachments of corrected manifests based on provided search criteria. Requires some of the following parameters: 
@@ -390,18 +384,12 @@ def Update(JSON, ZIP=None):
     update = requests.put(base_url+'/api/v1/emanifest/manifest/update', 
                          headers = {'Content-Type' : m.content_type, 'Accept' : 'application/json', 'Authorization' : 'Bearer '+token}, 
                          data = m)
-    if update.status_code == 200:
-        print(update.json()['operationStatus'])
-    else:
-        print(update.json()['errors'][0]['message'])
+    print(update.json())
         
 def Delete(MTN):
     '''Delete selected manifest'''
     delete = requests.delete(base_url+'/api/v1/emanifest/manifest/delete/'+MTN, headers = {'Accept' : 'application/json', 'Authorization' : 'Bearer '+token})
-    if delete.status_code == 200:
-        print(delete.json()['operationStatus'])
-    else:
-        print(delete.json()['message'])
+    print(delete.json())
         
 def Save(JSON, ZIP=None):
     '''Save Manifest by providing eManifest JSON and optional Zip attachment'''
@@ -417,10 +405,7 @@ def Save(JSON, ZIP=None):
     save = requests.post(base_url+'/api/v1/emanifest/manifest/save', 
                          headers = {'Content-Type' : m.content_type, 'Accept' : 'application/json', 'Authorization' : 'Bearer '+token}, 
                          data = m)
-    if save.status_code == 200:
-        print([save.json()['operationStatus'], save.json()['manifestTrackingNumber']])
-    else:
-        print(save.json())
+    print(save.json())
         
 def GenerateUILink(**kwargs):
     '''Generate link to the UI of the eManifest module based on the following parameters: page, epaSiteId, manifestTrackingNumber, filter (takes list of MTNs)'''
