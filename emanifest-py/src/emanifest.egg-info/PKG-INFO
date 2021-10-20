@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: emanifest
-Version: 1.0.7
+Version: 1.0.8
 Summary: An API utility wrapper for accessing the e-Manifest hazardous waste tracking system maintained by the US Environmental Protection Agency
 Home-page: https://github.com/USEPA/e-manifest/tree/master/emanifest-py
 Author: William Nicholas
@@ -72,7 +72,7 @@ Once you receive a "Authentication successful" message, you are ready to use the
 
 ### Functions
 
-There are ten categories of functions in the **emanifest** package. For more information about these services, visit the Swagger page of your selected environment. ([DEV](https://rcrainfodev.com/rcrainfo/rest), [SANDBOX](https://sandbox.rcrainfodev.net/rcrainfo/rest/), [PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/rest/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/rest/))
+There are ten categories of functions in the **emanifest** package. For more information about these services, visit the Swagger page of your selected environment. ([DEV](https://rcrainfodev.com/rcrainfo/secured/swagger/), [SANDBOX](https://sandbox.rcrainfodev.net/rcrainfo/secured/swagger/), [PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/))
 
 1. [All users] Authentication services
 2. [All users] e-Manifest Lookup Services
@@ -111,4 +111,5 @@ Please direct questions to the EPA e-Manifest team at [USEPA/e-manifest](https:/
 ## Disclaimer
 
 The United States Environmental Protection Agency (EPA) GitHub project code is provided on an "as is" basis and the user assumes responsibility for its use. EPA has relinquished control of the information and no longer has responsibility to protect the integrity , confidentiality, or availability of the information. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by EPA. The EPA seal and logo shall not be used in any manner to imply endorsement of any commercial product or activity by EPA or the United States Government.
+
 
