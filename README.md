@@ -7,14 +7,10 @@ The overarching purpose of e-Manifest is to establish a national information tec
 The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**. 
 
 ## What is going on
-The next Production release is August 20, 2021.
+The release calendar can be found here: **[Release Calendar](https://calendar.google.com/calendar/u/0/htmlembed?src=cbg29nj98u94np3c4pp5vjdph8@group.calendar.google.com&ctz=America/New_York)**
 
 For more details on current issues see https://github.com/USEPA/e-manifest/issues
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
-
-The next 5 preproduction releases are: 8/6/21, 9/1/2021, 9/29/2021, 10/27/2021, 11/24/2021
-
-The next 5 production releases are: 8/20/21, 9/17/2021, 10/15/2021, 11/12/2021, 12/10/2021
 
 ## How to test and what is available
 EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
