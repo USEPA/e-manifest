@@ -13,23 +13,28 @@ For more details on current issues see https://github.com/USEPA/e-manifest/issue
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
 
 ## How to test and what is available
-EPA strongly encourages testing of the services and has provided [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) to get testers started:
+There are ten categories of services available based on your user status:
 
-Services Available
-* Authentication Services and ID/Key Registration
-* GET manifest and handler services
-* Data look up services
-* POST manifest services
+1. [All users] Authentication services
+2. [All users] e-Manifest Lookup Services
+3. [All users] Lookup Services
+4. [All users] Site Services
+5. [Industry users] e-Manifest Services
+6. [Industry users] e-Manifest UI Link Services
+7. [Regulator users] CM&E Evaluation Services
+8. [Regulator users] e-Manifest Services
+9. [Regulator users] Handler Services
+10. [Regulator users] User Services
 
-Tools for Testers
+**Tools for Testers**
 * [JSON Schema](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema)
 * [sample JSON](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples) for submitting manifests to EPA, including:
 
-    A [valid example](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/manifest-save-return-examples/emanifest-save-valid-no-file-example.json) without the need to send an attachment
+  - A [valid example](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/manifest-save-return-examples/emanifest-save-valid-no-file-example.json) without the need to send an attachment
 
-    A [valid example](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/manifest-save-return-examples/emanifest-save-valid-with-file-example.json) with the need to send an atachment
+  - A [valid example](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/manifest-save-return-examples/emanifest-save-valid-with-file-example.json) with the need to send an atachment
 
-    An [invalid example](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/manifest-save-return-examples/emanifest-save-invalid-example.json) with several errors
+  - An [invalid example](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/manifest-save-return-examples/emanifest-save-invalid-example.json) with several errors
     
 * Swagger page for testing and documenting the services (See: https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/ (You must be registered as a site manager for a TSDF site to access this site, see Accessing the Test Environment, below.))
 * Sample Client for accessing the services (See: https://github.com/USEPA/e-manifest/tree/master/Services-Information/sample-client)
