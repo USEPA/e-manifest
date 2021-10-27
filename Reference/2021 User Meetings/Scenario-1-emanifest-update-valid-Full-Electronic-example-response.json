@@ -1,0 +1,20 @@
+{
+  "manifestTrackingNumber": "100032437ELC",
+  "reportId": "52647883-f0fd-44ed-8971-c1aaa5484304",
+  "date": "2021-09-09T21:37:12.131+0000",
+  "operationStatus": "Updated",
+  "wasteReports": [
+    {
+      "entityId": {
+        "entityIdField": "lineNumber",
+        "entityIdValue": "1"
+      },
+      "warnings": [
+        {
+          "message": "Field is Not Provided",
+          "field": "Emanifest.wastes.managementMethod.code"
+        }
+      ]
+    }
+  ]
+}
