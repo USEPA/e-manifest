@@ -71,7 +71,7 @@
         "dueDate": {
           "description": "Contains due date. ",
           "type": "string",
-          "format": "date-time"
+          "format": "date"
         },
         "paidBy": {
           "description": "Contains the bill payee user id",
@@ -121,6 +121,17 @@
           "items": {
             "$ref": "#/definitions/Revision"
           }
+        },
+        "recalculationsInfo": {
+          "description": "contains list of Recalculations",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RecalculationInfo"
+          }
+        },
+        "totalAmountChanged": {
+          "description": "if true the totalAmount has been changed from the original calculated amount at the beginning of the month",
+          "type": "boolean"
         }
       },
       "additionalProperties": false
@@ -162,6 +173,12 @@
     "BillItem": {
       "type": "object",
       "properties": {
+        "billId": {
+          "type": "number"
+        },
+        "billItemId": {
+          "type": "number"
+        },
         "manifestTrackingNumber": {
           "description": "Contains manifest tracking number of the bill item.",
           "type": "string"
@@ -197,6 +214,19 @@
         "generatorSiteId": {
           "description": "Contains the the site id of the manifest generator",
           "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Active",
+            "Canceled"
+          ]
+        },
+        "billerSiteCorrect": {
+          "type": "boolean"
+        },
+        "billerSiteChangedInfo": {
+          "$ref": "#/definitions/BillerSiteChangedInfo"
         }
       },
       "additionalProperties": false
@@ -206,6 +236,10 @@
       "properties": {
         "amount": {
           "description": "Contains either Bill Current or Bill Late fee or Total adjusted absolute amount. ",
+          "type": "number"
+        },
+        "billId": {
+          "description": "contains bill id",
           "type": "number"
         },
         "amountType": {
@@ -230,10 +264,61 @@
           "description": "adjustment comments",
           "type": "string"
         },
+        "billItemId": {
+          "type": "number"
+        },
         "createdDate": {
           "description": "Contains the adjustment creation date",
           "type": "string",
           "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "BillerSiteChangedInfo": {
+      "type": "object",
+      "properties": {
+        "siteType": {
+          "description": "Specifies what biller site changed Original Site or New Site",
+          "type": "string",
+          "enum": [
+            "OriginalSite",
+            "NewSite"
+          ]
+        },
+        "source ": {
+          "type": "string",
+          "enum": [
+            "RisTicket",
+            "Ppc",
+            "Other"
+          ]
+        },
+        "risTicketNumber": {
+          "type": "string"
+        },
+        "dateOfEmail": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "explanation": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "RecalculationInfo": {
+      "type": "object",
+      "properties": {
+        "billItemId": {
+          "type": "number"
+        },
+        "recalculationReason ": {
+          "type": "string",
+          "enum": [
+            "OriginalSiteBill",
+            "NewSiteBill"
+          ]
         }
       },
       "additionalProperties": false
