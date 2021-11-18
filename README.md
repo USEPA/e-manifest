@@ -130,12 +130,12 @@ In March and April of 2017, the team released a series of Generator and TSD Faci
 
 In June of 2017 the team released a series of web services, front end screens, and modifications based on responses from user experience testing.  Specifically, we released for user testing and feedback:
 
-1) Changes based on user feedback
-2) Initial web services
-* Authentication Services and ID/Key Registration
-* Get manifest and handler services
-* Data look up services
-* Swagger page for testing and documenting the services
-* Sample Client for accessing the services
-3)	Generator and TSDF screens and workflow, including adding facilities not in our database
-4)	Bulk Signing of manifests (using EPA standard signature services via CDX)
+1. Changes based on user feedback
+2. Initial web services
+3. Authentication Services and ID/Key Registration
+    - Get manifest and handler services
+    - Data look up services
+    - Swagger page for testing and documenting the services
+    - Sample Client for accessing the services
+4. Generator and TSDF screens and workflow, including adding facilities not in our database
+5. Bulk Signing of manifests (using EPA standard signature services via CDX)
