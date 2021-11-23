@@ -251,6 +251,18 @@ def GetBill(**kwargs):
     else:
         print('Error: '+ str(bill.json()['message']))
         
+def SearchBill(**kwargs):
+    '''Search for bills using the following criteria:
+     billingAccount, billStatus, startDate (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ), endDate (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ),
+     amountChanged (boolean true|false), pageNumber (number greater than 0)'''
+    bsearch = requests.post(base_url+'/api/v1/emanifest/billing/bill-search', 
+                            headers = {'Content-Type' : 'text/plain', 'Accept' : 'application/json', 'Authorization' : 'Bearer '+token},
+                            data = json.dumps(dict(**kwargs)))  
+    if bsearch.status_code == 200:
+        return bsearch.json()
+    else:
+        print('Error: '+ str(bsearch.json()['message']))
+        
 def GetAttachments(ManifestTrackingNumber):
     '''Retrieve eManifest details as json with attachments matching provided Manifest Tracking Number'''
     attach = requests.get(base_url+'/api/v1/emanifest/manifest/'+ManifestTrackingNumber+'/attachments', 
