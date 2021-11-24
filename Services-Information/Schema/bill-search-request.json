@@ -8,7 +8,7 @@
       "type": "object",
       "properties": {
         "billingAccount": {
-          "description": "Billing account (EPA Site Id). If date range parameters are not provided the service return bill history from inception to the curent date",
+          "description": "Billing account (EPA Site Id).",
           "type": "string",
           "pattern": "^([A-Z][A-Z][A-Za-z0-9]{2,10})$"
         },
@@ -26,10 +26,12 @@
           ]
         },
         "startDate": {
+          "description": "If date range parameters are not provided the service will return an error",
           "type": "string",
           "format": "date-time"
         },
         "endDate": {
+          "description": "If date range parameters are not provided the service will return an error",
           "type": "string",
           "format": "date-time"
         },
