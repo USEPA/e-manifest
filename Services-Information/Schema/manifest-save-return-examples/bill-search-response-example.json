@@ -1,0 +1,107 @@
+{
+  "totalNumberOfBills": 4,
+  "totalNumberOfPages": 1,
+  "currentPageNumber": 1,
+  "searchedParameters": [
+    {
+      "field": "startDate",
+      "value": "Wed Sep 01 00:00:00 EDT 2021"
+    },
+    {
+      "field": "endDate",
+      "value": "Fri Oct 01 00:00:00 EDT 2021"
+    },
+    {
+      "field": "billingAccount",
+      "value": "AK8570028649"
+    }
+  ],
+  "bills": [
+    {
+      "billingAccount": "AK8570028649",
+      "billId": 13379972,
+      "billStatus": "Unpaid",
+      "totalAmount": 69.05,
+      "currentAmount": 0,
+      "previousAmount": 54,
+      "previousInterestAmount": 0.05,
+      "previousPenaltyAmount": 0,
+      "previousLateFeeAmount": 15.05,
+      "dueDate": "2021-08-31",
+      "createdDate": "2021-07-01T05:00:08.089+0000",
+      "updatedDate": "2021-09-07T16:05:59.274+0000",
+      "lateFees": [
+        {
+          "lateFeeBillId": 13040557,
+          "interestAmount": 0.05,
+          "penaltyAmount": 0,
+          "lateFeeAmount": 15.05,
+          "flatFeeAmount": 15,
+          "status": "Active"
+        }
+      ]
+    },
+    {
+      "billingAccount": "AK8570028649",
+      "billId": 13040557,
+      "billStatus": "Unpaid",
+      "totalAmount": 54,
+      "currentAmount": 54,
+      "previousAmount": 0,
+      "previousInterestAmount": 0,
+      "previousPenaltyAmount": 0,
+      "previousLateFeeAmount": 0,
+      "dueDate": "2021-07-31",
+      "createdDate": "2021-06-04T20:26:43.401+0000",
+      "updatedDate": "2021-09-07T16:05:59.275+0000"
+    },
+    {
+      "billingAccount": "AK8570028649",
+      "billId": 13558420,
+      "billStatus": "Paid",
+      "totalAmount": 84.09,
+      "currentAmount": 0,
+      "previousAmount": 54,
+      "previousInterestAmount": 0.09,
+      "previousPenaltyAmount": 0,
+      "previousLateFeeAmount": 30.09,
+      "dueDate": "2021-09-30",
+      "createdDate": "2021-08-01T05:00:03.192+0000",
+      "updatedDate": "2021-09-07T16:05:59.276+0000",
+      "lateFees": [
+        {
+          "lateFeeBillId": 13040557,
+          "interestAmount": 0.09,
+          "penaltyAmount": 0,
+          "lateFeeAmount": 30.09,
+          "flatFeeAmount": 30,
+          "status": "Active"
+        }
+      ],
+      "revisions": [
+        {
+          "amount": 84.09,
+          "amountType": "Total",
+          "adjustmentType": "FullPayment",
+          "publicComments": "TEST",
+          "createdDate": "2021-09-07T16:05:59.256+0000",
+          "billId": 13558420
+        }
+      ]
+    },
+    {
+      "billingAccount": "AK8570028649",
+      "billId": 13851255,
+      "billStatus": "ZeroBalance",
+      "totalAmount": 0,
+      "currentAmount": 0,
+      "previousAmount": 0,
+      "previousInterestAmount": 0,
+      "previousPenaltyAmount": 0,
+      "previousLateFeeAmount": 0,
+      "dueDate": "2021-10-31",
+      "createdDate": "2021-09-01T05:00:04.592+0000",
+      "updatedDate": "2021-10-01T05:00:04.615+0000"
+    }
+  ]
+}
