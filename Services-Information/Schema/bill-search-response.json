@@ -1,8 +1,71 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "description": "Schema for the response by the get-bill service",
-  "$ref": "#/definitions/Bill",
+  "description": "Schema for the response by the bill search  service",
+  "$ref": "#/definitions/BillSearchResponse",
   "definitions": {
+    "BillSearchResponse": {
+      "type": "object",
+      "properties": {
+        "totalNumberOfBills": {
+          "description": "Total Number Of Bills  for provided search criteria",
+          "type": "number"
+        },
+        "totalNumberOfPages": {
+          "description": "Total Number Of Pages for provided search criteria",
+          "type": "number"
+        },
+        "currentPageNumber": {
+          "description": "Current Page Number for provided search criteria ",
+          "type": "number"
+        },
+        "searchedParameters": {
+          "description": "valid  parameters used in search",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Parameter"
+          }
+        },
+        "warnings": {
+          "description": "validation problems  encountered  in search",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Warning"
+          }
+        },
+        "bills": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Bill"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Parameter": {
+      "type": "object",
+      "properties": {
+        "field ": {
+          "type": "string"
+        },
+        "value ": {
+          "type": "string"
+        }
+      }
+    },
+    "Warning": {
+      "type": "object",
+      "properties": {
+        "message  ": {
+          "type": "string"
+        },
+        "field ": {
+          "type": "string"
+        },
+        "value ": {
+          "type": "string"
+        }
+      }
+    },
     "Bill": {
       "type": "object",
       "properties": {
@@ -11,22 +74,13 @@
           "type": "string"
         },
         "billId": {
-          "description": "Contains bill id if bill id is provided. If provided bill id is invalid then report will have an error stating that bill id is invalid",
+          "description": "Contains bill id",
           "type": "number"
         },
-        "monthYear": {
-          "description": "Contains month number and year of the requested bill if monthYear is provided. If provided monthYear is invalid then report will have an error stating that monthYear is invalid",
-          "type": "string"
-        },
-        "report": {
-          "description": "Contains service report. Following reports are possible: 1. The service  returning bill by bill id. Valid bill id is provided, monthYear is not provided. 2. The service returning bill by monthYear . Valid monthYear is provided, bill id is not provided. 3. The service  returning bill by bill id.  Valid bill id is provided, valid monthYear is provided. 4. The service  returning bill by  monthYear . Invalid bill id is provided,  valid monthYear is provided. 5. The service  returning bill by bill id . Valid bill id is provided , invalid or out of range monthYear is provided. 6.Invalid bill id is provided , out of date monthYear is provided. 7.Invalid bill id is provided , invalid monthYear is provided. 8. Provided bill id not found,  invalid monthYear is provided. ",
-          "type": "string"
-        },
         "billStatus": {
-          "description": " Contains bill status. Industry cannot see bills where billStatus = Active ",
+          "description": " Contains bill status.",
           "type": "string",
           "enum": [
-            "Active",
             "Unpaid",
             "InProgress",
             "ReadyForPayment",
@@ -77,20 +131,6 @@
           "description": "Contains the bill payee user id",
           "type": "string"
         },
-        "collectionStatus": {
-          "description": "Contains the status of collection. Won't be returned to industry.",
-          "type": "string",
-          "enum": [
-            "Collected",
-            "ManualyReconciledCollection",
-            "CollectedPendingErrors"
-          ]
-        },
-        "collectionStatusDate": {
-          "description": "Contains the creation date of the bill. Won't be returned to industry.",
-          "type": "string",
-          "format": "date-time"
-        },
         "createdDate": {
           "description": "Contains the creation date of the bill",
           "type": "string",
@@ -100,13 +140,6 @@
           "description": "Contains the update date of the bill.",
           "type": "string",
           "format": "date-time"
-        },
-        "billItems": {
-          "description": "contains list of bill items",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BillItem"
-          }
         },
         "lateFees": {
           "description": "contains list of late fees",
@@ -129,7 +162,7 @@
             "$ref": "#/definitions/RecalculationInfo"
           }
         },
-        "totalAmountChanged": {
+        "totalAmountChanged ": {
           "description": "if true the totalAmount has been changed from the original calculated amount at the beginning of the month",
           "type": "boolean"
         }
@@ -139,10 +172,6 @@
     "LateFee": {
       "type": "object",
       "properties": {
-        "lateFeeBillId": {
-          "description": "Contains bill id Late Fee is calculated for.",
-          "type": "number"
-        },
         "interestAmount": {
           "description": "Contains calculated interest amount. ",
           "type": "number"
@@ -166,67 +195,10 @@
             "Active",
             "Inactive"
           ]
-        }
-      },
-      "additionalProperties": false
-    },
-    "BillItem": {
-      "type": "object",
-      "properties": {
-        "billId": {
-          "type": "number"
         },
-        "billItemId": {
-          "type": "number"
-        },
-        "manifestTrackingNumber": {
-          "description": "Contains manifest tracking number of the bill item.",
-          "type": "string"
-        },
-        "amount": {
-          "description": "Contains an amount charged for the manifest ",
-          "type": "number"
-        },
-        "submissionType": {
-          "description": "manifest submission type",
-          "type": "string",
-          "enum": [
-            "FullElectronic",
-            "DataImage5Copy",
-            "Hybrid",
-            "Image"
-          ]
-        },
-        "originType": {
-          "description": "manifest origin type",
-          "type": "string",
-          "enum": [
-            "Web",
-            "Service",
-            "Mail"
-          ]
-        },
-        "certifiedDate": {
-          "description": "Contains the manifest certified date",
-          "type": "string",
-          "format": "date-time"
-        },
-        "generatorSiteId": {
-          "description": "Contains the the site id of the manifest generator",
-          "type": "string"
-        },
-        "status": {
-          "type": "string",
-          "enum": [
-            "Active",
-            "Canceled"
-          ]
-        },
-        "billerSiteCorrect": {
-          "type": "boolean"
-        },
-        "billerSiteChangedInfo": {
-          "$ref": "#/definitions/BillerSiteChangedInfo"
+        "lateFeeBillId ": {
+          "type": "number",
+          "description":"foreign key to the Bill which Late Fee is calculated for"
         }
       },
       "additionalProperties": false
@@ -239,9 +211,9 @@
           "type": "number"
         },
         "billId": {
-          "description": "contains bill id",
+          "description": "Contains bill id",
           "type": "number"
-        },
+        },        
         "amountType": {
           "description": "Specifies what amount (Current or late fee or Total) was adjusted",
           "type": "string",
@@ -264,9 +236,6 @@
           "description": "adjustment comments",
           "type": "string"
         },
-        "billItemId": {
-          "type": "number"
-        },
         "createdDate": {
           "description": "Contains the adjustment creation date",
           "type": "string",
@@ -275,44 +244,9 @@
       },
       "additionalProperties": false
     },
-    "BillerSiteChangedInfo": {
-      "type": "object",
-      "properties": {
-        "siteType": {
-          "description": "Specifies what biller site changed Original Site or New Site",
-          "type": "string",
-          "enum": [
-            "OriginalSite",
-            "NewSite"
-          ]
-        },
-        "source ": {
-          "type": "string",
-          "enum": [
-            "RisTicket",
-            "Ppc",
-            "Other"
-          ]
-        },
-        "risTicketNumber": {
-          "type": "string"
-        },
-        "dateOfEmail": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "explanation": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
     "RecalculationInfo": {
       "type": "object",
       "properties": {
-        "billItemId": {
-          "type": "number"
-        },
         "recalculationReason ": {
           "type": "string",
           "enum": [

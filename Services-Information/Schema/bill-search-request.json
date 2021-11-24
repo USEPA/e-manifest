@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Schema for the get bill search input parameters",
+  "$ref": "#/definitions/BillSearchRequest",
+  "definitions": {
+    "BillSearchRequest": {
+      "description": "Input parameters for the get bill search  service.",
+      "type": "object",
+      "properties": {
+        "billingAccount": {
+          "description": "Billing account (EPA Site Id).",
+          "type": "string",
+          "pattern": "^([A-Z][A-Z][A-Za-z0-9]{2,10})$"
+        },
+        "billStatus": {
+          "description": " Contains bill status.",
+          "type": "string",
+          "enum": [
+            "Unpaid",
+            "InProgress",
+            "ReadyForPayment",
+            "Paid",
+            "SentToCollections",
+            "Credit",
+            "ZeroBalance"
+          ]
+        },
+        "startDate": {
+          "description": "If date range parameters are not provided the service will return an error",
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "description": "If date range parameters are not provided the service will return an error",
+          "type": "string",
+          "format": "date-time"
+        },
+        "amountChanged": {
+          "type": "boolean"
+        },
+        "pageNumber ": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
