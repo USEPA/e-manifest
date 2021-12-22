@@ -28,7 +28,7 @@ def eManAuth(api_id, api_key, env):
     }
     BASE_URL = urls[env]
     r = requests.get(BASE_URL + '/api/v1/auth/' + api_id + '/' + api_key)
-    TOKEN = r.json()['TOKEN']
+    TOKEN = r.json()['token']
     if r.status_code == 200:
         print('Authentication successful.')
     else:
