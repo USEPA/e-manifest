@@ -2,7 +2,12 @@
 e-Manifest library for using the e-Manifest API
 see https://github.com/USEPA/e-manifest
 """
+import io
+import json
 import sys
+import zipfile
+from requests_toolbelt.multipart import decoder, encoder
+
 import requests
 import datetime
 
@@ -65,7 +70,7 @@ class RcrainfoClient:
         haz_class = requests.get(self.base_url + '/api/v1/emanifest/lookup/hazard-classes',
                                  headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if haz_class.ok:
-            return pd.DataFrame(haz_class.json()).rename(columns={0: 'HazClass'})
+            return haz_class.json()
         else:
             print('Error: ' + str(haz_class.json()['message']))
 
@@ -74,7 +79,7 @@ class RcrainfoClient:
         pack_groups = requests.get(self.base_url + '/api/v1/emanifest/lookup/packing-groups',
                                    headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if pack_groups.ok:
-            return pd.DataFrame(pack_groups.json()).rename(columns={0: 'Pack Groups'})
+            return pack_groups.json()
         else:
             print('Error: ' + str(pack_groups.json()['message']))
 
@@ -85,7 +90,7 @@ class RcrainfoClient:
             self.base_url + '/api/v1/emanifest/lookup/hazard-class-by-shipping-name-id-number/' + ship_name + '/' + id_num,
             headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if haz_class_sn_id.ok:
-            return pd.DataFrame(haz_class_sn_id.json()).rename(columns={0: 'HazClass'})
+            return haz_class_sn_id.json()
         else:
             print('Error: ' + str(haz_class_sn_id.json()['message']))
 
@@ -96,26 +101,26 @@ class RcrainfoClient:
             self.base_url + '/api/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/' + ship_name + '/' + id_num,
             headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if pack_group_sn_id.ok:
-            return pd.DataFrame(pack_group_sn_id.json()).rename(columns={0: 'Pack Groups'})
+            return pack_group_sn_id.json()
         else:
             print('Error: ' + str(pack_group_sn_id.json()['message']))
-
 
     def GetIDByShipName(self, ship_name):
         """Retrieve DOT ID Numbers by DOT Proper Shipping name. ShipName is case sensitive (e.g. Hydrochloric acid)"""
         dot_id_sn = requests.get(self.base_url + '/api/v1/emanifest/lookup/id-numbers-by-shipping-name/' + ship_name,
                                  headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if dot_id_sn.ok:
-            return pd.DataFrame(dot_id_sn.json()).rename(columns={0: 'DOT ID'})
+            return dot_id_sn.json()
         else:
             print('Error: ' + str(dot_id_sn.json()['message']))
 
     def GetShipNameByID(self, id_num):
         """Retrieve DOT Proper Shipping names by DOT IdDNumber"""
-        dot_sn_id = requests.get(self.base_url + '/api/v1/emanifest/lookup/proper-shipping-names-by-id-number/' + id_num,
-                                 headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
+        dot_sn_id = requests.get(
+            self.base_url + '/api/v1/emanifest/lookup/proper-shipping-names-by-id-number/' + id_num,
+            headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if dot_sn_id.ok:
-            return pd.DataFrame(dot_sn_id.json()).rename(columns={0: 'DOT Name'})
+            return dot_sn_id.json()
         else:
             print('Error: ' + str(dot_sn_id.json()['message']))
 
@@ -124,7 +129,7 @@ class RcrainfoClient:
         tns = requests.get(self.base_url + '/api/v1/emanifest/lookup/printed-tracking-number-suffixes',
                            headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if tns.ok:
-            return pd.json_normalize(tns.json())
+            return tns.json()
         else:
             print('Error: ' + str(tns.json()['message']))
 
@@ -133,7 +138,7 @@ class RcrainfoClient:
         tns_all = requests.get(self.base_url + '/api/v1/emanifest/lookup/printed-tracking-number-suffixes-ALL',
                                headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if tns_all.ok:
-            return pd.json_normalize(tns_all.json())
+            return tns_all.json()
         else:
             print('Error: ' + str(tns_all.json()['message']))
 
@@ -142,7 +147,7 @@ class RcrainfoClient:
         con_types = requests.get(self.base_url + '/api/v1/emanifest/lookup/container-types',
                                  headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if con_types.ok:
-            return pd.json_normalize(con_types.json())
+            return con_types.json()
         else:
             print('Error: ' + str(con_types.json()['message']))
 
@@ -151,7 +156,7 @@ class RcrainfoClient:
         quantity_uom = requests.get(self.base_url + '/api/v1/emanifest/lookup/quantity-uom',
                                     headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if quantity_uom.ok:
-            return pd.json_normalize(quantity_uom.json())
+            return quantity_uom.json()
         else:
             print('Error: ' + str(quantity_uom.json()['message']))
 
@@ -160,7 +165,7 @@ class RcrainfoClient:
         load_types = requests.get(self.base_url + '/api/v1/emanifest/lookup/load-types',
                                   headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if load_types.ok:
-            return pd.json_normalize(load_types.json())
+            return load_types.json()
         else:
             print('Error: ' + str(load_types.json()['message']))
 
@@ -169,7 +174,7 @@ class RcrainfoClient:
         ship_names = requests.get(self.base_url + '/api/v1/emanifest/lookup/proper-shipping-names',
                                   headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if ship_names.ok:
-            return pd.DataFrame(ship_names.json()).rename(columns={0: 'DOT Name'})
+            return ship_names.json()
         else:
             print('Error: ' + str(ship_names.json()['message']))
 
@@ -178,36 +183,34 @@ class RcrainfoClient:
         id_nums = requests.get(self.base_url + '/api/v1/emanifest/lookup/id-numbers',
                                headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if id_nums.ok:
-            return pd.DataFrame(id_nums.json()).rename(columns={0: 'DOT ID'})
+            return id_nums.json()
         else:
             print('Error: ' + str(id_nums.json()['message']))
 
     def GetDensityUOM(self):
         """Retrieve Density Units of Measure"""
-        global DEN_UOM
-        DEN_UOM = requests.get(self.base_url + '/api/v1/lookup/density-uom',
-                               headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
-        if DEN_UOM.ok:
-            return pd.json_normalize(DEN_UOM.json())
+        density_uom = requests.get(self.base_url + '/api/v1/lookup/density-uom',
+                                   headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
+        if density_uom.ok:
+            return density_uom.json()
         else:
-            print('Error: ' + str(DEN_UOM.json()['message']))
+            print('Error: ' + str(density_uom.json()['message']))
 
     def GetFormCodes(self):
         """Retrieve Form Codes"""
-        global FORM_CODES
-        FORM_CODES = requests.get(self.base_url + '/api/v1/lookup/form-codes',
+        form_codes = requests.get(self.base_url + '/api/v1/lookup/form-codes',
                                   headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
-        if FORM_CODES.ok:
-            return pd.json_normalize(FORM_CODES.json())
+        if form_codes.ok:
+            return form_codes.json()
         else:
-            print('Error: ' + str(FORM_CODES.json()['message']))
+            print('Error: ' + str(form_codes.json()['message']))
 
     def GetSourceCodes(self):
         """Retrieve Source Codes"""
         source_codes = requests.get(self.base_url + '/api/v1/lookup/source-codes',
                                     headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if source_codes.ok:
-            return pd.json_normalize(source_codes.json())
+            return source_codes.json()
         else:
             print('Error: ' + str(source_codes.json()['message']))
 
@@ -216,7 +219,7 @@ class RcrainfoClient:
         sw_codes = requests.get(self.base_url + '/api/v1/lookup/state-waste-codes/' + state_code,
                                 headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if sw_codes.ok:
-            return pd.json_normalize(sw_codes.json())
+            return sw_codes.json()
         else:
             print('Error: ' + str(sw_codes.json()['message']))
 
@@ -225,7 +228,7 @@ class RcrainfoClient:
         fed_codes = requests.get(self.base_url + '/api/v1/lookup/federal-waste-codes',
                                  headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if fed_codes.ok:
-            return pd.json_normalize(fed_codes.json())
+            return fed_codes.json()
         else:
             print('Error: ' + str(fed_codes.json()['message']))
 
@@ -234,7 +237,7 @@ class RcrainfoClient:
         mm_codes = requests.get(self.base_url + '/api/v1/lookup/management-method-codes',
                                 headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if mm_codes.ok:
-            return pd.json_normalize(mm_codes.json())
+            return mm_codes.json()
         else:
             print('Error: ' + str(mm_codes.json()['message']))
 
@@ -243,7 +246,7 @@ class RcrainfoClient:
         wm_codes = requests.get(self.base_url + '/api/v1/lookup/waste-minimization-codes',
                                 headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if wm_codes.ok:
-            return pd.json_normalize(wm_codes.json())
+            return wm_codes.json()
         else:
             print('Error: ' + str(wm_codes.json()['message']))
 
@@ -252,19 +255,9 @@ class RcrainfoClient:
         poe = requests.get(self.base_url + '/api/v1/lookup/ports-of-entry',
                            headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if poe.ok:
-            return pd.json_normalize(poe.json())
+            return poe.json()
         else:
             print('Error: ' + str(poe.json()['message']))
-
-
-    def GetSiteDetails(self, site_id):
-        """Retrieve site details for a given Site ID"""
-        details = requests.get(self.base_url + '/api/v1/site-details/' + site_id,
-                               headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
-        if details.ok:
-            return details.json()
-        else:
-            print('Error: ' + str(details.json()['message']))
 
     def CheckSiteExists(self, site_id):
         """Check if provided Site ID exists"""
@@ -301,9 +294,7 @@ class RcrainfoClient:
                                          }
                                      ))
         if bill_history.ok:
-            return pd.json_normalize(bill_history.json(), 'billsInfo').assign(billingAccount=billing_account,
-                                                                              startMonthYear=start_month_year,
-                                                                              endMonthYear=end_month_year)
+            return bill_history.json()
         else:
             print('Error: ' + str(bill_history.json()['message']))
 
@@ -336,7 +327,8 @@ class RcrainfoClient:
     def GetAttachments(self, mtn):
         """Retrieve eManifest details as json with attachments matching provided Manifest Tracking Number"""
         attach = requests.get(self.base_url + '/api/v1/emanifest/manifest/' + mtn + '/attachments',
-                              headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token}, stream=True)
+                              headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
+                              stream=True)
         if attach.ok:
             multipart_data = decoder.MultipartDecoder.from_response(attach)
             for part in multipart_data.parts:
@@ -360,7 +352,7 @@ class RcrainfoClient:
                                                  'Authorization': 'Bearer ' + self.token},
                                         data=json.dumps(dict(**kwargs)))
         if search_mtn_resp.ok:
-            return pd.DataFrame(search_mtn_resp.json()).rename(columns={0: 'manifestTrackingNumber'})
+            return search_mtn_resp.json()
         else:
             print('Error: ' + str(search_mtn_resp.json()['message']))
 
@@ -369,7 +361,7 @@ class RcrainfoClient:
         correct = requests.get(self.base_url + '/api/v1/emanifest/manifest/correction-details/' + mtn,
                                headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if correct.ok:
-            return pd.json_normalize(correct.json(), 'emanifestVersions').assign(manifestTrackingNumber=mtn)
+            return correct.json()
         else:
             print('Error: ' + str(correct.json()['message']))
 
@@ -392,7 +384,7 @@ class RcrainfoClient:
         site_mtn = requests.get(self.base_url + '/api/v1/emanifest/manifest-tracking-numbers/' + site_id,
                                 headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if site_mtn.ok:
-            return pd.DataFrame(site_mtn.json()).rename(columns={0: 'manifestTrackingNumber'})
+            return site_mtn.json()
         else:
             print('Error: ' + str(site_mtn.json()['message']))
 
@@ -410,7 +402,7 @@ class RcrainfoClient:
         sites = requests.get(self.base_url + '/api/v1/emanifest/site-ids/' + state_code + '/' + site_type,
                              headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if sites.ok:
-            return pd.DataFrame(sites.json()).rename(columns={0: 'SiteID'})
+            return sites.json()
         else:
             print('Error: ' + str(sites.json()['message']))
 
@@ -431,7 +423,7 @@ class RcrainfoClient:
                                data=m)
         print(correct.json())
 
-    def Revert(mtn):
+    def Revert(self, mtn):
         """Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version"""
         revert = requests.get(self.base_url + '/api/v1/emanifest/manifest/revert/' + mtn,
                               headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
@@ -464,7 +456,7 @@ class RcrainfoClient:
         check_mtn = requests.get(self.base_url + '/api/v1/emanifest/manifest/mtn-exists/' + mtn,
                                  headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if check_mtn.ok:
-            return pd.json_normalize(check_mtn.json())
+            return check_mtn.json()
         else:
             print('Error: ' + str(check_mtn.json()['message']))
 
@@ -524,10 +516,12 @@ class RcrainfoClient:
         """Retrieve all lookups for specific activity location and agency code,
         including staff, focus area and sub-organization. Fields include activityLocation, agencyCode, and nrrFlag"""
         lookup = requests.get(
-            self.base_url + '/api/v1/state/cme/evaluation/lookups/' + activity_location + '/' + agency_code + '/' + str(nrr_flag),
-            headers={'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
+            self.base_url + '/api/v1/state/cme/evaluation/lookups/' + activity_location + '/' + agency_code + '/' + str(
+                nrr_flag),
+            headers={'Content-Type': 'application/json', 'Accept': 'application/json',
+                     'Authorization': 'Bearer ' + self.token})
         if lookup.ok:
-            return pd.DataFrame(lookup.json()['focusAreas'])
+            return lookup.json()['focusAreas']
         else:
             print('Error: ' + str(lookup.json()['message']))
 
@@ -537,7 +531,7 @@ class RcrainfoClient:
                              headers={'Content-Type': 'application/json', 'Accept': 'application/json',
                                       'Authorization': 'Bearer ' + self.token})
         if indic.ok:
-            return pd.DataFrame(indic.json())
+            return indic.json()
         else:
             print('Error: ' + str(indic.json()['message']))
 
@@ -547,14 +541,15 @@ class RcrainfoClient:
                              headers={'Content-Type': 'application/json', 'Accept': 'application/json',
                                       'Authorization': 'Bearer ' + self.token})
         if types.ok:
-            return pd.DataFrame(types.json())
+            return types.json()
         else:
             print('Error: ' + str(types.json()['message']))
 
     def GetAttachmentsReg(self, mtn):
         """Retrieve eManifest details as json with attachments matching provided Manifest Tracking Number"""
         attach = requests.get(self.base_url + '/api/v1/state/emanifest/manifest/' + mtn + '/attachments',
-                              headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token}, stream=True)
+                              headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
+                              stream=True)
         if attach.ok:
             multipart_data = decoder.MultipartDecoder.from_response(attach)
             for part in multipart_data.parts:
@@ -569,26 +564,27 @@ class RcrainfoClient:
             print('Error: ' + str(attach.json()['message']))
 
     def SearchMTNReg(self, **kwargs):
-        """Retrieve manifest tracking numbers based on provided search criteria. Requires some of the following parameters:
+        """Retrieve manifest tracking numbers based on provided search criteria.
+        Requires some of the following parameters:
         stateCode, siteId (EPA Site ID),
         status (Pending|Scheduled|InTransit|Received|ReadyForSignature|Signed|SignedComplete|UnderCorrection|Corrected),
         dateType (CertifiedDate|ReceivedDate|ShippedDate|UpdatedDate),
         siteType (Generator|Tsdf|Transporter|RejectionInfo_AlternateTsdf), startDate, endDate"""
-        fmtn = requests.post(self.base_url + '/api/v1/state/emanifest/search',
-                             headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                      'Authorization': 'Bearer ' + self.token},
-                             data=json.dumps(dict(**kwargs)))
-        if fmtn.ok:
-            return pd.DataFrame(fmtn.json()).rename(columns={0: 'manifestTrackingNumber'})
+        response_mtn = requests.post(self.base_url + '/api/v1/state/emanifest/search',
+                                     headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
+                                              'Authorization': 'Bearer ' + self.token},
+                                     data=json.dumps(dict(**kwargs)))
+        if response_mtn.ok:
+            return response_mtn.json()
         else:
-            print('Error: ' + str(fmtn.json()['message']))
+            print('Error: ' + str(response_mtn.json()['message']))
 
     def GetCorrectionDetailsReg(self, mtn):
         """Retrieve information about all manifest correction versions by manifest tracking number"""
         correct = requests.get(self.base_url + '/api/v1/state/emanifest/manifest/correction-details/' + mtn,
                                headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if correct.ok:
-            return pd.json_normalize(correct.json(), 'emanifestVersions').assign(manifestTrackingNumber=mtn)
+            return correct.json()
         else:
             print('Error: ' + str(correct.json()['message']))
 
@@ -611,7 +607,7 @@ class RcrainfoClient:
         site_mtn = requests.get(self.base_url + '/api/v1/state/emanifest/manifest-tracking-numbers/' + site_id,
                                 headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if site_mtn.ok:
-            return pd.DataFrame(site_mtn.json()).rename(columns={0: 'SiteID'})
+            return site_mtn.json()
         else:
             print('Error: ' + str(site_mtn.json()['message']))
 
@@ -629,7 +625,7 @@ class RcrainfoClient:
         sites = requests.get(self.base_url + '/api/v1/state/emanifest/site-ids/' + state_code + '/' + site_type,
                              headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if sites.ok:
-            return pd.DataFrame(sites.json()).rename(columns={0: 'Site ID'})
+            return sites.json()
         else:
             print('Error: ' + str(sites.json()['message']))
 
@@ -638,7 +634,7 @@ class RcrainfoClient:
         handler = requests.get(self.base_url + '/api/v1/state/handler/sources/' + handler_id + '/' + str(details),
                                headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
         if handler.ok:
-            return pd.json_normalize(handler.json())
+            return handler.json()
         else:
             print('Error: ' + str(handler.json()['message']))
 
@@ -649,6 +645,6 @@ class RcrainfoClient:
                                            'Authorization': 'Bearer ' + self.token},
                                   data=json.dumps({'userId': user_id, 'password': password}))
         if rcra_user.ok:
-            return pd.json_normalize(rcra_user.json())
+            return rcra_user.json()
         else:
             print('Error: ' + str(rcra_user.json()['message']))
