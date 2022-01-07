@@ -53,7 +53,7 @@ em.new_client('ENVIRONMENT')
 em.Auth('YOUR_API_ID', 'YOUR_API_KEY')
 ```
 
-Your environment variable can be either **preprod** or **prod** based on your permissions. To reguster for a preproduction testing account, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).
+Your environment variable can be either **preprod** or **prod** based on your permissions. To register for a preproduction testing account, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).
 
 After authenticating, you are ready to use the full functionality of the **emanifest** package. Functions designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to view this content in RCRAInfo.
 
