@@ -15,7 +15,7 @@ def new_client(base_url):
     """
     Create instance of RCRAInfoClient
     
-    Parameters:
+    Args:
         base_url (str): either 'prod', 'preprod' or url up to '/api/
         
     Returns:
@@ -45,7 +45,7 @@ class RcrainfoClient:
         """
         Authenticate user's RCRAInfo API ID and Key to generate token for use by other functions
         
-        Parameters:
+        Args:
             api_id (str): User's RCRAInfo API ID. Must have Site Management permissions in RCRAInfo for at least one site
             api_key (str): User's RCRAInfo API key. Generated alongside the api_id in RCRAInfo
         
@@ -68,7 +68,7 @@ class RcrainfoClient:
         """
         Retrieve site details for a given Site ID
         
-        Parameters:
+        Args:
             epa_id (str): EPA site ID
         
         Returns:
@@ -85,10 +85,7 @@ class RcrainfoClient:
         """
         Retrieve all DOT Hazard Classes
         
-        Parameters:
-            none
-        
-        Returns
+        Returns:
             dict: object with DOT hazard classes
         """
         haz_class = requests.get(self.base_url + '/api/v1/emanifest/lookup/hazard-classes',
@@ -102,10 +99,7 @@ class RcrainfoClient:
         """
         Retrieve all DOT Packing Groups
         
-        Parameters:
-            none
-        
-        Returns
+        Returns:
             dict: object with DOT packing groups
         """
         pack_groups = requests.get(self.base_url + '/api/v1/emanifest/lookup/packing-groups',
@@ -119,7 +113,7 @@ class RcrainfoClient:
         """
         Retrieve DOT Hazard Classes by DOT Proper Shipping name and ID Number 
         
-        Parameters:
+        Args:
             ship_name (str): DOT proper shipping name. Case-sensitive (e.g. Hydrochloric acid)
             id_num (str): DOT ID number
             
@@ -138,7 +132,7 @@ class RcrainfoClient:
         """
         Retrieve DOT Packing Groups by DOT Proper Shipping name and ID Number 
         
-        Parameters:
+        Args:
             ship_name (str): DOT proper shipping name. Case-sensitive (e.g. Hydrochloric acid)
             id_num (str): DOT ID number
             
@@ -157,7 +151,7 @@ class RcrainfoClient:
         """
         Retrieve DOT ID number by DOT Proper Shipping name
         
-        Parameters:
+        Args:
             ship_name (str): DOT proper shipping name. Case-sensitive (e.g. Hydrochloric acid)
             
         Returns:
@@ -174,7 +168,7 @@ class RcrainfoClient:
         """
         Retrieve DOT Proper Shipping name by DOT ID number
         
-        Parameters:
+        Args:
             id_num (str): DOT ID number
             
         Returns:
@@ -191,10 +185,7 @@ class RcrainfoClient:
     def GetTNSuffix(self):
         """
         Retrieve Allowable Manifest Tracking Number (MTN) Suffixes
-        
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with allowable MTN suffixes
         """
@@ -208,10 +199,7 @@ class RcrainfoClient:
     def GetTNSuffixALL(self):
         """
         Retrieve ALL Allowable Manifest Tracking Number (MTN) Suffixes
-        
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with all allowable MTN suffixes
         """
@@ -225,10 +213,7 @@ class RcrainfoClient:
     def GetContainerTypes(self):
         """
         Retrieve Container Types
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with container types
         """
@@ -242,10 +227,7 @@ class RcrainfoClient:
     def GetQuantityUOM(self):
         """
         Retrieve Quantity Units of Measure (UOM)
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with quantity UOM
         """
@@ -259,10 +241,7 @@ class RcrainfoClient:
     def GetLoadTypes(self):
         """
         Retrieve PCB Load Types
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with load types
         """
@@ -276,10 +255,7 @@ class RcrainfoClient:
     def GetShippingNames(self):
         """
         Retrieve DOT Proper Shipping Names
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with DOT Proper Shipping names
         """
@@ -293,10 +269,7 @@ class RcrainfoClient:
     def GetIDNums(self):
         """
         Retrieve DOT Shipping ID numbers
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: obeject with DOT Shipping ID numbers
         """
@@ -310,10 +283,7 @@ class RcrainfoClient:
     def GetDensityUOM(self):
         """
         Retrieve Density Units of Measure (UOM)
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with density UOM
         """
@@ -327,10 +297,7 @@ class RcrainfoClient:
     def GetFormCodes(self):
         """
         Retrieve Form Codes
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with form codes
         """
@@ -344,10 +311,7 @@ class RcrainfoClient:
     def GetSourceCodes(self):
         """
         Retrieve Source Codes
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with source codes
         """
@@ -361,10 +325,7 @@ class RcrainfoClient:
     def GetStateWasteCodes(self, state_code):
         """
         Retrieve State Waste Codes
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with state waste codes
         """
@@ -378,10 +339,7 @@ class RcrainfoClient:
     def GetFedWasteCodes(self):
         """
         Retrieve Federal Waste Codes
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with federal waste codes
         """
@@ -395,10 +353,7 @@ class RcrainfoClient:
     def GetManMethodCodes(self):
         """
         Retrieve Management Method Codes
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with management method codes
         """
@@ -412,10 +367,7 @@ class RcrainfoClient:
     def GetWasteMinCodes(self):
         """
         Retrieve Waste Minimization Codes
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with waste minimization codes
         """
@@ -429,10 +381,7 @@ class RcrainfoClient:
     def GetPortsOfEntry(self):
         """
         Retrieve Ports of Entry
-                
-        Parameters:
-            none
-        
+
         Returns:
             dict: object with ports of entry
         """
@@ -447,7 +396,7 @@ class RcrainfoClient:
         """
         Check if provided Site ID exists
                 
-        Parameters:
+        Args:
             site_id (str): EPA site ID
         
         Returns:
@@ -464,7 +413,7 @@ class RcrainfoClient:
         """
         Retrieve sites based on some or all of the provided criteria
         
-        Parameters:
+        Args:
             epaSiteId (str): EPA site ID
             name (str): Site name (e.g. The White House)
             streetNumber (str): Street number (e.g. 1600)
@@ -491,7 +440,7 @@ class RcrainfoClient:
         """
         Retrieve billing history for a given billing account ID
         
-        Parameters:
+        Args:
             billingAccount (str): EPA Site ID
             startMonthYear (date): First bill to be included (MM/YYYY format)
             endMonthYear (date): Final bill to be included (MM/YYYY format)
@@ -518,7 +467,7 @@ class RcrainfoClient:
         """
         Retrieve bill information for a given bill ID and account ID
         
-        Parameters:
+        Args:
             billId (str): Bill ID
             billingAccount (str): EPA Site ID
             monthYear (date): Billing month (as MM/YYYY). Optional if billId is provided
@@ -539,7 +488,7 @@ class RcrainfoClient:
         """
         Search and retrieve bills using all or some of the provided criteria
         
-        Parameters:
+        Args:
             billingAccount (str): EPA Site ID
             billStatus (str): Active, Paid, Unpaid, ReadyForPayment, Credit, InProgress, SendToCollections, ZeroBalance. Case-sensitive
             startDate(date): Beginning of the billing period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
@@ -563,7 +512,7 @@ class RcrainfoClient:
         """
         Retrieve e-Manifest details as json with attachments matching provided Manifest Tracking Number (MTN)
         
-        Parameters:
+        Args:
             mtn (str): Manifest tracking number
         
         Returns:
@@ -589,7 +538,7 @@ class RcrainfoClient:
         """
         Retrieve manifest tracking numbers based on all or some of provided search criteria
         
-        Parameters:
+        Args:
             stateCode (str): Two-letter US postal state code
             siteId (str): EPA Site ID
             status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete, UnderCorrection, Corrected. Case-sensitive
@@ -614,7 +563,7 @@ class RcrainfoClient:
         """
         Retrieve information about all manifest correction versions by manifest tracking number (MTN)
         
-        Parameters:
+        Args:
             mtn (str): Manifest tracking number
             
         Returns:
@@ -631,7 +580,7 @@ class RcrainfoClient:
         """
         Retrieve details of manifest correction version based on all or some of the provided search criteria
 
-        Parameters:
+        Args:
             manifestTrackingNumber (str): Manifest tracking number. Required
             status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
             ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
@@ -653,7 +602,7 @@ class RcrainfoClient:
         """
         Retrieve manifest tracking numbers for a given Site ID
         
-        Parameters:
+        Args:
             site_id (str): EPA Site ID
         
         Returns:
@@ -670,7 +619,7 @@ class RcrainfoClient:
         """
         Retrieve e-Manifest details matching provided Manifest Tracking Number (MTN)
         
-        Parameters:
+        Args:
             mtn (str): Manifest tracking number
         
         Returns:
@@ -687,7 +636,7 @@ class RcrainfoClient:
         """
         Retrieve site ids for provided criteria
         
-        Parameters:
+        Args:
             state_code (str): Two-letter US postal state code
             site_type (str): Site type (Generator, Tsdf, Transporter, Broker). Case-sensitive
         
@@ -705,7 +654,7 @@ class RcrainfoClient:
         """
         Correct Manifest by providing e-Manifest JSON and optional Zip attachment
         
-        Parameters:
+        Args:
             manifest_json (.json file): Local JSON file containing manifest details
             zip_file (.zip file): Local zip file containing manifest attachments. Optional
             
@@ -731,7 +680,7 @@ class RcrainfoClient:
         """
         Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version
         
-        Parameters:
+        Args:
             mtn (str): Manifest tracking number
             
         Returns:
@@ -745,7 +694,7 @@ class RcrainfoClient:
         """
         Retrieve attachments of corrected manifests based all or some of the provided search criteria
 
-        Parameters:
+        Args:
             manifestTrackingNumber (str): Manifest tracking number. Required
             status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
             ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
@@ -777,7 +726,7 @@ class RcrainfoClient:
         """
         Check if Manifest Tracking Number (MTN) exists and return basic details
         
-        Parameters:
+        Args:
             mtn (str): Manifest tracking number
             
         Returns:
@@ -794,7 +743,7 @@ class RcrainfoClient:
         """
         Update Manifest by providing e-Manifest JSON and optional Zip attachment
         
-        Parameters:
+        Args:
             manifest_json (.json file): Local JSON file containing manifest details
             zip_file (.zip file): Local zip file containing manifest attachments. Optional
             
@@ -820,7 +769,7 @@ class RcrainfoClient:
         """
         Delete selected manifest
         
-        Parameters:
+        Args:
             mtn (str): Manifest tracking number
             
         Returns:
@@ -834,7 +783,7 @@ class RcrainfoClient:
         """
         Save Manifest by providing e-Manifest JSON and optional Zip attachment
         
-        Parameters:
+        Args:
             manifest_json (.json file): Local JSON file containing manifest details
             zip_file (.zip file): Local zip file containing manifest attachments. Optional
             
@@ -860,7 +809,7 @@ class RcrainfoClient:
         """
         Generate link to the user interface (UI) of the RCRAInfo e-Manifest module
         
-        Parameters:
+        Args:
             page (str): Dashboard, BulkSign, BulkQuickSign, Edit, View, Sign. Case-sensitive
             epaSiteId (Str): EPA Site ID
             manifestTrackingNumber (str): Manifest tracking number (optional)
@@ -882,7 +831,7 @@ class RcrainfoClient:
         """
         Retrieve all lookups for specific activity location and agency code, including staff, focus area and sub-organization
         
-        Parameters:
+        Args:
             activityLocation (str): Two-letter US postal state code
             agencyCode (str): One-letter code. B (State Contractor/Grantee), C (EPA Contractor/Grantee), E (EPA), L (Local), N (Native American), S (State), 
                                                 T (State-Initiated Oversight/Observation/Training Actions), X (EPA-Initiated Oversight/Observation/Training Actions),
@@ -905,10 +854,7 @@ class RcrainfoClient:
     def CMEIndicators(self):
         """
         Retrieve all evaluation indicators
-        
-        Parameters:
-            none
-        
+
         Returns:
             dict: object containing all evaluation indicators
         """
@@ -923,10 +869,7 @@ class RcrainfoClient:
     def CMETypes(self):
         """
         Retrieve all evaluation types
-        
-        Parameters:
-            none
-        
+
         Returns:
             dict: object containing all evaluation types
         """
@@ -942,7 +885,7 @@ class RcrainfoClient:
         """
         Retrieve e-Manifest details as json with attachments matching provided Manifest Tracking Number (MTN)
         
-        Parameters:
+        Args:
             mtn (str): Manifest tracking number
         
         Returns:
@@ -970,7 +913,7 @@ class RcrainfoClient:
         """
         Retrieve manifest tracking numbers based on all or some of provided search criteria
         
-        Parameters:
+        Args:
             stateCode (str): Two-letter US postal state code
             siteId (str): EPA Site ID
             status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete, UnderCorrection, Corrected. Case-sensitive
@@ -995,7 +938,7 @@ class RcrainfoClient:
         """
         Retrieve information about all manifest correction versions by manifest tracking number (MTN)
         
-        Parameters:
+        Args:
             mtn (str): Manifest tracking number
             
         Returns:
@@ -1012,7 +955,7 @@ class RcrainfoClient:
         """
         Retrieve details of manifest correction version based on all or some of the provided search criteria
 
-        Parameters:
+        Args:
             manifestTrackingNumber (str): Manifest tracking number. Required
             status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
             ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
@@ -1034,7 +977,7 @@ class RcrainfoClient:
         """
         Retrieve manifest tracking numbers for a given Site ID
         
-        Parameters:
+        Args:
             site_id (str): EPA Site ID
         
         Returns:
@@ -1051,7 +994,7 @@ class RcrainfoClient:
         """
         Retrieve e-Manifest details matching provided Manifest Tracking Number (MTN)
         
-        Parameters:
+        Args:
             mtn (str): Manifest tracking number
         
         Returns:
@@ -1068,7 +1011,7 @@ class RcrainfoClient:
         """
         Retrieve site ids for provided criteria
         
-        Parameters:
+        Args:
             state_code (str): Two-letter US postal state code
             site_type (str): Site type (Generator, Tsdf, Transporter, Broker). Case-sensitive
         
@@ -1086,7 +1029,7 @@ class RcrainfoClient:
         """
         Retrieve a list of handler source records (and optional details) for a specific handler ID
         
-        Parameters:
+        Args:
             handler_id (str): EPA Site ID number
             details (boolean): True/false to request additional details. Optional; defaults to False
             
@@ -1104,7 +1047,7 @@ class RcrainfoClient:
         """
         Authenticates RCRAInfo V6 regulatory users
         
-        Parameters:
+        Args:
             user_id (str): RCRAInfo V6 user ID
             password (str): RCRAInfo V6 user password
             
