@@ -2,6 +2,7 @@
 
 [![Downloads](https://pepy.tech/badge/emanifest)](https://pepy.tech/project/emanifest)
 ![PyPI](https://img.shields.io/pypi/v/emanifest)
+[![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 
 **emanifest** is a Python utility wrapper for accessing the e-Manifest API of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
 
