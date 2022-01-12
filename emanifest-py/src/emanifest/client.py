@@ -721,7 +721,7 @@ class RcrainfoClient:
                     z.extractall()
             print('Successfully retrieved.')
         else:
-            print('Error: ' + str(attach.json()['message']))
+            print('Error: ' + str(resp.json()['message']))
 
     def SearchMTNReg(self, **kwargs):
         """
