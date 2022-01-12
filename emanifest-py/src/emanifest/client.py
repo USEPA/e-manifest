@@ -314,7 +314,6 @@ class RcrainfoClient:
         endpoint = self.base_url + '/api/v1/site-exists/' + site_id
         return self.__RCRAGet(endpoint)
 
-    # noinspection PyIncorrectDocstring
     def SiteSearch(self, **kwargs):
         """
         Retrieve sites based on some or all of the provided criteria
@@ -333,16 +332,10 @@ class RcrainfoClient:
         Returns:
             dict: object containing list of sites matching criteria and details about each site
         """
-        site_search = requests.post(self.base_url + '/api/v1/site-search',
-                                    headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                             'Authorization': 'Bearer ' + self.token},
-                                    data=json.dumps(dict(**kwargs)))
-        if site_search.ok:
-            return site_search.json()
-        else:
-            print('Error: ' + str(site_search.json()['message']))
+        endpoint = self.base_url + '/api/v1/site-search'
+        return self.__RCRAPost(endpoint, **kwargs)
 
-    def GetBillingHistory(self, billing_account, start_month_year, end_month_year):
+    def GetBillingHistory(self, **kwargs):
         """
         Retrieve billing history for a given billing account ID
         
@@ -354,22 +347,9 @@ class RcrainfoClient:
         Returns:
             dict: object containing billing history for the specified site and period
         """
-        bill_history = requests.post(self.base_url + '/api/v1/emanifest/billing/bill-history',
-                                     headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                              'Authorization': 'Bearer ' + self.token},
-                                     data=json.dumps(
-                                         {
-                                             'billingAccount': billing_account,
-                                             'startMonthYear': start_month_year,
-                                             'endMonthYear': end_month_year
-                                         }
-                                     ))
-        if bill_history.ok:
-            return bill_history.json()
-        else:
-            print('Error: ' + str(bill_history.json()['message']))
+        endpoint = self.base_url + '/api/v1/emanifest/billing/bill-history'
+        return self.__RCRAPost(endpoint, **kwargs)
 
-    # noinspection PyIncorrectDocstring
     def GetBill(self, **kwargs):
         """
         Retrieve bill information for a given bill ID and account ID
@@ -382,16 +362,9 @@ class RcrainfoClient:
         Returns:
             dict: object containing bill information for the specified ID and account
         """
-        bill = requests.post(self.base_url + '/api/v1/emanifest/billing/bill',
-                             headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                      'Authorization': 'Bearer ' + self.token},
-                             data=json.dumps(dict(**kwargs)))
-        if bill.ok:
-            return bill.json()
-        else:
-            print('Error: ' + str(bill.json()['message']))
+        endpoint = self.base_url + '/api/v1/emanifest/billing/bill'
+        return self.__RCRAPost(endpoint, **kwargs)
 
-    # noinspection PyIncorrectDocstring
     def SearchBill(self, **kwargs):
         """
         Search and retrieve bills using all or some of the provided criteria
@@ -407,14 +380,8 @@ class RcrainfoClient:
         Returns:
             dict: object with bills matching criteria
         """
-        bill_search = requests.post(self.base_url + '/api/v1/emanifest/billing/bill-search',
-                                    headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                             'Authorization': 'Bearer ' + self.token},
-                                    data=json.dumps(dict(**kwargs)))
-        if bill_search.ok:
-            return bill_search.json()
-        else:
-            print('Error: ' + str(bill_search.json()['message']))
+        endpoint = self.base_url + '/api/v1/emanifest/billing/bill-search'
+        return self.__RCRAPost(endpoint, **kwargs)
 
     def GetAttachments(self, mtn):
         """
@@ -427,11 +394,11 @@ class RcrainfoClient:
             json: Downloaded file containing e-Manifest details for given MTN
             attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
         """
-        attach = requests.get(self.base_url + '/api/v1/emanifest/manifest/' + mtn + '/attachments',
+        resp = requests.get(self.base_url + '/api/v1/emanifest/manifest/' + mtn + '/attachments',
                               headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
                               stream=True)
-        if attach.ok:
-            multipart_data = decoder.MultipartDecoder.from_response(attach)
+        if resp.ok:
+            multipart_data = decoder.MultipartDecoder.from_response(resp)
             for part in multipart_data.parts:
                 if part.headers[b'Content-Type'] == b'application/json':
                     with open('emanifest.json', 'w') as f:
@@ -440,9 +407,8 @@ class RcrainfoClient:
                     z = zipfile.ZipFile(io.BytesIO(part.content))
                     z.extractall()
         else:
-            print('Error: ' + str(attach.json()['message']))
+            print('Error: ' + str(resp.json()['message']))
 
-    # noinspection PyIncorrectDocstring
     def SearchMTN(self, **kwargs):
         """
         Retrieve manifest tracking numbers based on all or some of provided search criteria
@@ -459,14 +425,8 @@ class RcrainfoClient:
         Returns:
             dict: object containing manifest tracking numbers matching criteria
         """
-        search_mtn_resp = requests.post(self.base_url + '/api/v1/emanifest/search',
-                                        headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                                 'Authorization': 'Bearer ' + self.token},
-                                        data=json.dumps(dict(**kwargs)))
-        if search_mtn_resp.ok:
-            return search_mtn_resp.json()
-        else:
-            print('Error: ' + str(search_mtn_resp.json()['message']))
+        endpoint = self.base_url + '/api/v1/emanifest/search'
+        return self.__RCRAPost(endpoint, **kwargs)
 
     def GetCorrectionDetails(self, mtn):
         """
@@ -481,7 +441,6 @@ class RcrainfoClient:
         endpoint = self.base_url + '/api/v1/emanifest/manifest/correction-details/' + mtn
         return self.__RCRAGet(endpoint)
 
-    # noinspection PyIncorrectDocstring
     def GetCorrectionVersion(self, **kwargs):
         """
         Retrieve details of manifest correction version based on all or some of the provided search criteria
@@ -495,14 +454,8 @@ class RcrainfoClient:
         Returns:
             dict: object containing correction details
         """
-        cvd = requests.post(self.base_url + '/api/v1/emanifest/manifest/correction-version',
-                            headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                     'Authorization': 'Bearer ' + self.token},
-                            data=json.dumps(dict(**kwargs)))
-        if cvd.ok:
-            return cvd.json()
-        else:
-            print('Error: ' + str(cvd.json()['message']))
+        endpoint = self.base_url + '/api/v1/emanifest/manifest/correction-version'
+        return self.__RCRAPost(endpoint, **kwargs)
 
     def GetMTNBySite(self, site_id):
         """
@@ -564,11 +517,9 @@ class RcrainfoClient:
             m = encoder.MultipartEncoder(fields={
                 "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
             })
-        correct = requests.put(self.base_url + '/api/v1/emanifest/manifest/correct',
-                               headers={'Content-Type': m.content_type, 'Accept': 'application/json',
-                                        'Authorization': 'Bearer ' + self.token},
-                               data=m)
-        print(correct.json())
+        
+        endpoint = self.base_url + '/api/v1/emanifest/manifest/correct'
+        return self.__RCRAPut(endpoint, m)
 
     def Revert(self, mtn):
         """
@@ -583,7 +534,6 @@ class RcrainfoClient:
         endpoint = self.base_url + '/api/v1/emanifest/manifest/revert/' + mtn
         return self.__RCRAGet(endpoint)
 
-    # noinspection PyIncorrectDocstring
     def GetCorrectionAttachments(self, **kwargs):
         """
         Retrieve attachments of corrected manifests based all or some of the provided search criteria
@@ -599,12 +549,12 @@ class RcrainfoClient:
             attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
             print: message of success or failure
         """
-        cta = requests.post(self.base_url + '/api/v1/emanifest/manifest/correction-version/attachments',
+        resp = requests.post(self.base_url + '/api/v1/emanifest/manifest/correction-version/attachments',
                             headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
                                      'Authorization': 'Bearer ' + self.token},
                             data=json.dumps(dict(**kwargs)))
-        if cta.ok:
-            multipart_data = decoder.MultipartDecoder.from_response(cta)
+        if resp.ok:
+            multipart_data = decoder.MultipartDecoder.from_response(resp)
             for part in multipart_data.parts:
                 if part.headers[b'Content-Type'] == b'application/json':
                     with open('emanifest.json', 'w') as f:
@@ -614,7 +564,7 @@ class RcrainfoClient:
                     z.extractall()
             print('Successfully retrieved.')
         else:
-            print('Error: ' + str(cta.json()['message']))
+            print('Error: ' + str(resp.json()['message']))
 
     def CheckMTNExists(self, mtn):
         """
@@ -649,11 +599,9 @@ class RcrainfoClient:
             m = encoder.MultipartEncoder(fields={
                 "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
             })
-        update = requests.put(self.base_url + '/api/v1/emanifest/manifest/update',
-                              headers={'Content-Type': m.content_type, 'Accept': 'application/json',
-                                       'Authorization': 'Bearer ' + self.token},
-                              data=m)
-        return update.json()
+        
+        endpoint = self.base_url + '/api/v1/emanifest/manifest/update'
+        return self.__RCRAPut(endpoint, m)
 
     def Delete(self, mtn):
         """
@@ -665,9 +613,8 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        delete = requests.delete(self.base_url + '/api/v1/emanifest/manifest/delete/' + mtn,
-                                 headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
-        return delete.json()
+        endpoint = self.base_url + '/api/v1/emanifest/manifest/delete/' + mtn
+        return self.__RCRADelete(endpoint)
 
     def Save(self, manifest_json, zip_file=None):
         """
@@ -689,13 +636,12 @@ class RcrainfoClient:
             m = encoder.MultipartEncoder(fields={
                 "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
             })
-        save = requests.post(self.base_url + '/api/v1/emanifest/manifest/save',
+        resp = requests.post(self.base_url + '/api/v1/emanifest/manifest/save',
                              headers={'Content-Type': m.content_type, 'Accept': 'application/json',
                                       'Authorization': 'Bearer ' + self.token},
                              data=m)
-        return save.json()
+        return resp.json()
 
-    # noinspection PyIncorrectDocstring
     def GenerateUILink(self, **kwargs):
         """
         Generate link to the user interface (UI) of the RCRAInfo e-Manifest module
@@ -709,14 +655,8 @@ class RcrainfoClient:
         Returns:
             dict: object containing link to UI
         """
-        link = requests.post(self.base_url + '/api/v1/links/emanifest',
-                             headers={'Content-Type': 'application/json', 'Accept': 'application/json',
-                                      'Authorization': 'Bearer ' + self.token},
-                             data=json.dumps(dict(**kwargs)))
-        if link.ok:
-            return link.json()
-        else:
-            print('Error: ' + str(link.json()['errors'][0]['message']))
+        endpoint = self.base_url + '/api/v1/links/emanifest'
+        return self.__RCRAPost(endpoint, **kwargs)
 
     def CMELookup(self, activity_location, agency_code, nrr_flag=True):
         """
@@ -767,10 +707,10 @@ class RcrainfoClient:
             attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
               message of success or failure
         """
-        attach = requests.get(self.base_url + '/api/v1/state/emanifest/manifest/' + mtn + '/attachments',
+        resp = requests.get(self.base_url + '/api/v1/state/emanifest/manifest/' + mtn + '/attachments',
                               headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
                               stream=True)
-        if attach.ok:
+        if resp.ok:
             multipart_data = decoder.MultipartDecoder.from_response(attach)
             for part in multipart_data.parts:
                 if part.headers[b'Content-Type'] == b'application/json':
@@ -783,7 +723,6 @@ class RcrainfoClient:
         else:
             print('Error: ' + str(attach.json()['message']))
 
-    # noinspection PyIncorrectDocstring
     def SearchMTNReg(self, **kwargs):
         """
         Retrieve manifest tracking numbers based on all or some of provided search criteria
@@ -800,14 +739,8 @@ class RcrainfoClient:
         Returns:
             dict: object containing manifest tracking numbers matching criteria
         """
-        response_mtn = requests.post(self.base_url + '/api/v1/state/emanifest/search',
-                                     headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                              'Authorization': 'Bearer ' + self.token},
-                                     data=json.dumps(dict(**kwargs)))
-        if response_mtn.ok:
-            return response_mtn.json()
-        else:
-            print('Error: ' + str(response_mtn.json()['message']))
+        endpoint = self.base_url + '/api/v1/state/emanifest/search'
+        return self.__RCRAPost(endpoint, **kwargs)
 
     def GetCorrectionDetailsReg(self, mtn):
         """
@@ -822,7 +755,6 @@ class RcrainfoClient:
         endpoint = self.base_url + '/api/v1/state/emanifest/manifest/correction-details/' + mtn
         return self.__RCRAGet(endpoint)
 
-    # noinspection PyIncorrectDocstring
     def GetCorrectionVersionReg(self, **kwargs):
         """
         Retrieve details of manifest correction version based on all or some of the provided search criteria
@@ -836,14 +768,8 @@ class RcrainfoClient:
         Returns:
             dict: object containing correction details
         """
-        cvd = requests.post(self.base_url + '/api/v1/state/emanifest/manifest/correction-version',
-                            headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                     'Authorization': 'Bearer ' + self.token},
-                            data=json.dumps(dict(**kwargs)))
-        if cvd.ok:
-            return cvd.json()
-        else:
-            print('Error: ' + str(cvd.json()['message']))
+        endpoint = self.base_url + '/api/v1/state/emanifest/manifest/correction-version'
+        return self.__RCRAPost(endpoint, **kwargs)
 
     def GetMTNBySiteReg(self, site_id):
         """
@@ -902,6 +828,35 @@ class RcrainfoClient:
     def __RCRAGet(self, endpoint):
         resp = requests.get(endpoint,
                             headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
+        if resp.ok:
+            return resp.json()
+        else:
+            print('Error: ' + str(resp.json()['message']))
+            
+    def __RCRAPost(self, endpoint, **kwargs):
+        resp = requests.post(endpoint,
+                            headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
+                                     'Authorization': 'Bearer ' + self.token},
+                            data=json.dumps(dict(**kwargs)))
+        if resp.ok:
+            return resp.json()
+        else:
+            print('Error: ' + str(resp.json()['message']))
+                   
+    def __RCRADelete(self, endpoint):
+        resp = requests.delete(endpoint,
+                            headers={'Accept': 'application/json','Authorization': 'Bearer ' + self.token})
+        if resp.ok:
+            return resp.json()
+        else:
+            print('Error: ' + str(resp.json()['message']))
+            
+            
+    def __RCRAPut(self, endpoint):
+        resp = requests.put(endpoint,
+                            headers={'Content-Type': m.content_type, 'Accept': 'application/json',
+                                    'Authorization': 'Bearer ' + self.token},
+                            data=m)
         if resp.ok:
             return resp.json()
         else:
