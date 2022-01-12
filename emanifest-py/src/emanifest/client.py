@@ -711,7 +711,7 @@ class RcrainfoClient:
                               headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
                               stream=True)
         if resp.ok:
-            multipart_data = decoder.MultipartDecoder.from_response(attach)
+            multipart_data = decoder.MultipartDecoder.from_response(resp)
             for part in multipart_data.parts:
                 if part.headers[b'Content-Type'] == b'application/json':
                     with open('emanifest.json', 'w') as f:
