@@ -6,6 +6,8 @@
 
 **emanifest** is a Python utility wrapper for accessing the e-Manifest API of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
 
+**Note:** The **emanifest** package was substantially refactored after version 1.1.0 and was released as a new major version at 2.0.0. Code relying on version 1.1.0 should not upgrade to version 2.0.0 of this package without refactoring.
+
 ## Contents
 - [Requirements](#requirements)
 - [Dependencies](#dependencies)
