@@ -852,7 +852,7 @@ class RcrainfoClient:
             print('Error: ' + str(resp.json()['message']))
             
             
-    def __RCRAPut(self, endpoint):
+    def __RCRAPut(self, endpoint, m):
         resp = requests.put(endpoint,
                             headers={'Content-Type': m.content_type, 'Accept': 'application/json',
                                     'Authorization': 'Bearer ' + self.token},
