@@ -40,7 +40,6 @@ There are ten categories of services available based on your user status:
   - You must be registered as a site manager for a TSDF site to access this site. See "Accessing the Test Environment" below.
 * [Sample Client](https://github.com/USEPA/e-manifest/tree/master/Services-Information/sample-client) for accessing the services
 * Python [**emanifest**](https://github.com/USEPA/e-manifest/tree/master/emanifest-py) package for accessing the services
-* JavaScript [**haztrak**](https://github.com/dpgraham4401/haztrak) package for accessing the services
 
 Please note: The test environment for the most part mirrors the handler information in our production environment. When testing, please also make sure your site information is up to date. If it is not, please use myRCRAid or your state’s paper notification process to update your site in the production environment.
 
