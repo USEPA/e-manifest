@@ -77,6 +77,22 @@ There are ten categories of functions in the **emanifest** package. For more inf
 
 Content will be returned as a JSON object. Functions that download file attachments will store these in the same folder as your Python document. Functions that update, correct, or save manifests by uploading new .json and/or .zip files must receive the specific location of these files on your computer. By default, these functions will assume the files are located in the same folder as your Python document.
 
+After authenticating your account, you can complete a variety of actions within the e-Manifest system. For example, you might start with a new site by getting its basic details:
+
+```python
+em.GetSiteDetails('VATEST000001')
+```
+Once you've confirmed this is the correct site, you might search for manifests in transit from that site:
+
+```python
+em.SearchMTN(siteId='VATEST000001', status='InTransit')
+```
+If one of those manifests didn't match your records, you could initiate a correction with the correct JSON information and optionally any attachments (.zip):
+
+```python
+em.Correct('manifest_file_name.json', 'optional_attachments.zip')
+```
+
 ### Help
 
 If you are uncertain how to use a function, run help(em.FunctionName) in your Python environment. This will return a description of the function, any required inputs, and the formats of those inputs. For a list of all the functions contained in **emanifest** and additional information about this package, run help(emanifest) in your Python environment.
