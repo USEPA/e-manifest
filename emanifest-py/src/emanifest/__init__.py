@@ -1,0 +1,1 @@
+print("Note: The emanifest package was substantially refactored after version 1.1.0 and was released as a new major version at 2.0.0. Code relying on version 1.1.0 should not upgrade to version 2.0.0 of this package without refactoring.")

@@ -2,8 +2,11 @@
 
 [![Downloads](https://pepy.tech/badge/emanifest)](https://pepy.tech/project/emanifest)
 ![PyPI](https://img.shields.io/pypi/v/emanifest)
+[![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 
 **emanifest** is a Python utility wrapper for accessing the e-Manifest API of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
+
+**Note:** The **emanifest** package was substantially refactored after version 1.1.0 and was released as a new major version at 2.0.0. Code relying on version 1.1.0 should not upgrade to version 2.0.0 of this package without refactoring.
 
 ## Contents
 - [Requirements](#requirements)
@@ -24,10 +27,10 @@
 
 - requests
 - requests_toolbelt
-- getpass
-- pandas
+- datetime
 - json
 - zipfile
+- sys
 - io
 
 ## Installation
@@ -49,16 +52,17 @@ To add **emanifest** to your current Python environment and authenticate your ac
 ```python
 from emanifest import emanifest as em
 
-em.eManAuth('YOUR_API_ID', 'YOUR_API_KEY', 'YOUR_ENVIRONMENT')
+em.new_client('ENVIRONMENT')
+em.Auth('YOUR_API_ID', 'YOUR_API_KEY')
 ```
 
-Your environment variable can be any of the following for which you have permission: "dev", "sandbox", "preprod", "prod"
+Your environment variable can be either **preprod** or **prod** based on your permissions. To register for a preproduction testing account, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).
 
-Once you receive a "Authentication successful" message, you are ready to use the full functionality of the **emanifest** package. Functions designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to view this content in RCRAInfo.
+After authenticating, you are ready to use the full functionality of the **emanifest** package. Functions designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to view this content in RCRAInfo.
 
 ### Functions
 
-There are ten categories of functions in the **emanifest** package. For more information about these services, visit the Swagger page of your selected environment. ([DEV](https://rcrainfodev.com/rcrainfo/secured/swagger/), [SANDBOX](https://sandbox.rcrainfodev.net/rcrainfo/secured/swagger/), [PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/))
+There are ten categories of functions in the **emanifest** package. For more information about these services, visit the Swagger page of your selected environment. ([PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/))
 
 1. [All users] Authentication services
 2. [All users] e-Manifest Lookup Services
@@ -71,20 +75,7 @@ There are ten categories of functions in the **emanifest** package. For more inf
 9. [Regulator users] Handler Services
 10. [Regulator users] User Services
 
-Most content will be returned as a [Pandas Dataframe item](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html). To output this data as a CSV or Excel file, you will need to ensure the Pandas library is active in your current Python environment, select a desired **emanifest** function (e.g. GetSiteDetails), and perform one of the following commands:
-
-```python
-import pandas as pd # Unnecessary if you have imported Pandas elsewhere
-
-em.GetSiteDetails('VATESTSD123').to_csv('your_new_file_name.csv')
-
-em.GetSiteDetails('VATESTSD123').to_excel('your_new_file_name.xlsx')
-
-```
-
-More complicated results will be returned as a JSON object.
-
-Functions that download file attachments will store these in the same folder as your Python document. Functions that update, correct, or save manifests by uploading new .json and/or .zip files must receive the specific location of these files on your computer. By default, these functions will assume the files are located in the same folder as your Python document.
+Content will be returned as a JSON object. Functions that download file attachments will store these in the same folder as your Python document. Functions that update, correct, or save manifests by uploading new .json and/or .zip files must receive the specific location of these files on your computer. By default, these functions will assume the files are located in the same folder as your Python document.
 
 ### Help
 
