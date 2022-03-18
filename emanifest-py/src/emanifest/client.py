@@ -38,7 +38,7 @@ def new_client(base_url):
 class RcrainfoResponse:
     def __init__(self, response: requests.Response):
         self.response = response
-        self.status = response.status_code
+        self.ok = response.ok
         self.multipart_json = None
         self.multipart_zip = None
 
@@ -418,17 +418,7 @@ class RcrainfoClient:
         if resp.response.ok:
             resp.DecodeMultipart()
         return resp
-        # if resp.ok:
-        #     multipart_data = decoder.MultipartDecoder.from_response(resp)
-        #     for part in multipart_data.parts:
-        #         if part.headers[b'Content-Type'] == b'application/json':
-        #             with open('emanifest.json', 'w') as f:
-        #                 f.write(part.text)
-        #         else:
-        #             z = zipfile.ZipFile(io.BytesIO(part.content))
-        #             z.extractall()
-        # else:
-        #     print('Error: ' + str(resp.json()['message']))
+
 
     def SearchMTN(self, **kwargs):
         """

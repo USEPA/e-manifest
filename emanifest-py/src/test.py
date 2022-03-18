@@ -1,5 +1,6 @@
 import os
 import unittest
+import zipfile
 
 import requests
 
@@ -30,6 +31,18 @@ class EManTest(unittest.TestCase):
 
     def test_dot_numbers(self):
         self.assertIn("UN1088", cl.GetIDNums().response.json())
+
+    def test_get_attachments(self):
+        manifest_response = cl.GetAttachments("000012345GBF")
+        self.assertTrue(manifest_response.ok)
+
+    def test_decode_multipart_string(self):
+        manifest_response = cl.GetAttachments("000012345GBF")
+        self.assertEqual(type(manifest_response.multipart_json), str)
+
+    def test_decode_multipart_zipfile(self):
+        manifest_response = cl.GetAttachments("000012345GBF")
+        self.assertEqual(type(manifest_response.multipart_zip), zipfile.ZipFile)
 
 
 if __name__ == '__main__':
