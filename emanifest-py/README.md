@@ -4,7 +4,7 @@
 ![PyPI](https://img.shields.io/pypi/v/emanifest)
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 
-**emanifest** is a Python utility wrapper for accessing the e-Manifest API of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
+**emanifest** is a client library for accessing the e-Manifest rest API of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
 
 **Note:** The **emanifest** package was substantially refactored after version 1.1.0 and was released as a new major version at 2.0.0. Code relying on version 1.1.0 should not upgrade to version 2.0.0 of this package without refactoring.
 
@@ -14,24 +14,17 @@
 - [Installation](#installation)
 - [Usage](#usage)
   - [Getting Started](#getting-started)
-  - [Functions](#functions)
+  - [methods](#methods)
   - [Help](#help)
 - [Contact](#contact)
-- [License](#license)
+- [License](LICENSE.txt)
 
 ## Requirements
-
 - Python 3.6
 
 ## Dependencies
-
 - requests
 - requests_toolbelt
-- datetime
-- json
-- zipfile
-- sys
-- io
 
 ## Installation
 
@@ -45,24 +38,22 @@ pip install emanifest
 
 ### Getting Started
 
-Before using the **emanifest** package, ensure you have a RCRAInfo user account and the necessary permissions to generate an API ID and key. Make note of your ID and key somewhere safe.
+Before using the **emanifest** package, ensure you have a RCRAInfo user account and the [necessary permissions](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest#user_question6) to generate an API ID and key.
 
-To add **emanifest** to your current Python environment and authenticate your account, peform the following commands:
+All methods to access the e-Manifest/RCRAInfo API are implemented by the RcrainfoClient class which needs to be authenticated with your API ID and Key. A new instance of the class can be initiated with the ```new_client()``` convenience function like so:
 
 ```python
-from emanifest import emanifest as em
+from emanifest import emanifest
 
-em.new_client('ENVIRONMENT')
+em = emanifest.new_client('preprod')
 em.Auth('YOUR_API_ID', 'YOUR_API_KEY')
 ```
 
-Your environment variable can be either **preprod** or **prod** based on your permissions. To register for a preproduction testing account, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).
+```new_client()``` accepts a string, either **preprod**, **prod**, or a complete base URL. To register for a testing account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).The RcrainfoClient stores the JWT token, as well as it's expiration (20 minutes). Currently, the **emanifest** python package does not automatically reauthenticate.
 
-After authenticating, you are ready to use the full functionality of the **emanifest** package. Functions designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to view this content in RCRAInfo.
+### Methods
 
-### Functions
-
-There are ten categories of functions in the **emanifest** package. For more information about these services, visit the Swagger page of your selected environment. ([PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/))
+After authenticating, you are ready to use the full functionality of the **emanifest** package, a quick example can be found [here](src/example.py). The RcrainfoClient class exposes a method for each API endpoint in one of the 10 service catagories. For more information about these services, visit the Swagger page of your selected environment. ([PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/)). API endpoints designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to access these resources in RCRAInfo.
 
 1. [All users] Authentication services
 2. [All users] e-Manifest Lookup Services
@@ -75,9 +66,9 @@ There are ten categories of functions in the **emanifest** package. For more inf
 9. [Regulator users] Handler Services
 10. [Regulator users] User Services
 
-Content will be returned as a JSON object. Functions that download file attachments will store these in the same folder as your Python document. Functions that update, correct, or save manifests by uploading new .json and/or .zip files must receive the specific location of these files on your computer. By default, these functions will assume the files are located in the same folder as your Python document.
+Content will be returned as a RcraResponse object, which wraps around the [requests.Response](https://pypi.org/project/requests/) object. Methods that download file attachments are decoded and returned in the ```RcrainfoResponse.multipart_json``` and ```RcrainfoResponse.multipart_zip``` when appropriate. The entire ```request.Response``` object is returned in ```RcrainfoResponse.response```. Methods that update, correct, or save manifests by uploading new .json and/or .zip files require a file path.
 
-After authenticating your account, you can complete a variety of actions within the e-Manifest system. For example, you might start with a new site by getting its basic details:
+### Exmaples:
 
 ```python
 em.GetSiteDetails('VATEST000001')
