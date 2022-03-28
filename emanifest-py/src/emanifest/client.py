@@ -719,21 +719,12 @@ class RcrainfoClient:
             attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
               message of success or failure
         """
-        resp = requests.get(self.base_url + '/api/v1/state/emanifest/manifest/' + mtn + '/attachments',
-                            headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
-                            stream=True)
-        if resp.ok:
-            multipart_data = decoder.MultipartDecoder.from_response(resp)
-            for part in multipart_data.parts:
-                if part.headers[b'Content-Type'] == b'application/json':
-                    with open('emanifest.json', 'w') as f:
-                        f.write(part.text)
-                else:
-                    z = zipfile.ZipFile(io.BytesIO(part.content))
-                    z.extractall()
-            print('Successfully retrieved.')
-        else:
-            print('Error: ' + str(resp.json()['message']))
+        resp = RcrainfoResponse(requests.get(self.base_url + '/api/v1/state/emanifest/manifest/' + mtn + '/attachments',
+                                headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
+                                stream=True))
+        if resp.response.ok:
+            resp.DecodeMultipart()
+        return resp
 
     def SearchMTNReg(self, **kwargs):
         """
