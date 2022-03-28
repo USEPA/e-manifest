@@ -519,16 +519,7 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        if zip_file is not None:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-                "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
-            })
-        else:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-            })
-
+        m = encode_manifest(manifest_json, zip_file)
         endpoint = self.base_url + '/api/v1/emanifest/manifest/correct'
         return self.__RCRAPut(endpoint, m)
 
@@ -601,15 +592,7 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        if zip_file is not None:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-                "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
-            })
-        else:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-            })
+        m = encode_manifest(manifest_json, zip_file)
 
         endpoint = self.base_url + '/api/v1/emanifest/manifest/update'
         return self.__RCRAPut(endpoint, m)
@@ -638,15 +621,7 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        if zip_file is not None:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-                "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
-            })
-        else:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-            })
+        m = encode_manifest(manifest_json, zip_file)
         resp = requests.post(self.base_url + '/api/v1/emanifest/manifest/save',
                              headers={'Content-Type': m.content_type, 'Accept': 'application/json',
                                       'Authorization': 'Bearer ' + self.token},
@@ -851,3 +826,16 @@ def new_client(base_url) -> RcrainfoClient:
             sys.exit(1)
     client = RcrainfoClient(base_url)
     return client
+
+
+def encode_manifest(manifest_json, zip_file):
+    if zip_file is not None:
+        multipart_attachment = encoder.MultipartEncoder(fields={
+            "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
+            "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
+        })
+    else:
+        multipart_attachment = encoder.MultipartEncoder(fields={
+            "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
+        })
+    return multipart_attachment
