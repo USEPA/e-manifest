@@ -11,30 +11,6 @@ import requests
 import datetime
 
 
-def new_client(base_url):
-    """
-    Create instance of RCRAInfoClient
-    
-    Args:
-        base_url (str): either 'prod', 'preprod' or url up to '/api/
-        
-    Returns:
-        client: Instance of RCRAInfo service and emanifest module functions
-    """
-    if "https" not in base_url:
-        urls = {
-            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest/",
-            "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest/"
-        }
-        if base_url.upper() in urls:
-            base_url = urls[base_url.upper()]
-        else:
-            print("base_url not recognized")
-            sys.exit(1)
-    client = RcrainfoClient(base_url)
-    return client
-
-
 class RcrainfoResponse:
     def __init__(self, response: requests.Response):
         self.response = response
@@ -81,6 +57,31 @@ class RcrainfoClient:
             # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
             expire_format = '%Y-%m-%dT%H:%M:%S.%f%z'
             self.token_expiration = datetime.datetime.strptime(expire, expire_format)
+
+    def __RCRAGet(self, endpoint):
+        resp = RcrainfoResponse(requests.get(endpoint,
+                                             headers={'Accept': 'application/json',
+                                                      'Authorization': 'Bearer ' + self.token}))
+        return resp
+
+    def __RCRAPost(self, endpoint, **kwargs):
+        resp = RcrainfoResponse(requests.post(endpoint,
+                                              headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
+                                                       'Authorization': 'Bearer ' + self.token},
+                                              data=json.dumps(dict(**kwargs))))
+        return resp
+
+    def __RCRADelete(self, endpoint):
+        resp = RcrainfoResponse(requests.delete(endpoint,
+                                                headers={'Accept': 'application/json',
+                                                         'Authorization': 'Bearer ' + self.token}))
+        return resp
+
+    def __RCRAPut(self, endpoint, m):
+        resp = RcrainfoResponse(requests.put(endpoint,
+                                             headers={'Content-Type': m.content_type, 'Accept': 'application/json',
+                                                      'Authorization': 'Bearer ' + self.token}, data=m))
+        return resp
 
     def GetSiteDetails(self, epa_id):
         """
@@ -418,7 +419,6 @@ class RcrainfoClient:
         if resp.response.ok:
             resp.DecodeMultipart()
         return resp
-
 
     def SearchMTN(self, **kwargs):
         """
@@ -837,27 +837,26 @@ class RcrainfoClient:
         endpoint = '/api/v1/state/handler/sources/' + handler_id + '/' + str(details)
         return self.__RCRAGet(endpoint)
 
-    def __RCRAGet(self, endpoint):
-        resp = RcrainfoResponse(requests.get(endpoint,
-                                             headers={'Accept': 'application/json',
-                                                      'Authorization': 'Bearer ' + self.token}))
-        return resp
 
-    def __RCRAPost(self, endpoint, **kwargs):
-        resp = RcrainfoResponse(requests.post(endpoint,
-                                              headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                                       'Authorization': 'Bearer ' + self.token},
-                                              data=json.dumps(dict(**kwargs))))
-        return resp
+def new_client(base_url) -> RcrainfoClient:
+    """
+    Create instance of RCRAInfoClient
 
-    def __RCRADelete(self, endpoint):
-        resp = RcrainfoResponse(requests.delete(endpoint,
-                                                headers={'Accept': 'application/json',
-                                                         'Authorization': 'Bearer ' + self.token}))
-        return resp
+    Args:
+        base_url (str): either 'prod', 'preprod' or url up to '/api/
 
-    def __RCRAPut(self, endpoint, m):
-        resp = RcrainfoResponse(requests.put(endpoint,
-                                             headers={'Content-Type': m.content_type, 'Accept': 'application/json',
-                                                      'Authorization': 'Bearer ' + self.token}, data=m))
-        return resp
+    Returns:
+        client: Instance of RCRAInfo service and emanifest module functions
+    """
+    if "https" not in base_url:
+        urls = {
+            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest/",
+            "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest/"
+        }
+        if base_url.upper() in urls:
+            base_url = urls[base_url.upper()]
+        else:
+            print("base_url not recognized")
+            sys.exit(1)
+    client = RcrainfoClient(base_url)
+    return client
