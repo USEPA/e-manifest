@@ -11,30 +11,24 @@ import requests
 import datetime
 
 
-def new_client(base_url):
-    """
-    Create instance of RCRAInfoClient
-    
-    Args:
-        base_url (str): either 'prod', 'preprod' or url up to '/api/
-        
-    Returns:
-        client: Instance of RCRAInfo service and emanifest module functions
-    """
-    if "https" not in base_url:
-        urls = {
-            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest/",
-            "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest/"
-        }
-        if base_url.upper() in urls:
-            base_url = urls[base_url.upper()]
-        else:
-            print("base_url not recognized")
-            sys.exit(1)
-    client = RcrainfoClient(base_url)
-    return client
+class RcrainfoResponse:
+    def __init__(self, response: requests.Response):
+        self.response = response
+        self.ok = response.ok
+        self.multipart_json = None
+        self.multipart_zip = None
+
+    def DecodeMultipart(self):
+        multipart_data = decoder.MultipartDecoder.from_response(self.response)
+        for part in multipart_data.parts:
+            if part.headers[b'Content-Type'] == b'application/json':
+                self.multipart_json = part.text
+            else:
+                zip_contents = zipfile.ZipFile(io.BytesIO(part.content))
+                self.multipart_zip = zip_contents
 
 
+# noinspection PyIncorrectDocstring
 class RcrainfoClient:
     def __init__(self, base_url):
         self.base_url = base_url
@@ -63,6 +57,31 @@ class RcrainfoClient:
             # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
             expire_format = '%Y-%m-%dT%H:%M:%S.%f%z'
             self.token_expiration = datetime.datetime.strptime(expire, expire_format)
+
+    def __RCRAGet(self, endpoint):
+        resp = RcrainfoResponse(requests.get(endpoint,
+                                             headers={'Accept': 'application/json',
+                                                      'Authorization': 'Bearer ' + self.token}))
+        return resp
+
+    def __RCRAPost(self, endpoint, **kwargs):
+        resp = RcrainfoResponse(requests.post(endpoint,
+                                              headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
+                                                       'Authorization': 'Bearer ' + self.token},
+                                              data=json.dumps(dict(**kwargs))))
+        return resp
+
+    def __RCRADelete(self, endpoint):
+        resp = RcrainfoResponse(requests.delete(endpoint,
+                                                headers={'Accept': 'application/json',
+                                                         'Authorization': 'Bearer ' + self.token}))
+        return resp
+
+    def __RCRAPut(self, endpoint, m):
+        resp = RcrainfoResponse(requests.put(endpoint,
+                                             headers={'Content-Type': m.content_type, 'Accept': 'application/json',
+                                                      'Authorization': 'Bearer ' + self.token}, data=m))
+        return resp
 
     def GetSiteDetails(self, epa_id):
         """
@@ -394,20 +413,12 @@ class RcrainfoClient:
             json: Downloaded file containing e-Manifest details for given MTN
             attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
         """
-        resp = requests.get(self.base_url + '/api/v1/emanifest/manifest/' + mtn + '/attachments',
-                              headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
-                              stream=True)
-        if resp.ok:
-            multipart_data = decoder.MultipartDecoder.from_response(resp)
-            for part in multipart_data.parts:
-                if part.headers[b'Content-Type'] == b'application/json':
-                    with open('emanifest.json', 'w') as f:
-                        f.write(part.text)
-                else:
-                    z = zipfile.ZipFile(io.BytesIO(part.content))
-                    z.extractall()
-        else:
-            print('Error: ' + str(resp.json()['message']))
+        resp = RcrainfoResponse(requests.get(self.base_url + '/api/v1/emanifest/manifest/' + mtn + '/attachments',
+                                headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
+                                stream=True))
+        if resp.response.ok:
+            resp.DecodeMultipart()
+        return resp
 
     def SearchMTN(self, **kwargs):
         """
@@ -508,16 +519,7 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        if zip_file is not None:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-                "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
-            })
-        else:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-            })
-        
+        m = encode_manifest(manifest_json, zip_file)
         endpoint = self.base_url + '/api/v1/emanifest/manifest/correct'
         return self.__RCRAPut(endpoint, m)
 
@@ -550,9 +552,9 @@ class RcrainfoClient:
             print: message of success or failure
         """
         resp = requests.post(self.base_url + '/api/v1/emanifest/manifest/correction-version/attachments',
-                            headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                     'Authorization': 'Bearer ' + self.token},
-                            data=json.dumps(dict(**kwargs)))
+                             headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
+                                      'Authorization': 'Bearer ' + self.token},
+                             data=json.dumps(dict(**kwargs)))
         if resp.ok:
             multipart_data = decoder.MultipartDecoder.from_response(resp)
             for part in multipart_data.parts:
@@ -590,16 +592,8 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        if zip_file is not None:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-                "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
-            })
-        else:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-            })
-        
+        m = encode_manifest(manifest_json, zip_file)
+
         endpoint = self.base_url + '/api/v1/emanifest/manifest/update'
         return self.__RCRAPut(endpoint, m)
 
@@ -627,15 +621,7 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        if zip_file is not None:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-                "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
-            })
-        else:
-            m = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-            })
+        m = encode_manifest(manifest_json, zip_file)
         resp = requests.post(self.base_url + '/api/v1/emanifest/manifest/save',
                              headers={'Content-Type': m.content_type, 'Accept': 'application/json',
                                       'Authorization': 'Bearer ' + self.token},
@@ -672,7 +658,8 @@ class RcrainfoClient:
         Returns:
             dict: object containing CME lookups
         """
-        endpoint = self.base_url + '/api/v1/state/cme/evaluation/lookups/' + activity_location + '/' + agency_code + '/' + str(nrr_flag)
+        endpoint = self.base_url + '/api/v1/state/cme/evaluation/lookups/' + activity_location + '/' + agency_code + '/' + str(
+            nrr_flag)
         return self.__RCRAGet(endpoint)
 
     def CMEIndicators(self):
@@ -707,21 +694,12 @@ class RcrainfoClient:
             attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
               message of success or failure
         """
-        resp = requests.get(self.base_url + '/api/v1/state/emanifest/manifest/' + mtn + '/attachments',
-                              headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
-                              stream=True)
-        if resp.ok:
-            multipart_data = decoder.MultipartDecoder.from_response(resp)
-            for part in multipart_data.parts:
-                if part.headers[b'Content-Type'] == b'application/json':
-                    with open('emanifest.json', 'w') as f:
-                        f.write(part.text)
-                else:
-                    z = zipfile.ZipFile(io.BytesIO(part.content))
-                    z.extractall()
-            print('Successfully retrieved.')
-        else:
-            print('Error: ' + str(resp.json()['message']))
+        resp = RcrainfoResponse(requests.get(self.base_url + '/api/v1/state/emanifest/manifest/' + mtn + '/attachments',
+                                headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
+                                stream=True))
+        if resp.response.ok:
+            resp.DecodeMultipart()
+        return resp
 
     def SearchMTNReg(self, **kwargs):
         """
@@ -825,39 +803,39 @@ class RcrainfoClient:
         endpoint = '/api/v1/state/handler/sources/' + handler_id + '/' + str(details)
         return self.__RCRAGet(endpoint)
 
-    def __RCRAGet(self, endpoint):
-        resp = requests.get(endpoint,
-                            headers={'Accept': 'application/json', 'Authorization': 'Bearer ' + self.token})
-        if resp.ok:
-            return resp.json()
+
+def new_client(base_url) -> RcrainfoClient:
+    """
+    Create instance of RCRAInfoClient
+
+    Args:
+        base_url (str): either 'prod', 'preprod' or url up to '/api/
+
+    Returns:
+        client: Instance of RCRAInfo service and emanifest module functions
+    """
+    if "https" not in base_url:
+        urls = {
+            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest/",
+            "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest/"
+        }
+        if base_url.upper() in urls:
+            base_url = urls[base_url.upper()]
         else:
-            print('Error: ' + str(resp.json()['message']))
-            
-    def __RCRAPost(self, endpoint, **kwargs):
-        resp = requests.post(endpoint,
-                            headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                     'Authorization': 'Bearer ' + self.token},
-                            data=json.dumps(dict(**kwargs)))
-        if resp.ok:
-            return resp.json()
-        else:
-            print('Error: ' + str(resp.json()['message']))
-                   
-    def __RCRADelete(self, endpoint):
-        resp = requests.delete(endpoint,
-                            headers={'Accept': 'application/json','Authorization': 'Bearer ' + self.token})
-        if resp.ok:
-            return resp.json()
-        else:
-            print('Error: ' + str(resp.json()['message']))
-            
-            
-    def __RCRAPut(self, endpoint, m):
-        resp = requests.put(endpoint,
-                            headers={'Content-Type': m.content_type, 'Accept': 'application/json',
-                                    'Authorization': 'Bearer ' + self.token},
-                            data=m)
-        if resp.ok:
-            return resp.json()
-        else:
-            print('Error: ' + str(resp.json()['message']))
+            print("base_url not recognized")
+            sys.exit(1)
+    client = RcrainfoClient(base_url)
+    return client
+
+
+def encode_manifest(manifest_json, zip_file):
+    if zip_file is not None:
+        multipart_attachment = encoder.MultipartEncoder(fields={
+            "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
+            "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
+        })
+    else:
+        multipart_attachment = encoder.MultipartEncoder(fields={
+            "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
+        })
+    return multipart_attachment
