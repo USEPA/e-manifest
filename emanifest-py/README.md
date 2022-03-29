@@ -4,7 +4,7 @@
 ![PyPI](https://img.shields.io/pypi/v/emanifest)
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 
-**emanifest** is a client library for accessing the e-Manifest rest API of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
+**emanifest** is a client library for accessing the e-Manifest REST APIs of the US Environmental Protection Agency's RCRAInfo national electronic hazardous waste management system.
 
 **Note:** The **emanifest** package was substantially refactored after version 1.1.0 and was released as a new major version at 2.0.0. Code relying on version 1.1.0 should not upgrade to version 2.0.0 of this package without refactoring.
 
@@ -40,7 +40,7 @@ pip install emanifest
 
 Before using the **emanifest** package, ensure you have a RCRAInfo user account and the [necessary permissions](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest#user_question6) to generate an API ID and key.
 
-All methods to access the e-Manifest/RCRAInfo API are implemented by the RcrainfoClient class which needs to be authenticated with your API ID and Key. A new instance of the class can be initiated with the ```new_client()``` convenience function like so:
+All methods to access the e-Manifest APIs are implemented by the RcrainfoClient class which needs to be authenticated with your API ID and Key. A new instance of the class can be initiated with the ```new_client()``` convenience function like so:
 
 ```python
 from emanifest import emanifest
@@ -49,7 +49,7 @@ em = emanifest.new_client('preprod')
 em.Auth('YOUR_API_ID', 'YOUR_API_KEY')
 ```
 
-```new_client()``` accepts a string, either **preprod**, **prod**, or a complete base URL. To register for a testing account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).The RcrainfoClient stores the JWT token, as well as it's expiration (20 minutes). Currently, the **emanifest** python package does not automatically reauthenticate.
+```new_client()``` accepts a string, either **preprod**, **prod**, or a complete base URL. To register for a testing account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login). The RcrainfoClient stores the JSON web token and its expiration period (20 minutes). Currently, the **emanifest** python package does not automatically reauthenticate.
 
 ### Methods
 
