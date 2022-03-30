@@ -18,6 +18,9 @@ class RcrainfoResponse:
         self.multipart_json = None
         self.multipart_zip = None
 
+    def __repr__(self):
+        return 'Object: RcrainfoResponse with status'.format(self.ok)
+
     def DecodeMultipart(self):
         multipart_data = decoder.MultipartDecoder.from_response(self.response)
         for part in multipart_data.parts:
@@ -34,6 +37,9 @@ class RcrainfoClient:
         self.base_url = base_url
         self.token = None
         self.token_expiration = None
+
+    def __repr__(self):
+        return 'Object: RcrainfoClient with base url {}'.format(self.base_url)
 
     def Auth(self, api_id, api_key):
         """
