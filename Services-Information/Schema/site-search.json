@@ -8,32 +8,31 @@
       "properties": {
         "epaSiteId": {
           "type": "string",
-          "maxLength": 12
+          "description": "max. length 12"
         },
         "name": {
           "type": "string",
-          "maxLength": 80
+          "description": "max. length 80"
         },
         "streetNumber": {
           "type": "string",
-          "maxLength": 12
+          "description": "max. length 12"
         },
         "address1": {
           "type": "string",
-          "maxLength": 50
+          "description": "max. length 50"
         },
         "city": {
           "type": "string",
-          "maxLength": 25
+          "description": "max. length 25"
         },
         "state": {
           "type": "string",
-          "minLength": 2,
-          "maxLength": 2
+          "description": "max. length 2 min. length 2"
         },
         "zip": {
           "type": "string",
-          "maxLength": 14
+          "description": "max. length 14"
         },
         "siteType": {
           "$ref": "#/definitions/SiteType"
