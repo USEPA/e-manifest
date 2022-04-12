@@ -40,7 +40,6 @@ There are ten categories of services available based on your user status:
   - You must be registered as a site manager for a TSDF site to access this site. See "Accessing the Test Environment" below.
 * [Sample Client](https://github.com/USEPA/e-manifest/tree/master/Services-Information/sample-client) for accessing the services
 * Python [**emanifest**](https://github.com/USEPA/e-manifest/tree/master/emanifest-py) package for accessing the services
-* JavaScript [**haztrak**](https://github.com/dpgraham4401/haztrak) package for accessing the services
 
 Please note: The test environment for the most part mirrors the handler information in our production environment. When testing, please also make sure your site information is up to date. If it is not, please use myRCRAid or your state’s paper notification process to update your site in the production environment.
 
@@ -116,26 +115,3 @@ General Program listserv
 Developers only listserv (Are you a developer that will consume e-Manifest's APIs?)
 
 * Subscribe: Send a blank message to: join-e-manifestdev@lists.epa.gov
-
-## Project History
-In 2014 and 2015 EPA developed a technical architecture for e-Manifest.
-
-Between July of 2015 and March of 2016 EPA developed an initial prototype.  The initial prototype has been decommissioned, but you can see the code for it via the [18F page](https://github.com/18F/e-manifest).
-
-Since April of 2016 e-Manifest has been leveraging modules within the RCRAInfo V6 application, taking advantage of reusing the data and technology that already existed in RCRAInfo.
-
-In February 2017, the team released functional mock ups in our test environment.  
-
-In March and April of 2017, the team released a series of Generator and TSD Facility screens in the test environment.  These screens communicate with our test database.  This also marks the first time users can register to create test manifests for their own handler id.  
-
-In June of 2017 the team released a series of web services, front end screens, and modifications based on responses from user experience testing.  Specifically, we released for user testing and feedback:
-
-1. Changes based on user feedback
-2. Initial web services
-3. Authentication Services and ID/Key Registration
-    - Get manifest and handler services
-    - Data look up services
-    - Swagger page for testing and documenting the services
-    - Sample Client for accessing the services
-4. Generator and TSDF screens and workflow, including adding facilities not in our database
-5. Bulk Signing of manifests (using EPA standard signature services via CDX)
