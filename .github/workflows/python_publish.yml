@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true #&& contains(github.event.comment.body, 'emanifest package release v')
+    if: github.event.pull_request.merged == true && contains(github.event.comment.body, 'emanifest package release v')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,7 +23,7 @@ jobs:
           pip install build
         working-directory: emanifest-py
       - name: Build package
-        run: python -m build
+        run: python -m build --sdist --wheel --outdir dist/
         working-directory: emanifest-py
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@master
