@@ -11,8 +11,8 @@
 # RcrainfoResponse {
 #   response:       requests.Response
 #   ok:             requests.Response.ok
-#   multipart_json: string                  part of multipart/mixed response if applicable
-#   multipart_zip:  zipfile.ZipFile         part of multipart/mixed response if applicable
+#   json: string                  part of multipart/mixed response if applicable
+#   zip:  zipfile.ZipFile         part of multipart/mixed response if applicable
 # }
 
 import os
@@ -20,16 +20,28 @@ from emanifest import client as em
 
 
 def main():
+
+    # change this manifest tracking number to one associated with your site
+    mtn = '100032524ELC'
+
     eman = em.new_client('preprod')
     eman.Auth(os.getenv('RCRAINFO_API_ID'), os.getenv('RCRAINFO_API_KEY'))
 
-    # dot_numbers = eman.GetManMethodCodes()
-    # print(dot_numbers.response.json())
+    dot_numbers = eman.GetManMethodCodes()
+    # The Response can be accessed by calling the request.Response.json() method, or the json attribute for ease
+    print(dot_numbers.response.json())
+    print(dot_numbers.json)
 
-    manifest_response = eman.GetAttachments("000012345GBF")
+    # Get Manifest json
+    manifest = eman.GetManByMTN(mtn)
+    with open('manifest.json', 'wb') as file:
+        file.write(manifest.response.content)
+
+    manifest_response = eman.GetAttachments(mtn)
     if manifest_response.ok:
-        # manifest_response.multipart_zip.extractall()
-        print(manifest_response.multipart_json)
+        # uncommenting the below line will save a number of files to your working directory
+        # manifest_response.zip.extractall()
+        print(manifest_response.json)
 
 
 if __name__ == '__main__':
