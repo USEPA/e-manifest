@@ -24,20 +24,20 @@ def main():
     # change this manifest tracking number to one associated with your site
     mtn = '100032524ELC'
 
-    eman = em.new_client('preprod')
-    eman.Auth(os.getenv('RCRAINFO_API_ID'), os.getenv('RCRAINFO_API_KEY'))
+    rcra_client = em.new_client('preprod')
+    rcra_client.Auth(os.getenv('RCRAINFO_API_ID'), os.getenv('RCRAINFO_API_KEY'))
 
-    dot_numbers = eman.GetManMethodCodes()
+    dot_numbers = rcra_client.GetManMethodCodes()
     # The Response can be accessed by calling the request.Response.json() method, or the json attribute for ease
     print(dot_numbers.response.json())
     print(dot_numbers.json)
 
     # Get Manifest json
-    manifest = eman.GetManByMTN(mtn)
+    manifest = rcra_client.GetManByMTN(mtn)
     with open('manifest.json', 'wb') as file:
         file.write(manifest.response.content)
 
-    manifest_response = eman.GetAttachments(mtn)
+    manifest_response = rcra_client.GetAttachments(mtn)
     if manifest_response.ok:
         # uncommenting the below line will save a number of files to your working directory
         # manifest_response.zip.extractall()

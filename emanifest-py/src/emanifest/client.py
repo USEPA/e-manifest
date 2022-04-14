@@ -432,8 +432,10 @@ class RcrainfoClient:
                                              headers={'Accept': 'multipart/mixed',
                                                       'Authorization': 'Bearer ' + self.token},
                                              stream=True))
-        if resp.response.ok:
+        if resp.response:
             resp.DecodeMultipart()
+        else:
+            resp.ok = False
         return resp
 
     def SearchMTN(self, **kwargs) -> RcrainfoResponse:
@@ -572,8 +574,10 @@ class RcrainfoClient:
                           headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
                                    'Authorization': 'Bearer ' + self.token},
                           data=json.dumps(dict(**kwargs))))
-        if resp.response.ok:
+        if resp.response:
             resp.DecodeMultipart()
+        else:
+            resp.ok = False
         return resp
 
     def CheckMTNExists(self, mtn) -> RcrainfoResponse:
@@ -706,8 +710,10 @@ class RcrainfoClient:
                                              headers={'Accept': 'multipart/mixed',
                                                       'Authorization': 'Bearer ' + self.token},
                                              stream=True))
-        if resp.response.ok:
+        if resp.response:
             resp.DecodeMultipart()
+        else:
+            resp.ok = False
         return resp
 
     def SearchMTNReg(self, **kwargs) -> RcrainfoResponse:
