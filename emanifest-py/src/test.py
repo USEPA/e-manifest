@@ -17,6 +17,11 @@ def new_client_and_auth():
 class EManTest(unittest.TestCase):
 
     # test of initial state
+    def test_bad_auth(self):
+        rcra_client = client.new_client('preprod')
+        rcra_client.Auth(os.getenv('RCRAINFO_API_ID'), 'a_bad_api_key')
+        self.assertIsNone(rcra_client.token)
+
     def test_client_token_state(self):
         unauthorized_client = client.new_client('preprod')
         self.assertIsNone(unauthorized_client.token)
@@ -59,6 +64,11 @@ class EManTest(unittest.TestCase):
         site_details = rcra_response.response.json()
         self.assertEqual(site_details['epaSiteId'], "VATESTGEN001")
 
+    def test_extracted_response_json_matches(self):
+        cl = new_client_and_auth()
+        resp = cl.GetSiteDetails('VATESTGEN001')
+        self.assertEqual(resp.response.json(), resp.json, "response.json() and json do not match")
+
     def test_check_mtn_exits(self):
         cl = new_client_and_auth()
         mtn = "100032934ELC"
@@ -76,7 +86,6 @@ class EManTest(unittest.TestCase):
         cl = new_client_and_auth()
         manifest_response = cl.GetAttachments("000012345GBF")
         self.assertTrue(manifest_response.ok)
-
 
 if __name__ == '__main__':
     unittest.main()
