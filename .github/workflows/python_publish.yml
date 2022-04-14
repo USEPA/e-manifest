@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   deploy:
-    if: contains(github.event.pull_request.head.ref, 'version')
+    if: github.event.label.name == 'runtest'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
