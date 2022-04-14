@@ -22,8 +22,9 @@ class RcrainfoResponse:
         return 'Object: RcrainfoResponse with status'.format(self.ok)
 
     def ExtractAttributes(self):
-        self.ok = self.response.ok
-        self.json = self.response.json()
+        if self.response:
+            self.ok = self.response.ok
+            self.json = self.response.json()
 
     def DecodeMultipart(self):
         multipart_data = decoder.MultipartDecoder.from_response(self.response)
@@ -428,8 +429,9 @@ class RcrainfoClient:
             attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
         """
         resp = RcrainfoResponse(requests.get(self.base_url + '/api/v1/emanifest/manifest/' + mtn + '/attachments',
-                                headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
-                                stream=True))
+                                             headers={'Accept': 'multipart/mixed',
+                                                      'Authorization': 'Bearer ' + self.token},
+                                             stream=True))
         if resp.response.ok:
             resp.DecodeMultipart()
         return resp
@@ -565,22 +567,14 @@ class RcrainfoClient:
             attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
             print: message of success or failure
         """
-        resp = requests.post(self.base_url + '/api/v1/emanifest/manifest/correction-version/attachments',
-                             headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                      'Authorization': 'Bearer ' + self.token},
-                             data=json.dumps(dict(**kwargs)))
-        if resp.ok:
-            multipart_data = decoder.MultipartDecoder.from_response(resp)
-            for part in multipart_data.parts:
-                if part.headers[b'Content-Type'] == b'application/json':
-                    with open('emanifest.json', 'w') as f:
-                        f.write(part.text)
-                else:
-                    z = zipfile.ZipFile(io.BytesIO(part.content))
-                    z.extractall()
-            print('Successfully retrieved.')
-        else:
-            print('Error: ' + str(resp.json()['message']))
+        resp = RcrainfoResponse(
+            requests.post(self.base_url + '/api/v1/emanifest/manifest/correction-version/attachments',
+                          headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
+                                   'Authorization': 'Bearer ' + self.token},
+                          data=json.dumps(dict(**kwargs))))
+        if resp.response.ok:
+            resp.DecodeMultipart()
+        return resp
 
     def CheckMTNExists(self, mtn) -> RcrainfoResponse:
         """
@@ -709,8 +703,9 @@ class RcrainfoClient:
               message of success or failure
         """
         resp = RcrainfoResponse(requests.get(self.base_url + '/api/v1/state/emanifest/manifest/' + mtn + '/attachments',
-                                headers={'Accept': 'multipart/mixed', 'Authorization': 'Bearer ' + self.token},
-                                stream=True))
+                                             headers={'Accept': 'multipart/mixed',
+                                                      'Authorization': 'Bearer ' + self.token},
+                                             stream=True))
         if resp.response.ok:
             resp.DecodeMultipart()
         return resp
