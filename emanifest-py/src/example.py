@@ -11,8 +11,8 @@
 # RcrainfoResponse {
 #   response:       requests.Response
 #   ok:             requests.Response.ok
-#   multipart_json: string                  part of multipart/mixed response if applicable
-#   multipart_zip:  zipfile.ZipFile         part of multipart/mixed response if applicable
+#   json: string                  part of multipart/mixed response if applicable
+#   zip:  zipfile.ZipFile         part of multipart/mixed response if applicable
 # }
 
 import os
@@ -40,7 +40,7 @@ def main():
     manifest_response = eman.GetAttachments(mtn)
     if manifest_response.ok:
         # uncommenting the below line will save a number of files to your working directory
-        # manifest_response.multipart_zip.extractall()
+        # manifest_response.zip.extractall()
         print(manifest_response.json)
 
 

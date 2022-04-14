@@ -16,7 +16,7 @@ class RcrainfoResponse:
         self.response = response
         self.ok = response.ok
         self.json = None
-        self.multipart_zip = None
+        self.zip = None
 
     def __repr__(self):
         return 'Object: RcrainfoResponse with status'.format(self.ok)
@@ -32,7 +32,7 @@ class RcrainfoResponse:
                 self.json = part.text
             else:
                 zip_contents = zipfile.ZipFile(io.BytesIO(part.content))
-                self.multipart_zip = zip_contents
+                self.zip = zip_contents
 
 
 # noinspection PyIncorrectDocstring
