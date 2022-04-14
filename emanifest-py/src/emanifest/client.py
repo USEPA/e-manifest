@@ -3,6 +3,7 @@ e-Manifest library for using the e-Manifest API
 see https://github.com/USEPA/e-manifest
 """
 import io
+import os
 import json
 import sys
 import zipfile
@@ -432,8 +433,10 @@ class RcrainfoClient:
                                              headers={'Accept': 'multipart/mixed',
                                                       'Authorization': 'Bearer ' + self.token},
                                              stream=True))
-        if resp.response.ok:
+        if resp.response:
             resp.DecodeMultipart()
+        else:
+            resp.ok = False
         return resp
 
     def SearchMTN(self, **kwargs) -> RcrainfoResponse:
@@ -572,8 +575,10 @@ class RcrainfoClient:
                           headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
                                    'Authorization': 'Bearer ' + self.token},
                           data=json.dumps(dict(**kwargs))))
-        if resp.response.ok:
+        if resp.response:
             resp.DecodeMultipart()
+        else:
+            resp.ok = False
         return resp
 
     def CheckMTNExists(self, mtn) -> RcrainfoResponse:
@@ -630,11 +635,11 @@ class RcrainfoClient:
             dict: message of success or failure
         """
         m = encode_manifest(manifest_json, zip_file)
-        resp = requests.post(self.base_url + '/api/v1/emanifest/manifest/save',
-                             headers={'Content-Type': m.content_type, 'Accept': 'application/json',
-                                      'Authorization': 'Bearer ' + self.token},
-                             data=m)
-        return resp.json()
+        resp = RcrainfoResponse(requests.post(self.base_url + '/api/v1/emanifest/manifest/save',
+                                              headers={'Content-Type': m.content_type, 'Accept': 'application/json',
+                                                       'Authorization': 'Bearer ' + self.token},
+                                              data=m))
+        return resp
 
     def GenerateUILink(self, **kwargs) -> RcrainfoResponse:
         """
@@ -706,8 +711,10 @@ class RcrainfoClient:
                                              headers={'Accept': 'multipart/mixed',
                                                       'Authorization': 'Bearer ' + self.token},
                                              stream=True))
-        if resp.response.ok:
+        if resp.response:
             resp.DecodeMultipart()
+        else:
+            resp.ok = False
         return resp
 
     def SearchMTNReg(self, **kwargs) -> RcrainfoResponse:
@@ -837,14 +844,23 @@ def new_client(base_url) -> RcrainfoClient:
     return client
 
 
-def encode_manifest(manifest_json, zip_file):
-    if zip_file is not None:
-        multipart_attachment = encoder.MultipartEncoder(fields={
-            "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-            "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
-        })
+# TODO: accept file paths and string/byte stream as arguments
+#  A db probably won't store in filesystem
+#  this function is just asking for problems for the time being
+def encode_manifest(manifest_json, zip_file=None):
+    if zip_file:
+        if os.path.isfile(manifest_json) & os.path.isfile(zip_file):
+            multipart_attachment = encoder.MultipartEncoder(fields={
+                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
+                "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
+            })
     else:
-        multipart_attachment = encoder.MultipartEncoder(fields={
-            "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-        })
+        if os.path.isfile(manifest_json):
+            multipart_attachment = encoder.MultipartEncoder(fields={
+                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
+            })
+        else:
+            multipart_attachment = encoder.MultipartEncoder(fields={
+                "manifest": ('manifest', manifest_json, 'application/json'),
+            })
     return multipart_attachment

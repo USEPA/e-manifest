@@ -14,7 +14,7 @@
 #   json: string                  part of multipart/mixed response if applicable
 #   zip:  zipfile.ZipFile         part of multipart/mixed response if applicable
 # }
-
+import json
 import os
 from emanifest import client as em
 
@@ -24,24 +24,38 @@ def main():
     # change this manifest tracking number to one associated with your site
     mtn = '100032524ELC'
 
-    eman = em.new_client('preprod')
-    eman.Auth(os.getenv('RCRAINFO_API_ID'), os.getenv('RCRAINFO_API_KEY'))
+    rcra_client = em.new_client('preprod')
+    rcra_client.Auth(os.getenv('RCRAINFO_API_ID'), os.getenv('RCRAINFO_API_KEY'))
 
-    dot_numbers = eman.GetManMethodCodes()
+    dot_numbers = rcra_client.GetManMethodCodes()
     # The Response can be accessed by calling the request.Response.json() method, or the json attribute for ease
+    # These should print the same json
     print(dot_numbers.response.json())
     print(dot_numbers.json)
 
     # Get Manifest json
-    manifest = eman.GetManByMTN(mtn)
-    with open('manifest.json', 'wb') as file:
-        file.write(manifest.response.content)
+    manifest = rcra_client.GetManByMTN(mtn)
+    print(manifest.json)
+    # uncommenting the below will save manifest to './manifest.json'
+    # if manifest.ok:
+    #     with open('manifest.json', 'wb') as file:
+    #         file.write(manifest.response.content)
 
-    manifest_response = eman.GetAttachments(mtn)
-    if manifest_response.ok:
-        # uncommenting the below line will save a number of files to your working directory
-        # manifest_response.zip.extractall()
-        print(manifest_response.json)
+    manifest_attachments = rcra_client.GetAttachments(mtn)
+    print(manifest_attachments.ok)
+    # uncommenting the below line will save a number of files to your working directory
+    # if manifest_attachments.ok:
+    #     manifest_attachments.zip.extractall()
+
+    # update the paper manifest with the path to .json and .zip file
+    update_resp = rcra_client.Update('example_update.json', 'example_update.zip')
+    print(update_resp.ok)
+
+    # or pass json as a string
+    with open('example_update.json') as f:
+        data = f.read() # data is a string containing the manifest json
+        update_resp = rcra_client.Update(data)
+        print(update_resp.ok)
 
 
 if __name__ == '__main__':

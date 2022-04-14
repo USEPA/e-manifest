@@ -43,10 +43,10 @@ Before using the **emanifest** package, ensure you have a RCRAInfo user account 
 All methods to access the e-Manifest APIs are implemented by the RcrainfoClient class which needs to be authenticated with your API ID and Key. A new instance of the class can be initiated with the ```new_client()``` convenience function like so:
 
 ```python
-from emanifest import emanifest
+from emanifest import client as em
 
-em = emanifest.new_client('preprod')
-em.Auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcra_client = em.new_client('preprod')
+rcra_client.Auth('YOUR_API_ID', 'YOUR_API_KEY')
 ```
 
 ```new_client()``` accepts a string, either **preprod**, **prod**, or a complete base URL. To register for a testing account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login). The RcrainfoClient stores the JSON web token and its expiration period (20 minutes). Currently, the **emanifest** python package does not automatically reauthenticate.
@@ -71,17 +71,17 @@ Content will be returned as a RcraResponse object, which wraps around the [reque
 ### Exmaples:
 
 ```python
-em.GetSiteDetails('VATEST000001')
+rcra_client.GetSiteDetails('VATEST000001')
 ```
 Once you've confirmed this is the correct site, you might search for manifests in transit from that site:
 
 ```python
-em.SearchMTN(siteId='VATEST000001', status='InTransit')
+rcra_client.SearchMTN(siteId='VATEST000001', status='InTransit')
 ```
 If one of those manifests didn't match your records, you could initiate a correction with the correct JSON information and optionally any attachments (.zip):
 
 ```python
-em.Correct('manifest_file_name.json', 'optional_attachments.zip')
+rcra_client.Correct('manifest_file_name.json', 'optional_attachments.zip')
 ```
 
 ### Help
