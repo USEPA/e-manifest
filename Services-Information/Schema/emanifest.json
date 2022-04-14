@@ -255,6 +255,14 @@
         "locked": {
           "description": "Indicates if manifest is locked for update, delete, correct, revert services. If locked is true the manifest is in signing queue. Shall not be provided  for Save and Update Manifest service.  Will be returned by get manifest service",
           "type": "boolean"
+        },
+        "lockReason": {
+          "type": "string",
+          "enum": [
+            "AsyncSign",
+            "EpaChangeBiller",
+            "EpaCorrection"
+          ]
         }
       },
       "additionalProperties": false
@@ -717,7 +725,7 @@
         "limitedEsign": {
           "description": "Indicates if there is  at least one preparer user associated with the site which can quick sign. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
           "type": "boolean"
-        },   
+        },
         "canEsign": {
           "description": "Indicates if there is  at least one user associated with the site which can electronicaly sign. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
           "type": "boolean"
@@ -772,12 +780,18 @@
           "type": "string"
         },
         "signerRole": {
-          "description": "Indicates which entity signed the manifest. Industry or State",
+          "description": "Indicates which entity signed the manifest. Industry, State, Ppc, Epa",
           "type": "string",
           "enum": [
             "Industry",
-            "State"
+            "State",
+            "Ppc",
+            "Epa"
           ]
+        },
+        "onBehalf": {
+          "description": "Specifies if the signature is provided on behalf of the user",
+          "type": "boolean"
         }
       },
       "additionalProperties": false
@@ -1051,9 +1065,25 @@
         "epaSiteId": {
           "$ref": "#/definitions/EpaSiteId"
         },
-        "stateCorrected": {
-          "description": "Indicates if the manifest is under correction by the state. Will be returned by Correction Details, Correction Version, Get Manifest. Shall not be provided for Save and Update Manifest.",
-          "type": "boolean"
+        "initiatorRole ": {
+          "description": "Indicates if the manifest is under correction by the Industry, State, Ppc, Epa. Will be returned by Correction Details, Correction Version, Get Manifest. Shall not be provided for Save and Update Manifest.",
+          "type": "string",
+          "enum": [
+            "Industry",
+            "State",
+            "Ppc",
+            "Epa"
+          ]
+        },
+        "updateRole ": {
+          "description": "Indicates if the manifest is under correction by the Industry, State, Ppc, Epa. Will be returned by Correction Details, Correction Version, Get Manifest. Shall not be provided for Save and Update Manifest.",
+          "type": "string",
+          "enum": [
+            "Industry",
+            "State",
+            "Ppc",
+            "Epa"
+          ]
         }
       },
       "additionalProperties": false

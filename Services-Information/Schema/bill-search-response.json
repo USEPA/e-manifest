@@ -114,6 +114,10 @@
           "description": "Contains previous months total interest amounts. ",
           "type": "number"
         },
+        "previousFlatFeeAmount": {
+            "description": "Contains previous months total flat fee amounts. ",
+          "type": "number"     
+        },
         "previousPenaltyAmount": {
           "description": "Contains previous months total penalty amounts. ",
           "type": "number"
@@ -196,9 +200,9 @@
             "Inactive"
           ]
         },
-        "lateFeeBillId ": {
-          "type": "number",
-          "description":"foreign key to the Bill which Late Fee is calculated for"
+        "lateFeeBillId": {
+          "description": "foreign key to the Bill which Late Fee is calculated for",
+          "type": "number"
         }
       },
       "additionalProperties": false
@@ -213,13 +217,17 @@
         "billId": {
           "description": "Contains bill id",
           "type": "number"
-        },        
+        },
         "amountType": {
           "description": "Specifies what amount (Current or late fee or Total) was adjusted",
           "type": "string",
           "enum": [
+            "Previous",
             "Current",
             "LateFee",
+            "LateFeeInterest",
+            "LateFeePenalty",
+            "LateFeeFlatFee",
             "Total"
           ]
         },

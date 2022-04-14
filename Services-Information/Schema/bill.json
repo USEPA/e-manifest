@@ -68,6 +68,10 @@
           "description": "Contains previous months total Late Fee amounts. ",
           "type": "number"
         },
+           "previousFlatFeeAmount": {
+            "description": "Contains previous months total flat fee amounts. ",
+          "type": "number"
+           },
         "dueDate": {
           "description": "Contains due date. ",
           "type": "string",
@@ -246,8 +250,12 @@
           "description": "Specifies what amount (Current or late fee or Total) was adjusted",
           "type": "string",
           "enum": [
+            "Previous",
             "Current",
             "LateFee",
+            "LateFeeInterest",
+            "LateFeePenalty",
+            "LateFeeFlatFee",
             "Total"
           ]
         },
