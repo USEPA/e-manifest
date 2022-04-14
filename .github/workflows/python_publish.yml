@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true && contains(github.event.comment.body, 'emanifest package release v')
+    if: contains(github.event.comment.body, 'version')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
