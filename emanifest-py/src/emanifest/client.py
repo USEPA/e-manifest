@@ -649,7 +649,7 @@ class RcrainfoClient:
             page (str): Dashboard, BulkSign, BulkQuickSign, Edit, View, Sign. Case-sensitive
             epaSiteId (Str): EPA Site ID
             manifestTrackingNumber (str): Manifest tracking number (optional)
-            filter (list): List of MTNs (optional)
+            mtnFilter (list): List of MTNs (optional)
             
         Returns:
             dict: object containing link to UI
