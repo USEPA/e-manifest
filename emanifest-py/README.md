@@ -14,7 +14,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
   - [Getting Started](#getting-started)
-  - [methods](#methods)
+  - [Methods](#methods)
   - [Help](#help)
 - [Contact](#contact)
 - [License](LICENSE.txt)
@@ -68,7 +68,7 @@ After authenticating, you are ready to use the full functionality of the **emani
 
 Content will be returned as a RcraResponse object, which wraps around the [requests.Response](https://pypi.org/project/requests/) object. Methods that download file attachments are decoded and returned in the ```RcrainfoResponse.multipart_json``` and ```RcrainfoResponse.multipart_zip``` when appropriate. The entire ```request.Response``` object is returned in ```RcrainfoResponse.response```. Methods that update, correct, or save manifests by uploading new .json and/or .zip files require a file path.
 
-### Exmaples:
+### Examples:
 
 ```python
 rcra_client.GetSiteDetails('VATEST000001')
