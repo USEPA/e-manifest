@@ -53,7 +53,7 @@ rcra_client.Auth('YOUR_API_ID', 'YOUR_API_KEY')
 
 ### Methods
 
-After authenticating, you are ready to use the full functionality of the **emanifest** package, a quick example can be found [here](src/example.py). The RcrainfoClient class exposes a method for each API endpoint in one of the 10 service catagories. For more information about these services, visit the Swagger page of your selected environment. ([PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/)). API endpoints designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to access these resources in RCRAInfo.
+After authenticating, you are ready to use the full functionality of the **emanifest** package. An introductory example script can be found [here](src/example.py). The RcrainfoClient class exposes a method for each API endpoint in one of the 10 service catagories. For more information about these services, visit the Swagger page of your selected environment. ([PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/)). API endpoints designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors if you are not authorized to access these resources in RCRAInfo.
 
 1. [All users] Authentication services
 2. [All users] e-Manifest Lookup Services
