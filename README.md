@@ -105,6 +105,8 @@ Additional Resources:
 ## Contact Information
 Additional Questions: emanifest@epa.gov
 
+If you're interested in contributing to this project, see [CONTRIBUTING.md](https://github.com/USEPA/e-manifest/blob/master/CONTRIBUTING.md)
+
 **Join the conversation and keep up on the latest e-Manifest news**
 The e-Manifest ListServ provides an open forum for the posting and discussion of news and information relating to the e-Manifest program. This Listserv can also be used to facilitate e-Manifest conversations amongst the stakeholder and user community.
 
