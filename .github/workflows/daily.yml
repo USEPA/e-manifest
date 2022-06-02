@@ -1,0 +1,43 @@
+name: "Daily code.json update"
+
+on:
+  schedule:
+    # Run at 6:15am UTC every day
+    - cron: '15 6 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+  run:
+    name: Run
+    runs-on: "ubuntu-latest"
+    needs: build
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Run code json generator
+        run: |
+          ./bin/run-codejsongenerator.sh && echo "Run code json generator"
+
+      - name: Commit & Push
+        if: ${{ success() }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git fetch --depth=1 origin output
+          git worktree add -b output ../output origin/output
+          mv code.json ../output/code.json
+          cd ../output/
+          git add code.json
+          git commit -m "Automated workflow from GitHub Actions"
+          git push origin output
