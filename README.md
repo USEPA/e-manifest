@@ -92,7 +92,7 @@ In the upcoming months, we will add more screens and request feedback from State
  
 ## Reference
 
-EPA's [Hazardous Waste Electronic Manifest System (E-Manifest)](https://www.epa.gov/hwgenerators/hazardous-waste-electronic-manifest-system-e-manifest) page 
+EPA's [Hazardous Waste Electronic Manifest System (e-Manifest)](https://www.epa.gov/hwgenerators/hazardous-waste-electronic-manifest-system-e-manifest) page 
 
 All our [active cards and issues](https://github.com/USEPA/e-manifest/issues) are posted in this GitHub Repository.  We will be posting additional documents as well as issues that we want user feedback on in the near future.  
 
@@ -117,6 +117,6 @@ General Program listserv
 
 Developers only listserv (Are you a developer that will consume e-Manifest's APIs?)
 
-* Subscribe: Send a blank message to: join-e-manifestdev@lists.epa.gov
+* Subscribe: Send a blank message to: join-e-Manifestdev@lists.epa.gov
 
 Attend the next [e-Manifest webinar](https://www.epa.gov/e-manifest/monthly-webinars-about-hazardous-waste-electronic-manifest-e-manifest)
