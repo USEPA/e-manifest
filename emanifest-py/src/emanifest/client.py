@@ -3,6 +3,7 @@ e-Manifest library for using the e-Manifest API
 see https://github.com/USEPA/e-manifest
 """
 import io
+import logging
 import os
 import json
 import sys
@@ -20,7 +21,7 @@ class RcrainfoResponse:
         self.zip = None
 
     def __repr__(self):
-        return 'Object: RcrainfoResponse with status'.format(self.ok)
+        return f'Object: RcrainfoResponse with status {self.ok}'
 
     def ExtractAttributes(self):
         if self.response:
@@ -39,15 +40,16 @@ class RcrainfoResponse:
 
 # noinspection PyIncorrectDocstring
 class RcrainfoClient:
-    def __init__(self, base_url):
+    def __init__(self, base_url: str, timeout=10) -> None:
         self.base_url = base_url
         self.token = None
         self.token_expiration = None
+        self.timeout = timeout
 
-    def __repr__(self):
-        return 'Object: RcrainfoClient with base url {}'.format(self.base_url)
+    def __repr__(self) -> str:
+        return f'Object: RcrainfoClient with base url {self.base_url}'
 
-    def Auth(self, api_id, api_key):
+    def Auth(self, api_id, api_key) -> None:
         """
         Authenticate user's RCRAInfo API ID and Key to generate token for use by other functions
         
@@ -58,11 +60,8 @@ class RcrainfoClient:
         Returns:
             token (client): Authentication token for use by other emanifest functions. Expires after 20 minutes 
         """
-        auth_url = "{base_url}/api/v1/auth/{api_id}/{api_key}".format(
-            base_url=self.base_url,
-            api_id=api_id,
-            api_key=api_key)
-        resp = requests.get(auth_url)
+        auth_url = f'{self.base_url}/api/v1/auth/{api_id}/{api_key}'
+        resp = requests.get(auth_url, timeout=self.timeout)
         if resp.ok:
             self.token = resp.json()['token']
             expire = resp.json()['expiration']
@@ -70,30 +69,30 @@ class RcrainfoClient:
             expire_format = '%Y-%m-%dT%H:%M:%S.%f%z'
             self.token_expiration = datetime.datetime.strptime(expire, expire_format)
 
-    def __RCRAGet(self, endpoint):
-        resp = RcrainfoResponse(requests.get(endpoint,
+    def __RCRAGet(self, endpoint) -> RcrainfoResponse:
+        resp = RcrainfoResponse(requests.get(endpoint, timeout=self.timeout,
                                              headers={'Accept': 'application/json',
                                                       'Authorization': 'Bearer ' + self.token}))
         resp.ExtractAttributes()
         return resp
 
-    def __RCRAPost(self, endpoint, **kwargs):
-        resp = RcrainfoResponse(requests.post(endpoint,
+    def __RCRAPost(self, endpoint, **kwargs) -> RcrainfoResponse:
+        resp = RcrainfoResponse(requests.post(endpoint, timeout=self.timeout,
                                               headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
                                                        'Authorization': 'Bearer ' + self.token},
                                               data=json.dumps(dict(**kwargs))))
         resp.ExtractAttributes()
         return resp
 
-    def __RCRADelete(self, endpoint):
-        resp = RcrainfoResponse(requests.delete(endpoint,
+    def __RCRADelete(self, endpoint) -> RcrainfoResponse:
+        resp = RcrainfoResponse(requests.delete(endpoint, timeout=self.timeout,
                                                 headers={'Accept': 'application/json',
                                                          'Authorization': 'Bearer ' + self.token}))
         resp.ExtractAttributes()
         return resp
 
-    def __RCRAPut(self, endpoint, m):
-        resp = RcrainfoResponse(requests.put(endpoint,
+    def __RCRAPut(self, endpoint, m) -> RcrainfoResponse:
+        resp = RcrainfoResponse(requests.put(endpoint, timeout=self.timeout,
                                              headers={'Content-Type': m.content_type, 'Accept': 'application/json',
                                                       'Authorization': 'Bearer ' + self.token}, data=m))
         resp.ExtractAttributes()
@@ -838,8 +837,8 @@ def new_client(base_url) -> RcrainfoClient:
         if base_url.upper() in urls:
             base_url = urls[base_url.upper()]
         else:
-            print("base_url not recognized")
-            sys.exit(1)
+            logging.warning("Base url not recognized, you can use the argument "
+                            "'preprod' or 'prod' to target their respective environments")
     client = RcrainfoClient(base_url)
     return client
 
