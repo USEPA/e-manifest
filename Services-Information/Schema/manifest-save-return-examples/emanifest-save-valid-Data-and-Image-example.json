@@ -173,13 +173,6 @@
 				"number": "703-308-0023"
 			},
 			"email": "EMANIFEST@EPA.GOV"
-		},
-		"electronicSignatureInfo": {
-			"humanReadableDocument": {
-				"name": "human-readable.html",
-				"size": 184440,
-				"mimeType": "TEXT_HTML"
-			}
 		}
 	},
 	"wastes": [
