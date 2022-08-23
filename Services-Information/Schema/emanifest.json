@@ -217,6 +217,13 @@
           },
           "additionalProperties": false
         },
+        "correctionRequests": {
+          "description": "Contains State Correction Requests  for a manifest",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CorrectionRequest"
+          }
+        },
         "containsPreviousRejectOrResidue": {
           "description": "If the new manifest is created for shiping the waste to another TSDF or back to the Generator for rejection or residure reasons then containsPreviousRejectOrResidue=true otherwise it is false",
           "type": "boolean"
@@ -1087,6 +1094,69 @@
         }
       },
       "additionalProperties": false
+    },
+    "CorrectionRequest": {
+      "description": "Contains state correction request information . Shall not be provided for Save, Update and Correct Manifest services. Will be returned by Get manifest service as a part of Manifest",
+      "type": "object",
+      "properties": {
+        "correctionRequestStatus": {
+          "type": "string",
+          "enum": [
+            "NotSent",
+            "Sent",
+            "IndustryResponded"
+          ]
+        },
+        "correctionRequestDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "initiatorState": {
+          "$ref": "#/definitions/Code"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "stateUser": {
+          "$ref": "#/definitions/StateUser"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Section"
+          }
+        }
+      }
+    },
+    "Section": {
+      "description": "Contains section correction request information . Shall not be provided for Save, Update and Correct Manifest services. Will be returned by Get manifest service as a part of Manifest",
+      "type": "object",
+      "properties": {
+        "sectionNumber": {
+          "type": "string"
+        },
+        "comments": {
+          "type": "string"
+        }
+      }
+    },
+    "StateUser": {
+      "description": "Contains state user correction request information . Shall not be provided for Save, Update and Correct Manifest services. Will be returned by Get manifest service as a part of Manifest",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "phone": {
+          "$ref": "#/definitions/Phone"
+        }
+      }
     },
     "MtnValidationInfo": {
       "description": "Contains Manifest Discrepancy Validation information. Shall not be provided for Save Manifest service.For Update service two fields can be provided (mtnsCorrect, mtnCorrectionReason). Will be returned by get manifest service as a part of Manifest for the manifests with Image and DataImage5Copy submission types",
