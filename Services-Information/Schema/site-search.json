@@ -35,22 +35,15 @@
           "description": "max. length 14"
         },
         "siteType": {
-          "$ref": "#/definitions/SiteType"
+          "type": "string",
+          "description": "following site types can be provided: Tsdf, Generator, Transporter, Broker"
         },
         "pageNumber": {
-          "type": "number"
+          "type": "number",
+          "description": "positive numbers can be provided "
         }
       },
       "additionalProperties": false
-    },
-    "SiteType": {
-      "type": "string",
-      "enum": [
-        "Tsdf",
-        "Generator",
-        "Transporter",
-        "Broker"
-      ]
     }
   }
 }
