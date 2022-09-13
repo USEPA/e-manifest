@@ -1072,7 +1072,7 @@
         "epaSiteId": {
           "$ref": "#/definitions/EpaSiteId"
         },
-        "initiatorRole ": {
+        "initiatorRole": {
           "description": "Indicates if the manifest is under correction by the Industry, State, Ppc, Epa. Will be returned by Correction Details, Correction Version, Get Manifest. Shall not be provided for Save and Update Manifest.",
           "type": "string",
           "enum": [
@@ -1112,7 +1112,7 @@
           "format": "date-time"
         },
         "initiatorState": {
-          "$ref": "#/definitions/Code"
+          "$ref": "#/definitions/Locality"
         },
         "active": {
           "type": "boolean"
@@ -1133,7 +1133,7 @@
       "type": "object",
       "properties": {
         "sectionNumber": {
-          "type": "string"
+          "$ref": "#/definitions/CodeDescription"
         },
         "comments": {
           "type": "string"
