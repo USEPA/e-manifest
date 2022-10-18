@@ -23,7 +23,7 @@
     <!-- ====================================================================== -->
     <properties>
         <jersey.version>2.21</jersey.version>
-        <jackson.version>2.5.4</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
        <mytimestamp>${maven.build.timestamp}</mytimestamp>
        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'Z'</maven.build.timestamp.format>
     </properties>
