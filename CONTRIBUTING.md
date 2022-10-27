@@ -33,10 +33,10 @@ If you have additional questions, please email [emanifest@epa.gov](mailto:emanif
 
 **Join the conversation and keep up on the latest e-Manifest news**
 
-The e-Manifest mailing lists are the most immediate source for news and information relating to the e-Manifest program. There are two mailing lists:
+* Attend the next [e-Manifest webinar](https://www.epa.gov/e-manifest/monthly-webinars-about-hazardous-waste-electronic-manifest-e-manifest)
 
-e-Manifest General Program: [Click here to subscribe](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_4)
+* Sign up for the e-Manifest mailing lists:
 
-e-Manifest Software Developers: [Click here to subscribe](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_9)
+  - e-Manifest General Program: [Click here to subscribe](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_4)
 
-Attend the next [e-Manifest webinar](https://www.epa.gov/e-manifest/monthly-webinars-about-hazardous-waste-electronic-manifest-e-manifest)
+  - e-Manifest Software Developers: [Click here to subscribe](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_9)
