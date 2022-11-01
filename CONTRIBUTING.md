@@ -33,12 +33,10 @@ If you have additional questions, please email [emanifest@epa.gov](mailto:emanif
 
 **Join the conversation and keep up on the latest e-Manifest news**
 
-The e-Manifest ListServ provides an open forum for the posting and discussion of news and information relating to the e-Manifest program. This Listserv can also be used to facilitate e-Manifest conversations amongst the stakeholder and user community.
+* Attend the next [e-Manifest webinar](https://www.epa.gov/e-manifest/monthly-webinars-about-hazardous-waste-electronic-manifest-e-manifest)
 
-General Program listserv
-* Subscribe: Send a blank message to: join-eManifest@lists.epa.gov
+* Sign up for the e-Manifest mailing lists:
 
-Developers only listserv (Are you a developer that will consume e-Manifest's APIs?)
-* Subscribe: Send a blank message to: join-e-manifestdev@lists.epa.gov
+  - e-Manifest General Program: [Click here to subscribe](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_4)
 
-Attend the next [e-Manifest webinar](https://www.epa.gov/e-manifest/monthly-webinars-about-hazardous-waste-electronic-manifest-e-manifest)
+  - e-Manifest Software Developers: [Click here to subscribe](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_9)
