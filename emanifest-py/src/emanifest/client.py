@@ -369,6 +369,21 @@ class RcrainfoClient:
         endpoint = self.base_url + '/api/v1/site-search'
         return self.__RCRAPost(endpoint, **kwargs)
 
+    def UserSearch(self, **kwargs) -> RcrainfoResponse:
+        """
+        Retrieve users based on some or all of the provided criteria. Only users of sites accessible to the API key holder will be visible
+        
+        Args:
+            userId (str) : A RCRAInfo username
+            siteIds (array of strings) : One or more EPA site IDs
+            pageNumber (number): must be greater than 0
+        
+        Returns:
+            dict: object containing list of users matching criteria and details about each user
+        """
+        endpoint = self.base_url + '/api/v1/user-search'
+        return self.__RCRAPost(endpoint, **kwargs)
+    
     def GetBillingHistory(self, **kwargs) -> RcrainfoResponse:
         """
         Retrieve billing history for a given billing account ID
