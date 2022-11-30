@@ -59,12 +59,13 @@ After authenticating, you are ready to use the full functionality of the **emani
 2. [All users] e-Manifest Lookup Services
 3. [All users] Lookup Services
 4. [All users] Site Services
-5. [Industry users] e-Manifest Services
-6. [Industry users] e-Manifest UI Link Services
-7. [Regulator users] CM&E Evaluation Services
-8. [Regulator users] e-Manifest Services
-9. [Regulator users] Handler Services
-10. [Regulator users] User Services
+5. [All users] User Services
+6. [Industry users] e-Manifest Services
+7. [Industry users] e-Manifest UI Link Services
+8. [Regulator users] CM&E Evaluation Services
+9. [Regulator users] e-Manifest Services
+10. [Regulator users] Handler Services
+11. [Regulator users] User Services
 
 Content will be returned as a RcraResponse object, which wraps around the [requests.Response](https://pypi.org/project/requests/) object. Methods that download file attachments are decoded and returned in the ```RcrainfoResponse.multipart_json``` and ```RcrainfoResponse.multipart_zip``` when appropriate. The entire ```request.Response``` object is returned in ```RcrainfoResponse.response```. Methods that update, correct, or save manifests by uploading new .json and/or .zip files require a file path.
 
