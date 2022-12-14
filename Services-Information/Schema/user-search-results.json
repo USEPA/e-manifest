@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Schema for user-search service result",
+  "type" : "object",
+  "id" : "urn:jsonschema:gov:epa:rcra:ap1:v1:services:user:search:user-search-results",
+  "properties" : {
+    "totalNumberOfUsers" : {
+      "description": "Total Number Of Users for provided search criteria",
+      "type" : "integer"
+    },
+    "totalNumberOfPages" : {
+      "description": "Total Number Of Pages for provided search criteria",
+      "type" : "integer"
+    },
+    "currentPageNumber" : {
+      "description": "Current Page Number for provided search criteria ",
+      "type" : "integer"
+    },
+    "warnings" : {
+      "description": "non-critical validation problems  encountered  in search",
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "id" : "urn:jsonschema:gov:epa:rcra:ap1:v1:services:validation",
+        "properties" : {
+          "field" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "code" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "searchedParameters" : {
+      "description": "valid  parameters used in search",
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "id" : "urn:jsonschema:gov:epa:rcra:ap1:v1:services:search:user:search:parameter",
+        "properties": {
+          "field ": {
+            "type": "string"
+          },
+          "value ": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "users" : {
+      "description": "array of users found for the search criteria",
+      "type" : "array",
+      "items" : {
+        "description": "Details for each found user",
+        "type" : "object",
+        "id" : "urn:jsonschema:gov:epa:rcra:ap1:v1:services:search:user:search:user-search-details",
+        "properties" : {
+          "userId" : {
+            "description": "User's Id",
+            "type" : "string"
+          },
+          "firstName" : {
+            "description": "User's First Name",
+            "type" : "string"
+          },
+          "lastName" : {
+            "description": "User's Last Name",
+            "type" : "string"
+          },
+          "lastLoginDate" : {
+            "description": "User's Last date of login in JSON date-time format",
+            "type": "string",
+            "format": "date-time"
+          },
+          "phone" : {
+            "description": "User's phone number. Extension may not appear",
+            "type" : "object",
+            "number" : {
+              "type" : "string"
+            },
+            "extension" : {
+              "type" : "string"
+            }
+          },
+          "email" : {
+            "description": "User's Email",
+            "type" : "string"
+          },
+          "userEsaStatus" : {
+            "description": "User's ESA Status. May contain one of the values in the enum",
+            "type" : "string",
+            "enum" : [ "None", "Pending", "Received", "Revoked" ]
+          },
+          "sites" : {
+            "description": "Array of sites user has permissions for",
+            "type" : "array",
+            "items" : {
+              "description": "Each site details with array of permissions",
+              "type" : "object",
+              "id" : "urn:jsonschema:gov:epa:rcra:ap1:v1:services:search:user:site-with-permission-details",
+              "properties" : {
+                "siteId" : {
+                  "description": "RCRA Site Id",
+                  "type" : "string"
+                },
+                "siteName" : {
+                  "description": "Site name",
+                  "type" : "string"
+                },
+                "permissions" : {
+                  "description": "Array of permissions the user has for the site",
+                  "type" : "array",
+                  "items" : {
+                    "description": "Permission details",
+                    "type" : "object",
+                    "id" : "urn:jsonschema:gov:epa:rcra:ap1:v1:services:search:user:permission-detail",
+                    "properties" : {
+                      "level" : {
+                        "description": "Possible level of permission as per enumeration",
+                        "type" : "string",
+                        "enum" : [ "None", "Active", "Viewer", "Preparer", "Certifier" ]
+                      },
+                      "module" : {
+                        "description": "RCRA module (per enumeration) for which this permission exists",
+                        "type" : "string",
+                        "enum" : [ "SiteManagement", "AnnualReport", "BiennialReport", "eManifest", "myRCRAid", "WIETS" ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Schema for user-search service criteria",
+  "type" : "object",
+  "id" : "urn:jsonschema:gov:epa:rcra:model:emanifest:services:search:user:user-search-criteria",
+  "properties" : {
+    "userId" : {
+      "type" : "string"
+    },
+    "siteIds" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "pageNumber" : {
+      "type" : "integer"
+    }
+  },
+  "additionalProperties": false
+}
