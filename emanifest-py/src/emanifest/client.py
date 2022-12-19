@@ -381,7 +381,7 @@ class RcrainfoClient:
         Returns:
             dict: object containing list of users matching criteria and details about each user
         """
-        endpoint = self.base_url + '/api/v1/user-search'
+        endpoint = self.base_url + '/api/v1/user/user-search'
         return self.__RCRAPost(endpoint, **kwargs)
     
     def GetBillingHistory(self, **kwargs) -> RcrainfoResponse:
@@ -819,7 +819,7 @@ class RcrainfoClient:
         endpoint = self.base_url + '/api/v1/state/emanifest/site-ids/' + state_code + '/' + site_type
         return self.__RCRAGet(endpoint)
 
-    def GetHandler(self, handler_id, details=False) -> RcrainfoResponse:
+    def GetHandlerReg(self, handler_id, details=False) -> RcrainfoResponse:
         """
         Retrieve a list of handler source records (and optional details) for a specific handler ID
         

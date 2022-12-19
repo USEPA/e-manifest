@@ -5,7 +5,7 @@ import zipfile
 from emanifest import client
 
 
-class GoodEmanifestClient(unittest.TestCase):
+class TestEmanifestClient(unittest.TestCase):
     rcra_client = client.new_client('preprod')
 
     def setUp(self) -> None:
