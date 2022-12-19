@@ -14,6 +14,7 @@ import datetime
 
 
 class RcrainfoResponse:
+
     def __init__(self, response: requests.Response):
         self.response = response
         self.ok = response.ok
@@ -60,7 +61,7 @@ class RcrainfoClient:
         Returns:
             token (client): Authentication token for use by other emanifest functions. Expires after 20 minutes 
         """
-        auth_url = f'{self.base_url}/api/v1/auth/{api_id}/{api_key}'
+        auth_url = f'{self.base_url}api/v1/auth/{api_id}/{api_key}'
         resp = requests.get(auth_url, timeout=self.timeout)
         if resp.ok:
             self.token = resp.json()['token']

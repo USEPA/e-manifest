@@ -9,11 +9,13 @@ class TestEmanifestClient(unittest.TestCase):
     rcra_client = client.new_client('preprod')
 
     def setUp(self) -> None:
-        if not os.getenv('RCRAINFO_API_ID'):
+        api_id = os.getenv('RCRAINFO_API_ID')
+        api_key = os.getenv('RCRAINFO_API_KEY')
+        if not api_id:
             self.fail('API ID not found to test integration')
-        elif not os.getenv('RCRAINFO_API_KEY'):
+        elif not api_key:
             self.fail('API Key not found to test integration')
-        self.rcra_client.Auth(os.getenv('RCRAINFO_API_ID'), os.getenv('RCRAINFO_API_KEY'))
+        self.rcra_client.Auth(api_id, api_key)
 
     def test_initial_zip_state(self):
         rcra_response = self.rcra_client.GetSiteDetails('VATESTGEN001')
