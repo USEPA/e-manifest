@@ -14,6 +14,7 @@ import datetime
 
 
 class RcrainfoResponse:
+
     def __init__(self, response: requests.Response):
         self.response = response
         self.ok = response.ok
@@ -60,7 +61,7 @@ class RcrainfoClient:
         Returns:
             token (client): Authentication token for use by other emanifest functions. Expires after 20 minutes 
         """
-        auth_url = f'{self.base_url}/api/v1/auth/{api_id}/{api_key}'
+        auth_url = f'{self.base_url}api/v1/auth/{api_id}/{api_key}'
         resp = requests.get(auth_url, timeout=self.timeout)
         if resp.ok:
             self.token = resp.json()['token']
@@ -381,7 +382,7 @@ class RcrainfoClient:
         Returns:
             dict: object containing list of users matching criteria and details about each user
         """
-        endpoint = self.base_url + '/api/v1/user-search'
+        endpoint = self.base_url + '/api/v1/user/user-search'
         return self.__RCRAPost(endpoint, **kwargs)
     
     def GetBillingHistory(self, **kwargs) -> RcrainfoResponse:
@@ -819,7 +820,7 @@ class RcrainfoClient:
         endpoint = self.base_url + '/api/v1/state/emanifest/site-ids/' + state_code + '/' + site_type
         return self.__RCRAGet(endpoint)
 
-    def GetHandler(self, handler_id, details=False) -> RcrainfoResponse:
+    def GetHandlerReg(self, handler_id, details=False) -> RcrainfoResponse:
         """
         Retrieve a list of handler source records (and optional details) for a specific handler ID
         
