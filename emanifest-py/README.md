@@ -17,10 +17,10 @@
   - [Methods](#methods)
   - [Help](#help)
 - [Contact](#contact)
-- [License](LICENSE)
+- [License](LICENSE.txt)
 
 ## Requirements
-- Python 3.6
+- Python 3.7
 
 ## Dependencies
 - requests

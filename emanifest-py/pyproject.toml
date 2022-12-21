@@ -9,6 +9,7 @@ authors = [
 maintainers = [
     {name = "William Nicholas", email = "nicholas.william@epa.gov"},
     {name = "David Graham", email = "graham.david@epa.gov"},
+    {name = "Scott Christian", email = "christian.scott@epa.gov"},
 ]
 
 license = {text = "CCO 1.0"}

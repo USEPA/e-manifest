@@ -1,5 +1,10 @@
 **/*build
 **/*.egg-info
+*.egg
 **/__pycache__
 **/dist
+**/sdist
 **/*venv
+**/.pytest_cache
+.coverage.*
+**/*.bak
