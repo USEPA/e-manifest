@@ -1,9 +1,10 @@
 name: Upload Python Package
 
 on:
+  push:
   pull_request:
     paths:
-      - '/emanifest-py/setup.cfg'
+      - '/emanifest-py/pyproject.toml'
     types:
       - closed
   workflow_dispatch:
@@ -14,22 +15,30 @@ defaults:
   
 jobs:
   deploy:
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'emanpy') && (github.event.pull_request.merged == true) }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Check out Repo
+        uses: actions/checkout@v3
+
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
+          cache: 'pip'
           python-version: '3.x'
+
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install build setuptools wheel twine
+        run : |
+          pip install --upgrade pip
+          pip install build twine
+
       - name: Build package
         run: python -m build
-      - name: Publish a Python distribution to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+          # use twine's "-r testpypi" flag to upload to http://test.pypi.org
+        run: |
+          pip install --upgrade twine
+          twine upload --skip-existing dist/*

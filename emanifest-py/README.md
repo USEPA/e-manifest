@@ -17,7 +17,7 @@
   - [Methods](#methods)
   - [Help](#help)
 - [Contact](#contact)
-- [License](LICENSE.txt)
+- [License](LICENSE)
 
 ## Requirements
 - Python 3.6
