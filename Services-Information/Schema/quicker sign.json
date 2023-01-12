@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Schema for quicker  sign service",
+  "$ref": "#/definitions/ManifestsForSign",
+  "definitions": {
+    "ManifestsForSign": {
+      "type": "object",
+      "properties": {
+        "siteId": {
+          "type": "string"
+        },
+        "siteType": {
+          "type": "string",
+          "enum": [
+            "Generator",
+            "Transporter",
+            "Tsdf",
+            "RejectionInfoAlternateTsdf"
+          ]
+        },
+        "transporterOrder": {
+          "type": "integer"
+        },
+        "printedSignatureName": {
+          "type": "string"
+        },
+        "printedSignatureDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "manifestTrackingNumbers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "siteId",
+        "siteType",
+        "printedSignatureName",
+        "printedSignatureDate",
+        "manifestTrackingNumbers"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

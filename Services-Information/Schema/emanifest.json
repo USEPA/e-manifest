@@ -559,6 +559,10 @@
         },
         "wasteMinimizationCode": {
           "$ref": "#/definitions/CodeDescription"
+        },
+        "mixedRadioactiveWaste": {
+          "description": "Specifies if the substance is Radioactive",
+          "type": "boolean"
         }
       },
       "additionalProperties": false

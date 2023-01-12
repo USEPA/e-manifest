@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Schema for quicker sign service return",
+  "$ref": "#/definitions/QuickerSignReport",
+  "definitions": {
+    "QuickerSignReport": {
+      "type": "object",
+      "properties": {
+        "reportId": {
+          "description": "report id is used to search report in auding database",
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "operationStatus": {
+          "description": "Contains status of operation",
+          "type": "string",
+          "enum": [
+            "AllSigned",
+            "PartiallySigned",
+            "Failed"
+          ]
+        },
+        "manifestReports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ManifestReport"
+          }
+        },
+        "siteReport": {
+          "$ref": "#/definitions/SiteReport"
+        },
+        "signerReport": {
+          "$ref": "#/definitions/SignerReport"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ManifestReport": {
+      "type": "object",
+      "properties": {
+        "manifestTrackingNumber": {
+          "type": "string"
+        
+        },       
+        "manifestSigned": {
+          "$ref": "#/definitions/Success"
+        },         
+        "manifestError": {
+          "$ref": "#/definitions/Validation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SignerReport": {
+      "type": "object",
+      "properties": {
+        "printedSignatureName": {
+          "type": "string"
+        },
+        "printedSignatureDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "electronicSignatureDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "signerError": {
+          "$ref": "#/definitions/Validation"
+        }
+      }
+    },
+    "SiteReport": {
+      "type": "object",
+      "properties": {
+        "siteId": {
+          "type": "string"
+        },
+ 
+        "siteType": {
+          "type": "string",
+          "enum": [
+            "Generator",
+            "Transporter",
+            "Tsdf",
+            "RejectionInfoAlternateTsdf"
+          ]
+        },
+        "transporterOrder": {
+          "type": "integer"
+        },
+        "siteErrors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Validation"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+   "Success": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "succes description",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 255
+        }
+      }
+      },   
+
+    "Validation": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "error description",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 255
+        },
+        "field": {
+          "description": "field name",
+          "type": "string"
+        },
+        "value": {
+          "description": "field value",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

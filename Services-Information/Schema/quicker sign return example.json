@@ -1,0 +1,33 @@
+{
+  "reportId": "6c2ac165-5bce-491c-8257-b1090dff0874",
+  "date": "2020-02-13T02:53:07.764+0000",
+  "operationStatus": "PartiallySigned",
+ "manifestReports": [
+    {
+      "manifestTrackingNumber": "110930503ELC",
+      "manifestSigned": {
+        "message": "Manifest was successfully signed "
+      }
+   },
+    {
+      "manifestError": {
+       "message": "Manifest with provided tracking number is not found",
+        "field": "manifestTrackingNumber",
+        "value": "250930503ELC"
+      }
+    }
+  ],
+  "signerReport": {
+    "printedSignatureName": "AT",
+    "printedSignatureDate": "2020-02-13T02:53:07.764+0000",
+    "electronicSignatureDate": "2020-03-13T02:53:07.764+0000",
+    "firstName": "A",
+    "lastName": "T",
+    "userId": "at@xyz.com"
+  },
+  "siteReport": {
+    "siteId": "OH003",
+    "siteType": "Transporter",
+    "transporterOrder": 1
+  }
+}
