@@ -55,7 +55,7 @@ like so:
 from emanifest import new_client
 
 rcra_client = new_client('preprod')
-rcra_client.Auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcra_client.auth('YOUR_API_ID', 'YOUR_API_KEY')
 ```
 
 ```new_client()``` accepts a string, either **preprod**, **prod**, or a complete base URL. To register for a testing
