@@ -42,7 +42,7 @@ class RcrainfoResponse:
 # noinspection PyIncorrectDocstring
 class RcrainfoClient:
     def __init__(self, base_url: str, timeout=10) -> None:
-        self.base_url = base_url
+        self.base_url = _parse_url(base_url)
         self.token = None
         self.token_expiration = None
         self.timeout = timeout
@@ -558,7 +558,7 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        m = encode_manifest(manifest_json, zip_file)
+        m = _encode_manifest(manifest_json, zip_file)
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correct'
         return self.__rcra_put(endpoint, m)
 
@@ -627,7 +627,7 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        m = encode_manifest(manifest_json, zip_file)
+        m = _encode_manifest(manifest_json, zip_file)
 
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/update'
         return self.__rcra_put(endpoint, m)
@@ -656,7 +656,7 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        m = encode_manifest(manifest_json, zip_file)
+        m = _encode_manifest(manifest_json, zip_file)
         resp = RcrainfoResponse(requests.post(f'{self.base_url}/api/v1/emanifest/manifest/save',
                                               headers={'Content-Type': m.content_type, 'Accept': 'application/json',
                                                        'Authorization': f'Bearer {self.token}'},
@@ -850,7 +850,7 @@ class RcrainfoClient:
 
 def new_client(base_url) -> RcrainfoClient:
     """
-    Create instance of RCRAInfoClient
+    Create instance of RCRAInfoClient, helper function
 
     Args:
         base_url (str): either 'prod', 'preprod' or url up to '/api/'
@@ -858,24 +858,31 @@ def new_client(base_url) -> RcrainfoClient:
     Returns:
         client: Instance of RCRAInfo service and emanifest module functions
     """
+    client_url = _parse_url(base_url)
+    return RcrainfoClient(client_url)
+
+
+def _parse_url(base_url: str) -> str:
+    """emanifest-py internal helper function"""
     if "https" not in base_url:
         urls = {
             "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest/",
             "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest/"
         }
         if base_url.upper() in urls:
-            base_url = urls[base_url.upper()]
+            return urls[base_url.upper()]
         else:
             logging.warning("Base url not recognized, you can use the argument "
                             "'preprod' or 'prod' to target their respective environments")
-    client = RcrainfoClient(base_url)
-    return client
+    else:
+        return base_url
 
 
 # TODO: accept file paths and string/byte stream as arguments
 #  A db probably won't store in filesystem
 #  this function is just asking for problems for the time being
-def encode_manifest(manifest_json, zip_file=None):
+def _encode_manifest(manifest_json, zip_file=None):
+    """emanifest-py internal helper function"""
     multipart_attachment = None
     if zip_file:
         if os.path.isfile(manifest_json) & os.path.isfile(zip_file):
