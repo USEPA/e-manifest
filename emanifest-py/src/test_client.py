@@ -2,11 +2,11 @@ import os
 import unittest
 import zipfile
 
-from emanifest import client
+from emanifest import new_client
 
 
 class TestEmanifestClient(unittest.TestCase):
-    rcra_client = client.new_client('preprod')
+    rcra_client = new_client('preprod')
 
     def setUp(self) -> None:
         api_id = os.getenv('RCRAINFO_API_ID')
@@ -59,7 +59,7 @@ class TestEmanifestClient(unittest.TestCase):
 
 
 class BadClient(unittest.TestCase):
-    rcra_client = client.new_client('preprod')
+    rcra_client = new_client('preprod')
 
     # test of initial state
     def test_bad_auth(self):
@@ -67,7 +67,7 @@ class BadClient(unittest.TestCase):
         self.assertIsNone(self.rcra_client.token)
 
     def test_client_token_state(self):
-        unauthorized_client = client.new_client('preprod')
+        unauthorized_client = new_client('preprod')
         self.assertIsNone(unauthorized_client.token)
 
 
