@@ -2,12 +2,12 @@
 e-Manifest library for using the e-Manifest API
 see https://github.com/USEPA/e-manifest
 """
-import datetime
 import io
 import json
 import logging
 import os
 import zipfile
+from datetime import datetime
 
 import requests
 from requests_toolbelt.multipart import decoder, encoder
@@ -17,23 +17,35 @@ class RcrainfoResponse:
 
     def __init__(self, response: requests.Response):
         self.response = response
-        self.ok = response.ok
-        self.json = None
         self.zip = None
+        self._multipart_json = None
+
+    def __str__(self):
+        return f'RcrainfoResponse: status {self.response.status_code}'
 
     def __repr__(self):
-        return f'Object: RcrainfoResponse with status {self.ok}'
+        return self.__str__()
 
-    def extract_attributes(self):
-        if self.response:
-            self.ok = self.response.ok
-            self.json = self.response.json()
+    def __bool__(self):
+        """returns True if < 400"""
+        return self.ok
+
+    @property
+    def json(self):
+        if self._multipart_json:
+            return self._multipart_json
+        else:
+            return self.response.json()
+
+    @property
+    def ok(self):
+        return self.response.ok
 
     def decode(self):
         multipart_data = decoder.MultipartDecoder.from_response(self.response)
         for part in multipart_data.parts:
             if part.headers[b'Content-Type'] == b'application/json':
-                self.json = part.text
+                self._multipart_json = part.text
             else:
                 zip_contents = zipfile.ZipFile(io.BytesIO(part.content))
                 self.zip = zip_contents
@@ -44,37 +56,33 @@ class RcrainfoClient:
     def __init__(self, base_url: str, timeout=10) -> None:
         self.base_url = _parse_url(base_url)
         self.token = None
-        self.token_expiration = None
+        self._token_expiration = None
         self.timeout = timeout
 
     def __repr__(self) -> str:
-        return f'Object: RcrainfoClient with base url {self.base_url}'
+        return f'Object: RcrainfoClient: base url {self.base_url}'
 
-    def auth(self, api_id, api_key) -> None:
-        """
-        Authenticate user's RCRAInfo API ID and Key to generate token for use by other functions
-        
-        Args:
-            api_id (str): API ID of RCRAInfo User with Site Manager level permission.
-            api_key (str): User's RCRAInfo API key. Generated alongside the api_id in RCRAInfo
-        
-        Returns:
-            token (client): Authentication token for use by other emanifest functions. Expires after 20 minutes 
-        """
-        auth_url = f'{self.base_url}api/v1/auth/{api_id}/{api_key}'
-        resp = requests.get(auth_url, timeout=self.timeout)
-        if resp.ok:
-            self.token = resp.json()['token']
-            expire = resp.json()['expiration']
-            # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
-            expire_format = '%Y-%m-%dT%H:%M:%S.%f%z'
-            self.token_expiration = datetime.datetime.strptime(expire, expire_format)
+    def __str__(self) -> str:
+        return self.__repr__()
+
+    @property
+    def token_expiration(self) -> datetime:
+        if isinstance(self._token_expiration, datetime):
+            return self._token_expiration
+        else:
+            return datetime.now()
+
+    @property
+    def token_expired(self) -> bool:
+        if self._token_expiration < datetime.now():
+            return False
+        else:
+            return True
 
     def __rcra_get(self, endpoint) -> RcrainfoResponse:
         resp = RcrainfoResponse(requests.get(endpoint, timeout=self.timeout,
                                              headers={'Accept': 'application/json',
                                                       'Authorization': f'Bearer {self.token}'}))
-        resp.extract_attributes()
         return resp
 
     def __rcra_post(self, endpoint, **kwargs) -> RcrainfoResponse:
@@ -82,22 +90,38 @@ class RcrainfoClient:
                                               headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
                                                        'Authorization': f'Bearer {self.token}'},
                                               data=json.dumps(dict(**kwargs))))
-        resp.extract_attributes()
         return resp
 
     def __rcra_delete(self, endpoint) -> RcrainfoResponse:
         resp = RcrainfoResponse(requests.delete(endpoint, timeout=self.timeout,
                                                 headers={'Accept': 'application/json',
                                                          'Authorization': f'Bearer {self.token}'}))
-        resp.extract_attributes()
         return resp
 
     def __rcra_put(self, endpoint, m) -> RcrainfoResponse:
         resp = RcrainfoResponse(requests.put(endpoint, timeout=self.timeout,
                                              headers={'Content-Type': m.content_type, 'Accept': 'application/json',
                                                       'Authorization': f'Bearer {self.token}'}, data=m))
-        resp.extract_attributes()
         return resp
+
+    def auth(self, api_id, api_key) -> None:
+        """
+        Authenticate user's RCRAInfo API ID and Key to generate token for use by other functions
+
+        Args:
+            api_id (str): API ID of RCRAInfo User with Site Manager level permission.
+            api_key (str): User's RCRAInfo API key. Generated alongside the api_id in RCRAInfo
+
+        Returns:
+            token (client): Authentication token for use by other emanifest functions. Expires after 20 minutes
+        """
+        auth_url = f'{self.base_url}api/v1/auth/{api_id}/{api_key}'
+        resp = requests.get(auth_url, timeout=self.timeout)
+        if resp.ok:
+            self.token = resp.json()['token']
+            # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
+            expire_format = '%Y-%m-%dT%H:%M:%S.%f%z'
+            self._token_expiration = datetime.strptime(resp.json()['expiration'], expire_format)
 
     def get_site_details(self, epa_id) -> RcrainfoResponse:
         """
@@ -454,8 +478,6 @@ class RcrainfoClient:
                                              stream=True))
         if resp.response:
             resp.decode()
-        else:
-            resp.ok = False
         return resp
 
     def search_mtn(self, **kwargs) -> RcrainfoResponse:
@@ -599,8 +621,6 @@ class RcrainfoClient:
                           data=json.dumps(dict(**kwargs))))
         if resp.response:
             resp.decode()
-        else:
-            resp.ok = False
         return resp
 
     def check_mtn_exists(self, mtn) -> RcrainfoResponse:
@@ -740,8 +760,6 @@ class RcrainfoClient:
                                              stream=True))
         if resp.response:
             resp.decode()
-        else:
-            resp.ok = False
         return resp
 
     def search_mtn_reg(self, **kwargs) -> RcrainfoResponse:
