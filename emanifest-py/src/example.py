@@ -14,18 +14,17 @@
 #   json: string                  part of multipart/mixed response if applicable
 #   zip:  zipfile.ZipFile         part of multipart/mixed response if applicable
 # }
-import json
 import os
+
 from emanifest import client as em
 
 
 def main():
-
     # change this manifest tracking number to one associated with your site
     mtn = '100032524ELC'
 
     rcra_client = em.new_client('preprod')
-    rcra_client.Auth(os.getenv('RCRAINFO_API_ID'), os.getenv('RCRAINFO_API_KEY'))
+    rcra_client.auth(os.getenv('RCRAINFO_API_ID'), os.getenv('RCRAINFO_API_KEY'))
 
     dot_numbers = rcra_client.GetManMethodCodes()
     # The Response can be accessed by calling the request.Response.json() method, or the json attribute for ease
@@ -53,7 +52,7 @@ def main():
 
     # or pass json as a string
     with open('example_update.json') as f:
-        data = f.read() # data is a string containing the manifest json
+        data = f.read()  # data is a string containing the manifest json
         update_resp = rcra_client.Update(data)
         print(update_resp.ok)
 
