@@ -7,8 +7,8 @@
 **emanifest** is a client library for accessing the e-Manifest REST APIs of the US Environmental Protection Agency's
 RCRAInfo national electronic hazardous waste management system.
 
-**Note:** The **emanifest** package was substantially refactored after version 1.1.0 and was released as a new major
-version at 2.0.0. Code relying on version 1.1.0 should not upgrade to version 2.0.0 of this package without refactoring.
+**Note:** The **emanifest** package was substantially refactored after version 2.0.7 and was released as a new major
+version at 3.0.1. Code relying on versions ≤3.0.0 should not upgrade to version 3.0.1 of this package without refactoring.
 
 ## Contents
 
@@ -93,29 +93,35 @@ save manifests by uploading new .json and/or .zip files require a file path.
 ### Examples:
 
 ```python
-from emanifest import RcrainfoClient
+from emanifest import new_client
 
-rcrainfo = RcrainfoClient('preprod')
-rcrainfo.GetSiteDetails('VATEST000001')
+rcrainfo = new_client('preprod')
+rcra_client.auth('YOUR_API_ID', 'YOUR_API_KEY')
+
+rcrainfo.get_site_details('VATEST000001')
 ```
 
 Once you've confirmed this is the correct site, you might search for manifests in transit from that site:
 
 ```python
-from emanifest import RcrainfoClient
+from emanifest import new_client
 
-rcrainfo = RcrainfoClient('preprod')
-rcrainfo.SearchMTN(siteId='VATEST000001', status='InTransit')
+rcrainfo = new_client('preprod')
+rcra_client.auth('YOUR_API_ID', 'YOUR_API_KEY')
+
+rcrainfo.search_mtn(siteId='VATEST000001', status='InTransit')
 ```
 
 If one of those manifests didn't match your records, you could initiate a correction with the correct JSON information
 and optionally any attachments (.zip):
 
 ```python
-from emanifest import RcrainfoClient
+from emanifest import new_client
 
-rcrainfo = RcrainfoClient('preprod')
-rcrainfo.Correct('manifest_file_name.json', 'optional_attachments.zip')
+rcrainfo = new_client('preprod')
+rcra_client.auth('YOUR_API_ID', 'YOUR_API_KEY')
+
+rcrainfo.correct('manifest_file_name.json', 'optional_attachments.zip')
 ```
 
 ### Help
