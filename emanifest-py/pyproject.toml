@@ -1,6 +1,6 @@
 [project]
 name = "emanifest"
-version = "3.0.1"
+version = "3.0.0"
 description = "An API utility wrapper for accessing the e-Manifest hazardous waste tracking system maintainedby the US Environmental Protection Agency"
 readme = "README.md"
 authors = [
