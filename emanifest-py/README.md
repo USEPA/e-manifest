@@ -8,7 +8,7 @@
 RCRAInfo national electronic hazardous waste management system.
 
 **Note:** The **emanifest** package was substantially refactored after version 2.0.7 and was released as a new major
-version at 3.0.1. Code relying on version <3.0.1 should not upgrade to version 3.0.1 of this package without refactoring.
+version at 3.0.1. Code relying on versions ≤3.0.0 should not upgrade to version 3.0.1 of this package without refactoring.
 
 ## Contents
 
