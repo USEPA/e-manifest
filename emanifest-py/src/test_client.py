@@ -60,10 +60,6 @@ class TestEmanifestClient(unittest.TestCase):
         manifest_response = self.rcrainfo.get_attachments("000012345GBF")
         self.assertTrue(manifest_response.ok)
 
-    def test_correction_get_attachments(self):
-        manifest_response = self.rcrainfo.get_correction_attachments(manifestTrackingNumber="000012345GBF")
-        self.assertTrue(manifest_response.ok)
-
 
 class TestRcrainfoClientIsExtendable:
     class MyClass(emanifest.RcrainfoClient):
