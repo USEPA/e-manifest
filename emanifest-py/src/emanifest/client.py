@@ -9,13 +9,13 @@ import os
 import zipfile
 from datetime import datetime, timedelta
 
-import requests
+from requests import Response, Session, Request
 from requests_toolbelt.multipart import decoder, encoder
 
 
 class RcrainfoResponse:
 
-    def __init__(self, response: requests.Response):
+    def __init__(self, response: Response):
         self.response = response
         self.zip = None
         self._multipart_json = None
@@ -53,7 +53,9 @@ class RcrainfoResponse:
 
 # noinspection PyIncorrectDocstring
 class RcrainfoClient:
+    # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
     __expiration_fmt = '%Y-%m-%dT%H:%M:%S.%f%z'
+    __default_header = {'Accept': 'application/json'}
 
     def __init__(self, base_url: str, *, api_id=None, api_key=None, timeout=10) -> None:
         self.base_url = _parse_url(base_url)
@@ -62,6 +64,7 @@ class RcrainfoClient:
         self.timeout = timeout
         self.token = None
         self._token_expiration = None
+        self.__session = Session()
 
     @property
     def token_expiration(self) -> datetime:
@@ -95,51 +98,35 @@ class RcrainfoClient:
         return self.__str__()
 
     def __bool__(self) -> bool:
-        """Return  true if successfully authenticated"""
+        """Return true if successfully authenticated"""
         return self.authenticated
 
-    def __rcra_get(self, endpoint, *, headers=None, stream=False) -> RcrainfoResponse:
-        headers_to_send = {'Authorization': f'Bearer {self.token}'}
+    def __rcra_request(self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
+                       ) -> RcrainfoResponse:
+        req_headers = {'Authorization': f'Bearer {self.token}'}
         if headers is None:
-            headers_to_send['Accept'] = 'application/json'
+            req_headers.update(self.__default_header)
         else:
-            headers_to_send = {**headers_to_send, **headers}
-        return RcrainfoResponse(requests.get(endpoint, timeout=self.timeout,
-                                             headers=headers_to_send, stream=stream))
+            req_headers = {**req_headers, **headers}
 
-    def __rcra_post(self, endpoint, headers=None, multipart=None, **kwargs) -> RcrainfoResponse:
-        headers_to_send = {'Authorization': f'Bearer {self.token}'}
-        if headers is None:
-            headers_to_send['Accept'] = 'application/json'
-            headers_to_send['Content-Type'] = 'text/plain'
+        if method in ('POST', 'PUT', 'PATCH'):
+            if multipart is not None:
+                data = multipart
+            else:
+                data = json.dumps(dict(**kwargs))
         else:
-            headers_to_send = {**headers_to_send, **headers}
+            data = None
 
-        if multipart is not None:
-            data = multipart
-        else:
-            data = json.dumps(dict(**kwargs))
-        return RcrainfoResponse(requests.post(endpoint, timeout=self.timeout,
-                                              headers=headers_to_send, data=data))
-
-    def __rcra_delete(self, endpoint) -> RcrainfoResponse:
-        return RcrainfoResponse(requests.delete(endpoint, timeout=self.timeout,
-                                                headers={'Accept': 'application/json',
-                                                         'Authorization': f'Bearer {self.token}'}))
-
-    def __rcra_put(self, endpoint, m) -> RcrainfoResponse:
-        return RcrainfoResponse(requests.put(endpoint, timeout=self.timeout,
-                                             headers={'Content-Type': m.content_type, 'Accept': 'application/json',
-                                                      'Authorization': f'Bearer {self.token}'}, data=m))
+        req = self.__session.prepare_request(Request(method, url=endpoint, headers=req_headers, data=data))
+        return RcrainfoResponse(self.__session.send(req, timeout=self.timeout, stream=stream))
 
     def __get_token(self):
         self.__api_id = self.retrieve_id()
         self.__api_key = self.retrieve_key()
         auth_url = f'{self.base_url}api/v1/auth/{self.__api_id}/{self.__api_key}'
-        resp = requests.get(auth_url, timeout=self.timeout)
+        resp = self.__session.get(auth_url, timeout=self.timeout)
         if resp.ok:
             self.token = resp.json()['token']
-            # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
             self._token_expiration = datetime.strptime(resp.json()['expiration'], self.__expiration_fmt)
 
     # The following methods are exposed so users can hook into our client and customize its behavior
@@ -210,7 +197,7 @@ class RcrainfoClient:
             dict: object with EPA ID site details
         """
         endpoint = f'{self.base_url}/api/v1/site-details/{epa_id}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_hazard_classes(self) -> RcrainfoResponse:
         """
@@ -220,7 +207,7 @@ class RcrainfoClient:
             dict: object with DOT hazard classes
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/hazard-classes'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_packing_groups(self) -> RcrainfoResponse:
         """
@@ -230,7 +217,7 @@ class RcrainfoClient:
             dict: object with DOT packing groups
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/packing-groups'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_haz_class_sn_id(self, ship_name, id_num) -> RcrainfoResponse:
         """
@@ -245,7 +232,7 @@ class RcrainfoClient:
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/hazard-class-by-shipping-name-id-number/' \
                    f'{ship_name}/{id_num}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_pack_groups_sn_id(self, ship_name, id_num) -> RcrainfoResponse:
         """
@@ -260,7 +247,7 @@ class RcrainfoClient:
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/' \
                    f'{ship_name}/{id_num}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_id_by_ship_name(self, ship_name) -> RcrainfoResponse:
         """
@@ -273,7 +260,7 @@ class RcrainfoClient:
             dict: object with DOT ID number
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/id-numbers-by-shipping-name/{ship_name}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_ship_name_by_id(self, id_num) -> RcrainfoResponse:
         """
@@ -286,7 +273,7 @@ class RcrainfoClient:
             dict: object with DOT Proper Shipping name 
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/proper-shipping-names-by-id-number/{id_num}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_mtn_suffix(self) -> RcrainfoResponse:
         """
@@ -296,7 +283,7 @@ class RcrainfoClient:
             dict: object with allowable MTN suffixes
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/printed-tracking-number-suffixes'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_mtn_suffix_all(self) -> RcrainfoResponse:
         """
@@ -306,7 +293,7 @@ class RcrainfoClient:
             dict: object with all allowable MTN suffixes
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/printed-tracking-number-suffixes-ALL'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_container_types(self) -> RcrainfoResponse:
         """
@@ -316,7 +303,7 @@ class RcrainfoClient:
             dict: object with container types
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/container-types'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_quantity_uom(self) -> RcrainfoResponse:
         """
@@ -326,7 +313,7 @@ class RcrainfoClient:
             dict: object with quantity UOM
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/quantity-uom'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_load_types(self) -> RcrainfoResponse:
         """
@@ -336,7 +323,7 @@ class RcrainfoClient:
             dict: object with load types
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/load-types'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_shipping_names(self) -> RcrainfoResponse:
         """
@@ -346,7 +333,7 @@ class RcrainfoClient:
             dict: object with DOT Proper Shipping names
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/proper-shipping-names'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_id_nums(self) -> RcrainfoResponse:
         """
@@ -356,7 +343,7 @@ class RcrainfoClient:
             dict: object with DOT Shipping ID numbers
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/lookup/id-numbers'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_density_uom(self) -> RcrainfoResponse:
         """
@@ -366,7 +353,7 @@ class RcrainfoClient:
             dict: object with density UOM
         """
         endpoint = f'{self.base_url}/api/v1/lookup/density-uom'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_form_codes(self) -> RcrainfoResponse:
         """
@@ -376,7 +363,7 @@ class RcrainfoClient:
             dict: object with form codes
         """
         endpoint = f'{self.base_url}/api/v1/lookup/form-codes'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_source_codes(self) -> RcrainfoResponse:
         """
@@ -386,7 +373,7 @@ class RcrainfoClient:
             dict: object with source codes
         """
         endpoint = f'{self.base_url}/api/v1/lookup/source-codes'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_state_waste_codes(self, state_code) -> RcrainfoResponse:
         """
@@ -396,7 +383,7 @@ class RcrainfoClient:
             dict: object with state waste codes
         """
         endpoint = f'{self.base_url}/api/v1/lookup/state-waste-codes/{state_code}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_fed_waste_codes(self) -> RcrainfoResponse:
         """
@@ -406,7 +393,7 @@ class RcrainfoClient:
             dict: object with federal waste codes
         """
         endpoint = f'{self.base_url}/api/v1/lookup/federal-waste-codes'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_man_method_codes(self) -> RcrainfoResponse:
         """
@@ -416,7 +403,7 @@ class RcrainfoClient:
             dict: object with management method codes
         """
         endpoint = f'{self.base_url}/api/v1/lookup/management-method-codes'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_waste_min_codes(self) -> RcrainfoResponse:
         """
@@ -426,7 +413,7 @@ class RcrainfoClient:
             dict: object with waste minimization codes
         """
         endpoint = f'{self.base_url}/api/v1/lookup/waste-minimization-codes'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_ports_of_entry(self) -> RcrainfoResponse:
         """
@@ -436,7 +423,7 @@ class RcrainfoClient:
             dict: object with ports of entry
         """
         endpoint = f'{self.base_url}/api/v1/lookup/ports-of-entry'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def check_site_exists(self, site_id) -> RcrainfoResponse:
         """
@@ -449,7 +436,7 @@ class RcrainfoClient:
             result (boolean): true/false confirmation if site exists
         """
         endpoint = f'{self.base_url}/api/v1/site-exists/{site_id}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def site_search(self, **kwargs) -> RcrainfoResponse:
         """
@@ -470,7 +457,7 @@ class RcrainfoClient:
             dict: object containing list of sites matching criteria and details about each site
         """
         endpoint = f'{self.base_url}/api/v1/site-search'
-        return self.__rcra_post(endpoint, **kwargs)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def user_search(self, **kwargs) -> RcrainfoResponse:
         """
@@ -486,7 +473,7 @@ class RcrainfoClient:
             dict: object containing list of users matching criteria and details about each user
         """
         endpoint = f'{self.base_url}/api/v1/user/user-search'
-        return self.__rcra_post(endpoint, **kwargs)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def get_billing_history(self, **kwargs) -> RcrainfoResponse:
         """
@@ -501,7 +488,7 @@ class RcrainfoClient:
             dict: object containing billing history for the specified site and period
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/billing/bill-history'
-        return self.__rcra_post(endpoint, **kwargs)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def get_bill(self, **kwargs) -> RcrainfoResponse:
         """
@@ -516,7 +503,7 @@ class RcrainfoClient:
             dict: object containing bill information for the specified ID and account
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/billing/bill'
-        return self.__rcra_post(endpoint, **kwargs)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def search_bill(self, **kwargs) -> RcrainfoResponse:
         """
@@ -534,7 +521,7 @@ class RcrainfoClient:
             dict: object with bills matching criteria
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/billing/bill-search'
-        return self.__rcra_post(endpoint, **kwargs)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def get_attachments(self, mtn) -> RcrainfoResponse:
         """
@@ -549,7 +536,7 @@ class RcrainfoClient:
             or electronic copies) for the given MTN
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}/attachments'
-        resp = self.__rcra_get(endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
+        resp = self.__rcra_request('GET', endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
         if resp.response:
             resp.decode()
         return resp
@@ -572,7 +559,7 @@ class RcrainfoClient:
             dict: object containing manifest tracking numbers matching criteria
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/search'
-        return self.__rcra_post(endpoint, **kwargs)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def get_correction_details(self, mtn) -> RcrainfoResponse:
         """
@@ -585,7 +572,7 @@ class RcrainfoClient:
             dict: object containing correction details for given MTN
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-details/{mtn}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_correction_version(self, **kwargs) -> RcrainfoResponse:
         """
@@ -601,7 +588,7 @@ class RcrainfoClient:
             dict: object containing correction details
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version'
-        return self.__rcra_post(endpoint, **kwargs)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def get_mtn_by_site(self, site_id) -> RcrainfoResponse:
         """
@@ -614,7 +601,7 @@ class RcrainfoClient:
             dict: object containing manifest tracking numbers for this site
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest-tracking-numbers/{site_id}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_man_by_mtn(self, mtn) -> RcrainfoResponse:
         """
@@ -627,7 +614,7 @@ class RcrainfoClient:
             dict: object containing e-Manifest details
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_sites(self, state_code, site_type) -> RcrainfoResponse:
         """
@@ -641,7 +628,7 @@ class RcrainfoClient:
             dict: object containing site ID numbers
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/site-ids/{state_code}/{site_type}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def correct(self, manifest_json, zip_file=None) -> RcrainfoResponse:
         """
@@ -656,7 +643,7 @@ class RcrainfoClient:
         """
         multipart = _encode_manifest(manifest_json, zip_file)
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correct'
-        return self.__rcra_put(endpoint, multipart)
+        return self.__rcra_request('PUT', endpoint, multipart=multipart)
 
     def revert(self, mtn) -> RcrainfoResponse:
         """
@@ -669,7 +656,7 @@ class RcrainfoClient:
             dict: object containing confirmation of correction
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/revert/{mtn}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_correction_attachments(self, **kwargs) -> RcrainfoResponse:
         r"""
@@ -689,7 +676,7 @@ class RcrainfoClient:
             print: message of success or failure
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version/attachments'
-        resp = self.__rcra_post(endpoint, **kwargs)
+        resp = self.__rcra_request('POST', endpoint, **kwargs)
         if resp.response:
             resp.decode()
         return resp
@@ -705,7 +692,7 @@ class RcrainfoClient:
             dict: object containing MTN details and confirmation if site exists
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/mtn-exists/{mtn}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def update(self, manifest_json, zip_file=None) -> RcrainfoResponse:
         """
@@ -721,7 +708,7 @@ class RcrainfoClient:
         multipart = _encode_manifest(manifest_json, zip_file)
 
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/update'
-        return self.__rcra_put(endpoint, multipart)
+        return self.__rcra_request('PUT', endpoint, multipart=multipart)
 
     def delete(self, mtn) -> RcrainfoResponse:
         """
@@ -734,7 +721,7 @@ class RcrainfoClient:
             dict: message of success or failure
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/delete/{mtn}'
-        return self.__rcra_delete(endpoint)
+        return self.__rcra_request('DELETE', endpoint)
 
     def save(self, manifest_json, zip_file=None) -> RcrainfoResponse:
         """
@@ -749,7 +736,7 @@ class RcrainfoClient:
         """
         multipart = _encode_manifest(manifest_json, zip_file)
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/save'
-        return self.__rcra_post(endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
+        return self.__rcra_request('POST', endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
             'application/json'}, multipart=multipart)
 
     def generate_ui_link(self, **kwargs) -> RcrainfoResponse:
@@ -766,7 +753,7 @@ class RcrainfoClient:
             dict: object containing link to UI
         """
         endpoint = f'{self.base_url}/api/v1/links/emanifest'
-        return self.__rcra_post(endpoint, **kwargs)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def cme_lookup(self, activity_location, agency_code, nrr_flag=True) -> RcrainfoResponse:
         """
@@ -788,7 +775,7 @@ class RcrainfoClient:
         """
         endpoint = f'{self.base_url}/api/v1/state/cme/evaluation/lookups/{activity_location}/{agency_code}/' \
                    f'{str(nrr_flag)}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def cme_indicators(self):
         """
@@ -798,7 +785,7 @@ class RcrainfoClient:
             dict: object containing all evaluation indicators
         """
         endpoint = f'{self.base_url}/api/v1/state/cme/evaluation/evaluation-indicators'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def cme_types(self) -> RcrainfoResponse:
         """
@@ -808,7 +795,7 @@ class RcrainfoClient:
             dict: object containing all evaluation types
         """
         endpoint = f'{self.base_url}/api/v1/state/cme/evaluation/evaluation-types'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_attachments_reg(self, mtn) -> RcrainfoResponse:
         """
@@ -824,7 +811,7 @@ class RcrainfoClient:
               message of success or failure
         """
         endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}/attachments'
-        resp = self.__rcra_get(endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
+        resp = self.__rcra_request('GET', endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
         if resp.response:
             resp.decode()
         return resp
@@ -847,7 +834,7 @@ class RcrainfoClient:
             dict: object containing manifest tracking numbers matching criteria
         """
         endpoint = f'{self.base_url}/api/v1/state/emanifest/search'
-        return self.__rcra_post(endpoint, **kwargs)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def get_correction_details_reg(self, mtn) -> RcrainfoResponse:
         """
@@ -860,7 +847,7 @@ class RcrainfoClient:
             dict: object containing correction details for given MTN
         """
         endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-details/{mtn}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_correction_version_reg(self, **kwargs) -> RcrainfoResponse:
         """
@@ -876,7 +863,7 @@ class RcrainfoClient:
             dict: object containing correction details
         """
         endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-version'
-        return self.__rcra_post(endpoint, **kwargs)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def get_mtn_by_site_reg(self, site_id) -> RcrainfoResponse:
         """
@@ -889,7 +876,7 @@ class RcrainfoClient:
             dict: object containing manifest tracking numbers for this site
         """
         endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest-tracking-numbers/{site_id}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_man_by_mtn_reg(self, mtn) -> RcrainfoResponse:
         """
@@ -902,7 +889,7 @@ class RcrainfoClient:
             dict: object containing e-Manifest details
         """
         endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_sites_reg(self, state_code, site_type) -> RcrainfoResponse:
         """
@@ -916,7 +903,7 @@ class RcrainfoClient:
             dict: object containing site ID numbers
         """
         endpoint = f'{self.base_url}/api/v1/state/emanifest/site-ids/{state_code}/{site_type}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
     def get_handler_reg(self, handler_id, details=False) -> RcrainfoResponse:
         """
@@ -930,7 +917,7 @@ class RcrainfoClient:
             dict: object containing handler source records (and optional details)
         """
         endpoint = f'/api/v1/state/handler/sources/{handler_id}/{str(details)}'
-        return self.__rcra_get(endpoint)
+        return self.__rcra_request('GET', endpoint)
 
 
 def new_client(base_url) -> RcrainfoClient:
