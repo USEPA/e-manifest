@@ -53,6 +53,8 @@ class RcrainfoResponse:
 
 # noinspection PyIncorrectDocstring
 class RcrainfoClient:
+    __expiration_fmt = '%Y-%m-%dT%H:%M:%S.%f%z'
+
     def __init__(self, base_url: str, *, api_id=None, api_key=None, timeout=10) -> None:
         self.base_url = _parse_url(base_url)
         self.__api_key = api_key
@@ -82,22 +84,43 @@ class RcrainfoClient:
         except TypeError:
             return False
 
+    @property
+    def expiration_format(self) -> str:
+        return self.__expiration_fmt
+
     def __str__(self) -> str:
         return f'RcrainfoClient: base URL {self.base_url}'
 
     def __repr__(self) -> str:
         return self.__str__()
 
-    def __rcra_get(self, endpoint) -> RcrainfoResponse:
-        return RcrainfoResponse(requests.get(endpoint, timeout=self.timeout,
-                                             headers={'Accept': 'application/json',
-                                                      'Authorization': f'Bearer {self.token}'}))
+    def __bool__(self) -> bool:
+        """Return  true if successfully authenticated"""
+        return self.authenticated
 
-    def __rcra_post(self, endpoint, **kwargs) -> RcrainfoResponse:
+    def __rcra_get(self, endpoint, *, headers=None, stream=False) -> RcrainfoResponse:
+        headers_to_send = {'Authorization': f'Bearer {self.token}'}
+        if headers is None:
+            headers_to_send['Accept'] = 'application/json'
+        else:
+            headers_to_send = {**headers_to_send, **headers}
+        return RcrainfoResponse(requests.get(endpoint, timeout=self.timeout,
+                                             headers=headers_to_send, stream=stream))
+
+    def __rcra_post(self, endpoint, headers=None, multipart=None, **kwargs) -> RcrainfoResponse:
+        headers_to_send = {'Authorization': f'Bearer {self.token}'}
+        if headers is None:
+            headers_to_send['Accept'] = 'application/json'
+            headers_to_send['Content-Type'] = 'text/plain'
+        else:
+            headers_to_send = {**headers_to_send, **headers}
+
+        if multipart is not None:
+            data = multipart
+        else:
+            data = json.dumps(dict(**kwargs))
         return RcrainfoResponse(requests.post(endpoint, timeout=self.timeout,
-                                              headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                                       'Authorization': f'Bearer {self.token}'},
-                                              data=json.dumps(dict(**kwargs))))
+                                              headers=headers_to_send, data=data))
 
     def __rcra_delete(self, endpoint) -> RcrainfoResponse:
         return RcrainfoResponse(requests.delete(endpoint, timeout=self.timeout,
@@ -117,18 +140,39 @@ class RcrainfoClient:
         if resp.ok:
             self.token = resp.json()['token']
             # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
-            expire_format = '%Y-%m-%dT%H:%M:%S.%f%z'
-            self._token_expiration = datetime.strptime(resp.json()['expiration'], expire_format)
+            self._token_expiration = datetime.strptime(resp.json()['expiration'], self.__expiration_fmt)
 
+    # The following methods are exposed so users can hook into our client and customize its behavior
     def retrieve_id(self, api_id=None) -> str:
+        """
+        Getter method used internally to retrieve the desired RCRAInfo API ID. Can be overridden
+        to automatically support retrieving an API ID from an external location.
+        Args:
+            api_id:
+
+        Returns:
+            string of the user's RCRAInfo API ID
+        """
         if api_id:
             return api_id
         elif self.__api_id:
             return self.__api_id
         elif self.__api_id is None and api_id is None:
+            #  pass an empty string so, if user's fail to provide a string, it will not try to use None as
+            #  the API credential in the URL
             return ''
 
     def retrieve_key(self, api_key=None) -> str:
+        """
+        Getter method used internally to retrieve the desired RCRAInfo API key. Can be overridden
+        to automatically support retrieving an API Key from an external location.
+
+        Args:
+            api_key:
+
+        Returns:
+            string of the user's RCRAInfo API Key
+        """
         if api_key:
             return api_key
         elif self.__api_key:
@@ -136,7 +180,7 @@ class RcrainfoClient:
         elif self.__api_key is None and api_key is None:
             return ''
 
-    # Below this line starts the classes methods to interact with  RCRAInfo/e-Manifest
+    # Below this line are the high level methods to request RCRAInfo/e-Manifest
     def auth(self, api_id=None, api_key=None) -> None:
         """
         Authenticate user's RCRAInfo API ID and Key to generate token for use by other functions
@@ -150,12 +194,10 @@ class RcrainfoClient:
         """
         # if api credentials are passed, set the client's attributes
         if api_id is not None:
-            self.__api_id = api_id
+            self.__api_id = str(api_id)
         if api_key is not None:
-            self.__api_key = api_key
-
-        if None not in (self.__api_key, self.__api_id):
-            self.__get_token()
+            self.__api_key = str(api_key)
+        self.__get_token()
 
     def get_site_details(self, epa_id) -> RcrainfoResponse:
         """
@@ -506,10 +548,8 @@ class RcrainfoClient:
             attachments: PDF and HTML files containing additional manifest information (such as scans
             or electronic copies) for the given MTN
         """
-        resp = RcrainfoResponse(requests.get(f'{self.base_url}/api/v1/emanifest/manifest/{mtn}/attachments',
-                                             headers={'Accept': 'multipart/mixed',
-                                                      'Authorization': f'Bearer {self.token}'},
-                                             stream=True))
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}/attachments'
+        resp = self.__rcra_get(endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
         if resp.response:
             resp.decode()
         return resp
@@ -614,9 +654,9 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        m = _encode_manifest(manifest_json, zip_file)
+        multipart = _encode_manifest(manifest_json, zip_file)
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correct'
-        return self.__rcra_put(endpoint, m)
+        return self.__rcra_put(endpoint, multipart)
 
     def revert(self, mtn) -> RcrainfoResponse:
         """
@@ -632,15 +672,15 @@ class RcrainfoClient:
         return self.__rcra_get(endpoint)
 
     def get_correction_attachments(self, **kwargs) -> RcrainfoResponse:
-        """
+        r"""
         Retrieve attachments of corrected manifests based all or some of the provided search criteria
 
-        Args:
+        Keyword Args:
             manifestTrackingNumber (str): Manifest tracking number. Required
             status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
             ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
             versionNumber (str): Manifest version number
-            
+
         Returns:
             json: Downloaded file containing e-Manifest details for given MTN
             attachments: PDF and HTML files containing additional
@@ -648,11 +688,8 @@ class RcrainfoClient:
             electronic copies) for the given MTN
             print: message of success or failure
         """
-        resp = RcrainfoResponse(
-            requests.post(f'{self.base_url}/api/v1/emanifest/manifest/correction-version/attachments',
-                          headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                   'Authorization': f'Bearer {self.token}'},
-                          data=json.dumps(dict(**kwargs))))
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version/attachments'
+        resp = self.__rcra_post(endpoint, **kwargs)
         if resp.response:
             resp.decode()
         return resp
@@ -681,10 +718,10 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        m = _encode_manifest(manifest_json, zip_file)
+        multipart = _encode_manifest(manifest_json, zip_file)
 
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/update'
-        return self.__rcra_put(endpoint, m)
+        return self.__rcra_put(endpoint, multipart)
 
     def delete(self, mtn) -> RcrainfoResponse:
         """
@@ -710,12 +747,10 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        m = _encode_manifest(manifest_json, zip_file)
-        resp = RcrainfoResponse(requests.post(f'{self.base_url}/api/v1/emanifest/manifest/save',
-                                              headers={'Content-Type': m.content_type, 'Accept': 'application/json',
-                                                       'Authorization': f'Bearer {self.token}'},
-                                              data=m))
-        return resp
+        multipart = _encode_manifest(manifest_json, zip_file)
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/save'
+        return self.__rcra_post(endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
+            'application/json'}, multipart=multipart)
 
     def generate_ui_link(self, **kwargs) -> RcrainfoResponse:
         """
@@ -788,10 +823,8 @@ class RcrainfoClient:
             electronic copies) for the given MTN
               message of success or failure
         """
-        resp = RcrainfoResponse(requests.get(f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}/attachments',
-                                             headers={'Accept': 'multipart/mixed',
-                                                      'Authorization': f'Bearer {self.token}'},
-                                             stream=True))
+        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}/attachments'
+        resp = self.__rcra_get(endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
         if resp.response:
             resp.decode()
         return resp
