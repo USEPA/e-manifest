@@ -442,7 +442,7 @@ class RcrainfoClient:
         """
         Retrieve sites based on some or all of the provided criteria
         
-        Args:
+        Keyword Args:
             epaSiteId (str): EPA site ID
             name (str): Site name (e.g. The White House)
             streetNumber (str): Street number (e.g. 1600)
@@ -464,7 +464,7 @@ class RcrainfoClient:
         Retrieve users based on some or all of the provided criteria. Only users of sites accessible
         to the API keyholder will be visible
         
-        Args:
+        Keyword Args:
             userId (str) : A RCRAInfo username
             siteIds (array of strings) : One or more EPA site IDs
             pageNumber (number): must be greater than 0
@@ -479,7 +479,7 @@ class RcrainfoClient:
         """
         Retrieve billing history for a given billing account ID
         
-        Args:
+        Keyword Args:
             billing_account (str): EPA Site ID
             start_month_year (date): First bill to be included (MM/YYYY format)
             end_month_year (date): Final bill to be included (MM/YYYY format)
@@ -494,7 +494,7 @@ class RcrainfoClient:
         """
         Retrieve bill information for a given bill ID and account ID
         
-        Args:
+        Keyword Args:
             billId (str): Bill ID
             billingAccount (str): EPA Site ID
             monthYear (date): Billing month (as MM/YYYY). Optional if billId is provided
@@ -509,7 +509,7 @@ class RcrainfoClient:
         """
         Search and retrieve bills using all or some of the provided criteria
         
-        Args:
+        Keyword Args:
             billingAccount (str): EPA Site ID
             billStatus (str): Active, Paid, Unpaid, ReadyForPayment, Credit, InProgress, SendToCollections, ZeroBalance.
             startDate(date): Beginning of the billing period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
@@ -545,7 +545,7 @@ class RcrainfoClient:
         """
         Retrieve manifest tracking numbers based on all or some of provided search criteria
         
-        Args:
+        Keyword Args:
             stateCode (str): Two-letter US postal state code
             siteId (str): EPA Site ID
             status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete,
@@ -578,7 +578,7 @@ class RcrainfoClient:
         """
         Retrieve details of manifest correction version based on all or some of the provided search criteria
 
-        Args:
+        Keyword Args:
             manifestTrackingNumber (str): Manifest tracking number. Required
             status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
             ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
@@ -743,7 +743,7 @@ class RcrainfoClient:
         """
         Generate link to the user interface (UI) of the RCRAInfo e-Manifest module
         
-        Args:
+        Keyword Args:
             page (str): Dashboard, BulkSign, BulkQuickSign, Edit, View, Sign. Case-sensitive
             epaSiteId (Str): EPA Site ID
             manifestTrackingNumber (str): Manifest tracking number (optional)
@@ -820,7 +820,7 @@ class RcrainfoClient:
         """
         Retrieve manifest tracking numbers based on all or some of provided search criteria
         
-        Args:
+        Keyword Args:
             stateCode (str): Two-letter US postal state code
             siteId (str): EPA Site ID
             status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete,
@@ -853,7 +853,7 @@ class RcrainfoClient:
         """
         Retrieve details of manifest correction version based on all or some of the provided search criteria
 
-        Args:
+        Keyword Args:
             manifestTrackingNumber (str): Manifest tracking number. Required
             status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
             ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
