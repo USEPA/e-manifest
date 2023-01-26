@@ -12,13 +12,11 @@ class TestEmanifestClient(unittest.TestCase):
     def setUp(self) -> None:
         api_id = os.getenv('RCRAINFO_API_ID')
         api_key = os.getenv('RCRAINFO_API_KEY')
-        print(api_key)
-        print(api_id)
         if not api_id:
             self.fail('API ID not found to test integration')
         elif not api_key:
             self.fail('API Key not found to test integration')
-        self.rcrainfo.auth(api_id, api_key)
+        self.rcrainfo.authenticate(api_id, api_key)
 
     def test_initial_zip_state(self):
         rcra_response = self.rcrainfo.get_site_details('VATESTGEN001')
@@ -30,14 +28,14 @@ class TestEmanifestClient(unittest.TestCase):
     # RcrainfoResponse test
     def test_extracted_response_json_matches(self):
         resp = self.rcrainfo.get_site_details('VATESTGEN001')
-        self.assertEqual(resp.response.json(), resp.json, "response.json() and json do not match")
+        self.assertEqual(resp.response.json(), resp.json(), "response.json() and json do not match")
 
     def test_decode_multipart_string(self):
-        manifest_response = self.rcrainfo.get_attachments("000012345GBF")
-        self.assertEqual(type(manifest_response.json), str)
+        manifest_response = self.rcrainfo.get_manifest_attachments("000012345GBF")
+        self.assertEqual(type(manifest_response.json()), str)
 
     def test_decode_multipart_zipfile(self):
-        manifest_response = self.rcrainfo.get_attachments("000012345GBF")
+        manifest_response = self.rcrainfo.get_manifest_attachments("000012345GBF")
         self.assertEqual(type(manifest_response.zip), zipfile.ZipFile)
 
     # Specific method related testing
@@ -48,17 +46,13 @@ class TestEmanifestClient(unittest.TestCase):
 
     def test_check_mtn_exits(self):
         mtn = "100032934ELC"
-        self.assertEqual(self.rcrainfo.check_mtn_exists(mtn).response.json()["manifestTrackingNumber"], mtn)
+        self.assertEqual(self.rcrainfo.check_mtn_exists(mtn).json()["manifestTrackingNumber"], mtn)
 
     def test_shipping_names(self):
         self.assertIn("Acetal", self.rcrainfo.get_shipping_names().response.json())
 
     def test_dot_numbers(self):
-        self.assertIn("UN1088", self.rcrainfo.get_id_nums().response.json())
-
-    def test_get_attachments(self):
-        manifest_response = self.rcrainfo.get_attachments("000012345GBF")
-        self.assertTrue(manifest_response.ok)
+        self.assertIn("UN1088", self.rcrainfo.get_id_numbers().response.json())
 
     def test_correction_get_attachments(self):
         manifest_response = self.rcrainfo.get_correction_attachments(manifestTrackingNumber="000012345GBF")
@@ -106,7 +100,7 @@ class BadClient(unittest.TestCase):
 
     # test of initial state
     def test_bad_auth(self):
-        self.bad_rcrainfo.auth(os.getenv('RCRAINFO_API_ID'), 'a_bad_api_key')
+        self.bad_rcrainfo.authenticate(os.getenv('RCRAINFO_API_ID'), 'a_bad_api_key')
         self.assertIsNone(self.bad_rcrainfo.token)
 
     def test_client_token_state(self):
