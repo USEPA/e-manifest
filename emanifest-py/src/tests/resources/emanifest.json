@@ -1,0 +1,331 @@
+{
+  "createdDate" : "2022-01-07T17:37:00.109+00:00",
+  "updatedDate" : "2022-01-31T18:30:01.910+00:00",
+  "manifestTrackingNumber" : "100032437ELC",
+  "status" : "Corrected",
+  "discrepancy" : false,
+  "submissionType" : "FullElectronic",
+  "originType" : "Service",
+  "shippedDate" : "2021-09-24T16:58:43.857+00:00",
+  "receivedDate" : "2021-09-24T17:01:40.233+00:00",
+  "certifiedDate" : "2022-01-31T18:30:00.410+00:00",
+  "certifiedBy" : {
+    "firstName" : "William",
+    "lastName" : "Nicholas",
+    "userId" : "WILJNICH"
+  },
+  "generator" : {
+    "epaSiteId" : "VATESTGEN001",
+    "name" : "VA TEST GEN 2021",
+    "modified" : false,
+    "registered" : true,
+    "mailingAddress" : {
+      "address1" : "123 VA TEST GEN 2021 WAY",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "siteAddress" : {
+      "address1" : "123 VA TEST GEN 2021 WAY",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "contact" : {
+      "phone" : {
+        "number" : "703-308-0023"
+      },
+      "email" : "Testing@EPA.GOV"
+    },
+    "emergencyPhone" : {
+      "number" : "888-456-1234"
+    },
+    "electronicSignaturesInfo" : [ {
+      "signer" : {
+        "firstName" : "William",
+        "lastName" : "Nicholas",
+        "userId" : "WILJNICH"
+      },
+      "signatureDate" : "2021-09-24T16:56:03.868+00:00",
+      "humanReadableDocument" : {
+        "name" : "human-readable.html",
+        "size" : 177909,
+        "mimeType" : "TEXT_HTML"
+      }
+    } ],
+    "gisPrimary" : false,
+    "canEsign" : true,
+    "limitedEsign" : true,
+    "hasRegisteredEmanifestUser" : true
+  },
+  "transporters" : [ {
+    "epaSiteId" : "VATESTRAN02",
+    "name" : "VA TEST TRAN 2021",
+    "modified" : false,
+    "registered" : true,
+    "mailingAddress" : {
+      "address1" : "321 VA TEST TRAN 2021 ROAD",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "siteAddress" : {
+      "address1" : "321 VA TEST TRAN 2021 ROAD",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "contact" : {
+      "phone" : {
+        "number" : "703-308-0023"
+      }
+    },
+    "electronicSignaturesInfo" : [ {
+      "signer" : {
+        "firstName" : "Scott",
+        "lastName" : "Christian",
+        "userId" : "SCOTTDCHRISTIANRCRA4"
+      },
+      "signatureDate" : "2021-09-24T16:58:43.857+00:00",
+      "humanReadableDocument" : {
+        "name" : "human-readable.html",
+        "size" : 177934,
+        "mimeType" : "TEXT_HTML"
+      }
+    } ],
+    "gisPrimary" : false,
+    "canEsign" : true,
+    "limitedEsign" : true,
+    "hasRegisteredEmanifestUser" : true,
+    "order" : 1
+  } ],
+  "designatedFacility" : {
+    "epaSiteId" : "VATESTTSDF03",
+    "name" : "VA TEST TSDF 2021",
+    "modified" : false,
+    "registered" : true,
+    "mailingAddress" : {
+      "address1" : "234 VA TEST TSDF 2021 DRIVE",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "siteAddress" : {
+      "address1" : "234 VA TEST TSDF 2021 DRIVE",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "contact" : {
+      "phone" : {
+        "number" : "703-308-0023"
+      },
+      "email" : "Testing@EPA.GOV"
+    },
+    "electronicSignaturesInfo" : [ {
+      "signer" : {
+        "firstName" : "David",
+        "lastName" : "Graham",
+        "userId" : "DPGRAHAM4401"
+      },
+      "signatureDate" : "2021-09-24T17:01:40.233+00:00",
+      "humanReadableDocument" : {
+        "name" : "human-readable.html",
+        "size" : 182529,
+        "mimeType" : "TEXT_HTML"
+      }
+    }, {
+      "signer" : {
+        "firstName" : "William",
+        "lastName" : "Nicholas",
+        "userId" : "WILJNICH"
+      },
+      "signatureDate" : "2022-01-07T17:36:10.899+00:00",
+      "humanReadableDocument" : {
+        "name" : "human-readable.html",
+        "size" : 184225,
+        "mimeType" : "TEXT_HTML"
+      }
+    } ],
+    "gisPrimary" : false,
+    "canEsign" : true,
+    "limitedEsign" : true,
+    "hasRegisteredEmanifestUser" : true
+  },
+  "wastes" : [ {
+    "dotHazardous" : true,
+    "dotInformation" : {
+      "idNumber" : {
+        "code" : "NA1993"
+      },
+      "printedDotInformation" : "NA1993, Waste Diesel fuel, 3, III"
+    },
+    "quantity" : {
+      "containerNumber" : 2,
+      "containerType" : {
+        "code" : "DM",
+        "description" : "Metal drums, barrels, kegs"
+      },
+      "quantity" : 74,
+      "unitOfMeasurement" : {
+        "code" : "G",
+        "description" : "Gallons"
+      }
+    },
+    "hazardousWaste" : {
+      "federalWasteCodes" : [ {
+        "code" : "D001",
+        "description" : "IGNITABLE WASTE"
+      } ],
+      "tsdfStateWasteCodes" : [ ],
+      "generatorStateWasteCodes" : [ ]
+    },
+    "additionalInfo" : {
+      "comments" : [ {
+        "label" : "Profile #",
+        "description" : "E654321",
+        "handlerId" : "VATESTRAN02"
+      } ],
+      "handlingInstructions" : "This Manifest is for testing purposes and does not match reality it's more to show what you can do."
+    },
+    "lineNumber" : 1,
+    "br" : false,
+    "managementMethod" : {
+      "code" : "H010",
+      "description" : "METALS RECOVERY"
+    },
+    "pcb" : false,
+    "discrepancyResidueInfo" : {
+      "wasteQuantity" : false,
+      "wasteType" : false,
+      "residue" : false
+    },
+    "epaWaste" : true
+  }, {
+    "dotHazardous" : false,
+    "wasteDescription" : "PCB contaminated bags",
+    "quantity" : {
+      "containerNumber" : 8,
+      "containerType" : {
+        "code" : "BA",
+        "description" : "Burlap, cloth, paper, or plastic bags"
+      },
+      "quantity" : 432,
+      "unitOfMeasurement" : {
+        "code" : "K",
+        "description" : "Kilograms"
+      }
+    },
+    "hazardousWaste" : {
+      "federalWasteCodes" : [ ],
+      "tsdfStateWasteCodes" : [ ],
+      "generatorStateWasteCodes" : [ ]
+    },
+    "additionalInfo" : {
+      "handlingInstructions" : "This Manifest is for testing purposes and does not match reality it's more to show what you can do."
+    },
+    "lineNumber" : 2,
+    "br" : false,
+    "managementMethod" : {
+      "code" : "H040",
+      "description" : "INCINERATION"
+    },
+    "pcb" : true,
+    "pcbInfos" : [ {
+      "loadType" : {
+        "code" : "BulkWaste"
+      },
+      "dateOfRemoval" : "2018-04-18T12:00:00.000+00:00",
+      "weight" : 432,
+      "bulkIdentity" : "Bulk Waste ID2"
+    }, {
+      "loadType" : {
+        "code" : "BulkWaste"
+      },
+      "dateOfRemoval" : "2018-03-18T12:00:00.000+00:00",
+      "weight" : 432,
+      "bulkIdentity" : "Bulk Waste ID"
+    } ],
+    "discrepancyResidueInfo" : {
+      "wasteQuantity" : false,
+      "wasteType" : false,
+      "residue" : false
+    },
+    "epaWaste" : false
+  } ],
+  "additionalInfo" : {
+    "handlingInstructions" : "On the Manifest level. This Manifest is for testing purposes and does not match reality it's more to show what you can do."
+  },
+  "rejection" : false,
+  "residue" : false,
+  "import" : false,
+  "containsPreviousRejectOrResidue" : false,
+  "formDocument" : {
+    "name" : "form-2050.pdf",
+    "size" : 584050,
+    "mimeType" : "APPLICATION_PDF"
+  },
+  "correctionInfo" : {
+    "epaSiteId" : "VATESTRAN02",
+    "versionNumber" : 2,
+    "active" : true,
+    "electronicSignatureInfo" : {
+      "signer" : {
+        "firstName" : "William",
+        "lastName" : "Nicholas",
+        "userId" : "WILJNICH"
+      },
+      "signatureDate" : "2022-01-31T18:30:00.410+00:00",
+      "humanReadableDocument" : {
+        "name" : "human-readable.html",
+        "size" : 184786,
+        "mimeType" : "TEXT_HTML"
+      },
+      "signerRole" : "Industry"
+    },
+    "initiatorRole" : "Industry"
+  },
+  "locked" : false
+}
