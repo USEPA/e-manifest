@@ -8,7 +8,8 @@
 RCRAInfo national electronic hazardous waste management system.
 
 **Note:** The **emanifest** package was substantially refactored after version 2.0.7 and was released as a new major
-version at 3.0.1. Code relying on versions ≤3.0.0 should not upgrade to version 3.0.1 of this package without refactoring.
+version at 3.0.0. Code relying on versions ≤3.0.0 should not upgrade to version 3.0.0 of this package without
+refactoring.
 
 ## Contents
 
@@ -47,27 +48,38 @@ Before using the **emanifest** package, ensure you have a RCRAInfo user account 
 the [necessary permissions](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest#user_question6) to
 generate an API ID and key.
 
-All methods to access the e-Manifest APIs are implemented by the RcrainfoClient class which needs to be authenticated
-with your API ID and Key. A new instance of the class can be initiated with the ```new_client()``` convenience function
+All methods to access the e-Manifest APIs are implemented by the `RcrainfoClient` class which needs to be authenticated
+with your API ID and Key. A new instance of the class can be initiated with the `new_client()` convenience function
 like so:
 
 ```python
 from emanifest import new_client
 
-rcra_client = new_client('preprod')
-rcra_client.auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcrainfo = new_client('preprod')
+rcrainfo.auth('YOUR_API_ID', 'YOUR_API_KEY')
 ```
 
-```new_client()``` accepts a string, either **preprod**, **prod**, or a complete base URL. To register for a testing
+which is equivalent to:
+
+```python
+from emanifest import RcrainfoClient
+
+rcrainfo = RcrainfoClient('preprod')
+rcrainfo.auth('YOUR_API_ID', 'YOUR_API_KEY')
+```
+
+`new_client()` accepts a string, either **preprod**, **prod**, or a complete base URL. To register for a testing
 account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login). The
 RcrainfoClient stores the JSON web token and its expiration period (20 minutes). Currently, the **emanifest** python
-package does not automatically reauthenticate.
+package does not automatically reauthenticate. See
+the [`RcrainfoClient` definition here](/emanifest-py/src/emanifest/client.py) for more details.
 
 ### Methods
 
-After authenticating, you are ready to use the full functionality of the **emanifest** package. An introductory example
+After authenticating, you are ready to use the full functionality of the emanifest package. An introductory example
 script can be found [here](src/example.py). The RcrainfoClient class exposes a method for each API endpoint in one of
-the 10 service catagories. For more information about these services, visit the Swagger page of your selected
+the 10 service categories (the [methods can be viewed here](/emanifest-py/src/emanifest/client.py)). For more
+information about these services, visit the Swagger page of your selected
 environment. ([PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/)).
 API endpoints designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors
 if you are not authorized to access these resources in RCRAInfo.
@@ -85,7 +97,7 @@ if you are not authorized to access these resources in RCRAInfo.
 11. [Regulator users] User Services
 
 Content will be returned as a RcraResponse object, which wraps around
-the [requests.Response](https://pypi.org/project/requests/) object. Methods that download file attachments are decoded
+the [requests](https://pypi.org/project/requests/) Response object. Methods that download file attachments are decoded
 and returned in the ```RcrainfoResponse.multipart_json``` and ```RcrainfoResponse.multipart_zip``` when appropriate. The
 entire ```request.Response``` object is returned in ```RcrainfoResponse.response```. Methods that update, correct, or
 save manifests by uploading new .json and/or .zip files require a file path.
@@ -96,7 +108,7 @@ save manifests by uploading new .json and/or .zip files require a file path.
 from emanifest import new_client
 
 rcrainfo = new_client('preprod')
-rcra_client.auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcrainfo.auth('YOUR_API_ID', 'YOUR_API_KEY')
 
 rcrainfo.get_site_details('VATEST000001')
 ```
@@ -107,19 +119,21 @@ Once you've confirmed this is the correct site, you might search for manifests i
 from emanifest import new_client
 
 rcrainfo = new_client('preprod')
-rcra_client.auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcrainfo.auth('YOUR_API_ID', 'YOUR_API_KEY')
 
 rcrainfo.search_mtn(siteId='VATEST000001', status='InTransit')
 ```
 
-If one of those manifests didn't match your records, you could initiate a correction with the correct JSON information
+Note, the keyword arguments use the same naming convention as the JSON RCRAInfo expects. If one of those manifests
+didn't match your records, you could initiate a
+correction with the correct JSON information
 and optionally any attachments (.zip):
 
 ```python
 from emanifest import new_client
 
 rcrainfo = new_client('preprod')
-rcra_client.auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcrainfo.auth('YOUR_API_ID', 'YOUR_API_KEY')
 
 rcrainfo.correct('manifest_file_name.json', 'optional_attachments.zip')
 ```

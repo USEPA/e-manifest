@@ -23,37 +23,37 @@ def main():
     # change this manifest tracking number to one associated with your site
     mtn = '100032524ELC'
 
-    rcra_client = new_client('preprod')
-    rcra_client.auth(os.getenv('RCRAINFO_API_ID'), os.getenv('RCRAINFO_API_KEY'))
+    rcrainfo = new_client('preprod')
+    rcrainfo.auth(os.getenv('RCRAINFO_API_ID'), os.getenv('RCRAINFO_API_KEY'))
 
-    dot_numbers = rcra_client.get_man_method_codes()
+    dot_numbers = rcrainfo.get_man_method_codes()
     # The Response can be accessed by calling the request.Response.json() method, or the json attribute for ease
     # These should print the same json
     print(dot_numbers.response.json())
     print(dot_numbers.json)
 
     # Get Manifest json
-    manifest = rcra_client.get_man_by_mtn(mtn)
+    manifest = rcrainfo.get_man_by_mtn(mtn)
     print(manifest.json)
     # uncommenting the below will save manifest to './manifest.json'
     # if manifest.ok:
     #     with open('manifest.json', 'wb') as file:
     #         file.write(manifest.response.content)
 
-    manifest_attachments = rcra_client.get_attachments(mtn)
+    manifest_attachments = rcrainfo.get_attachments(mtn)
     print(manifest_attachments.ok)
     # uncommenting the below line will save a number of files to your working directory
     # if manifest_attachments.ok:
     #     manifest_attachments.zip.extractall()
 
     # update the paper manifest with the path to .json and .zip file
-    update_resp = rcra_client.update('example_update.json', 'example_update.zip')
+    update_resp = rcrainfo.update('example_update.json', 'example_update.zip')
     print(update_resp.ok)
 
     # or pass json as a string
     with open('example_update.json') as f:
         data = f.read()  # data is a string containing the manifest json
-        update_resp = rcra_client.update(data)
+        update_resp = rcrainfo.update(data)
         print(update_resp.ok)
 
 
