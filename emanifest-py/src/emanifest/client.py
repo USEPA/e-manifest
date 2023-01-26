@@ -7,7 +7,7 @@ import json
 import logging
 import os
 import zipfile
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from requests import Response, Session, Request
 from requests_toolbelt.multipart import decoder, encoder
@@ -84,7 +84,7 @@ class RcrainfoClient(Session):
         self.base_url = _parse_url(base_url)
         self.timeout = timeout
         self.token = None
-        self.__token_expiration = datetime.now() - timedelta(seconds=30)
+        self.__token_expiration_utc = datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(minutes=30)
         self.__api_key = api_key
         self.__api_id = api_id
         self.headers.update(self.__default_headers)
@@ -93,15 +93,16 @@ class RcrainfoClient(Session):
     @property
     def token_expiration(self) -> datetime:
         """
-        The Token's expiration datetime. If not present will return datetime.now()
+        The Token's expiration datetime.
         """
-        return self.__token_expiration
+        return self.__token_expiration_utc
 
     @property
     def is_authenticated(self) -> bool:
         try:
-            if self.__token_expiration < datetime.now():
-                return True
+            if self.__token_expiration_utc > datetime.utcnow().replace(tzinfo=timezone.utc):
+                if self.token is not None:
+                    return True
             else:
                 return False
         except TypeError:
@@ -123,6 +124,7 @@ class RcrainfoClient(Session):
 
     def __rcra_request(self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
                        ) -> RcrainfoResponse:
+        """This is the heart of this library"""
 
         # If auto_renew is True, check if the token is expired and, if needed, re-authenticate.
         if self.auto_renew and not self.is_authenticated:
@@ -155,7 +157,7 @@ class RcrainfoClient(Session):
         if resp.ok:
             self.token = resp.json()['token']
             self.headers.update({'Authorization': f'Bearer {self.token}'})
-            self.__token_expiration = datetime.strptime(resp.json()['expiration'], self.__expiration_fmt)
+            self.__token_expiration_utc = datetime.strptime(resp.json()['expiration'], self.__expiration_fmt)
 
     # The following methods are exposed so users can hook into our client and customize its behavior
     def retrieve_id(self, api_id=None) -> str:

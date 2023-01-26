@@ -2,6 +2,8 @@ import os
 import unittest
 import zipfile
 
+import requests
+
 import emanifest
 from emanifest import new_client, RcrainfoClient
 
@@ -19,7 +21,8 @@ class TestEmanifestClient(unittest.TestCase):
             self.fail('API ID not found to test integration')
         elif not api_key:
             self.fail('API Key not found to test integration')
-        self.rcrainfo.authenticate(api_id, api_key)
+        self.rcrainfo = RcrainfoClient('preprod', api_id=api_id, api_key=api_key)
+        self.rcrainfo.authenticate()
 
     def test_initial_zip_state(self):
         rcra_response = self.rcrainfo.get_site_details('VATESTGEN001')
@@ -99,12 +102,35 @@ class TestRcrainfoClientIsExtendable:
 
 
 class TestClientAutomaticallyAuthenticates:
-    rcrainfo = RcrainfoClient('preprod', api_key=os.getenv('RCRAINFO_API_KEY'), api_id=os.getenv(
-        'RCRAINFO_API_ID'))
+    api_id = os.getenv('RCRAINFO_API_ID')
+    api_key = os.getenv('RCRAINFO_API_KEY')
+    rcrainfo = RcrainfoClient('preprod', api_key=os.getenv('RCRAINFO_API_KEY'), api_id=api_id)
 
     def test_automatically_auths(self):
-        self.rcrainfo.get_manifest(TEST_GEN_MTN)
+        _resp = self.rcrainfo.get_manifest(TEST_GEN_MTN)
         assert self.rcrainfo.is_authenticated
+
+    def test_non_present_credentials_does_not_auth(self):
+        new_rcrainfo = RcrainfoClient('preprod')
+        _mtn = new_rcrainfo.get_manifest(TEST_GEN_MTN)
+        assert not new_rcrainfo.is_authenticated
+
+
+class TestClientSubclassesSession:
+    api_id = os.getenv('RCRAINFO_API_ID')
+    api_key = os.getenv('RCRAINFO_API_KEY')
+    rcrainfo = RcrainfoClient('preprod', api_key=os.getenv('RCRAINFO_API_KEY'), api_id=api_id)
+
+    def test_can_use_hooks(self):
+        test_string = 'foobar'
+
+        def mock_hook(resp: requests.Response, *args, **kwargs):
+            resp.reason = test_string
+            return resp
+
+        self.rcrainfo.hooks = {'response': mock_hook}
+        hooked_resp = self.rcrainfo.get_manifest(TEST_GEN_MTN)
+        assert hooked_resp.response.reason is test_string
 
 
 class BadClient(unittest.TestCase):
