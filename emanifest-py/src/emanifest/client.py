@@ -79,7 +79,7 @@ class RcrainfoClient(Session):
     __expiration_fmt = '%Y-%m-%dT%H:%M:%S.%f%z'
     __default_headers = {'Accept': 'application/json'}
 
-    def __init__(self, base_url: str, *, api_id=None, api_key=None, timeout=10) -> None:
+    def __init__(self, base_url: str, *, api_id=None, api_key=None, timeout=10, auto_renew=True) -> None:
         super().__init__()
         self.base_url = _parse_url(base_url)
         self.timeout = timeout
@@ -88,6 +88,7 @@ class RcrainfoClient(Session):
         self.__api_key = api_key
         self.__api_id = api_id
         self.headers.update(self.__default_headers)
+        self.auto_renew = auto_renew
 
     @property
     def token_expiration(self) -> datetime:
@@ -123,6 +124,11 @@ class RcrainfoClient(Session):
     def __rcra_request(self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
                        ) -> RcrainfoResponse:
 
+        # If auto_renew is True, check if the token is expired and, if needed, re-authenticate.
+        if self.auto_renew and not self.is_authenticated:
+            self.__get_token()
+
+        # decide if, and what, we need to put into the body of our request.
         if method in ('POST', 'PUT', 'PATCH'):
             if multipart is not None:
                 data = multipart
@@ -131,12 +137,15 @@ class RcrainfoClient(Session):
         else:
             data = None
 
+        # Initiate the http request object
         request = Request(method, url=endpoint, data=data)
+
+        # If additional headers are passed, attach and/or overwrite
         if headers is not None:
             request.headers = {**request.headers, **headers}
 
-        req = self.prepare_request(request)
-        return RcrainfoResponse(self.send(req, timeout=self.timeout, stream=stream))
+        prepared_req = self.prepare_request(request)
+        return RcrainfoResponse(self.send(prepared_req, timeout=self.timeout, stream=stream))
 
     def __get_token(self):
         self.__api_id = self.retrieve_id()

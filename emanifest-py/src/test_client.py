@@ -3,7 +3,10 @@ import unittest
 import zipfile
 
 import emanifest
-from emanifest import new_client
+from emanifest import new_client, RcrainfoClient
+
+TEST_GEN_MTN = "000012345GBF"
+TEST_GEN_ID = 'VATESTGEN001'
 
 
 class TestEmanifestClient(unittest.TestCase):
@@ -31,18 +34,18 @@ class TestEmanifestClient(unittest.TestCase):
         self.assertEqual(resp.response.json(), resp.json(), "response.json() and json do not match")
 
     def test_decode_multipart_string(self):
-        manifest_response = self.rcrainfo.get_manifest_attachments("000012345GBF")
+        manifest_response = self.rcrainfo.get_manifest_attachments(TEST_GEN_MTN)
         self.assertEqual(type(manifest_response.json()), str)
 
     def test_decode_multipart_zipfile(self):
-        manifest_response = self.rcrainfo.get_manifest_attachments("000012345GBF")
+        manifest_response = self.rcrainfo.get_manifest_attachments(TEST_GEN_MTN)
         self.assertEqual(type(manifest_response.zip), zipfile.ZipFile)
 
     # Specific method related testing
     def test_site_import(self):
-        rcra_response = self.rcrainfo.get_site_details('VATESTGEN001')
+        rcra_response = self.rcrainfo.get_site_details(TEST_GEN_ID)
         site_details = rcra_response.response.json()
-        self.assertEqual(site_details['epaSiteId'], "VATESTGEN001")
+        self.assertEqual(site_details['epaSiteId'], TEST_GEN_ID)
 
     def test_check_mtn_exits(self):
         mtn = "100032934ELC"
@@ -55,7 +58,7 @@ class TestEmanifestClient(unittest.TestCase):
         self.assertIn("UN1088", self.rcrainfo.get_id_numbers().response.json())
 
     def test_correction_get_attachments(self):
-        manifest_response = self.rcrainfo.get_correction_attachments(manifestTrackingNumber="000012345GBF")
+        manifest_response = self.rcrainfo.get_correction_attachments(manifestTrackingNumber=TEST_GEN_MTN)
         self.assertTrue(manifest_response.ok)
 
 
@@ -93,6 +96,15 @@ class TestRcrainfoClientIsExtendable:
         my_subclass = self.MyClass('preprod')
         api_key_set_during_auth = my_subclass.retrieve_key()
         assert api_key_set_during_auth == self.MyClass.mock_api_key_from_external
+
+
+class TestClientAutomaticallyAuthenticates:
+    rcrainfo = RcrainfoClient('preprod', api_key=os.getenv('RCRAINFO_API_KEY'), api_id=os.getenv(
+        'RCRAINFO_API_ID'))
+
+    def test_automatically_auths(self):
+        self.rcrainfo.get_manifest(TEST_GEN_MTN)
+        assert self.rcrainfo.is_authenticated
 
 
 class BadClient(unittest.TestCase):
