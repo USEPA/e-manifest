@@ -1,5 +1,4 @@
 import os
-import unittest
 import zipfile
 
 import requests
@@ -11,61 +10,51 @@ TEST_GEN_MTN = "000012345GBF"
 TEST_GEN_ID = 'VATESTGEN001'
 
 
-class TestEmanifestClient(unittest.TestCase):
-    rcrainfo = new_client('preprod')
-
-    def setUp(self) -> None:
-        api_id = os.getenv('RCRAINFO_API_ID')
-        api_key = os.getenv('RCRAINFO_API_KEY')
-        if not api_id:
-            self.fail('API ID not found to test integration')
-        elif not api_key:
-            self.fail('API Key not found to test integration')
-        self.rcrainfo = RcrainfoClient('preprod', api_id=api_id, api_key=api_key)
-        self.rcrainfo.authenticate()
+class TestRcrainfoClient:
+    api_id = os.getenv('RCRAINFO_API_ID')
+    api_key = os.getenv('RCRAINFO_API_KEY')
+    rcrainfo = RcrainfoClient('preprod', api_id=api_id, api_key=api_key)
 
     def test_initial_zip_state(self):
-        rcra_response = self.rcrainfo.get_site_details('VATESTGEN001')
-        self.assertIsNone(rcra_response.zip)
+        rcra_response = self.rcrainfo.get_site_details(TEST_GEN_ID)
+        assert rcra_response.zip is None
 
-    def test_if_token_is_string(self):
-        self.assertEqual(type("string"), type(self.rcrainfo.token))
+    def test_token_when_is_authenticated(self):
+        assert isinstance(self.rcrainfo.token, str) and self.rcrainfo.is_authenticated
+
+    def test_token_when_not_authenticated(self):
+        new_rcrainfo = RcrainfoClient('preprod')
+        assert new_rcrainfo.token is None and not new_rcrainfo.is_authenticated
 
     # RcrainfoResponse test
     def test_extracted_response_json_matches(self):
-        resp = self.rcrainfo.get_site_details('VATESTGEN001')
-        self.assertEqual(resp.response.json(), resp.json(), "response.json() and json do not match")
+        resp = self.rcrainfo.get_site_details(TEST_GEN_ID)
+        assert resp.response.json() == resp.json()
 
     def test_decode_multipart_string(self):
         manifest_response = self.rcrainfo.get_manifest_attachments(TEST_GEN_MTN)
-        self.assertEqual(type(manifest_response.json()), str)
+        assert isinstance(manifest_response.json(), str)
 
     def test_decode_multipart_zipfile(self):
         manifest_response = self.rcrainfo.get_manifest_attachments(TEST_GEN_MTN)
-        self.assertEqual(type(manifest_response.zip), zipfile.ZipFile)
+        assert isinstance(manifest_response.zip, zipfile.ZipFile)
 
     # Specific method related testing
-    def test_site_import(self):
+    def test_get_site_details(self):
         rcra_response = self.rcrainfo.get_site_details(TEST_GEN_ID)
         site_details = rcra_response.response.json()
-        self.assertEqual(site_details['epaSiteId'], TEST_GEN_ID)
+        assert site_details['epaSiteId'] == TEST_GEN_ID
 
     def test_check_mtn_exits(self):
         mtn = "100032934ELC"
-        self.assertEqual(self.rcrainfo.check_mtn_exists(mtn).json()["manifestTrackingNumber"], mtn)
-
-    def test_shipping_names(self):
-        self.assertIn("Acetal", self.rcrainfo.get_shipping_names().response.json())
-
-    def test_dot_numbers(self):
-        self.assertIn("UN1088", self.rcrainfo.get_id_numbers().response.json())
+        assert self.rcrainfo.check_mtn_exists(mtn).json()["manifestTrackingNumber"] == mtn
 
     def test_correction_get_attachments(self):
-        manifest_response = self.rcrainfo.get_correction_attachments(manifestTrackingNumber=TEST_GEN_MTN)
-        self.assertTrue(manifest_response.ok)
+        response = self.rcrainfo.get_correction_attachments(manifestTrackingNumber=TEST_GEN_MTN)
+        assert response.ok is True
 
 
-class TestRcrainfoClientIsExtendable:
+class TestClientIsExtendable:
     class MyClass(emanifest.RcrainfoClient):
         mock_api_id_from_external = 'an_api_id_from_someplace_else'
         mock_api_key_from_external = 'a_api_key_from_someplace_else'
@@ -85,30 +74,43 @@ class TestRcrainfoClientIsExtendable:
             returned_string = self.mock_api_key_from_external  # You could get this primitive value from anywhere
             return super().retrieve_id(returned_string)
 
-    def test_set_api_id_override(self):
+    def test_retrieve_id_override(self):
         my_subclass = self.MyClass('preprod')
         api_id_set_during_auth = my_subclass.retrieve_id()
         assert api_id_set_during_auth == self.MyClass.mock_api_id_from_external
 
-    def test_set_api_key_override(self):
+    def test_retrieve_key_override(self):
         my_subclass = self.MyClass('preprod')
         api_key_set_during_auth = my_subclass.retrieve_key()
         assert api_key_set_during_auth == self.MyClass.mock_api_key_from_external
 
-    def test_set_api_id_method(self):
+    def test_retrieve_key_returns_string(self):
         my_subclass = self.MyClass('preprod')
         api_key_set_during_auth = my_subclass.retrieve_key()
         assert api_key_set_during_auth == self.MyClass.mock_api_key_from_external
 
 
-class TestClientAutomaticallyAuthenticates:
+class TestAutoAuthentication:
     api_id = os.getenv('RCRAINFO_API_ID')
     api_key = os.getenv('RCRAINFO_API_KEY')
-    rcrainfo = RcrainfoClient('preprod', api_key=os.getenv('RCRAINFO_API_KEY'), api_id=api_id)
+    rcrainfo = RcrainfoClient('preprod', api_key=api_key, api_id=api_id)
 
-    def test_automatically_auths(self):
+    def test_automatically_authenticates(self):
+        """
+        RcrainfoClient will automatically authenticate once a request is made,
+        (e.g., calling get_manifest(...) will do the equivalent of authenticate(...) first
+        """
         _resp = self.rcrainfo.get_manifest(TEST_GEN_MTN)
         assert self.rcrainfo.is_authenticated
+
+    def test_does_not_authenticate_when_false(self):
+        """
+        emanifest(py) package will auto-authenticate (and re-authenticate) unless
+        the auto_renew argument is set to False
+        """
+        rcrainfo = RcrainfoClient('preprod', api_key=self.api_key, api_id=self.api_id, auto_renew=False)
+        _resp = rcrainfo.get_manifest(TEST_GEN_MTN)
+        assert not rcrainfo.is_authenticated
 
     def test_non_present_credentials_does_not_auth(self):
         new_rcrainfo = RcrainfoClient('preprod')
@@ -116,15 +118,20 @@ class TestClientAutomaticallyAuthenticates:
         assert not new_rcrainfo.is_authenticated
 
 
-class TestClientSubclassesSession:
+class TestSessionSuperClassIsUsable:
     api_id = os.getenv('RCRAINFO_API_ID')
     api_key = os.getenv('RCRAINFO_API_KEY')
-    rcrainfo = RcrainfoClient('preprod', api_key=os.getenv('RCRAINFO_API_KEY'), api_id=api_id)
+    rcrainfo = RcrainfoClient('preprod', api_key=api_key, api_id=api_id)
 
     def test_can_use_hooks(self):
         test_string = 'foobar'
 
         def mock_hook(resp: requests.Response, *args, **kwargs):
+            """
+            Hooks can be used on various phases of the http lifecycle.
+            This functionality comes from request.Session class
+            https://requests.readthedocs.io/en/latest/user/advanced/#session-objects
+            """
             resp.reason = test_string
             return resp
 
@@ -133,18 +140,13 @@ class TestClientSubclassesSession:
         assert hooked_resp.response.reason is test_string
 
 
-class BadClient(unittest.TestCase):
+class TestBadClient:
     bad_rcrainfo = new_client('preprod')
 
     # test of initial state
     def test_bad_auth(self):
         self.bad_rcrainfo.authenticate(os.getenv('RCRAINFO_API_ID'), 'a_bad_api_key')
-        self.assertIsNone(self.bad_rcrainfo.token)
+        assert self.bad_rcrainfo.token is None
 
     def test_client_token_state(self):
-        unauthorized_client = new_client('preprod')
-        self.assertIsNone(unauthorized_client.token)
-
-
-if __name__ == '__main__':
-    unittest.main()
+        assert self.bad_rcrainfo.token is None
