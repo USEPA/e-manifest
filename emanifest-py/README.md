@@ -56,7 +56,7 @@ like so:
 from emanifest import new_client
 
 rcrainfo = new_client('preprod')
-rcrainfo.auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcrainfo.authenticate('YOUR_API_ID', 'YOUR_API_KEY')
 ```
 
 which is equivalent to:
@@ -65,7 +65,7 @@ which is equivalent to:
 from emanifest import RcrainfoClient
 
 rcrainfo = RcrainfoClient('preprod')
-rcrainfo.auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcrainfo.authenticate('YOUR_API_ID', 'YOUR_API_KEY')
 ```
 
 `new_client()` accepts a string, either **preprod**, **prod**, or a complete base URL. To register for a testing
@@ -108,7 +108,7 @@ save manifests by uploading new .json and/or .zip files require a file path.
 from emanifest import new_client
 
 rcrainfo = new_client('preprod')
-rcrainfo.auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcrainfo.authenticate('YOUR_API_ID', 'YOUR_API_KEY')
 
 rcrainfo.get_site_details('VATEST000001')
 ```
@@ -119,7 +119,7 @@ Once you've confirmed this is the correct site, you might search for manifests i
 from emanifest import new_client
 
 rcrainfo = new_client('preprod')
-rcrainfo.auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcrainfo.authenticate('YOUR_API_ID', 'YOUR_API_KEY')
 
 rcrainfo.search_mtn(siteId='VATEST000001', status='InTransit')
 ```
@@ -133,7 +133,7 @@ and optionally any attachments (.zip):
 from emanifest import new_client
 
 rcrainfo = new_client('preprod')
-rcrainfo.auth('YOUR_API_ID', 'YOUR_API_KEY')
+rcrainfo.authenticate('YOUR_API_ID', 'YOUR_API_KEY')
 
 rcrainfo.correct('manifest_file_name.json', 'optional_attachments.zip')
 ```
