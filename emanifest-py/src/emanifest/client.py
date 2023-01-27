@@ -5,7 +5,6 @@ see https://github.com/USEPA/e-manifest
 import io
 import json
 import logging
-import os
 import zipfile
 from datetime import datetime, timedelta, timezone
 
@@ -147,6 +146,7 @@ class RcrainfoClient(Session):
             request.headers = {**request.headers, **headers}
 
         prepared_req = self.prepare_request(request)
+        print(prepared_req.headers)
         return RcrainfoResponse(self.send(prepared_req, timeout=self.timeout, stream=stream))
 
     def __get_token(self):
@@ -158,6 +158,20 @@ class RcrainfoClient(Session):
             self.token = resp.json()['token']
             self.headers.update({'Authorization': f'Bearer {self.token}'})
             self.__token_expiration_utc = datetime.strptime(resp.json()['expiration'], self.__expiration_fmt)
+
+    @staticmethod
+    def __encode_manifest(manifest_json: str, zip_bytes: bytes = None, *, json_name: str = 'manifest.json',
+                          zip_name='attachments.zip'):
+        """emanifest-py internal helper function to encode json and zip file for upload"""
+        if zip_bytes:
+            return encoder.MultipartEncoder(fields={
+                "manifest": (json_name, manifest_json, 'application/json'),
+                "attachment": (zip_name, zip_bytes, 'application/zip')
+            })
+        else:
+            return encoder.MultipartEncoder(fields={
+                "manifest": (json_name, manifest_json, 'application/json'),
+            })
 
     # The following methods are exposed so users can hook into our client and customize its behavior
     def retrieve_id(self, api_id=None) -> str:
@@ -623,6 +637,29 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version'
         return self.__rcra_request('POST', endpoint, **kwargs)
 
+    def get_correction_attachments(self, **kwargs) -> RcrainfoResponse:
+        r"""
+        Retrieve attachments of corrected manifests based all or some of the provided search criteria
+
+        Keyword Args:
+            manifestTrackingNumber (str): Manifest tracking number. Required
+            status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
+            ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
+            versionNumber (str): Manifest version number
+
+        Returns:
+            json: Downloaded file containing e-Manifest details for given MTN
+            attachments: PDF and HTML files containing additional
+            manifest information (such as scans or
+            electronic copies) for the given MTN
+            print: message of success or failure
+        """
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version/attachments'
+        resp = self.__rcra_request('POST', endpoint, **kwargs)
+        if resp.response:
+            resp.decode()
+        return resp
+
     def get_site_mtn(self, site_id: str) -> RcrainfoResponse:
         """
         Retrieve manifest tracking numbers for a given Site ID
@@ -675,7 +712,7 @@ class RcrainfoClient(Session):
         Returns:
             dict: message of success or failure
         """
-        multipart = _encode_manifest(manifest_json, zip_file)
+        multipart = self.__encode_manifest(manifest_json, zip_file)
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correct'
         return self.__rcra_request('PUT', endpoint, multipart=multipart)
 
@@ -692,31 +729,8 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/revert/{mtn}'
         return self.__rcra_request('GET', endpoint)
 
-    def get_correction_attachments(self, **kwargs) -> RcrainfoResponse:
-        r"""
-        Retrieve attachments of corrected manifests based all or some of the provided search criteria
-
-        Keyword Args:
-            manifestTrackingNumber (str): Manifest tracking number. Required
-            status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
-            ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
-            versionNumber (str): Manifest version number
-
-        Returns:
-            json: Downloaded file containing e-Manifest details for given MTN
-            attachments: PDF and HTML files containing additional
-            manifest information (such as scans or
-            electronic copies) for the given MTN
-            print: message of success or failure
-        """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version/attachments'
-        resp = self.__rcra_request('POST', endpoint, **kwargs)
-        if resp.response:
-            resp.decode()
-        return resp
-
     # ToDo: change the type of method parameters to str and bytes
-    def update_manifest(self, manifest_json, zip_file=None) -> RcrainfoResponse:
+    def update_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Update Manifest by providing e-Manifest JSON and optional Zip attachment
         
@@ -727,10 +741,11 @@ class RcrainfoClient(Session):
         Returns:
             dict: message of success or failure
         """
-        multipart = _encode_manifest(manifest_json, zip_file)
+        multipart = self.__encode_manifest(manifest_json, zip_file)
 
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/update'
-        return self.__rcra_request('PUT', endpoint, multipart=multipart)
+        return self.__rcra_request('PUT', endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
+            'application/json'}, multipart=multipart)
 
     def delete_manifest(self, mtn: str) -> RcrainfoResponse:
         """
@@ -746,18 +761,18 @@ class RcrainfoClient(Session):
         return self.__rcra_request('DELETE', endpoint)
 
     # ToDo: change the type of method parameters to str and bytes
-    def save_manifest(self, manifest_json, zip_file=None) -> RcrainfoResponse:
+    def save_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Save Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (.json file): Local JSON file containing manifest details
-            zip_file (.zip file): Local zip file containing manifest attachments. Optional
+            manifest_json (str): string containing manifest JSON.
+            zip_file (bytearray): array of bytes of zip file with manifest attachments. Optional
             
         Returns:
             dict: message of success or failure
         """
-        multipart = _encode_manifest(manifest_json, zip_file)
+        multipart = self.__encode_manifest(manifest_json, zip_file)
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/save'
         return self.__rcra_request('POST', endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
             'application/json'}, multipart=multipart)
@@ -984,24 +999,3 @@ def _parse_url(base_url: str) -> str:
                             "'preprod' or 'prod' to target their respective environments")
     else:
         return base_url
-
-
-def _encode_manifest(manifest_json: str, zip_bytes: bytes = None):
-    """emanifest-py internal helper function"""
-    multipart_attachment = None
-    if zip_bytes:
-        if os.path.isfile(manifest_json) & os.path.isfile(zip_bytes):
-            multipart_attachment = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-                "attachment": (zip_bytes, open(zip_bytes, 'rb'), 'application/zip')
-            })
-    else:
-        if os.path.isfile(manifest_json):
-            multipart_attachment = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-            })
-        else:
-            multipart_attachment = encoder.MultipartEncoder(fields={
-                "manifest": ('manifest', manifest_json, 'application/json'),
-            })
-    return multipart_attachment

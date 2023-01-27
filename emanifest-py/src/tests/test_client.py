@@ -156,13 +156,19 @@ class TestEncodingMultipartMixed:
     api_id = os.getenv('RCRAINFO_API_ID')
     api_key = os.getenv('RCRAINFO_API_KEY')
     rcrainfo = RcrainfoClient('preprod', api_key=api_key, api_id=api_id)
+    dirname = os.path.dirname(__file__)
+    attachment_file = os.path.join(dirname, 'resources/attachments.zip')
+    json_file = os.path.join(dirname, 'resources/emanifest.json')
 
     def test_encodes_into_request(self):
-        with open('resources/attachments.zip', 'rb') as f:
+        """
+        This is kind of a funny test, since we can't keep saving manifest for these test,
+        we're just making sure it responds with a 400 instead of something else.
+        """
+        with open(self.attachment_file, 'rb') as f:
             attachment = f.read()
-        with open('resources/emanifest.json', 'r') as f:
+        with open(self.json_file, 'r') as f:
             manifest_json = f.read()
 
-        print(type(manifest_json))
-        # self.rcrainfo.save_manifest()
-        assert True
+        response = self.rcrainfo.update_manifest(manifest_json, attachment)
+        assert response.status_code == 400
