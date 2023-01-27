@@ -570,28 +570,36 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/billing/bill-search'
         return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def get_manifest_attachments(self, mtn: str) -> RcrainfoResponse:
+    def get_manifest_attachments(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve e-Manifest details as json with attachments matching provided Manifest Tracking Number (MTN)
         
         Args:
             mtn (str): Manifest tracking number
-        
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             json: Downloaded file containing e-Manifest details for given MTN
             attachments: PDF and HTML files containing additional manifest information (such as scans
             or electronic copies) for the given MTN
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}/attachments'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}/attachments'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}/attachments'
         resp = self.__rcra_request('GET', endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
         if resp.response:
             resp.decode()
         return resp
 
-    def search_mtn(self, **kwargs) -> RcrainfoResponse:
+    def search_mtn(self, reg: bool = False, **kwargs) -> RcrainfoResponse:
         """
         Retrieve manifest tracking numbers based on all or some of provided search criteria
-        
+
+        Args:
+            reg (bool): Use the regulator endpoint
+            reg (bool): Use the Regulator endpoint, defaults to False
+
         Keyword Args:
             stateCode (str): Two-letter US postal state code
             siteId (str): EPA Site ID
@@ -605,23 +613,30 @@ class RcrainfoClient(Session):
         Returns:
             dict: object containing manifest tracking numbers matching criteria
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/search'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/search'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/search'
         return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def get_correction_details(self, mtn: str) -> RcrainfoResponse:
+    def get_correction_details(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve information about all manifest correction versions by manifest tracking number (MTN)
         
         Args:
             mtn (str): Manifest tracking number
-            
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             dict: object containing correction details for given MTN
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-details/{mtn}'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-details/{mtn}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-details/{mtn}'
         return self.__rcra_request('GET', endpoint)
 
-    def get_correction_version(self, **kwargs) -> RcrainfoResponse:
+    def get_correction_version(self, reg: bool = False, **kwargs) -> RcrainfoResponse:
         """
         Retrieve details of manifest correction version based on all or some of the provided search criteria
 
@@ -634,7 +649,10 @@ class RcrainfoClient(Session):
         Returns:
             dict: object containing correction details
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-version'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version'
         return self.__rcra_request('POST', endpoint, **kwargs)
 
     def get_correction_attachments(self, **kwargs) -> RcrainfoResponse:
@@ -660,44 +678,56 @@ class RcrainfoClient(Session):
             resp.decode()
         return resp
 
-    def get_site_mtn(self, site_id: str) -> RcrainfoResponse:
+    def get_site_mtn(self, site_id: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve manifest tracking numbers for a given Site ID
         
         Args:
             site_id (str): EPA Site ID
-        
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             dict: object containing manifest tracking numbers for this site
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest-tracking-numbers/{site_id}'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest-tracking-numbers/{site_id}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest-tracking-numbers/{site_id}'
         return self.__rcra_request('GET', endpoint)
 
-    def get_manifest(self, mtn: str) -> RcrainfoResponse:
+    def get_manifest(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve e-Manifest details matching provided Manifest Tracking Number (MTN)
         
         Args:
             mtn (str): Manifest tracking number
-        
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             dict: object containing e-Manifest details
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}'
         return self.__rcra_request('GET', endpoint)
 
-    def get_sites(self, state_code: str, site_type: str) -> RcrainfoResponse:
+    def get_sites(self, state_code: str, site_type: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve site ids for provided criteria
         
         Args:
             state_code (str): Two-letter US postal state code
             site_type (str): Site type (Generator, Tsdf, Transporter, Broker). Case-sensitive
-        
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             dict: object containing site ID numbers
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/site-ids/{state_code}/{site_type}'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/site-ids/{state_code}/{site_type}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/site-ids/{state_code}/{site_type}'
         return self.__rcra_request('GET', endpoint)
 
     # ToDo: change the type of method parameters to str and bytes
@@ -848,117 +878,10 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/state/cme/evaluation/evaluation-types'
         return self.__rcra_request('GET', endpoint)
 
-    def get_attachments_reg(self, mtn: str) -> RcrainfoResponse:
-        """
-        Retrieve e-Manifest details as json with attachments matching provided Manifest Tracking Number (MTN)
-        
-        Args:
-            mtn (str): Manifest tracking number
-        
-        Returns:
-            json: Downloaded file containing e-Manifest details for given MTN
-            attachments: PDF and HTML files containing additional manifest information (such as scans or
-            electronic copies) for the given MTN
-              message of success or failure
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}/attachments'
-        resp = self.__rcra_request('GET', endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
-        if resp.response:
-            resp.decode()
-        return resp
-
-    def search_mtn_reg(self, **kwargs) -> RcrainfoResponse:
-        """
-        Retrieve manifest tracking numbers based on all or some of provided search criteria
-        
-        Keyword Args:
-            stateCode (str): Two-letter US postal state code
-            siteId (str): EPA Site ID
-            status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete,
-            UnderCorrection, Corrected. Case-sensitive
-            dateType (str): CertifiedDate, ReceivedDate, ShippedDate, UpdatedDate. Case-sensitive
-            siteType (str): Generator, Tsdf, Transporter, RejectionInfo_AlternateTsdf. Case-sensitive
-            startDate (date): Start date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
-            endDate (date): End date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
-        
-        Returns:
-            dict: object containing manifest tracking numbers matching criteria
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/search'
-        return self.__rcra_request('POST', endpoint, **kwargs)
-
-    def get_correction_details_reg(self, mtn: str) -> RcrainfoResponse:
-        """
-        Retrieve information about all manifest correction versions by manifest tracking number (MTN)
-        
-        Args:
-            mtn (str): Manifest tracking number
-            
-        Returns:
-            dict: object containing correction details for given MTN
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-details/{mtn}'
-        return self.__rcra_request('GET', endpoint)
-
-    def get_correction_version_reg(self, **kwargs) -> RcrainfoResponse:
-        """
-        Retrieve details of manifest correction version based on all or some of the provided search criteria
-
-        Keyword Args:
-            manifestTrackingNumber (str): Manifest tracking number. Required
-            status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
-            ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
-            versionNumber (str): Manifest version number
-            
-        Returns:
-            dict: object containing correction details
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-version'
-        return self.__rcra_request('POST', endpoint, **kwargs)
-
-    def get_site_mtn_reg(self, site_id: str) -> RcrainfoResponse:
-        """
-        Retrieve manifest tracking numbers for a given Site ID
-        
-        Args:
-            site_id (str): EPA Site ID
-        
-        Returns:
-            dict: object containing manifest tracking numbers for this site
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest-tracking-numbers/{site_id}'
-        return self.__rcra_request('GET', endpoint)
-
-    def get_manifest_reg(self, mtn: str) -> RcrainfoResponse:
-        """
-        Retrieve e-Manifest details matching provided Manifest Tracking Number (MTN)
-        
-        Args:
-            mtn (str): Manifest tracking number
-        
-        Returns:
-            dict: object containing e-Manifest details
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}'
-        return self.__rcra_request('GET', endpoint)
-
-    def get_sites_reg(self, state_code: str, site_type: str) -> RcrainfoResponse:
-        """
-        Retrieve site ids for provided criteria
-        
-        Args:
-            state_code (str): Two-letter US postal state code
-            site_type (str): Site type (Generator, Tsdf, Transporter, Broker). Case-sensitive
-        
-        Returns:
-            dict: object containing site ID numbers
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/site-ids/{state_code}/{site_type}'
-        return self.__rcra_request('GET', endpoint)
-
     def get_handler_reg(self, handler_id: str, details: bool = False) -> RcrainfoResponse:
         """
         Retrieve a list of handler source records (and optional details) for a specific handler ID
+        This endpoint is restricted to regulators.
         
         Args:
             handler_id (str): EPA Site ID number
