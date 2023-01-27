@@ -1,23 +1,15 @@
 {
-  "createdDate" : "2022-01-07T17:37:00.109+00:00",
-  "updatedDate" : "2022-01-31T18:30:01.910+00:00",
-  "manifestTrackingNumber" : "100032437ELC",
-  "status" : "Corrected",
+  "createdDate" : "2021-10-20T15:12:35.046+00:00",
+  "updatedDate" : "2021-10-20T15:12:35.048+00:00",
+  "manifestTrackingNumber" : "100032713ELC",
+  "status" : "Scheduled",
   "discrepancy" : false,
   "submissionType" : "FullElectronic",
   "originType" : "Service",
-  "shippedDate" : "2021-09-24T16:58:43.857+00:00",
-  "receivedDate" : "2021-09-24T17:01:40.233+00:00",
-  "certifiedDate" : "2022-01-31T18:30:00.410+00:00",
-  "certifiedBy" : {
-    "firstName" : "William",
-    "lastName" : "Nicholas",
-    "userId" : "WILJNICH"
-  },
   "generator" : {
     "epaSiteId" : "VATESTGEN001",
     "name" : "VA TEST GEN 2021",
-    "modified" : false,
+    "modified" : true,
     "registered" : true,
     "mailingAddress" : {
       "address1" : "123 VA TEST GEN 2021 WAY",
@@ -55,15 +47,9 @@
       "number" : "888-456-1234"
     },
     "electronicSignaturesInfo" : [ {
-      "signer" : {
-        "firstName" : "William",
-        "lastName" : "Nicholas",
-        "userId" : "WILJNICH"
-      },
-      "signatureDate" : "2021-09-24T16:56:03.868+00:00",
       "humanReadableDocument" : {
         "name" : "human-readable.html",
-        "size" : 177909,
+        "size" : 177949,
         "mimeType" : "TEXT_HTML"
       }
     } ],
@@ -75,7 +61,7 @@
   "transporters" : [ {
     "epaSiteId" : "VATESTRAN02",
     "name" : "VA TEST TRAN 2021",
-    "modified" : false,
+    "modified" : true,
     "registered" : true,
     "mailingAddress" : {
       "address1" : "321 VA TEST TRAN 2021 ROAD",
@@ -108,19 +94,6 @@
         "number" : "703-308-0023"
       }
     },
-    "electronicSignaturesInfo" : [ {
-      "signer" : {
-        "firstName" : "Scott",
-        "lastName" : "Christian",
-        "userId" : "SCOTTDCHRISTIANRCRA4"
-      },
-      "signatureDate" : "2021-09-24T16:58:43.857+00:00",
-      "humanReadableDocument" : {
-        "name" : "human-readable.html",
-        "size" : 177934,
-        "mimeType" : "TEXT_HTML"
-      }
-    } ],
     "gisPrimary" : false,
     "canEsign" : true,
     "limitedEsign" : true,
@@ -130,7 +103,7 @@
   "designatedFacility" : {
     "epaSiteId" : "VATESTTSDF03",
     "name" : "VA TEST TSDF 2021",
-    "modified" : false,
+    "modified" : true,
     "registered" : true,
     "mailingAddress" : {
       "address1" : "234 VA TEST TSDF 2021 DRIVE",
@@ -164,31 +137,6 @@
       },
       "email" : "Testing@EPA.GOV"
     },
-    "electronicSignaturesInfo" : [ {
-      "signer" : {
-        "firstName" : "David",
-        "lastName" : "Graham",
-        "userId" : "DPGRAHAM4401"
-      },
-      "signatureDate" : "2021-09-24T17:01:40.233+00:00",
-      "humanReadableDocument" : {
-        "name" : "human-readable.html",
-        "size" : 182529,
-        "mimeType" : "TEXT_HTML"
-      }
-    }, {
-      "signer" : {
-        "firstName" : "William",
-        "lastName" : "Nicholas",
-        "userId" : "WILJNICH"
-      },
-      "signatureDate" : "2022-01-07T17:36:10.899+00:00",
-      "humanReadableDocument" : {
-        "name" : "human-readable.html",
-        "size" : 184225,
-        "mimeType" : "TEXT_HTML"
-      }
-    } ],
     "gisPrimary" : false,
     "canEsign" : true,
     "limitedEsign" : true,
@@ -203,12 +151,12 @@
       "printedDotInformation" : "NA1993, Waste Diesel fuel, 3, III"
     },
     "quantity" : {
-      "containerNumber" : 2,
+      "containerNumber" : 12,
       "containerType" : {
         "code" : "DM",
         "description" : "Metal drums, barrels, kegs"
       },
-      "quantity" : 74,
+      "quantity" : 480,
       "unitOfMeasurement" : {
         "code" : "G",
         "description" : "Gallons"
@@ -233,8 +181,8 @@
     "lineNumber" : 1,
     "br" : false,
     "managementMethod" : {
-      "code" : "H010",
-      "description" : "METALS RECOVERY"
+      "code" : "H020",
+      "description" : "SOLVENTS RECOVERY"
     },
     "pcb" : false,
     "discrepancyResidueInfo" : {
@@ -247,12 +195,12 @@
     "dotHazardous" : false,
     "wasteDescription" : "PCB contaminated bags",
     "quantity" : {
-      "containerNumber" : 8,
+      "containerNumber" : 12,
       "containerType" : {
         "code" : "BA",
         "description" : "Burlap, cloth, paper, or plastic bags"
       },
-      "quantity" : 432,
+      "quantity" : 132,
       "unitOfMeasurement" : {
         "code" : "K",
         "description" : "Kilograms"
@@ -277,16 +225,16 @@
       "loadType" : {
         "code" : "BulkWaste"
       },
-      "dateOfRemoval" : "2018-04-18T12:00:00.000+00:00",
+      "dateOfRemoval" : "2018-03-18T04:00:00.000+00:00",
       "weight" : 432,
-      "bulkIdentity" : "Bulk Waste ID2"
+      "bulkIdentity" : "Bulk Waste ID"
     }, {
       "loadType" : {
         "code" : "BulkWaste"
       },
-      "dateOfRemoval" : "2018-03-18T12:00:00.000+00:00",
+      "dateOfRemoval" : "2018-04-18T04:00:00.000+00:00",
       "weight" : 432,
-      "bulkIdentity" : "Bulk Waste ID"
+      "bulkIdentity" : "Bulk Waste ID2"
     } ],
     "discrepancyResidueInfo" : {
       "wasteQuantity" : false,
@@ -304,28 +252,10 @@
   "containsPreviousRejectOrResidue" : false,
   "formDocument" : {
     "name" : "form-2050.pdf",
-    "size" : 584050,
+    "size" : 577348,
     "mimeType" : "APPLICATION_PDF"
   },
   "correctionInfo" : {
-    "epaSiteId" : "VATESTRAN02",
-    "versionNumber" : 2,
-    "active" : true,
-    "electronicSignatureInfo" : {
-      "signer" : {
-        "firstName" : "William",
-        "lastName" : "Nicholas",
-        "userId" : "WILJNICH"
-      },
-      "signatureDate" : "2022-01-31T18:30:00.410+00:00",
-      "humanReadableDocument" : {
-        "name" : "human-readable.html",
-        "size" : 184786,
-        "mimeType" : "TEXT_HTML"
-      },
-      "signerRole" : "Industry"
-    },
-    "initiatorRole" : "Industry"
-  },
-  "locked" : false
+    "active" : true
+  }
 }
