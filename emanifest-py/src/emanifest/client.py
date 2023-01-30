@@ -6,7 +6,7 @@ import io
 import json
 import logging
 import zipfile
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 from requests import Response, Session, Request
 from requests_toolbelt.multipart import decoder, encoder
@@ -54,10 +54,10 @@ class RcrainfoResponse:
             return None
 
     def __str__(self):
-        return f'RcrainfoResponse: status {self.response.status_code}'
+        return f'{self.__class__.__name__}: status {self.response.status_code}'
 
     def __repr__(self):
-        return f'<RcrainfoResponse [{self.status_code}]>'
+        return f'<{self.__class__.__name__} [{self.status_code}]>'
 
     def __bool__(self):
         """returns True if < 400"""
@@ -74,35 +74,68 @@ class RcrainfoResponse:
 
 
 class RcrainfoClient(Session):
+    r"""
+    A http client for using the RCRAInfo (e-Manifest) Restful web services.
+    """
     # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
     __expiration_fmt = '%Y-%m-%dT%H:%M:%S.%f%z'
     __default_headers = {'Accept': 'application/json'}
+    __default_timeout = 10
+    __default_auto_renew = True
 
     def __init__(self, base_url: str, *, api_id=None, api_key=None, timeout=10, auto_renew=True) -> None:
         super().__init__()
-        self.base_url = _parse_url(base_url)
+        self.base_url = base_url
         self.timeout = timeout
-        self.token = None
-        self.__token_expiration_utc = datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(minutes=30)
+        self.__token = None
+        self.__token_expiration_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
         self.__api_key = api_key
         self.__api_id = api_id
         self.headers.update(self.__default_headers)
         self.auto_renew = auto_renew
 
     @property
+    def base_url(self):
+        """RCRAInfo base URL, either for Production ('prod') or Preproduction ('preprod') for testing."""
+        return self.__base_url
+
+    @base_url.setter
+    def base_url(self, value):
+        self.__base_url = _parse_url(value)
+
+    @property
+    def timeout(self):
+        """Http request timeout"""
+        return self.__timeout
+
+    @timeout.setter
+    def timeout(self, value) -> None:
+        if isinstance(value, (int, float)):
+            self.__timeout = value
+        else:
+            self.__timeout = self.__default_timeout
+
+    @property
     def token_expiration(self) -> datetime:
-        """
-        Read only token expiration datetime object.
-        """
+        """Token expiration datetime object. Read only."""
         return self.__token_expiration_utc
+
+    def __set_token_expiration(self, expiration: str) -> None:
+        try:
+            self.__token_expiration_utc = datetime.strptime(expiration, self.__expiration_fmt)
+        except ValueError:
+            self.__token_expiration_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
+
+    @property
+    def token(self):
+        """Session token from Rcrainfo. Read Only."""
+        return self.__token
 
     @property
     def is_authenticated(self) -> bool:
-        """
-        Returns True if the RcrainfoClient token exists and has not expired.
-        """
+        """Returns True if the RcrainfoClient token exists and has not expired."""
         try:
-            if self.__token_expiration_utc > datetime.utcnow().replace(tzinfo=timezone.utc):
+            if self.token_expiration > datetime.utcnow().replace(tzinfo=timezone.utc):
                 if self.token is not None:
                     return True
             else:
@@ -112,16 +145,26 @@ class RcrainfoClient(Session):
 
     @property
     def expiration_format(self) -> str:
-        """
-        Read only datetime format used by RCRAInfo for token expiration.
-        """
+        """Datetime format used by RCRAInfo for token expiration. Read only."""
         return self.__expiration_fmt
+
+    @property
+    def auto_renew(self) -> bool:
+        """whether the RcrainfoClient will automatically re-authenticate after session expiration."""
+        return self._auto_renew
+
+    @auto_renew.setter
+    def auto_renew(self, value) -> None:
+        if value:
+            self._auto_renew = True
+        else:
+            self._auto_renew = False
 
     def __str__(self) -> str:
         return self.__repr__()
 
     def __repr__(self) -> str:
-        return f'<RcrainfoClient [{self.base_url}]>'
+        return f'<{self.__class__.__name__} [{self.base_url}]>'
 
     def __bool__(self) -> bool:
         """Return true if successfully authenticated"""
@@ -129,7 +172,7 @@ class RcrainfoClient(Session):
 
     def __rcra_request(self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
                        ) -> RcrainfoResponse:
-        """Internal method for making (all) requests to RCRAInfo"""
+        """Client internal method for making requests to RCRAInfo"""
 
         # If auto_renew is True, check if the token is expired and, if needed, re-authenticate.
         if self.auto_renew and not self.is_authenticated:
@@ -152,7 +195,6 @@ class RcrainfoClient(Session):
             request.headers = {**request.headers, **headers}
 
         prepared_req = self.prepare_request(request)
-        print(prepared_req.headers)
         return RcrainfoResponse(self.send(prepared_req, timeout=self.timeout, stream=stream))
 
     def __get_token(self):
@@ -164,10 +206,11 @@ class RcrainfoClient(Session):
         self.__api_key = self.retrieve_key()
         auth_url = f'{self.base_url}api/v1/auth/{self.__api_id}/{self.__api_key}'
         resp = self.get(auth_url, timeout=self.timeout)
+        # ToDo: TypeError exception handling
         if resp.ok:
-            self.token = resp.json()['token']
+            self.__token = resp.json()['token']
             self.headers.update({'Authorization': f'Bearer {self.token}'})
-            self.__token_expiration_utc = datetime.strptime(resp.json()['expiration'], self.__expiration_fmt)
+            self.__set_token_expiration(resp.json()['expiration'])
 
     @staticmethod
     def __encode_manifest(manifest_json: str, zip_bytes: bytes = None, *, json_name: str = 'manifest.json',
