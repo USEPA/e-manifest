@@ -6,7 +6,7 @@ import requests
 import emanifest
 from emanifest import new_client, RcrainfoClient
 
-TEST_GEN_MTN = "000012345GBF"
+TEST_GEN_MTN = "100032437ELC"
 TEST_GEN_ID = 'VATESTGEN001'
 
 
@@ -150,3 +150,28 @@ class TestBadClient:
 
     def test_client_token_state(self):
         assert self.bad_rcrainfo.token is None
+
+
+class TestEncodingMultipartMixed:
+    api_id = os.getenv('RCRAINFO_API_ID')
+    api_key = os.getenv('RCRAINFO_API_KEY')
+    rcrainfo = RcrainfoClient('preprod', api_key=api_key, api_id=api_id)
+    dirname = os.path.dirname(__file__)
+    attachment_file = os.path.join(dirname, 'resources/attachments.zip')
+    json_file = os.path.join(dirname, 'resources/emanifest.json')
+    update_manifest_mtn = '100032713ELC'
+
+    def test_encodes_into_request(self):
+        """
+        This is kind of a funny test, since we can't keep saving manifest for these test,
+        we're just making sure it responds with a 400 instead of something else.
+        """
+        with open(self.attachment_file, 'rb') as f:
+            attachment = f.read()
+        with open(self.json_file, 'r') as f:
+            manifest_json = f.read()
+
+        response = self.rcrainfo.update_manifest(manifest_json, attachment)
+        if response.ok:
+            # This Test will only pass if the manifest can be updated in RCRAInfo.
+            assert response.status_code == 200

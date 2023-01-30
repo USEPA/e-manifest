@@ -5,7 +5,6 @@ see https://github.com/USEPA/e-manifest
 import io
 import json
 import logging
-import os
 import zipfile
 from datetime import datetime, timedelta, timezone
 
@@ -147,6 +146,7 @@ class RcrainfoClient(Session):
             request.headers = {**request.headers, **headers}
 
         prepared_req = self.prepare_request(request)
+        print(prepared_req.headers)
         return RcrainfoResponse(self.send(prepared_req, timeout=self.timeout, stream=stream))
 
     def __get_token(self):
@@ -158,6 +158,20 @@ class RcrainfoClient(Session):
             self.token = resp.json()['token']
             self.headers.update({'Authorization': f'Bearer {self.token}'})
             self.__token_expiration_utc = datetime.strptime(resp.json()['expiration'], self.__expiration_fmt)
+
+    @staticmethod
+    def __encode_manifest(manifest_json: str, zip_bytes: bytes = None, *, json_name: str = 'manifest.json',
+                          zip_name='attachments.zip'):
+        """emanifest-py internal helper function to encode json and zip file for upload"""
+        if zip_bytes:
+            return encoder.MultipartEncoder(fields={
+                "manifest": (json_name, manifest_json, 'application/json'),
+                "attachment": (zip_name, zip_bytes, 'application/zip')
+            })
+        else:
+            return encoder.MultipartEncoder(fields={
+                "manifest": (json_name, manifest_json, 'application/json'),
+            })
 
     # The following methods are exposed so users can hook into our client and customize its behavior
     def retrieve_id(self, api_id=None) -> str:
@@ -405,9 +419,12 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/lookup/source-codes'
         return self.__rcra_request('GET', endpoint)
 
-    def get_state_waste_codes(self, state_code) -> RcrainfoResponse:
+    def get_state_waste_codes(self, state_code: str) -> RcrainfoResponse:
         """
-        Retrieve State Waste Codes
+        Retrieve State Waste Codes for a given state (besides Texas)
+
+        Args:
+            state_code: (str) Two-letter state code (e.g., CA, MA)
 
         Returns:
             dict: object with state waste codes
@@ -455,7 +472,7 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/lookup/ports-of-entry'
         return self.__rcra_request('GET', endpoint)
 
-    def check_site_exists(self, site_id) -> RcrainfoResponse:
+    def check_site_exists(self, site_id: str) -> RcrainfoResponse:
         """
         Check if provided Site ID exists
                 
@@ -553,28 +570,36 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/billing/bill-search'
         return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def get_manifest_attachments(self, mtn) -> RcrainfoResponse:
+    def get_manifest_attachments(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve e-Manifest details as json with attachments matching provided Manifest Tracking Number (MTN)
         
         Args:
             mtn (str): Manifest tracking number
-        
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             json: Downloaded file containing e-Manifest details for given MTN
             attachments: PDF and HTML files containing additional manifest information (such as scans
             or electronic copies) for the given MTN
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}/attachments'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}/attachments'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}/attachments'
         resp = self.__rcra_request('GET', endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
         if resp.response:
             resp.decode()
         return resp
 
-    def search_mtn(self, **kwargs) -> RcrainfoResponse:
+    def search_mtn(self, reg: bool = False, **kwargs) -> RcrainfoResponse:
         """
         Retrieve manifest tracking numbers based on all or some of provided search criteria
-        
+
+        Args:
+            reg (bool): Use the regulator endpoint
+            reg (bool): Use the Regulator endpoint, defaults to False
+
         Keyword Args:
             stateCode (str): Two-letter US postal state code
             siteId (str): EPA Site ID
@@ -588,23 +613,30 @@ class RcrainfoClient(Session):
         Returns:
             dict: object containing manifest tracking numbers matching criteria
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/search'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/search'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/search'
         return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def get_correction_details(self, mtn) -> RcrainfoResponse:
+    def get_correction_details(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve information about all manifest correction versions by manifest tracking number (MTN)
         
         Args:
             mtn (str): Manifest tracking number
-            
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             dict: object containing correction details for given MTN
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-details/{mtn}'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-details/{mtn}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-details/{mtn}'
         return self.__rcra_request('GET', endpoint)
 
-    def get_correction_version(self, **kwargs) -> RcrainfoResponse:
+    def get_correction_version(self, reg: bool = False, **kwargs) -> RcrainfoResponse:
         """
         Retrieve details of manifest correction version based on all or some of the provided search criteria
 
@@ -617,76 +649,11 @@ class RcrainfoClient(Session):
         Returns:
             dict: object containing correction details
         """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version'
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-version'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version'
         return self.__rcra_request('POST', endpoint, **kwargs)
-
-    def get_site_mtn(self, site_id) -> RcrainfoResponse:
-        """
-        Retrieve manifest tracking numbers for a given Site ID
-        
-        Args:
-            site_id (str): EPA Site ID
-        
-        Returns:
-            dict: object containing manifest tracking numbers for this site
-        """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest-tracking-numbers/{site_id}'
-        return self.__rcra_request('GET', endpoint)
-
-    def get_manifest(self, mtn) -> RcrainfoResponse:
-        """
-        Retrieve e-Manifest details matching provided Manifest Tracking Number (MTN)
-        
-        Args:
-            mtn (str): Manifest tracking number
-        
-        Returns:
-            dict: object containing e-Manifest details
-        """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}'
-        return self.__rcra_request('GET', endpoint)
-
-    def get_sites(self, state_code, site_type) -> RcrainfoResponse:
-        """
-        Retrieve site ids for provided criteria
-        
-        Args:
-            state_code (str): Two-letter US postal state code
-            site_type (str): Site type (Generator, Tsdf, Transporter, Broker). Case-sensitive
-        
-        Returns:
-            dict: object containing site ID numbers
-        """
-        endpoint = f'{self.base_url}/api/v1/emanifest/site-ids/{state_code}/{site_type}'
-        return self.__rcra_request('GET', endpoint)
-
-    def correct_manifest(self, manifest_json, zip_file=None) -> RcrainfoResponse:
-        """
-        Correct Manifest by providing e-Manifest JSON and optional Zip attachment
-        
-        Args:
-            manifest_json (.json file): Local JSON file containing manifest details
-            zip_file (.zip file): Local zip file containing manifest attachments. Optional
-            
-        Returns:
-            dict: message of success or failure
-        """
-        multipart = _encode_manifest(manifest_json, zip_file)
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correct'
-        return self.__rcra_request('PUT', endpoint, multipart=multipart)
-
-    def revert_manifest(self, mtn) -> RcrainfoResponse:
-        """
-        Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version
-        
-        Args:
-            mtn (str): Manifest tracking number
-            
-        Returns:
-            dict: object containing confirmation of correction
-        """
-        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/revert/{mtn}'
-        return self.__rcra_request('GET', endpoint)
 
     def get_correction_attachments(self, **kwargs) -> RcrainfoResponse:
         r"""
@@ -711,7 +678,89 @@ class RcrainfoClient(Session):
             resp.decode()
         return resp
 
-    def update_manifest(self, manifest_json, zip_file=None) -> RcrainfoResponse:
+    def get_site_mtn(self, site_id: str, reg: bool = False) -> RcrainfoResponse:
+        """
+        Retrieve manifest tracking numbers for a given Site ID
+        
+        Args:
+            site_id (str): EPA Site ID
+            reg (bool): use endpoint for regulators, defaults to False
+
+        Returns:
+            dict: object containing manifest tracking numbers for this site
+        """
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest-tracking-numbers/{site_id}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest-tracking-numbers/{site_id}'
+        return self.__rcra_request('GET', endpoint)
+
+    def get_manifest(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
+        """
+        Retrieve e-Manifest details matching provided Manifest Tracking Number (MTN)
+        
+        Args:
+            mtn (str): Manifest tracking number
+            reg (bool): use endpoint for regulators, defaults to False
+
+        Returns:
+            dict: object containing e-Manifest details
+        """
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}'
+        return self.__rcra_request('GET', endpoint)
+
+    def get_sites(self, state_code: str, site_type: str, reg: bool = False) -> RcrainfoResponse:
+        """
+        Retrieve site ids for provided criteria
+        
+        Args:
+            state_code (str): Two-letter US postal state code
+            site_type (str): Site type (Generator, Tsdf, Transporter, Broker). Case-sensitive
+            reg (bool): use endpoint for regulators, defaults to False
+
+        Returns:
+            dict: object containing site ID numbers
+        """
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/site-ids/{state_code}/{site_type}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/site-ids/{state_code}/{site_type}'
+        return self.__rcra_request('GET', endpoint)
+
+    # ToDo: change the type of method parameters to str and bytes
+    def correct_manifest(self, manifest_json, zip_file=None) -> RcrainfoResponse:
+        """
+        Correct Manifest by providing e-Manifest JSON and optional Zip attachment
+        
+        Args:
+            manifest_json (.json file): Local JSON file containing manifest details
+            zip_file (.zip file): Local zip file containing manifest attachments. Optional
+            
+        Returns:
+            dict: message of success or failure
+        """
+        multipart = self.__encode_manifest(manifest_json, zip_file)
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correct'
+        return self.__rcra_request('PUT', endpoint, multipart=multipart)
+
+    def revert_manifest(self, mtn: str) -> RcrainfoResponse:
+        """
+        Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version
+        
+        Args:
+            mtn (str): Manifest tracking number
+            
+        Returns:
+            dict: object containing confirmation of correction
+        """
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/revert/{mtn}'
+        return self.__rcra_request('GET', endpoint)
+
+    # ToDo: change the type of method parameters to str and bytes
+    def update_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Update Manifest by providing e-Manifest JSON and optional Zip attachment
         
@@ -722,12 +771,13 @@ class RcrainfoClient(Session):
         Returns:
             dict: message of success or failure
         """
-        multipart = _encode_manifest(manifest_json, zip_file)
+        multipart = self.__encode_manifest(manifest_json, zip_file)
 
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/update'
-        return self.__rcra_request('PUT', endpoint, multipart=multipart)
+        return self.__rcra_request('PUT', endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
+            'application/json'}, multipart=multipart)
 
-    def delete_manifest(self, mtn) -> RcrainfoResponse:
+    def delete_manifest(self, mtn: str) -> RcrainfoResponse:
         """
         Delete selected manifest
         
@@ -740,23 +790,24 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/delete/{mtn}'
         return self.__rcra_request('DELETE', endpoint)
 
-    def save_manifest(self, manifest_json, zip_file=None) -> RcrainfoResponse:
+    # ToDo: change the type of method parameters to str and bytes
+    def save_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Save Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (.json file): Local JSON file containing manifest details
-            zip_file (.zip file): Local zip file containing manifest attachments. Optional
+            manifest_json (str): string containing manifest JSON.
+            zip_file (bytearray): array of bytes of zip file with manifest attachments. Optional
             
         Returns:
             dict: message of success or failure
         """
-        multipart = _encode_manifest(manifest_json, zip_file)
+        multipart = self.__encode_manifest(manifest_json, zip_file)
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/save'
         return self.__rcra_request('POST', endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
             'application/json'}, multipart=multipart)
 
-    def check_mtn_exists(self, mtn) -> RcrainfoResponse:
+    def check_mtn_exists(self, mtn: str) -> RcrainfoResponse:
         """
         Check if Manifest Tracking Number (MTN) exists and return basic details
 
@@ -785,7 +836,7 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/links/emanifest'
         return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def get_cme_lookup(self, activity_location, agency_code, nrr_flag=True) -> RcrainfoResponse:
+    def get_cme_lookup(self, activity_location: str, agency_code: str, nrr_flag: bool = True) -> RcrainfoResponse:
         """
         Retrieve all lookups for specific activity location and agency code, including staff,
         focus area and sub-organization
@@ -827,117 +878,10 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/state/cme/evaluation/evaluation-types'
         return self.__rcra_request('GET', endpoint)
 
-    def get_attachments_reg(self, mtn) -> RcrainfoResponse:
-        """
-        Retrieve e-Manifest details as json with attachments matching provided Manifest Tracking Number (MTN)
-        
-        Args:
-            mtn (str): Manifest tracking number
-        
-        Returns:
-            json: Downloaded file containing e-Manifest details for given MTN
-            attachments: PDF and HTML files containing additional manifest information (such as scans or
-            electronic copies) for the given MTN
-              message of success or failure
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}/attachments'
-        resp = self.__rcra_request('GET', endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
-        if resp.response:
-            resp.decode()
-        return resp
-
-    def search_mtn_reg(self, **kwargs) -> RcrainfoResponse:
-        """
-        Retrieve manifest tracking numbers based on all or some of provided search criteria
-        
-        Keyword Args:
-            stateCode (str): Two-letter US postal state code
-            siteId (str): EPA Site ID
-            status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete,
-            UnderCorrection, Corrected. Case-sensitive
-            dateType (str): CertifiedDate, ReceivedDate, ShippedDate, UpdatedDate. Case-sensitive
-            siteType (str): Generator, Tsdf, Transporter, RejectionInfo_AlternateTsdf. Case-sensitive
-            startDate (date): Start date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
-            endDate (date): End date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
-        
-        Returns:
-            dict: object containing manifest tracking numbers matching criteria
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/search'
-        return self.__rcra_request('POST', endpoint, **kwargs)
-
-    def get_correction_details_reg(self, mtn) -> RcrainfoResponse:
-        """
-        Retrieve information about all manifest correction versions by manifest tracking number (MTN)
-        
-        Args:
-            mtn (str): Manifest tracking number
-            
-        Returns:
-            dict: object containing correction details for given MTN
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-details/{mtn}'
-        return self.__rcra_request('GET', endpoint)
-
-    def get_correction_version_reg(self, **kwargs) -> RcrainfoResponse:
-        """
-        Retrieve details of manifest correction version based on all or some of the provided search criteria
-
-        Keyword Args:
-            manifestTrackingNumber (str): Manifest tracking number. Required
-            status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
-            ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
-            versionNumber (str): Manifest version number
-            
-        Returns:
-            dict: object containing correction details
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-version'
-        return self.__rcra_request('POST', endpoint, **kwargs)
-
-    def get_site_mtn_reg(self, site_id) -> RcrainfoResponse:
-        """
-        Retrieve manifest tracking numbers for a given Site ID
-        
-        Args:
-            site_id (str): EPA Site ID
-        
-        Returns:
-            dict: object containing manifest tracking numbers for this site
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest-tracking-numbers/{site_id}'
-        return self.__rcra_request('GET', endpoint)
-
-    def get_manifest_reg(self, mtn) -> RcrainfoResponse:
-        """
-        Retrieve e-Manifest details matching provided Manifest Tracking Number (MTN)
-        
-        Args:
-            mtn (str): Manifest tracking number
-        
-        Returns:
-            dict: object containing e-Manifest details
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}'
-        return self.__rcra_request('GET', endpoint)
-
-    def get_sites_reg(self, state_code, site_type) -> RcrainfoResponse:
-        """
-        Retrieve site ids for provided criteria
-        
-        Args:
-            state_code (str): Two-letter US postal state code
-            site_type (str): Site type (Generator, Tsdf, Transporter, Broker). Case-sensitive
-        
-        Returns:
-            dict: object containing site ID numbers
-        """
-        endpoint = f'{self.base_url}/api/v1/state/emanifest/site-ids/{state_code}/{site_type}'
-        return self.__rcra_request('GET', endpoint)
-
-    def get_handler_reg(self, handler_id, details=False) -> RcrainfoResponse:
+    def get_handler_reg(self, handler_id: str, details: bool = False) -> RcrainfoResponse:
         """
         Retrieve a list of handler source records (and optional details) for a specific handler ID
+        This endpoint is restricted to regulators.
         
         Args:
             handler_id (str): EPA Site ID number
@@ -950,7 +894,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request('GET', endpoint)
 
 
-def new_client(base_url) -> RcrainfoClient:
+def new_client(base_url: str) -> RcrainfoClient:
     """
     Create instance of RCRAInfoClient, helper function
 
@@ -978,27 +922,3 @@ def _parse_url(base_url: str) -> str:
                             "'preprod' or 'prod' to target their respective environments")
     else:
         return base_url
-
-
-# TODO: accept file paths and string/byte stream as arguments
-#  A db probably won't store in filesystem
-#  this function is just asking for problems for the time being
-def _encode_manifest(manifest_json, zip_file=None):
-    """emanifest-py internal helper function"""
-    multipart_attachment = None
-    if zip_file:
-        if os.path.isfile(manifest_json) & os.path.isfile(zip_file):
-            multipart_attachment = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-                "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
-            })
-    else:
-        if os.path.isfile(manifest_json):
-            multipart_attachment = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-            })
-        else:
-            multipart_attachment = encoder.MultipartEncoder(fields={
-                "manifest": ('manifest', manifest_json, 'application/json'),
-            })
-    return multipart_attachment
