@@ -92,12 +92,15 @@ class RcrainfoClient(Session):
     @property
     def token_expiration(self) -> datetime:
         """
-        The Token's expiration datetime.
+        Read only token expiration datetime object.
         """
         return self.__token_expiration_utc
 
     @property
     def is_authenticated(self) -> bool:
+        """
+        Returns True if the RcrainfoClient token exists and has not expired.
+        """
         try:
             if self.__token_expiration_utc > datetime.utcnow().replace(tzinfo=timezone.utc):
                 if self.token is not None:
@@ -109,6 +112,9 @@ class RcrainfoClient(Session):
 
     @property
     def expiration_format(self) -> str:
+        """
+        Read only datetime format used by RCRAInfo for token expiration.
+        """
         return self.__expiration_fmt
 
     def __str__(self) -> str:
@@ -123,7 +129,7 @@ class RcrainfoClient(Session):
 
     def __rcra_request(self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
                        ) -> RcrainfoResponse:
-        """This is the heart of this library"""
+        """Internal method for making (all) requests to RCRAInfo"""
 
         # If auto_renew is True, check if the token is expired and, if needed, re-authenticate.
         if self.auto_renew and not self.is_authenticated:
@@ -150,6 +156,10 @@ class RcrainfoClient(Session):
         return RcrainfoResponse(self.send(prepared_req, timeout=self.timeout, stream=stream))
 
     def __get_token(self):
+        """
+        used to retrieve a session token from RCRAInfo, only request that (intentionally) does
+        not use __rcra_request
+        """
         self.__api_id = self.retrieve_id()
         self.__api_key = self.retrieve_key()
         auth_url = f'{self.base_url}api/v1/auth/{self.__api_id}/{self.__api_key}'
@@ -230,7 +240,7 @@ class RcrainfoClient(Session):
             self.__api_key = str(api_key)
         self.__get_token()
 
-    def get_site_details(self, epa_id) -> RcrainfoResponse:
+    def get_site(self, epa_id) -> RcrainfoResponse:
         """
         Retrieve site details for a given Site ID
         
@@ -485,7 +495,7 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/site-exists/{site_id}'
         return self.__rcra_request('GET', endpoint)
 
-    def site_search(self, **kwargs) -> RcrainfoResponse:
+    def search_sites(self, **kwargs) -> RcrainfoResponse:
         """
         Retrieve sites based on some or all of the provided criteria
         
@@ -619,7 +629,7 @@ class RcrainfoClient(Session):
             endpoint = f'{self.base_url}/api/v1/emanifest/search'
         return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def get_correction_details(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
+    def get_correction(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve information about all manifest correction versions by manifest tracking number (MTN)
         
@@ -656,8 +666,10 @@ class RcrainfoClient(Session):
         return self.__rcra_request('POST', endpoint, **kwargs)
 
     def get_correction_attachments(self, **kwargs) -> RcrainfoResponse:
-        r"""
-        Retrieve attachments of corrected manifests based all or some of the provided search criteria
+        """
+        Retrieve attachments of corrected manifests based all or some of the provided search criteria.
+        See also **get_correction** and **get_correction_version**
+
 
         Keyword Args:
             manifestTrackingNumber (str): Manifest tracking number. Required
@@ -730,14 +742,13 @@ class RcrainfoClient(Session):
             endpoint = f'{self.base_url}/api/v1/emanifest/site-ids/{state_code}/{site_type}'
         return self.__rcra_request('GET', endpoint)
 
-    # ToDo: change the type of method parameters to str and bytes
-    def correct_manifest(self, manifest_json, zip_file=None) -> RcrainfoResponse:
+    def correct_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Correct Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (.json file): Local JSON file containing manifest details
-            zip_file (.zip file): Local zip file containing manifest attachments. Optional
+            manifest_json (str): JSON string containing manifest details
+            zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
             
         Returns:
             dict: message of success or failure
@@ -759,15 +770,14 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/revert/{mtn}'
         return self.__rcra_request('GET', endpoint)
 
-    # ToDo: change the type of method parameters to str and bytes
     def update_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Update Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (.json file): Local JSON file containing manifest details
-            zip_file (.zip file): Local zip file containing manifest attachments. Optional
-            
+            manifest_json (str): JSON string containing manifest details
+            zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
+
         Returns:
             dict: message of success or failure
         """
@@ -790,15 +800,14 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/delete/{mtn}'
         return self.__rcra_request('DELETE', endpoint)
 
-    # ToDo: change the type of method parameters to str and bytes
     def save_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Save Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (str): string containing manifest JSON.
-            zip_file (bytearray): array of bytes of zip file with manifest attachments. Optional
-            
+            manifest_json (str): JSON string containing manifest details
+            zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
+
         Returns:
             dict: message of success or failure
         """
