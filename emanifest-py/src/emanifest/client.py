@@ -4,7 +4,6 @@ see https://github.com/USEPA/e-manifest
 """
 import io
 import json
-import logging
 import zipfile
 from datetime import datetime, timezone
 

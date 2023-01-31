@@ -16,11 +16,10 @@ refactoring.
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
-    - [Getting Started](#getting-started)
-      - [Authentication](#authentication)
-      - [Methods](#methods)
-      - [Regulator Usage](#regulators)
-    - [Help](#help)
+    - [Authentication](#authentication)
+    - [Methods](#methods)
+    - [Regulator Usage](#regulators)
+    - [Advanced Usage](#advanced-usage-and-help)
 - [Contact](#contact)
 - [License](LICENSE.txt)
 
@@ -184,20 +183,43 @@ The following method is only for regulators:
 API endpoints designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors
 if you are not authorized to access these resources in RCRAInfo.
 
-## More Information
+### Advanced Usage and Help
 
-For more information about the RCRAInfo services, see the documentation 
+As of version 3.0, the RcrainfoClient is a subclass of the [requests library](https://requests.readthedocs.io/en/latest/) 
+[Session Class](https://requests.readthedocs.io/en/latest/user/advanced/#session-objects). As such, 
+you can take advantage of its functionality. 
+
+RcrainfoClient can be also customized by subclassing and overriding. For example,
+
+```python
+from emanifest import RcrainfoClient
+
+class MyClass(RcrainfoClient):
+    def retrieve_id(self, api_id=None) -> str:
+        # Custom behavior to retrieve your RCRAInfo API ID 
+        my_api_id = 'api_id_from_someplace_secure'
+        super().retrieve_id(my_api_id)
+```
+
+If you're ever in need of a methods signature and arguments, from the Python console, you can run
+
+```jupyterpython
+from emanifest import RcrainfoClient
+help(RcrainfoClient.get_bill) 
+
+```
+to get a description of the method, any required inputs, and the formats of those inputs. For a list of all the 
+functions
+
+For more information about the RCRAInfo services, see the documentation
 in the [root directory of the e-Manifest GitHub repo](https://github.com/USEPA/e-manifest).
 
 Do not test using RCRAInfo (Production). To register for a testing
 account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).
 
-### Help
-
-If you are uncertain how to use a function, run help(em.FunctionName) in your Python environment. This will return a
-description of the function, any required inputs, and the formats of those inputs. For a list of all the functions
-contained in **emanifest** and additional information about this package, run help(emanifest) in your Python
-environment.
+Please note, the API of emanifest python package was substantially modified from version 2.0 to 3.0. We intend for the 
+3.0 package version to be much more stable than its predecessors. We will continue to adhere to semantic versioning, 
+and will not break backwards incompatibility within a major release.
 
 ## Contact
 
