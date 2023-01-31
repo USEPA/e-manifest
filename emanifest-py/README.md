@@ -74,10 +74,8 @@ the [`RcrainfoClient` definition here](/emanifest-py/src/emanifest/client.py) fo
 
 ### Methods
 
-After providing your API credentials, you are ready to use the full functionality of the emanifest package. An
-introductory example
-script can be found [here](src/example.py). The RcrainfoClient class exposes a method for each API endpoint, method
-names follow a <action>_<resource> naming convention.
+After providing your API credentials, you are ready to use the full functionality of the emanifest package. The
+RcrainfoClient class exposes a method for each API endpoint, which follow a <action>_<resource> naming convention.
 
 #### Examples:
 
@@ -130,12 +128,11 @@ with open('./manifest.json', 'r') as f:
 resp = rcrainfo.update_manifest(manifest_json, attachment)
 ```
 
-
-Responses are returned as a RcraResponse object, which wraps around the [requests library](https://pypi.org/project/requests/)
+Responses are returned as a RcraResponse object, which wraps around
+the [requests library](https://pypi.org/project/requests/)
 Response object. Methods that download file attachments are decoded
 and returned in the ```RcrainfoResponse.multipart_json``` and ```RcrainfoResponse.multipart_zip``` when appropriate. The
 entire ```request.Response``` object is returned in ```RcrainfoResponse.response```.
-
 
 ```python
 from emanifest import RcrainfoClient
@@ -168,6 +165,7 @@ resp = rcrainfo.get_manifest('123456789ELC', reg=True)
 ```
 
 The following methods have regulator options:
+
 1. get_manifest_attachments
 2. search_mtn
 3. get_correction
@@ -177,22 +175,24 @@ The following methods have regulator options:
 7. get_sites
 
 The following method is only for regulators:
-1. get_handler
 
+1. get_handler
 
 API endpoints designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors
 if you are not authorized to access these resources in RCRAInfo.
 
 ### Advanced Usage and Help
 
-As of version 3.0, the RcrainfoClient is a subclass of the [requests library](https://requests.readthedocs.io/en/latest/) 
-[Session Class](https://requests.readthedocs.io/en/latest/user/advanced/#session-objects). As such, 
-you can take advantage of its functionality. 
+As of version 3.0, the RcrainfoClient is a subclass of
+the [requests library](https://requests.readthedocs.io/en/latest/)
+[Session Class](https://requests.readthedocs.io/en/latest/user/advanced/#session-objects). As such,
+you can take advantage of its functionality.
 
 RcrainfoClient can be also customized by subclassing and overriding. For example,
 
 ```python
 from emanifest import RcrainfoClient
+
 
 class MyClass(RcrainfoClient):
     def retrieve_id(self, api_id=None) -> str:
@@ -205,10 +205,12 @@ If you're ever in need of a methods signature and arguments, from the Python con
 
 ```jupyterpython
 from emanifest import RcrainfoClient
-help(RcrainfoClient.get_bill) 
+
+help(RcrainfoClient.get_bill)
 
 ```
-to get a description of the method, any required inputs, and the formats of those inputs. For a list of all the 
+
+to get a description of the method, any required inputs, and the formats of those inputs. For a list of all the
 functions
 
 For more information about the RCRAInfo services, see the documentation
@@ -217,8 +219,8 @@ in the [root directory of the e-Manifest GitHub repo](https://github.com/USEPA/e
 Do not test using RCRAInfo (Production). To register for a testing
 account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).
 
-Please note, the API of emanifest python package was substantially modified from version 2.0 to 3.0. We intend for the 
-3.0 package version to be much more stable than its predecessors. We will continue to adhere to semantic versioning, 
+Please note, the API of emanifest python package was substantially modified from version 2.0 to 3.0. We intend for the
+3.0 package version to be much more stable than its predecessors. We will continue to adhere to semantic versioning,
 and will not break backwards incompatibility within a major release.
 
 ## Contact
