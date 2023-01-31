@@ -930,7 +930,7 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/state/cme/evaluation/evaluation-types'
         return self.__rcra_request('GET', endpoint)
 
-    def get_handler_reg(self, handler_id: str, details: bool = False) -> RcrainfoResponse:
+    def get_handler(self, handler_id: str, details: bool = False) -> RcrainfoResponse:
         """
         Retrieve a list of handler source records (and optional details) for a specific handler ID
         This endpoint is restricted to regulators.

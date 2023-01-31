@@ -27,59 +27,128 @@ refactoring.
 
 - Python 3.7
 
-## Dependencies
-
-- requests
-- requests_toolbelt
-
 ## Installation
 
-**emanifest** can be installed directly from the Python package directory using pip:
+**emanifest** can be installed directly from the Python package Index (PyPI) using pip:
 
-```bash
-pip install emanifest
+```shell
+$ pip install emanifest
 ```
 
-## Usage
-
-### Getting Started
+## Getting Started
 
 Before using the **emanifest** package, ensure you have a RCRAInfo user account and
 the [necessary permissions](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest#user_question6) to
 generate an API ID and key.
 
-All methods to access the e-Manifest APIs are implemented by the `RcrainfoClient` class which needs to be authenticated
-with your API ID and Key. A new instance of the class can be initiated with the `new_client()` convenience function
-like so:
-
-```python
-from emanifest import new_client
-
-rcrainfo = new_client('preprod')
-rcrainfo.authenticate('YOUR_API_ID', 'YOUR_API_KEY')
-```
-
-which is equivalent to:
+All methods to access the e-Manifest APIs are implemented by the `RcrainfoClient` class which needs your API ID and Key
+to authenticate . A new instance of the class can be initiated like so:
 
 ```python
 from emanifest import RcrainfoClient
 
-rcrainfo = RcrainfoClient('preprod')
-rcrainfo.authenticate('YOUR_API_ID', 'YOUR_API_KEY')
+rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
 ```
 
-`new_client()` accepts a string, either **preprod**, **prod**, or a complete base URL. To register for a testing
-account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login). The
-RcrainfoClient stores the JSON web token and its expiration period (20 minutes). Currently, the **emanifest** python
-package does not automatically reauthenticate. See
+And that's it! You're ready to start using the RCRAInfo Restful web services.
+
+The RcrainfoClient class requires one positional argument, a string, either `'preprod'`, or `'prod'`.
+
+### Authentication
+
+Since emanifest python package > 3.0, the RcrainfoClient will automatically (re-)authenticate as needed.
+If you'd like to disable this behaviour, you can pass `auto_renew = False` to the RcrainfoClient instance.
+
+```python
+from emanifest import RcrainfoClient
+
+rcrainfo = RcrainfoClient('preprod', auto_renew=False)
+
+# Returns False if no token present, or has expired.
+if not rcrainfo.is_authenticated:
+    rcrainfo.authenticate(api_id='my_api_id', api_key='my_api_key')
+```
+
+The RcrainfoClient stores the JSON web token and its expiration period (20 minutes). See
 the [`RcrainfoClient` definition here](/emanifest-py/src/emanifest/client.py) for more details.
 
 ### Methods
 
-After authenticating, you are ready to use the full functionality of the emanifest package. An introductory example
-script can be found [here](src/example.py). The RcrainfoClient class exposes a method for each API endpoint in one of
-the 10 service categories (the [methods can be viewed here](/emanifest-py/src/emanifest/client.py)). For more
-information about these services, visit the Swagger page of your selected
+After providing your API credentials, you are ready to use the full functionality of the emanifest package. An
+introductory example
+script can be found [here](src/example.py). The RcrainfoClient class exposes a method for each API endpoint, method
+names follow a <action>_<resource> naming convention.
+
+#### Examples:
+
+RCRAInfo endpoints that require a URL parameter should be passed arguments as a string.
+
+```python
+from emanifest import RcrainfoClient
+
+rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
+
+site_resp = rcrainfo.get_site('VATEST000001')
+```
+
+Many of the POST request use keyword arguments to compose the http request's body. for example...
+
+```python
+from emanifest import RcrainfoClient
+
+rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
+
+resp = rcrainfo.search_mtn(siteId='VATEST000001', status='InTransit')
+```
+
+would send a http requests with the following body to the manifest tracking number (mtn) search endpoint.
+
+```json
+{
+  "siteId": "VATEST000001",
+  "status": "InTransit"
+}
+```
+
+Note, the keyword arguments use the same naming convention seen in the RCRAInfo swagger pages and documentation.
+
+`multipart/mixed` payloads (e.g., [JSON of a manifest]() and [.zip file of attachments]()) can be uploaded to RCRAInfo
+by passing a JSON string and the bytes of the optional attachment like so:
+
+```python
+from emanifest import RcrainfoClient
+
+rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
+
+# The JSON and .zip file could come from a database, filesystem, or an external service.
+with open('./attachments.zip', 'rb') as f:
+    attachment = f.read()
+with open('./manifest.json', 'r') as f:
+    manifest_json = f.read()
+# Could have come from json.dumps({'manifestTrackingNumber': '0123456789ELC', ... }) 
+
+resp = rcrainfo.update_manifest(manifest_json, attachment)
+```
+
+### Regulators
+
+Starting with the emanifest python package version > 3.0, regulator can use the same methods as industry but with
+the `reg` keyword argument set to `True`. For example:
+
+```python
+from emanifest import RcrainfoClient
+
+rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
+
+resp = rcrainfo.search_mtn(siteId='VATEST000001', status='InTransit')
+```
+
+The following methods have regulator options.
+1.
+
+## Where to find more information
+
+For more information about these services, visit the Swagger page of your selected
 environment. ([PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/)).
 API endpoints designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors
 if you are not authorized to access these resources in RCRAInfo.
@@ -96,47 +165,14 @@ if you are not authorized to access these resources in RCRAInfo.
 10. [Regulator users] Handler Services
 11. [Regulator users] User Services
 
+Do not test using RCRAInfo (Production). To register for a testing
+account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).
+
 Content will be returned as a RcraResponse object, which wraps around
-the [requests](https://pypi.org/project/requests/) Response object. Methods that download file attachments are decoded
+the [requests library](https://pypi.org/project/requests/) Response object. Methods that download file attachments are
+decoded
 and returned in the ```RcrainfoResponse.multipart_json``` and ```RcrainfoResponse.multipart_zip``` when appropriate. The
-entire ```request.Response``` object is returned in ```RcrainfoResponse.response```. Methods that update, correct, or
-save manifests by uploading new .json and/or .zip files require a file path.
-
-### Examples:
-
-```python
-from emanifest import new_client
-
-rcrainfo = new_client('preprod')
-rcrainfo.authenticate('YOUR_API_ID', 'YOUR_API_KEY')
-
-rcrainfo.get_site_details('VATEST000001')
-```
-
-Once you've confirmed this is the correct site, you might search for manifests in transit from that site:
-
-```python
-from emanifest import new_client
-
-rcrainfo = new_client('preprod')
-rcrainfo.authenticate('YOUR_API_ID', 'YOUR_API_KEY')
-
-rcrainfo.search_mtn(siteId='VATEST000001', status='InTransit')
-```
-
-Note, the keyword arguments use the same naming convention as the JSON RCRAInfo expects. If one of those manifests
-didn't match your records, you could initiate a
-correction with the correct JSON information
-and optionally any attachments (.zip):
-
-```python
-from emanifest import new_client
-
-rcrainfo = new_client('preprod')
-rcrainfo.authenticate('YOUR_API_ID', 'YOUR_API_KEY')
-
-rcrainfo.correct('manifest_file_name.json', 'optional_attachments.zip')
-```
+entire ```request.Response``` object is returned in ```RcrainfoResponse.response```.
 
 ### Help
 
@@ -147,7 +183,7 @@ environment.
 
 ## Contact
 
-Please direct questions to the EPA e-Manifest team at [USEPA/e-manifest](https://github.com/USEPA/e-manifest)
+Please direct questions to the EPA e-Manifest team at [USEPA/e-manifest](https://github.com/USEPA/e-manifest/issues)
 
 ## Disclaimer
 
