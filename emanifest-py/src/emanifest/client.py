@@ -946,20 +946,6 @@ class RcrainfoClient(Session):
         return self.__rcra_request('GET', endpoint)
 
 
-def new_client(base_url: str) -> RcrainfoClient:
-    """
-    Create instance of RCRAInfoClient, helper function
-
-    Args:
-        base_url (str): either 'prod', 'preprod' or url up to '/api/'
-
-    Returns:
-        client: Instance of RCRAInfo service and emanifest module functions
-    """
-    client_url = _parse_url(base_url)
-    return RcrainfoClient(client_url)
-
-
 def _parse_url(base_url: str) -> str:
     """emanifest-py internal helper function"""
     if "https" not in base_url:
@@ -970,7 +956,6 @@ def _parse_url(base_url: str) -> str:
         if base_url.upper() in urls:
             return urls[base_url.upper()]
         else:
-            logging.warning("Base url not recognized, you can use the argument "
-                            "'preprod' or 'prod' to target their respective environments")
+            return urls["PREPROD"]
     else:
         return base_url
