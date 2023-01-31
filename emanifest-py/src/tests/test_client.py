@@ -4,7 +4,7 @@ import zipfile
 import requests
 
 import emanifest
-from emanifest import new_client, RcrainfoClient
+from emanifest import RcrainfoClient
 
 TEST_GEN_MTN = "100032437ELC"
 TEST_GEN_ID = 'VATESTGEN001'
@@ -141,7 +141,7 @@ class TestSessionSuperClassIsUsable:
 
 
 class TestBadClient:
-    bad_rcrainfo = new_client('preprod')
+    bad_rcrainfo = RcrainfoClient('preprod')
 
     # test of initial state
     def test_bad_auth(self):
@@ -175,3 +175,11 @@ class TestEncodingMultipartMixed:
         if response.ok:
             # This Test will only pass if the manifest can be updated in RCRAInfo.
             assert response.status_code == 200
+
+    def test_download_multipart(self):
+        resp = self.rcrainfo.get_manifest_attachments(self.update_manifest_mtn)
+
+        downloaded_json = resp.json()
+        downloaded_attachment = resp.zip
+        assert isinstance(downloaded_json, str)
+        assert isinstance(downloaded_attachment, zipfile.ZipFile)

@@ -14,11 +14,12 @@ refactoring.
 ## Contents
 
 - [Requirements](#requirements)
-- [Dependencies](#dependencies)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Getting Started](#getting-started)
     - [Getting Started](#getting-started)
-    - [Methods](#methods)
+      - [Authentication](#authentication)
+      - [Methods](#methods)
+      - [Regulator Usage](#regulators)
     - [Help](#help)
 - [Contact](#contact)
 - [License](LICENSE.txt)
@@ -130,9 +131,33 @@ with open('./manifest.json', 'r') as f:
 resp = rcrainfo.update_manifest(manifest_json, attachment)
 ```
 
+
+Responses are returned as a RcraResponse object, which wraps around the [requests library](https://pypi.org/project/requests/)
+Response object. Methods that download file attachments are decoded
+and returned in the ```RcrainfoResponse.multipart_json``` and ```RcrainfoResponse.multipart_zip``` when appropriate. The
+entire ```request.Response``` object is returned in ```RcrainfoResponse.response```.
+
+
+```python
+from emanifest import RcrainfoClient
+
+rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
+
+resp = rcrainfo.get_manifest_attachments('123456789ELC')
+
+# RcraInfoResponse re-exports a couple attributes of the requests.Response object.
+print(resp.ok)
+# Or you can access the full Response like such...
+print(resp.response.json())
+# For endpoints that return multipart/mixed bodies, you can access JSON with the resp.json()
+downloaded_json = resp.json()
+# The .zip file can be accessed in the resp.zip property.
+downloaded_attachment = resp.zip
+```
+
 ### Regulators
 
-Starting with the emanifest python package version > 3.0, regulator can use the same methods as industry but with
+Starting with version > 3.0 emanifest python package, regulator can use the same methods as industry but with
 the `reg` keyword argument set to `True`. For example:
 
 ```python
@@ -140,39 +165,32 @@ from emanifest import RcrainfoClient
 
 rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
 
-resp = rcrainfo.search_mtn(siteId='VATEST000001', status='InTransit')
+resp = rcrainfo.get_manifest('123456789ELC', reg=True)
 ```
 
-The following methods have regulator options.
-1.
+The following methods have regulator options:
+1. get_manifest_attachments
+2. search_mtn
+3. get_correction
+4. get_correction_version
+5. get_site_mtn
+6. get_manifest
+7. get_sites
 
-## Where to find more information
+The following method is only for regulators:
+1. get_handler
 
-For more information about these services, visit the Swagger page of your selected
-environment. ([PREPROD](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [PROD](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/)).
+
 API endpoints designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors
 if you are not authorized to access these resources in RCRAInfo.
 
-1. [All users] Authentication services
-2. [All users] e-Manifest Lookup Services
-3. [All users] Lookup Services
-4. [All users] Site Services
-5. [All users] User Services
-6. [Industry users] e-Manifest Services
-7. [Industry users] e-Manifest UI Link Services
-8. [Regulator users] CM&E Evaluation Services
-9. [Regulator users] e-Manifest Services
-10. [Regulator users] Handler Services
-11. [Regulator users] User Services
+## More Information
+
+For more information about the RCRAInfo services, see the documentation 
+in the [root directory of the e-Manifest GitHub repo](https://github.com/USEPA/e-manifest).
 
 Do not test using RCRAInfo (Production). To register for a testing
 account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).
-
-Content will be returned as a RcraResponse object, which wraps around
-the [requests library](https://pypi.org/project/requests/) Response object. Methods that download file attachments are
-decoded
-and returned in the ```RcrainfoResponse.multipart_json``` and ```RcrainfoResponse.multipart_zip``` when appropriate. The
-entire ```request.Response``` object is returned in ```RcrainfoResponse.response```.
 
 ### Help
 

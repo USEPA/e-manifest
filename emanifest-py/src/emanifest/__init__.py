@@ -1,1 +1,1 @@
-from .client import new_client, RcrainfoClient, RcrainfoResponse
+from .client import RcrainfoClient, RcrainfoResponse
