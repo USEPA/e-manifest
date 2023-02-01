@@ -73,7 +73,7 @@ class RcrainfoResponse:
 
 
 class RcrainfoClient(Session):
-    r"""
+    """
     A http client for using the RCRAInfo (e-Manifest) Restful web services.
     """
     # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
@@ -562,7 +562,7 @@ class RcrainfoClient(Session):
         """
         Retrieve users based on some or all of the provided criteria. Only users of sites accessible
         to the API keyholder will be visible
-        
+
         Keyword Args:
             userId (str) : A RCRAInfo username
             siteIds (array of strings) : One or more EPA site IDs
@@ -890,7 +890,7 @@ class RcrainfoClient(Session):
     def get_cme_lookup(self, activity_location: str, agency_code: str, nrr_flag: bool = True) -> RcrainfoResponse:
         """
         Retrieve all lookups for specific activity location and agency code, including staff,
-        focus area and sub-organization
+        focus area and sub-organization. For use by Regulator users only.
         
         Args:
             activity_location (str): Two-letter US postal state code
@@ -911,7 +911,7 @@ class RcrainfoClient(Session):
 
     def get_cme_indicators(self):
         """
-        Retrieve all evaluation indicators
+        Retrieve all evaluation indicators. For use by Regulator users only.
 
         Returns:
             dict: object containing all evaluation indicators
@@ -921,7 +921,7 @@ class RcrainfoClient(Session):
 
     def get_cme_types(self) -> RcrainfoResponse:
         """
-        Retrieve all evaluation types
+        Retrieve all evaluation types. For use by Regulator users only.
 
         Returns:
             dict: object containing all evaluation types

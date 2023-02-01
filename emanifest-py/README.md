@@ -42,7 +42,7 @@ the [necessary permissions](https://www.epa.gov/e-manifest/frequent-questions-ab
 generate an API ID and key.
 
 All methods to access the e-Manifest APIs are implemented by the `RcrainfoClient` class which needs your API ID and Key
-to authenticate . A new instance of the class can be initiated like so:
+to authenticate. A new instance of the class can be initiated like so:
 
 ```python
 from emanifest import RcrainfoClient
@@ -56,17 +56,25 @@ The RcrainfoClient class requires one positional argument, a string, either `'pr
 
 ### Authentication
 
-Since emanifest python package > 3.0, the RcrainfoClient will automatically (re-)authenticate as needed.
-If you'd like to disable this behaviour, you can pass `auto_renew = False` to the RcrainfoClient instance.
+Starting with version 3.0 and above of this package, the RcrainfoClient will automatically authenticate as needed once
+API credentials have been provided, either during object initiation or by passing the API ID and key to
+the `authenticate` method.
+
+If you'd like to disable this behaviour, you can set the RcrainfoClient `auto_renew = False`, and call
+the `authenticate` method as necessary.
 
 ```python
 from emanifest import RcrainfoClient
 
 rcrainfo = RcrainfoClient('preprod', auto_renew=False)
+# or
+rcrainfo.auto_renew = False
 
 # Returns False if no token present, or has expired.
 if not rcrainfo.is_authenticated:
     rcrainfo.authenticate(api_id='my_api_id', api_key='my_api_key')
+    # If RcrainfoClient already has your API credentials, you don't need to them supply again.
+    rcrainfo.authenticate()
 ```
 
 The RcrainfoClient stores the JSON web token and its expiration period (20 minutes). See
@@ -75,17 +83,18 @@ the [`RcrainfoClient` definition here](/emanifest-py/src/emanifest/client.py) fo
 ### Methods
 
 After providing your API credentials, you are ready to use the full functionality of the emanifest package. The
-RcrainfoClient class exposes a method for each API endpoint, which follow a <action>_<resource> naming convention.
+RcrainfoClient class exposes a method for each API endpoint following an `<action>_<resource>` naming convention.
 
 #### Examples:
 
-RCRAInfo endpoints that require a URL parameter should be passed arguments as a string.
+RCRAInfo endpoints that require a URL parameter should be passed as a string to the RcrainfoClient method.
 
 ```python
 from emanifest import RcrainfoClient
 
 rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
 
+# Any endpoint with URL parameters will take that parameter as a positional, string argument.
 site_resp = rcrainfo.get_site('VATEST000001')
 ```
 
@@ -110,7 +119,10 @@ would send a http requests with the following body to the manifest tracking numb
 
 Note, the keyword arguments use the same naming convention seen in the RCRAInfo swagger pages and documentation.
 
-`multipart/mixed` payloads (e.g., [JSON of a manifest]() and [.zip file of attachments]()) can be uploaded to RCRAInfo
+`multipart/mixed` payloads (
+e.g., [JSON of a manifest](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples)
+and [.zip file of attachments](https://github.com/USEPA/e-manifest/tree/master/Services-Information)) can be uploaded to
+RCRAInfo
 by passing a JSON string and the bytes of the optional attachment like so:
 
 ```python
@@ -118,20 +130,20 @@ from emanifest import RcrainfoClient
 
 rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
 
-# The JSON and .zip file could come from a database, filesystem, or an external service.
+# The JSON and .zip file could come from a database, filesystem, an external service,
+# or json.dumps({'manifestTrackingNumber': '0123456789ELC', ... }) 
 with open('./attachments.zip', 'rb') as f:
     attachment = f.read()
 with open('./manifest.json', 'r') as f:
     manifest_json = f.read()
-# Could have come from json.dumps({'manifestTrackingNumber': '0123456789ELC', ... }) 
 
 resp = rcrainfo.update_manifest(manifest_json, attachment)
 ```
 
 Responses are returned as a RcraResponse object, which wraps around
 the [requests library](https://pypi.org/project/requests/)
-Response object. Methods that download file attachments are decoded
-and returned in the ```RcrainfoResponse.multipart_json``` and ```RcrainfoResponse.multipart_zip``` when appropriate. The
+Response object. Methods that download file attachments can be accessed via the
+```RcrainfoResponse.json()``` method and ```RcrainfoResponse.zip``` property when appropriate. The
 entire ```request.Response``` object is returned in ```RcrainfoResponse.response```.
 
 ```python
@@ -153,7 +165,7 @@ downloaded_attachment = resp.zip
 
 ### Regulators
 
-Starting with version > 3.0 emanifest python package, regulator can use the same methods as industry but with
+Starting with version 3.0 and above of this package, regulator can use the same methods as industry but with
 the `reg` keyword argument set to `True`. For example:
 
 ```python
@@ -164,6 +176,7 @@ rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY
 resp = rcrainfo.get_manifest('123456789ELC', reg=True)
 ```
 
+The `reg` keyword argument is set to `False` by default.
 The following methods have regulator options:
 
 1. get_manifest_attachments
@@ -174,9 +187,12 @@ The following methods have regulator options:
 6. get_manifest
 7. get_sites
 
-The following method is only for regulators:
+The following methods are for regulator users only:
 
 1. get_handler
+2. get_cme_lookups
+3. get_cme_indicators
+4. get_cme_types
 
 API endpoints designed for use by other groups, such as regulators or industry users, will return 'Access Denied' errors
 if you are not authorized to access these resources in RCRAInfo.
@@ -198,30 +214,28 @@ class MyClass(RcrainfoClient):
     def retrieve_id(self, api_id=None) -> str:
         # Custom behavior to retrieve your RCRAInfo API ID 
         my_api_id = 'api_id_from_someplace_secure'
-        super().retrieve_id(my_api_id)
+        return super().retrieve_id(my_api_id)
 ```
 
-If you're ever in need of a methods signature and arguments, from the Python console, you can run
-
-```jupyterpython
-from emanifest import RcrainfoClient
-
-help(RcrainfoClient.get_bill)
+For RcrainfoClient method specific documentation, you can use the `help()` function from the Python console to get a
+description of
+each method and its inputs.
 
 ```
-
-to get a description of the method, any required inputs, and the formats of those inputs. For a list of all the
-functions
+>>> from emanifest import RcrainfoClient
+>>> help(RcrainfoClient.get_bill)
+```
 
 For more information about the RCRAInfo services, see the documentation
-in the [root directory of the e-Manifest GitHub repo](https://github.com/USEPA/e-manifest).
-
-Do not test using RCRAInfo (Production). To register for a testing
+in the [root directory of the e-Manifest GitHub repo](https://github.com/USEPA/e-manifest), and the Swagger page of your
+selected
+environment ([Preproduction](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [Production](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/)).
+Do not use the RCRAInfo Production environment for testing. To register for a testing
 account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).
 
 Please note, the API of emanifest python package was substantially modified from version 2.0 to 3.0. We intend for the
 3.0 package version to be much more stable than its predecessors. We will continue to adhere to semantic versioning,
-and will not break backwards incompatibility within a major release.
+and will not break backwards compatibility within a major release.
 
 ## Contact
 
