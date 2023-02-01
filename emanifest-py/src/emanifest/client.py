@@ -4,9 +4,8 @@ see https://github.com/USEPA/e-manifest
 """
 import io
 import json
-import logging
 import zipfile
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 from requests import Response, Session, Request
 from requests_toolbelt.multipart import decoder, encoder
@@ -54,10 +53,10 @@ class RcrainfoResponse:
             return None
 
     def __str__(self):
-        return f'RcrainfoResponse: status {self.response.status_code}'
+        return f'{self.__class__.__name__}: status {self.response.status_code}'
 
     def __repr__(self):
-        return f'<RcrainfoResponse [{self.status_code}]>'
+        return f'<{self.__class__.__name__} [{self.status_code}]>'
 
     def __bool__(self):
         """returns True if < 400"""
@@ -74,32 +73,68 @@ class RcrainfoResponse:
 
 
 class RcrainfoClient(Session):
+    """
+    A http client for using the RCRAInfo (e-Manifest) Restful web services.
+    """
     # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
     __expiration_fmt = '%Y-%m-%dT%H:%M:%S.%f%z'
     __default_headers = {'Accept': 'application/json'}
+    __default_timeout = 10
+    __default_auto_renew = True
 
     def __init__(self, base_url: str, *, api_id=None, api_key=None, timeout=10, auto_renew=True) -> None:
         super().__init__()
-        self.base_url = _parse_url(base_url)
+        self.base_url = base_url
         self.timeout = timeout
-        self.token = None
-        self.__token_expiration_utc = datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(minutes=30)
+        self.__token = None
+        self.__token_expiration_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
         self.__api_key = api_key
         self.__api_id = api_id
         self.headers.update(self.__default_headers)
         self.auto_renew = auto_renew
 
     @property
+    def base_url(self):
+        """RCRAInfo base URL, either for Production ('prod') or Preproduction ('preprod') for testing."""
+        return self.__base_url
+
+    @base_url.setter
+    def base_url(self, value):
+        self.__base_url = _parse_url(value)
+
+    @property
+    def timeout(self):
+        """Http request timeout"""
+        return self.__timeout
+
+    @timeout.setter
+    def timeout(self, value) -> None:
+        if isinstance(value, (int, float)):
+            self.__timeout = value
+        else:
+            self.__timeout = self.__default_timeout
+
+    @property
     def token_expiration(self) -> datetime:
-        """
-        The Token's expiration datetime.
-        """
+        """Token expiration datetime object. Read only."""
         return self.__token_expiration_utc
+
+    def __set_token_expiration(self, expiration: str) -> None:
+        try:
+            self.__token_expiration_utc = datetime.strptime(expiration, self.__expiration_fmt)
+        except ValueError:
+            self.__token_expiration_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
+
+    @property
+    def token(self):
+        """Session token from Rcrainfo. Read Only."""
+        return self.__token
 
     @property
     def is_authenticated(self) -> bool:
+        """Returns True if the RcrainfoClient token exists and has not expired."""
         try:
-            if self.__token_expiration_utc > datetime.utcnow().replace(tzinfo=timezone.utc):
+            if self.token_expiration > datetime.utcnow().replace(tzinfo=timezone.utc):
                 if self.token is not None:
                     return True
             else:
@@ -109,13 +144,26 @@ class RcrainfoClient(Session):
 
     @property
     def expiration_format(self) -> str:
+        """Datetime format used by RCRAInfo for token expiration. Read only."""
         return self.__expiration_fmt
+
+    @property
+    def auto_renew(self) -> bool:
+        """whether the RcrainfoClient will automatically re-authenticate after session expiration."""
+        return self._auto_renew
+
+    @auto_renew.setter
+    def auto_renew(self, value) -> None:
+        if value:
+            self._auto_renew = True
+        else:
+            self._auto_renew = False
 
     def __str__(self) -> str:
         return self.__repr__()
 
     def __repr__(self) -> str:
-        return f'<RcrainfoClient [{self.base_url}]>'
+        return f'<{self.__class__.__name__} [{self.base_url}]>'
 
     def __bool__(self) -> bool:
         """Return true if successfully authenticated"""
@@ -123,7 +171,7 @@ class RcrainfoClient(Session):
 
     def __rcra_request(self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
                        ) -> RcrainfoResponse:
-        """This is the heart of this library"""
+        """Client internal method for making requests to RCRAInfo"""
 
         # If auto_renew is True, check if the token is expired and, if needed, re-authenticate.
         if self.auto_renew and not self.is_authenticated:
@@ -146,18 +194,22 @@ class RcrainfoClient(Session):
             request.headers = {**request.headers, **headers}
 
         prepared_req = self.prepare_request(request)
-        print(prepared_req.headers)
         return RcrainfoResponse(self.send(prepared_req, timeout=self.timeout, stream=stream))
 
     def __get_token(self):
+        """
+        used to retrieve a session token from RCRAInfo, only request that (intentionally) does
+        not use __rcra_request
+        """
         self.__api_id = self.retrieve_id()
         self.__api_key = self.retrieve_key()
         auth_url = f'{self.base_url}api/v1/auth/{self.__api_id}/{self.__api_key}'
         resp = self.get(auth_url, timeout=self.timeout)
+        # ToDo: TypeError exception handling
         if resp.ok:
-            self.token = resp.json()['token']
+            self.__token = resp.json()['token']
             self.headers.update({'Authorization': f'Bearer {self.token}'})
-            self.__token_expiration_utc = datetime.strptime(resp.json()['expiration'], self.__expiration_fmt)
+            self.__set_token_expiration(resp.json()['expiration'])
 
     @staticmethod
     def __encode_manifest(manifest_json: str, zip_bytes: bytes = None, *, json_name: str = 'manifest.json',
@@ -230,7 +282,7 @@ class RcrainfoClient(Session):
             self.__api_key = str(api_key)
         self.__get_token()
 
-    def get_site_details(self, epa_id) -> RcrainfoResponse:
+    def get_site(self, epa_id) -> RcrainfoResponse:
         """
         Retrieve site details for a given Site ID
         
@@ -485,7 +537,7 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/site-exists/{site_id}'
         return self.__rcra_request('GET', endpoint)
 
-    def site_search(self, **kwargs) -> RcrainfoResponse:
+    def search_sites(self, **kwargs) -> RcrainfoResponse:
         """
         Retrieve sites based on some or all of the provided criteria
         
@@ -510,7 +562,7 @@ class RcrainfoClient(Session):
         """
         Retrieve users based on some or all of the provided criteria. Only users of sites accessible
         to the API keyholder will be visible
-        
+
         Keyword Args:
             userId (str) : A RCRAInfo username
             siteIds (array of strings) : One or more EPA site IDs
@@ -619,7 +671,7 @@ class RcrainfoClient(Session):
             endpoint = f'{self.base_url}/api/v1/emanifest/search'
         return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def get_correction_details(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
+    def get_correction(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve information about all manifest correction versions by manifest tracking number (MTN)
         
@@ -656,8 +708,10 @@ class RcrainfoClient(Session):
         return self.__rcra_request('POST', endpoint, **kwargs)
 
     def get_correction_attachments(self, **kwargs) -> RcrainfoResponse:
-        r"""
-        Retrieve attachments of corrected manifests based all or some of the provided search criteria
+        """
+        Retrieve attachments of corrected manifests based all or some of the provided search criteria.
+        See also **get_correction** and **get_correction_version**
+
 
         Keyword Args:
             manifestTrackingNumber (str): Manifest tracking number. Required
@@ -730,14 +784,13 @@ class RcrainfoClient(Session):
             endpoint = f'{self.base_url}/api/v1/emanifest/site-ids/{state_code}/{site_type}'
         return self.__rcra_request('GET', endpoint)
 
-    # ToDo: change the type of method parameters to str and bytes
-    def correct_manifest(self, manifest_json, zip_file=None) -> RcrainfoResponse:
+    def correct_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Correct Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (.json file): Local JSON file containing manifest details
-            zip_file (.zip file): Local zip file containing manifest attachments. Optional
+            manifest_json (str): JSON string containing manifest details
+            zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
             
         Returns:
             dict: message of success or failure
@@ -759,15 +812,14 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/revert/{mtn}'
         return self.__rcra_request('GET', endpoint)
 
-    # ToDo: change the type of method parameters to str and bytes
     def update_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Update Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (.json file): Local JSON file containing manifest details
-            zip_file (.zip file): Local zip file containing manifest attachments. Optional
-            
+            manifest_json (str): JSON string containing manifest details
+            zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
+
         Returns:
             dict: message of success or failure
         """
@@ -790,15 +842,14 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/delete/{mtn}'
         return self.__rcra_request('DELETE', endpoint)
 
-    # ToDo: change the type of method parameters to str and bytes
     def save_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Save Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (str): string containing manifest JSON.
-            zip_file (bytearray): array of bytes of zip file with manifest attachments. Optional
-            
+            manifest_json (str): JSON string containing manifest details
+            zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
+
         Returns:
             dict: message of success or failure
         """
@@ -839,7 +890,7 @@ class RcrainfoClient(Session):
     def get_cme_lookup(self, activity_location: str, agency_code: str, nrr_flag: bool = True) -> RcrainfoResponse:
         """
         Retrieve all lookups for specific activity location and agency code, including staff,
-        focus area and sub-organization
+        focus area and sub-organization. For use by Regulator users only.
         
         Args:
             activity_location (str): Two-letter US postal state code
@@ -860,7 +911,7 @@ class RcrainfoClient(Session):
 
     def get_cme_indicators(self):
         """
-        Retrieve all evaluation indicators
+        Retrieve all evaluation indicators. For use by Regulator users only.
 
         Returns:
             dict: object containing all evaluation indicators
@@ -870,7 +921,7 @@ class RcrainfoClient(Session):
 
     def get_cme_types(self) -> RcrainfoResponse:
         """
-        Retrieve all evaluation types
+        Retrieve all evaluation types. For use by Regulator users only.
 
         Returns:
             dict: object containing all evaluation types
@@ -878,7 +929,7 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/state/cme/evaluation/evaluation-types'
         return self.__rcra_request('GET', endpoint)
 
-    def get_handler_reg(self, handler_id: str, details: bool = False) -> RcrainfoResponse:
+    def get_handler(self, handler_id: str, details: bool = False) -> RcrainfoResponse:
         """
         Retrieve a list of handler source records (and optional details) for a specific handler ID
         This endpoint is restricted to regulators.
@@ -894,20 +945,6 @@ class RcrainfoClient(Session):
         return self.__rcra_request('GET', endpoint)
 
 
-def new_client(base_url: str) -> RcrainfoClient:
-    """
-    Create instance of RCRAInfoClient, helper function
-
-    Args:
-        base_url (str): either 'prod', 'preprod' or url up to '/api/'
-
-    Returns:
-        client: Instance of RCRAInfo service and emanifest module functions
-    """
-    client_url = _parse_url(base_url)
-    return RcrainfoClient(client_url)
-
-
 def _parse_url(base_url: str) -> str:
     """emanifest-py internal helper function"""
     if "https" not in base_url:
@@ -918,7 +955,6 @@ def _parse_url(base_url: str) -> str:
         if base_url.upper() in urls:
             return urls[base_url.upper()]
         else:
-            logging.warning("Base url not recognized, you can use the argument "
-                            "'preprod' or 'prod' to target their respective environments")
+            return urls["PREPROD"]
     else:
         return base_url

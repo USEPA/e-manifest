@@ -4,7 +4,7 @@ import zipfile
 import requests
 
 import emanifest
-from emanifest import new_client, RcrainfoClient
+from emanifest import RcrainfoClient
 
 TEST_GEN_MTN = "100032437ELC"
 TEST_GEN_ID = 'VATESTGEN001'
@@ -16,7 +16,7 @@ class TestRcrainfoClient:
     rcrainfo = RcrainfoClient('preprod', api_id=api_id, api_key=api_key)
 
     def test_initial_zip_state(self):
-        rcra_response = self.rcrainfo.get_site_details(TEST_GEN_ID)
+        rcra_response = self.rcrainfo.get_site(TEST_GEN_ID)
         assert rcra_response.zip is None
 
     def test_token_when_is_authenticated(self):
@@ -28,7 +28,7 @@ class TestRcrainfoClient:
 
     # RcrainfoResponse test
     def test_extracted_response_json_matches(self):
-        resp = self.rcrainfo.get_site_details(TEST_GEN_ID)
+        resp = self.rcrainfo.get_site(TEST_GEN_ID)
         assert resp.response.json() == resp.json()
 
     def test_decode_multipart_string(self):
@@ -41,7 +41,7 @@ class TestRcrainfoClient:
 
     # Specific method related testing
     def test_get_site_details(self):
-        rcra_response = self.rcrainfo.get_site_details(TEST_GEN_ID)
+        rcra_response = self.rcrainfo.get_site(TEST_GEN_ID)
         site_details = rcra_response.response.json()
         assert site_details['epaSiteId'] == TEST_GEN_ID
 
@@ -141,7 +141,7 @@ class TestSessionSuperClassIsUsable:
 
 
 class TestBadClient:
-    bad_rcrainfo = new_client('preprod')
+    bad_rcrainfo = RcrainfoClient('preprod')
 
     # test of initial state
     def test_bad_auth(self):
@@ -175,3 +175,11 @@ class TestEncodingMultipartMixed:
         if response.ok:
             # This Test will only pass if the manifest can be updated in RCRAInfo.
             assert response.status_code == 200
+
+    def test_download_multipart(self):
+        resp = self.rcrainfo.get_manifest_attachments(self.update_manifest_mtn)
+
+        downloaded_json = resp.json()
+        downloaded_attachment = resp.zip
+        assert isinstance(downloaded_json, str)
+        assert isinstance(downloaded_attachment, zipfile.ZipFile)
