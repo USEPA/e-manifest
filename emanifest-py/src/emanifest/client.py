@@ -3,103 +3,286 @@ e-Manifest library for using the e-Manifest API
 see https://github.com/USEPA/e-manifest
 """
 import io
-import logging
-import os
 import json
-import sys
 import zipfile
+from datetime import datetime, timezone
+
+from requests import Response, Session, Request
 from requests_toolbelt.multipart import decoder, encoder
-import requests
-import datetime
 
 
 class RcrainfoResponse:
+    """
+    RcrainfoResponse wraps around the requests library's Response object.
+    The complete Response object can be accessed as self.response
 
-    def __init__(self, response: requests.Response):
+    Attributes:
+        response (Response) the request library response object.
+    """
+
+    def __init__(self, response: Response):
         self.response = response
-        self.ok = response.ok
-        self.json = None
-        self.zip = None
+        self._multipart_json = None
+        self._multipart_zip = None
+
+    def json(self):
+        if self._multipart_json:
+            return self._multipart_json
+        else:
+            return self.response.json()
+
+    @property
+    def ok(self):
+        if self.response.ok:
+            return self.response.ok
+        else:
+            return False
+
+    @property
+    def status_code(self):
+        if self.response.status_code is not None:
+            return self.response.status_code
+        else:
+            return None
+
+    @property
+    def zip(self):
+        if self._multipart_zip:
+            return self._multipart_zip
+        else:
+            return None
+
+    def __str__(self):
+        return f'{self.__class__.__name__}: status {self.response.status_code}'
 
     def __repr__(self):
-        return f'Object: RcrainfoResponse with status {self.ok}'
+        return f'<{self.__class__.__name__} [{self.status_code}]>'
 
-    def ExtractAttributes(self):
-        if self.response:
-            self.ok = self.response.ok
-            self.json = self.response.json()
+    def __bool__(self):
+        """returns True if < 400"""
+        return self.ok
 
-    def DecodeMultipart(self):
+    def decode(self):
         multipart_data = decoder.MultipartDecoder.from_response(self.response)
         for part in multipart_data.parts:
             if part.headers[b'Content-Type'] == b'application/json':
-                self.json = part.text
+                self._multipart_json = part.text
             else:
                 zip_contents = zipfile.ZipFile(io.BytesIO(part.content))
-                self.zip = zip_contents
+                self._multipart_zip = zip_contents
 
 
-# noinspection PyIncorrectDocstring
-class RcrainfoClient:
-    def __init__(self, base_url: str, timeout=10) -> None:
+class RcrainfoClient(Session):
+    """
+    A http client for using the RCRAInfo (e-Manifest) Restful web services.
+    """
+    # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
+    __expiration_fmt = '%Y-%m-%dT%H:%M:%S.%f%z'
+    __default_headers = {'Accept': 'application/json'}
+    __default_timeout = 10
+    __default_auto_renew = True
+
+    def __init__(self, base_url: str, *, api_id=None, api_key=None, timeout=10, auto_renew=True) -> None:
+        super().__init__()
         self.base_url = base_url
-        self.token = None
-        self.token_expiration = None
         self.timeout = timeout
+        self.__token = None
+        self.__token_expiration_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
+        self.__api_key = api_key
+        self.__api_id = api_id
+        self.headers.update(self.__default_headers)
+        self.auto_renew = auto_renew
+
+    @property
+    def base_url(self):
+        """RCRAInfo base URL, either for Production ('prod') or Preproduction ('preprod') for testing."""
+        return self.__base_url
+
+    @base_url.setter
+    def base_url(self, value):
+        self.__base_url = _parse_url(value)
+
+    @property
+    def timeout(self):
+        """Http request timeout"""
+        return self.__timeout
+
+    @timeout.setter
+    def timeout(self, value) -> None:
+        if isinstance(value, (int, float)):
+            self.__timeout = value
+        else:
+            self.__timeout = self.__default_timeout
+
+    @property
+    def token_expiration(self) -> datetime:
+        """Token expiration datetime object. Read only."""
+        return self.__token_expiration_utc
+
+    def __set_token_expiration(self, expiration: str) -> None:
+        try:
+            self.__token_expiration_utc = datetime.strptime(expiration, self.__expiration_fmt)
+        except ValueError:
+            self.__token_expiration_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
+
+    @property
+    def token(self):
+        """Session token from Rcrainfo. Read Only."""
+        return self.__token
+
+    @property
+    def is_authenticated(self) -> bool:
+        """Returns True if the RcrainfoClient token exists and has not expired."""
+        try:
+            if self.token_expiration > datetime.utcnow().replace(tzinfo=timezone.utc):
+                if self.token is not None:
+                    return True
+            else:
+                return False
+        except TypeError:
+            return False
+
+    @property
+    def expiration_format(self) -> str:
+        """Datetime format used by RCRAInfo for token expiration. Read only."""
+        return self.__expiration_fmt
+
+    @property
+    def auto_renew(self) -> bool:
+        """whether the RcrainfoClient will automatically re-authenticate after session expiration."""
+        return self._auto_renew
+
+    @auto_renew.setter
+    def auto_renew(self, value) -> None:
+        if value:
+            self._auto_renew = True
+        else:
+            self._auto_renew = False
+
+    def __str__(self) -> str:
+        return self.__repr__()
 
     def __repr__(self) -> str:
-        return f'Object: RcrainfoClient with base url {self.base_url}'
+        return f'<{self.__class__.__name__} [{self.base_url}]>'
 
-    def Auth(self, api_id, api_key) -> None:
+    def __bool__(self) -> bool:
+        """Return true if successfully authenticated"""
+        return self.is_authenticated
+
+    def __rcra_request(self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
+                       ) -> RcrainfoResponse:
+        """Client internal method for making requests to RCRAInfo"""
+
+        # If auto_renew is True, check if the token is expired and, if needed, re-authenticate.
+        if self.auto_renew and not self.is_authenticated:
+            self.__get_token()
+
+        # decide if, and what, we need to put into the body of our request.
+        if method in ('POST', 'PUT', 'PATCH'):
+            if multipart is not None:
+                data = multipart
+            else:
+                data = json.dumps(dict(**kwargs))
+        else:
+            data = None
+
+        # Initiate the http request object
+        request = Request(method, url=endpoint, data=data)
+
+        # If additional headers are passed, attach and/or overwrite
+        if headers is not None:
+            request.headers = {**request.headers, **headers}
+
+        prepared_req = self.prepare_request(request)
+        return RcrainfoResponse(self.send(prepared_req, timeout=self.timeout, stream=stream))
+
+    def __get_token(self):
+        """
+        used to retrieve a session token from RCRAInfo, only request that (intentionally) does
+        not use __rcra_request
+        """
+        self.__api_id = self.retrieve_id()
+        self.__api_key = self.retrieve_key()
+        auth_url = f'{self.base_url}api/v1/auth/{self.__api_id}/{self.__api_key}'
+        resp = self.get(auth_url, timeout=self.timeout)
+        # ToDo: TypeError exception handling
+        if resp.ok:
+            self.__token = resp.json()['token']
+            self.headers.update({'Authorization': f'Bearer {self.token}'})
+            self.__set_token_expiration(resp.json()['expiration'])
+
+    @staticmethod
+    def __encode_manifest(manifest_json: str, zip_bytes: bytes = None, *, json_name: str = 'manifest.json',
+                          zip_name='attachments.zip'):
+        """emanifest-py internal helper function to encode json and zip file for upload"""
+        if zip_bytes:
+            return encoder.MultipartEncoder(fields={
+                "manifest": (json_name, manifest_json, 'application/json'),
+                "attachment": (zip_name, zip_bytes, 'application/zip')
+            })
+        else:
+            return encoder.MultipartEncoder(fields={
+                "manifest": (json_name, manifest_json, 'application/json'),
+            })
+
+    # The following methods are exposed so users can hook into our client and customize its behavior
+    def retrieve_id(self, api_id=None) -> str:
+        """
+        Getter method used internally to retrieve the desired RCRAInfo API ID. Can be overridden
+        to automatically support retrieving an API ID from an external location.
+        Args:
+            api_id:
+
+        Returns:
+            string of the user's RCRAInfo API ID
+        """
+        if api_id:
+            return api_id
+        elif self.__api_id:
+            return self.__api_id
+        elif self.__api_id is None and api_id is None:
+            #  pass an empty string so, if user's fail to provide a string, it will not try to use None as
+            #  the API credential in the URL
+            return ''
+
+    def retrieve_key(self, api_key=None) -> str:
+        """
+        Getter method used internally to retrieve the desired RCRAInfo API key. Can be overridden
+        to automatically support retrieving an API Key from an external location.
+
+        Args:
+            api_key:
+
+        Returns:
+            string of the user's RCRAInfo API Key
+        """
+        if api_key:
+            return api_key
+        elif self.__api_key:
+            return self.__api_key
+        elif self.__api_key is None and api_key is None:
+            return ''
+
+    # Below this line are the high level methods to request RCRAInfo/e-Manifest
+    def authenticate(self, api_id=None, api_key=None) -> None:
         """
         Authenticate user's RCRAInfo API ID and Key to generate token for use by other functions
-        
+
         Args:
             api_id (str): API ID of RCRAInfo User with Site Manager level permission.
             api_key (str): User's RCRAInfo API key. Generated alongside the api_id in RCRAInfo
-        
+
         Returns:
-            token (client): Authentication token for use by other emanifest functions. Expires after 20 minutes 
+            token (client): Authentication token for use by other emanifest functions. Expires after 20 minutes
         """
-        auth_url = f'{self.base_url}api/v1/auth/{api_id}/{api_key}'
-        resp = requests.get(auth_url, timeout=self.timeout)
-        if resp.ok:
-            self.token = resp.json()['token']
-            expire = resp.json()['expiration']
-            # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
-            expire_format = '%Y-%m-%dT%H:%M:%S.%f%z'
-            self.token_expiration = datetime.datetime.strptime(expire, expire_format)
+        # if api credentials are passed, set the client's attributes
+        if api_id is not None:
+            self.__api_id = str(api_id)
+        if api_key is not None:
+            self.__api_key = str(api_key)
+        self.__get_token()
 
-    def __RCRAGet(self, endpoint) -> RcrainfoResponse:
-        resp = RcrainfoResponse(requests.get(endpoint, timeout=self.timeout,
-                                             headers={'Accept': 'application/json',
-                                                      'Authorization': 'Bearer ' + self.token}))
-        resp.ExtractAttributes()
-        return resp
-
-    def __RCRAPost(self, endpoint, **kwargs) -> RcrainfoResponse:
-        resp = RcrainfoResponse(requests.post(endpoint, timeout=self.timeout,
-                                              headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                                       'Authorization': 'Bearer ' + self.token},
-                                              data=json.dumps(dict(**kwargs))))
-        resp.ExtractAttributes()
-        return resp
-
-    def __RCRADelete(self, endpoint) -> RcrainfoResponse:
-        resp = RcrainfoResponse(requests.delete(endpoint, timeout=self.timeout,
-                                                headers={'Accept': 'application/json',
-                                                         'Authorization': 'Bearer ' + self.token}))
-        resp.ExtractAttributes()
-        return resp
-
-    def __RCRAPut(self, endpoint, m) -> RcrainfoResponse:
-        resp = RcrainfoResponse(requests.put(endpoint, timeout=self.timeout,
-                                             headers={'Content-Type': m.content_type, 'Accept': 'application/json',
-                                                      'Authorization': 'Bearer ' + self.token}, data=m))
-        resp.ExtractAttributes()
-        return resp
-
-    def GetSiteDetails(self, epa_id) -> RcrainfoResponse:
+    def get_site(self, epa_id) -> RcrainfoResponse:
         """
         Retrieve site details for a given Site ID
         
@@ -109,30 +292,30 @@ class RcrainfoClient:
         Returns:
             dict: object with EPA ID site details
         """
-        endpoint = self.base_url + '/api/v1/site-details/' + epa_id
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/site-details/{epa_id}'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetHazardClasses(self) -> RcrainfoResponse:
+    def get_hazard_classes(self) -> RcrainfoResponse:
         """
         Retrieve all DOT Hazard Classes
         
         Returns:
             dict: object with DOT hazard classes
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/hazard-classes'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/hazard-classes'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetPackingGroups(self) -> RcrainfoResponse:
+    def get_packing_groups(self) -> RcrainfoResponse:
         """
         Retrieve all DOT Packing Groups
         
         Returns:
             dict: object with DOT packing groups
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/packing-groups'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/packing-groups'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetHazClass_SN_ID(self, ship_name, id_num) -> RcrainfoResponse:
+    def get_haz_class_sn_id(self, ship_name, id_num) -> RcrainfoResponse:
         """
         Retrieve DOT Hazard Classes by DOT Proper Shipping name and ID Number 
         
@@ -143,10 +326,11 @@ class RcrainfoClient:
         Returns:
             dict: object with DOT hazard classes
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/hazard-class-by-shipping-name-id-number/' + ship_name + '/' + id_num
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/hazard-class-by-shipping-name-id-number/' \
+                   f'{ship_name}/{id_num}'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetPackGroups_SN_ID(self, ship_name, id_num) -> RcrainfoResponse:
+    def get_pack_groups_sn_id(self, ship_name, id_num) -> RcrainfoResponse:
         """
         Retrieve DOT Packing Groups by DOT Proper Shipping name and ID Number 
         
@@ -157,10 +341,11 @@ class RcrainfoClient:
         Returns:
             dict: object with DOT packing groups
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/' + ship_name + '/' + id_num
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/' \
+                   f'{ship_name}/{id_num}'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetIDByShipName(self, ship_name) -> RcrainfoResponse:
+    def get_id_by_ship_name(self, ship_name) -> RcrainfoResponse:
         """
         Retrieve DOT ID number by DOT Proper Shipping name
         
@@ -170,10 +355,10 @@ class RcrainfoClient:
         Returns:
             dict: object with DOT ID number
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/id-numbers-by-shipping-name/' + ship_name
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/id-numbers-by-shipping-name/{ship_name}'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetShipNameByID(self, id_num) -> RcrainfoResponse:
+    def get_ship_name_by_id(self, id_num) -> RcrainfoResponse:
         """
         Retrieve DOT Proper Shipping name by DOT ID number
         
@@ -183,160 +368,163 @@ class RcrainfoClient:
         Returns:
             dict: object with DOT Proper Shipping name 
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/proper-shipping-names-by-id-number/' + id_num
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/proper-shipping-names-by-id-number/{id_num}'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetTNSuffix(self) -> RcrainfoResponse:
+    def get_mtn_suffix(self) -> RcrainfoResponse:
         """
         Retrieve Allowable Manifest Tracking Number (MTN) Suffixes
 
         Returns:
             dict: object with allowable MTN suffixes
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/printed-tracking-number-suffixes'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/printed-tracking-number-suffixes'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetTNSuffixALL(self) -> RcrainfoResponse:
+    def get_mtn_suffix_all(self) -> RcrainfoResponse:
         """
         Retrieve ALL Allowable Manifest Tracking Number (MTN) Suffixes
 
         Returns:
             dict: object with all allowable MTN suffixes
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/printed-tracking-number-suffixes-ALL'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/printed-tracking-number-suffixes-ALL'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetContainerTypes(self) -> RcrainfoResponse:
+    def get_container_types(self) -> RcrainfoResponse:
         """
         Retrieve Container Types
 
         Returns:
             dict: object with container types
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/container-types'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/container-types'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetQuantityUOM(self) -> RcrainfoResponse:
+    def get_quantity_uom(self) -> RcrainfoResponse:
         """
         Retrieve Quantity Units of Measure (UOM)
 
         Returns:
             dict: object with quantity UOM
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/quantity-uom'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/quantity-uom'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetLoadTypes(self) -> RcrainfoResponse:
+    def get_load_types(self) -> RcrainfoResponse:
         """
         Retrieve PCB Load Types
 
         Returns:
             dict: object with load types
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/load-types'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/load-types'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetShippingNames(self) -> RcrainfoResponse:
+    def get_shipping_names(self) -> RcrainfoResponse:
         """
         Retrieve DOT Proper Shipping Names
 
         Returns:
             dict: object with DOT Proper Shipping names
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/proper-shipping-names'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/proper-shipping-names'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetIDNums(self) -> RcrainfoResponse:
+    def get_id_numbers(self) -> RcrainfoResponse:
         """
         Retrieve DOT Shipping ID numbers
 
         Returns:
             dict: object with DOT Shipping ID numbers
         """
-        endpoint = self.base_url + '/api/v1/emanifest/lookup/id-numbers'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/lookup/id-numbers'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetDensityUOM(self) -> RcrainfoResponse:
+    def get_density_uom(self) -> RcrainfoResponse:
         """
         Retrieve Density Units of Measure (UOM)
 
         Returns:
             dict: object with density UOM
         """
-        endpoint = self.base_url + '/api/v1/lookup/density-uom'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/lookup/density-uom'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetFormCodes(self) -> RcrainfoResponse:
+    def get_form_codes(self) -> RcrainfoResponse:
         """
         Retrieve Form Codes
 
         Returns:
             dict: object with form codes
         """
-        endpoint = self.base_url + '/api/v1/lookup/form-codes'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/lookup/form-codes'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetSourceCodes(self) -> RcrainfoResponse:
+    def get_source_codes(self) -> RcrainfoResponse:
         """
         Retrieve Source Codes
 
         Returns:
             dict: object with source codes
         """
-        endpoint = self.base_url + '/api/v1/lookup/source-codes'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/lookup/source-codes'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetStateWasteCodes(self, state_code) -> RcrainfoResponse:
+    def get_state_waste_codes(self, state_code: str) -> RcrainfoResponse:
         """
-        Retrieve State Waste Codes
+        Retrieve State Waste Codes for a given state (besides Texas)
+
+        Args:
+            state_code: (str) Two-letter state code (e.g., CA, MA)
 
         Returns:
             dict: object with state waste codes
         """
-        endpoint = self.base_url + '/api/v1/lookup/state-waste-codes/' + state_code
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/lookup/state-waste-codes/{state_code}'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetFedWasteCodes(self) -> RcrainfoResponse:
+    def get_fed_waste_codes(self) -> RcrainfoResponse:
         """
         Retrieve Federal Waste Codes
 
         Returns:
             dict: object with federal waste codes
         """
-        endpoint = self.base_url + '/api/v1/lookup/federal-waste-codes'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/lookup/federal-waste-codes'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetManMethodCodes(self) -> RcrainfoResponse:
+    def get_man_method_codes(self) -> RcrainfoResponse:
         """
         Retrieve Management Method Codes
 
         Returns:
             dict: object with management method codes
         """
-        endpoint = self.base_url + '/api/v1/lookup/management-method-codes'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/lookup/management-method-codes'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetWasteMinCodes(self) -> RcrainfoResponse:
+    def get_waste_min_codes(self) -> RcrainfoResponse:
         """
         Retrieve Waste Minimization Codes
 
         Returns:
             dict: object with waste minimization codes
         """
-        endpoint = self.base_url + '/api/v1/lookup/waste-minimization-codes'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/lookup/waste-minimization-codes'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetPortsOfEntry(self) -> RcrainfoResponse:
+    def get_entry_ports(self) -> RcrainfoResponse:
         """
         Retrieve Ports of Entry
 
         Returns:
             dict: object with ports of entry
         """
-        endpoint = self.base_url + '/api/v1/lookup/ports-of-entry'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/lookup/ports-of-entry'
+        return self.__rcra_request('GET', endpoint)
 
-    def CheckSiteExists(self, site_id) -> RcrainfoResponse:
+    def check_site_exists(self, site_id: str) -> RcrainfoResponse:
         """
         Check if provided Site ID exists
                 
@@ -346,14 +534,14 @@ class RcrainfoClient:
         Returns:
             result (boolean): true/false confirmation if site exists
         """
-        endpoint = self.base_url + '/api/v1/site-exists/' + site_id
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/site-exists/{site_id}'
+        return self.__rcra_request('GET', endpoint)
 
-    def SiteSearch(self, **kwargs) -> RcrainfoResponse:
+    def search_sites(self, **kwargs) -> RcrainfoResponse:
         """
         Retrieve sites based on some or all of the provided criteria
         
-        Args:
+        Keyword Args:
             epaSiteId (str): EPA site ID
             name (str): Site name (e.g. The White House)
             streetNumber (str): Street number (e.g. 1600)
@@ -367,14 +555,15 @@ class RcrainfoClient:
         Returns:
             dict: object containing list of sites matching criteria and details about each site
         """
-        endpoint = self.base_url + '/api/v1/site-search'
-        return self.__RCRAPost(endpoint, **kwargs)
+        endpoint = f'{self.base_url}/api/v1/site-search'
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def UserSearch(self, **kwargs) -> RcrainfoResponse:
+    def search_users(self, **kwargs) -> RcrainfoResponse:
         """
-        Retrieve users based on some or all of the provided criteria. Only users of sites accessible to the API key holder will be visible
-        
-        Args:
+        Retrieve users based on some or all of the provided criteria. Only users of sites accessible
+        to the API keyholder will be visible
+
+        Keyword Args:
             userId (str) : A RCRAInfo username
             siteIds (array of strings) : One or more EPA site IDs
             pageNumber (number): must be greater than 0
@@ -382,14 +571,14 @@ class RcrainfoClient:
         Returns:
             dict: object containing list of users matching criteria and details about each user
         """
-        endpoint = self.base_url + '/api/v1/user/user-search'
-        return self.__RCRAPost(endpoint, **kwargs)
-    
-    def GetBillingHistory(self, **kwargs) -> RcrainfoResponse:
+        endpoint = f'{self.base_url}/api/v1/user/user-search'
+        return self.__rcra_request('POST', endpoint, **kwargs)
+
+    def get_billing_history(self, **kwargs) -> RcrainfoResponse:
         """
         Retrieve billing history for a given billing account ID
         
-        Args:
+        Keyword Args:
             billing_account (str): EPA Site ID
             start_month_year (date): First bill to be included (MM/YYYY format)
             end_month_year (date): Final bill to be included (MM/YYYY format)
@@ -397,14 +586,14 @@ class RcrainfoClient:
         Returns:
             dict: object containing billing history for the specified site and period
         """
-        endpoint = self.base_url + '/api/v1/emanifest/billing/bill-history'
-        return self.__RCRAPost(endpoint, **kwargs)
+        endpoint = f'{self.base_url}/api/v1/emanifest/billing/bill-history'
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def GetBill(self, **kwargs) -> RcrainfoResponse:
+    def get_bill(self, **kwargs) -> RcrainfoResponse:
         """
         Retrieve bill information for a given bill ID and account ID
         
-        Args:
+        Keyword Args:
             billId (str): Bill ID
             billingAccount (str): EPA Site ID
             monthYear (date): Billing month (as MM/YYYY). Optional if billId is provided
@@ -412,16 +601,16 @@ class RcrainfoClient:
         Returns:
             dict: object containing bill information for the specified ID and account
         """
-        endpoint = self.base_url + '/api/v1/emanifest/billing/bill'
-        return self.__RCRAPost(endpoint, **kwargs)
+        endpoint = f'{self.base_url}/api/v1/emanifest/billing/bill'
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def SearchBill(self, **kwargs) -> RcrainfoResponse:
+    def search_bill(self, **kwargs) -> RcrainfoResponse:
         """
         Search and retrieve bills using all or some of the provided criteria
         
-        Args:
+        Keyword Args:
             billingAccount (str): EPA Site ID
-            billStatus (str): Active, Paid, Unpaid, ReadyForPayment, Credit, InProgress, SendToCollections, ZeroBalance. Case-sensitive
+            billStatus (str): Active, Paid, Unpaid, ReadyForPayment, Credit, InProgress, SendToCollections, ZeroBalance.
             startDate(date): Beginning of the billing period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
             endDate (date): End of the billing period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
             amountChanged (boolean): True or false
@@ -430,38 +619,44 @@ class RcrainfoClient:
         Returns:
             dict: object with bills matching criteria
         """
-        endpoint = self.base_url + '/api/v1/emanifest/billing/bill-search'
-        return self.__RCRAPost(endpoint, **kwargs)
+        endpoint = f'{self.base_url}/api/v1/emanifest/billing/bill-search'
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def GetAttachments(self, mtn) -> RcrainfoResponse:
+    def get_manifest_attachments(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve e-Manifest details as json with attachments matching provided Manifest Tracking Number (MTN)
         
         Args:
             mtn (str): Manifest tracking number
-        
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             json: Downloaded file containing e-Manifest details for given MTN
-            attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
+            attachments: PDF and HTML files containing additional manifest information (such as scans
+            or electronic copies) for the given MTN
         """
-        resp = RcrainfoResponse(requests.get(self.base_url + '/api/v1/emanifest/manifest/' + mtn + '/attachments',
-                                             headers={'Accept': 'multipart/mixed',
-                                                      'Authorization': 'Bearer ' + self.token},
-                                             stream=True))
-        if resp.response:
-            resp.DecodeMultipart()
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}/attachments'
         else:
-            resp.ok = False
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}/attachments'
+        resp = self.__rcra_request('GET', endpoint, headers={'Accept': 'multipart/mixed'}, stream=True)
+        if resp.response:
+            resp.decode()
         return resp
 
-    def SearchMTN(self, **kwargs) -> RcrainfoResponse:
+    def search_mtn(self, reg: bool = False, **kwargs) -> RcrainfoResponse:
         """
         Retrieve manifest tracking numbers based on all or some of provided search criteria
-        
+
         Args:
+            reg (bool): Use the regulator endpoint
+            reg (bool): Use the Regulator endpoint, defaults to False
+
+        Keyword Args:
             stateCode (str): Two-letter US postal state code
             siteId (str): EPA Site ID
-            status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete, UnderCorrection, Corrected. Case-sensitive
+            status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete,
+            UnderCorrection, Corrected. Case-sensitive
             dateType (str): CertifiedDate, ReceivedDate, ShippedDate, UpdatedDate. Case-sensitive
             siteType (str): Generator, Tsdf, Transporter, RejectionInfo_AlternateTsdf. Case-sensitive
             startDate (date): Start date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
@@ -470,27 +665,34 @@ class RcrainfoClient:
         Returns:
             dict: object containing manifest tracking numbers matching criteria
         """
-        endpoint = self.base_url + '/api/v1/emanifest/search'
-        return self.__RCRAPost(endpoint, **kwargs)
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/search'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/search'
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def GetCorrectionDetails(self, mtn) -> RcrainfoResponse:
+    def get_correction(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve information about all manifest correction versions by manifest tracking number (MTN)
         
         Args:
             mtn (str): Manifest tracking number
-            
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             dict: object containing correction details for given MTN
         """
-        endpoint = self.base_url + '/api/v1/emanifest/manifest/correction-details/' + mtn
-        return self.__RCRAGet(endpoint)
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-details/{mtn}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-details/{mtn}'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetCorrectionVersion(self, **kwargs) -> RcrainfoResponse:
+    def get_correction_version(self, reg: bool = False, **kwargs) -> RcrainfoResponse:
         """
         Retrieve details of manifest correction version based on all or some of the provided search criteria
 
-        Args:
+        Keyword Args:
             manifestTrackingNumber (str): Manifest tracking number. Required
             status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
             ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
@@ -499,65 +701,105 @@ class RcrainfoClient:
         Returns:
             dict: object containing correction details
         """
-        endpoint = self.base_url + '/api/v1/emanifest/manifest/correction-version'
-        return self.__RCRAPost(endpoint, **kwargs)
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/correction-version'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version'
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def GetMTNBySite(self, site_id) -> RcrainfoResponse:
+    def get_correction_attachments(self, **kwargs) -> RcrainfoResponse:
+        """
+        Retrieve attachments of corrected manifests based all or some of the provided search criteria.
+        See also **get_correction** and **get_correction_version**
+
+
+        Keyword Args:
+            manifestTrackingNumber (str): Manifest tracking number. Required
+            status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
+            ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
+            versionNumber (str): Manifest version number
+
+        Returns:
+            json: Downloaded file containing e-Manifest details for given MTN
+            attachments: PDF and HTML files containing additional
+            manifest information (such as scans or
+            electronic copies) for the given MTN
+            print: message of success or failure
+        """
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correction-version/attachments'
+        resp = self.__rcra_request('POST', endpoint, **kwargs)
+        if resp.response:
+            resp.decode()
+        return resp
+
+    def get_site_mtn(self, site_id: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve manifest tracking numbers for a given Site ID
         
         Args:
             site_id (str): EPA Site ID
-        
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             dict: object containing manifest tracking numbers for this site
         """
-        endpoint = self.base_url + '/api/v1/emanifest/manifest-tracking-numbers/' + site_id
-        return self.__RCRAGet(endpoint)
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest-tracking-numbers/{site_id}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest-tracking-numbers/{site_id}'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetManByMTN(self, mtn) -> RcrainfoResponse:
+    def get_manifest(self, mtn: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve e-Manifest details matching provided Manifest Tracking Number (MTN)
         
         Args:
             mtn (str): Manifest tracking number
-        
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             dict: object containing e-Manifest details
         """
-        endpoint = self.base_url + '/api/v1/emanifest/manifest/' + mtn
-        return self.__RCRAGet(endpoint)
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/manifest/{mtn}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/manifest/{mtn}'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetSites(self, state_code, site_type) -> RcrainfoResponse:
+    def get_sites(self, state_code: str, site_type: str, reg: bool = False) -> RcrainfoResponse:
         """
         Retrieve site ids for provided criteria
         
         Args:
             state_code (str): Two-letter US postal state code
             site_type (str): Site type (Generator, Tsdf, Transporter, Broker). Case-sensitive
-        
+            reg (bool): use endpoint for regulators, defaults to False
+
         Returns:
             dict: object containing site ID numbers
         """
-        endpoint = self.base_url + '/api/v1/emanifest/site-ids/' + state_code + '/' + site_type
-        return self.__RCRAGet(endpoint)
+        if reg:
+            endpoint = f'{self.base_url}/api/v1/state/emanifest/site-ids/{state_code}/{site_type}'
+        else:
+            endpoint = f'{self.base_url}/api/v1/emanifest/site-ids/{state_code}/{site_type}'
+        return self.__rcra_request('GET', endpoint)
 
-    def Correct(self, manifest_json, zip_file=None) -> RcrainfoResponse:
+    def correct_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Correct Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (.json file): Local JSON file containing manifest details
-            zip_file (.zip file): Local zip file containing manifest attachments. Optional
+            manifest_json (str): JSON string containing manifest details
+            zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
             
         Returns:
             dict: message of success or failure
         """
-        m = encode_manifest(manifest_json, zip_file)
-        endpoint = self.base_url + '/api/v1/emanifest/manifest/correct'
-        return self.__RCRAPut(endpoint, m)
+        multipart = self.__encode_manifest(manifest_json, zip_file)
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correct'
+        return self.__rcra_request('PUT', endpoint, multipart=multipart)
 
-    def Revert(self, mtn) -> RcrainfoResponse:
+    def revert_manifest(self, mtn: str) -> RcrainfoResponse:
         """
         Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version
         
@@ -567,65 +809,27 @@ class RcrainfoClient:
         Returns:
             dict: object containing confirmation of correction
         """
-        endpoint = self.base_url + '/api/v1/emanifest/manifest/revert/' + mtn
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/revert/{mtn}'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetCorrectionAttachments(self, **kwargs) -> RcrainfoResponse:
-        """
-        Retrieve attachments of corrected manifests based all or some of the provided search criteria
-
-        Args:
-            manifestTrackingNumber (str): Manifest tracking number. Required
-            status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
-            ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
-            versionNumber (str): Manifest version number
-            
-        Returns:
-            json: Downloaded file containing e-Manifest details for given MTN
-            attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
-            print: message of success or failure
-        """
-        resp = RcrainfoResponse(
-            requests.post(self.base_url + '/api/v1/emanifest/manifest/correction-version/attachments',
-                          headers={'Content-Type': 'text/plain', 'Accept': 'application/json',
-                                   'Authorization': 'Bearer ' + self.token},
-                          data=json.dumps(dict(**kwargs))))
-        if resp.response:
-            resp.DecodeMultipart()
-        else:
-            resp.ok = False
-        return resp
-
-    def CheckMTNExists(self, mtn) -> RcrainfoResponse:
-        """
-        Check if Manifest Tracking Number (MTN) exists and return basic details
-        
-        Args:
-            mtn (str): Manifest tracking number
-            
-        Returns:
-            dict: object containing MTN details and confirmation if site exists
-        """
-        endpoint = self.base_url + '/api/v1/emanifest/manifest/mtn-exists/' + mtn
-        return self.__RCRAGet(endpoint)
-
-    def Update(self, manifest_json, zip_file=None) -> RcrainfoResponse:
+    def update_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Update Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (.json file): Local JSON file containing manifest details
-            zip_file (.zip file): Local zip file containing manifest attachments. Optional
-            
+            manifest_json (str): JSON string containing manifest details
+            zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
+
         Returns:
             dict: message of success or failure
         """
-        m = encode_manifest(manifest_json, zip_file)
+        multipart = self.__encode_manifest(manifest_json, zip_file)
 
-        endpoint = self.base_url + '/api/v1/emanifest/manifest/update'
-        return self.__RCRAPut(endpoint, m)
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/update'
+        return self.__rcra_request('PUT', endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
+            'application/json'}, multipart=multipart)
 
-    def Delete(self, mtn) -> RcrainfoResponse:
+    def delete_manifest(self, mtn: str) -> RcrainfoResponse:
         """
         Delete selected manifest
         
@@ -635,32 +839,43 @@ class RcrainfoClient:
         Returns:
             dict: message of success or failure
         """
-        endpoint = self.base_url + '/api/v1/emanifest/manifest/delete/' + mtn
-        return self.__RCRADelete(endpoint)
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/delete/{mtn}'
+        return self.__rcra_request('DELETE', endpoint)
 
-    def Save(self, manifest_json, zip_file=None) -> RcrainfoResponse:
+    def save_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Save Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (.json file): Local JSON file containing manifest details
-            zip_file (.zip file): Local zip file containing manifest attachments. Optional
-            
+            manifest_json (str): JSON string containing manifest details
+            zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
+
         Returns:
             dict: message of success or failure
         """
-        m = encode_manifest(manifest_json, zip_file)
-        resp = RcrainfoResponse(requests.post(self.base_url + '/api/v1/emanifest/manifest/save',
-                                              headers={'Content-Type': m.content_type, 'Accept': 'application/json',
-                                                       'Authorization': 'Bearer ' + self.token},
-                                              data=m))
-        return resp
+        multipart = self.__encode_manifest(manifest_json, zip_file)
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/save'
+        return self.__rcra_request('POST', endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
+            'application/json'}, multipart=multipart)
 
-    def GenerateUILink(self, **kwargs) -> RcrainfoResponse:
+    def check_mtn_exists(self, mtn: str) -> RcrainfoResponse:
+        """
+        Check if Manifest Tracking Number (MTN) exists and return basic details
+
+        Args:
+            mtn (str): Manifest tracking number
+
+        Returns:
+            dict: object containing MTN details and confirmation if site exists
+        """
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/mtn-exists/{mtn}'
+        return self.__rcra_request('GET', endpoint)
+
+    def get_ui_link(self, **kwargs) -> RcrainfoResponse:
         """
         Generate link to the user interface (UI) of the RCRAInfo e-Manifest module
         
-        Args:
+        Keyword Args:
             page (str): Dashboard, BulkSign, BulkQuickSign, Edit, View, Sign. Case-sensitive
             epaSiteId (Str): EPA Site ID
             manifestTrackingNumber (str): Manifest tracking number (optional)
@@ -669,160 +884,55 @@ class RcrainfoClient:
         Returns:
             dict: object containing link to UI
         """
-        endpoint = self.base_url + '/api/v1/links/emanifest'
-        return self.__RCRAPost(endpoint, **kwargs)
+        endpoint = f'{self.base_url}/api/v1/links/emanifest'
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def CMELookup(self, activity_location, agency_code, nrr_flag=True) -> RcrainfoResponse:
+    def get_cme_lookup(self, activity_location: str, agency_code: str, nrr_flag: bool = True) -> RcrainfoResponse:
         """
-        Retrieve all lookups for specific activity location and agency code, including staff, focus area and sub-organization
+        Retrieve all lookups for specific activity location and agency code, including staff,
+        focus area and sub-organization. For use by Regulator users only.
         
         Args:
             activity_location (str): Two-letter US postal state code
-            agency_code (str): One-letter code. B (State Contractor/Grantee), C (EPA Contractor/Grantee), E (EPA), L (Local), N (Native American), S (State),
-                                                T (State-Initiated Oversight/Observation/Training Actions), X (EPA-Initiated Oversight/Observation/Training Actions),
+            agency_code (str): One-letter code. B (State Contractor/Grantee),
+                                                C (EPA Contractor/Grantee), E (EPA),
+                                                L (Local), N (Native American), S (State),
+                                                T (State-Initiated Oversight/Observation/Training Actions),
+                                                X (EPA-Initiated Oversight/Observation/Training Actions),
                                                 J (Joint State), P (Joint EPA)
             nrr_flag (boolean): True/False if Non-Financial Record Review
         
         Returns:
             dict: object containing CME lookups
         """
-        endpoint = self.base_url + '/api/v1/state/cme/evaluation/lookups/' + activity_location + '/' + agency_code + '/' + str(
-            nrr_flag)
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/state/cme/evaluation/lookups/{activity_location}/{agency_code}/' \
+                   f'{str(nrr_flag)}'
+        return self.__rcra_request('GET', endpoint)
 
-    def CMEIndicators(self):
+    def get_cme_indicators(self):
         """
-        Retrieve all evaluation indicators
+        Retrieve all evaluation indicators. For use by Regulator users only.
 
         Returns:
             dict: object containing all evaluation indicators
         """
-        endpoint = self.base_url + '/api/v1/state/cme/evaluation/evaluation-indicators'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/state/cme/evaluation/evaluation-indicators'
+        return self.__rcra_request('GET', endpoint)
 
-    def CMETypes(self) -> RcrainfoResponse:
+    def get_cme_types(self) -> RcrainfoResponse:
         """
-        Retrieve all evaluation types
+        Retrieve all evaluation types. For use by Regulator users only.
 
         Returns:
             dict: object containing all evaluation types
         """
-        endpoint = self.base_url + '/api/v1/state/cme/evaluation/evaluation-types'
-        return self.__RCRAGet(endpoint)
+        endpoint = f'{self.base_url}/api/v1/state/cme/evaluation/evaluation-types'
+        return self.__rcra_request('GET', endpoint)
 
-    def GetAttachmentsReg(self, mtn) -> RcrainfoResponse:
-        """
-        Retrieve e-Manifest details as json with attachments matching provided Manifest Tracking Number (MTN)
-        
-        Args:
-            mtn (str): Manifest tracking number
-        
-        Returns:
-            json: Downloaded file containing e-Manifest details for given MTN
-            attachments: PDF and HTML files containing additional manifest information (such as scans or electronic copies) for the given MTN
-              message of success or failure
-        """
-        resp = RcrainfoResponse(requests.get(self.base_url + '/api/v1/state/emanifest/manifest/' + mtn + '/attachments',
-                                             headers={'Accept': 'multipart/mixed',
-                                                      'Authorization': 'Bearer ' + self.token},
-                                             stream=True))
-        if resp.response:
-            resp.DecodeMultipart()
-        else:
-            resp.ok = False
-        return resp
-
-    def SearchMTNReg(self, **kwargs) -> RcrainfoResponse:
-        """
-        Retrieve manifest tracking numbers based on all or some of provided search criteria
-        
-        Args:
-            stateCode (str): Two-letter US postal state code
-            siteId (str): EPA Site ID
-            status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete, UnderCorrection, Corrected. Case-sensitive
-            dateType (str): CertifiedDate, ReceivedDate, ShippedDate, UpdatedDate. Case-sensitive
-            siteType (str): Generator, Tsdf, Transporter, RejectionInfo_AlternateTsdf. Case-sensitive
-            startDate (date): Start date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
-            endDate (date): End date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
-        
-        Returns:
-            dict: object containing manifest tracking numbers matching criteria
-        """
-        endpoint = self.base_url + '/api/v1/state/emanifest/search'
-        return self.__RCRAPost(endpoint, **kwargs)
-
-    def GetCorrectionDetailsReg(self, mtn) -> RcrainfoResponse:
-        """
-        Retrieve information about all manifest correction versions by manifest tracking number (MTN)
-        
-        Args:
-            mtn (str): Manifest tracking number
-            
-        Returns:
-            dict: object containing correction details for given MTN
-        """
-        endpoint = self.base_url + '/api/v1/state/emanifest/manifest/correction-details/' + mtn
-        return self.__RCRAGet(endpoint)
-
-    def GetCorrectionVersionReg(self, **kwargs) -> RcrainfoResponse:
-        """
-        Retrieve details of manifest correction version based on all or some of the provided search criteria
-
-        Args:
-            manifestTrackingNumber (str): Manifest tracking number. Required
-            status (str): Manifest status (Signed, Corrected, UnderCorrection). Case-sensitive
-            ppcStatus (str): EPA Paper Processing Center Status (PendingDataEntry, DataQaCompleted). Case-sensitive
-            versionNumber (str): Manifest version number
-            
-        Returns:
-            dict: object containing correction details
-        """
-        endpoint = self.base_url + '/api/v1/state/emanifest/manifest/correction-version'
-        return self.__RCRAPost(endpoint, **kwargs)
-
-    def GetMTNBySiteReg(self, site_id) -> RcrainfoResponse:
-        """
-        Retrieve manifest tracking numbers for a given Site ID
-        
-        Args:
-            site_id (str): EPA Site ID
-        
-        Returns:
-            dict: object containing manifest tracking numbers for this site
-        """
-        endpoint = self.base_url + '/api/v1/state/emanifest/manifest-tracking-numbers/' + site_id
-        return self.__RCRAGet(endpoint)
-
-    def GetManByMTNReg(self, mtn) -> RcrainfoResponse:
-        """
-        Retrieve e-Manifest details matching provided Manifest Tracking Number (MTN)
-        
-        Args:
-            mtn (str): Manifest tracking number
-        
-        Returns:
-            dict: object containing e-Manifest details
-        """
-        endpoint = self.base_url + '/api/v1/state/emanifest/manifest/' + mtn
-        return self.__RCRAGet(endpoint)
-
-    def GetSitesReg(self, state_code, site_type) -> RcrainfoResponse:
-        """
-        Retrieve site ids for provided criteria
-        
-        Args:
-            state_code (str): Two-letter US postal state code
-            site_type (str): Site type (Generator, Tsdf, Transporter, Broker). Case-sensitive
-        
-        Returns:
-            dict: object containing site ID numbers
-        """
-        endpoint = self.base_url + '/api/v1/state/emanifest/site-ids/' + state_code + '/' + site_type
-        return self.__RCRAGet(endpoint)
-
-    def GetHandlerReg(self, handler_id, details=False) -> RcrainfoResponse:
+    def get_handler(self, handler_id: str, details: bool = False) -> RcrainfoResponse:
         """
         Retrieve a list of handler source records (and optional details) for a specific handler ID
+        This endpoint is restricted to regulators.
         
         Args:
             handler_id (str): EPA Site ID number
@@ -831,51 +941,20 @@ class RcrainfoClient:
         Returns:
             dict: object containing handler source records (and optional details)
         """
-        endpoint = '/api/v1/state/handler/sources/' + handler_id + '/' + str(details)
-        return self.__RCRAGet(endpoint)
+        endpoint = f'/api/v1/state/handler/sources/{handler_id}/{str(details)}'
+        return self.__rcra_request('GET', endpoint)
 
 
-def new_client(base_url) -> RcrainfoClient:
-    """
-    Create instance of RCRAInfoClient
-
-    Args:
-        base_url (str): either 'prod', 'preprod' or url up to '/api/
-
-    Returns:
-        client: Instance of RCRAInfo service and emanifest module functions
-    """
+def _parse_url(base_url: str) -> str:
+    """emanifest-py internal helper function"""
     if "https" not in base_url:
         urls = {
             "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest/",
             "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest/"
         }
         if base_url.upper() in urls:
-            base_url = urls[base_url.upper()]
+            return urls[base_url.upper()]
         else:
-            logging.warning("Base url not recognized, you can use the argument "
-                            "'preprod' or 'prod' to target their respective environments")
-    client = RcrainfoClient(base_url)
-    return client
-
-
-# TODO: accept file paths and string/byte stream as arguments
-#  A db probably won't store in filesystem
-#  this function is just asking for problems for the time being
-def encode_manifest(manifest_json, zip_file=None):
-    if zip_file:
-        if os.path.isfile(manifest_json) & os.path.isfile(zip_file):
-            multipart_attachment = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-                "attachment": (zip_file, open(zip_file, 'rb'), 'application/zip')
-            })
+            return urls["PREPROD"]
     else:
-        if os.path.isfile(manifest_json):
-            multipart_attachment = encoder.MultipartEncoder(fields={
-                "manifest": (manifest_json, open(manifest_json, 'rb'), 'application/json'),
-            })
-        else:
-            multipart_attachment = encoder.MultipartEncoder(fields={
-                "manifest": ('manifest', manifest_json, 'application/json'),
-            })
-    return multipart_attachment
+        return base_url

@@ -2,11 +2,10 @@ name: Upload Python Package
 
 on:
   push:
-  pull_request:
+    branches:
+      - master
     paths:
       - '/emanifest-py/pyproject.toml'
-    types:
-      - closed
   workflow_dispatch:
       
 defaults:
