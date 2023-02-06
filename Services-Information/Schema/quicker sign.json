@@ -15,7 +15,7 @@
             "Generator",
             "Transporter",
             "Tsdf",
-            "RejectionInfoAlternateTsdf"
+            "RejectionInfo_AlternateTsdf"
           ]
         },
         "transporterOrder": {
