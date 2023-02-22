@@ -841,6 +841,24 @@ class RcrainfoClient(Session):
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/delete/{mtn}'
         return self.__rcra_request('DELETE', endpoint)
+    
+    def quicker_sign_manifest(self, reg: bool = False, **kwargs) -> RcrainfoResponse:
+        """
+        Quicker sign selected manifests
+        
+        Args:
+            manifestTrackingNumbers (array) : An array of manifest tracking numbers to sign
+            siteId (str) : The EPA ID for the site that signs
+            siteType (str) : The site on the manifest that is signing (Generator, Tsdf, Transporter, RejectionInfo_AlternateTsdf). Case-sensitive
+            printedSignatureName (str) : The name of the person who signed the manifest
+            printedSignatureDate (date) : The date the person signed the manifest
+            transporterOrder (int) : If the site is a transporter, the order of that transporter on the manifest
+            
+        Returns:
+            dict: message of success or failure
+        """
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/quicker-sign'
+        return self.__rcra_request('POST', endpoint)
 
     def save_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
