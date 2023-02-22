@@ -967,8 +967,8 @@ def _parse_url(base_url: str) -> str:
     """emanifest-py internal helper function"""
     if "https" not in base_url:
         urls = {
-            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest/",
-            "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest/"
+            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest",
+            "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest"
         }
         if base_url.upper() in urls:
             return urls[base_url.upper()]
