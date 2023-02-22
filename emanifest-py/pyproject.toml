@@ -5,6 +5,7 @@ description = "An API utility wrapper for accessing the e-Manifest hazardous was
 readme = "README.md"
 authors = [
     { name = "William Nicholas ", email = "nicholas.william@epa.gov" },
+    { name = "David Graham", email = "graham.david@epa.gov" },
 ]
 maintainers = [
     { name = "William Nicholas", email = "nicholas.william@epa.gov" },
