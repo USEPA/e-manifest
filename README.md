@@ -13,7 +13,7 @@ For more details on current issues see our [Issues page](https://github.com/USEP
 * Please see the [How e-Manifest uses GitHub Issues](https://github.com/USEPA/e-manifest/blob/master/Reference/How%20e-Manifest%20uses%20GitHub%20Issues.pdf) document to see how the e-Manifest team utilizes GitHub issues to communicate what we are working on with the user community.
 
 ## How to test and what is available
-There are ten categories of services available based on your user status:
+There are eleven categories of services available based on your user status:
 
 1. [All users] Authentication services
 2. [All users] e-Manifest Lookup Services
