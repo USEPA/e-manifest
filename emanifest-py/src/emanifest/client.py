@@ -842,7 +842,7 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/delete/{mtn}'
         return self.__rcra_request('DELETE', endpoint)
     
-    def quicker_sign_manifest(self, reg: bool = False, **kwargs) -> RcrainfoResponse:
+    def sign_manifest(self, **kwargs) -> RcrainfoResponse:
         """
         Quicker sign selected manifests
         
@@ -858,7 +858,7 @@ class RcrainfoClient(Session):
             dict: message of success or failure
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/quicker-sign'
-        return self.__rcra_request('POST', endpoint)
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def save_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
