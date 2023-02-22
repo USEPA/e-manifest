@@ -841,6 +841,24 @@ class RcrainfoClient(Session):
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/delete/{mtn}'
         return self.__rcra_request('DELETE', endpoint)
+    
+    def sign_manifest(self, **kwargs) -> RcrainfoResponse:
+        """
+        Quicker sign selected manifests
+        
+        Args:
+            manifestTrackingNumbers (array) : An array of manifest tracking numbers to sign
+            siteId (str) : The EPA ID for the site that signs
+            siteType (str) : The site on the manifest that is signing (Generator, Tsdf, Transporter, RejectionInfo_AlternateTsdf). Case-sensitive
+            printedSignatureName (str) : The name of the person who signed the manifest
+            printedSignatureDate (date) : The date the person signed the manifest
+            transporterOrder (int) : If the site is a transporter, the order of that transporter on the manifest
+            
+        Returns:
+            dict: message of success or failure
+        """
+        endpoint = f'{self.base_url}/api/v1/emanifest/manifest/quicker-sign'
+        return self.__rcra_request('POST', endpoint, **kwargs)
 
     def save_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
         """
@@ -949,8 +967,8 @@ def _parse_url(base_url: str) -> str:
     """emanifest-py internal helper function"""
     if "https" not in base_url:
         urls = {
-            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest/",
-            "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest/"
+            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest",
+            "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest"
         }
         if base_url.upper() in urls:
             return urls[base_url.upper()]

@@ -1,10 +1,11 @@
 [project]
 name = "emanifest"
-version = "3.0.1"
+version = "3.0.2"
 description = "An API utility wrapper for accessing the e-Manifest hazardous waste tracking system maintainedby the US Environmental Protection Agency"
 readme = "README.md"
 authors = [
     { name = "William Nicholas ", email = "nicholas.william@epa.gov" },
+    { name = "David Graham", email = "graham.david@epa.gov" },
 ]
 maintainers = [
     { name = "William Nicholas", email = "nicholas.william@epa.gov" },
