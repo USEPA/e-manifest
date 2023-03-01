@@ -203,7 +203,7 @@ class RcrainfoClient(Session):
         """
         self.__api_id = self.retrieve_id()
         self.__api_key = self.retrieve_key()
-        auth_url = f'{self.base_url}api/v1/auth/{self.__api_id}/{self.__api_key}'
+        auth_url = f'{self.base_url}/api/v1/auth/{self.__api_id}/{self.__api_key}'
         resp = self.get(auth_url, timeout=self.timeout)
         # ToDo: TypeError exception handling
         if resp.ok:
@@ -293,7 +293,8 @@ class RcrainfoClient(Session):
             dict: object with EPA ID site details
         """
         endpoint = f'{self.base_url}/api/v1/site-details/{epa_id}'
-        return self.__rcra_request('GET', endpoint)
+        response = self.__rcra_request('GET', endpoint)
+        return response
 
     def get_hazard_classes(self) -> RcrainfoResponse:
         """
@@ -967,7 +968,7 @@ def _parse_url(base_url: str) -> str:
     """emanifest-py internal helper function"""
     if "https" not in base_url:
         urls = {
-            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest",
+            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest/",
             "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest"
         }
         if base_url.upper() in urls:
