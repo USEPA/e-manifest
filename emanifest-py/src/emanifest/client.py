@@ -293,8 +293,7 @@ class RcrainfoClient(Session):
             dict: object with EPA ID site details
         """
         endpoint = f'{self.base_url}/api/v1/site-details/{epa_id}'
-        response = self.__rcra_request('GET', endpoint)
-        return response
+        return self.__rcra_request('GET', endpoint)
 
     def get_hazard_classes(self) -> RcrainfoResponse:
         """
@@ -968,7 +967,7 @@ def _parse_url(base_url: str) -> str:
     """emanifest-py internal helper function"""
     if "https" not in base_url:
         urls = {
-            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest/",
+            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest",
             "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest"
         }
         if base_url.upper() in urls:
