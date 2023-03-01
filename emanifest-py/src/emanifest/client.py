@@ -203,7 +203,7 @@ class RcrainfoClient(Session):
         """
         self.__api_id = self.retrieve_id()
         self.__api_key = self.retrieve_key()
-        auth_url = f'{self.base_url}api/v1/auth/{self.__api_id}/{self.__api_key}'
+        auth_url = f'{self.base_url}/api/v1/auth/{self.__api_id}/{self.__api_key}'
         resp = self.get(auth_url, timeout=self.timeout)
         # ToDo: TypeError exception handling
         if resp.ok:

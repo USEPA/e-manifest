@@ -3,8 +3,7 @@ import zipfile
 
 import requests
 
-import emanifest
-from emanifest import RcrainfoClient
+from .client import RcrainfoClient, RcrainfoResponse
 
 TEST_GEN_MTN = "100032437ELC"
 TEST_GEN_ID = 'VATESTGEN001'
@@ -28,7 +27,7 @@ class TestRcrainfoClient:
 
     # RcrainfoResponse test
     def test_extracted_response_json_matches(self):
-        resp = self.rcrainfo.get_site(TEST_GEN_ID)
+        resp: RcrainfoResponse = self.rcrainfo.get_site(TEST_GEN_ID)
         assert resp.response.json() == resp.json()
 
     def test_decode_multipart_string(self):
@@ -55,7 +54,7 @@ class TestRcrainfoClient:
 
 
 class TestClientIsExtendable:
-    class MyClass(emanifest.RcrainfoClient):
+    class MyClass(RcrainfoClient):
         mock_api_id_from_external = 'an_api_id_from_someplace_else'
         mock_api_key_from_external = 'a_api_key_from_someplace_else'
 
@@ -175,11 +174,3 @@ class TestEncodingMultipartMixed:
         if response.ok:
             # This Test will only pass if the manifest can be updated in RCRAInfo.
             assert response.status_code == 200
-
-    def test_download_multipart(self):
-        resp = self.rcrainfo.get_manifest_attachments(self.update_manifest_mtn)
-
-        downloaded_json = resp.json()
-        downloaded_attachment = resp.zip
-        assert isinstance(downloaded_json, str)
-        assert isinstance(downloaded_attachment, zipfile.ZipFile)

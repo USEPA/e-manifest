@@ -66,8 +66,8 @@ Visit the [test site](https://rcrainfopreprod.epa.gov/rcrainfo/)
 
 If your state is participating in approving e-Manifest test users, you may request access to your handler ID(s).  Otherwise, please register to use one of our test sites:
 
-|    Site ID   |         Site Name        |  State   |  Zip  |      Type of Site      |                 Notes                |
-| ------------ | ------------------------ | -------- | ----- | ---------------------- | ------------------------------------ |
+| Site ID      | Site Name                | State    | Zip   | Type of Site           | Notes                                |
+|--------------|--------------------------|----------|-------|------------------------|--------------------------------------|
 | VA988177803  | HEATING AND OIL          | Virginia | 22033 | Generator only         |                                      |
 | VATEST000001 | TEST TRANSPORTER 1 OF VA | Virginia | 22202 | Generator, Transporter |                                      |
 | VATEST000002 | TEST TRANSPORTER 2 OF VA | Virginia | 22202 | Generator, Transporter |                                      |
