@@ -34,6 +34,8 @@ There are eleven categories of services available based on your user status:
   - A [valid example](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/manifest-save-return-examples/emanifest-save-valid-Data-and-Image-example.json) showing a Data+Image manifest
 
   - A [valid example](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/manifest-save-return-examples/emanifest-save-valid-Image-Only-Designated-Facility-example.json) showing an Image Only manifest
+  
+  - A [valid example](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/quicker%20sign%20example.json) demonstrating Quicker Sign which allows users to sign electronic manifests in their own systems
 
   - An [invalid example](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/manifest-save-return-examples/emanifest-save-invalid-example.json) with several errors
     
