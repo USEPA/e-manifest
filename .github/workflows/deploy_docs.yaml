@@ -1,0 +1,59 @@
+name: "e-Manifest Documentation"
+
+# This workflow builds and deploys the USEPA e-Manifest documentation
+# It will only deploy to GitHub if the repo is 'USEPA/e-manifest'
+
+on:
+  push:
+    branches: ["master", "main"]
+    paths:
+      - "docs/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+env:
+  BOOK_DIRECTORY: ./docs/emanifest_book
+  MDBOOK_VERSION: v0.4.25
+
+jobs:
+  build_docs:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.BOOK_DIRECTORY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup mdBook
+        run: |
+          mkdir bin
+          curl -sSL https://github.com/rust-lang/mdBook/releases/download/${{env.MDBOOK_VERSION}}/mdbook-${{env.MDBOOK_VERSION}}-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=bin
+
+      - name: Build Documentation
+        run: bin/mdbook build
+
+      - name: upload Docs
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: "${{ env.BOOK_DIRECTORY }}/book"
+
+  deploy_pages:
+    # if: github.repository == 'USEPA/e-manifest'
+    needs: build_docs
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
