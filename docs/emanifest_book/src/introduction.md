@@ -1,3 +1,0 @@
-# Introduction
-
-about e-Manifest
