@@ -12,4 +12,4 @@ edit-url-template = "https://github.com/USEPA/e-manifest/edit/master/docs/emanif
 
 [output.html.fold]
 enable = true
-level = 2
+level = 1
