@@ -4,7 +4,6 @@
     - [About e-Manifest](Intro/e-Manifest.md)
     - [e-Manifest Terminology](Intro/terminology.md)
 - [Registration and Authentication](Setup/index.md)
-    - [Testing with Pre-Production](Setup/pre-production.md)
     - [User Registration](Setup/registration.md)
     - [Authentication](Setup/authentication.md)
 - [e-Manifest Services](Manifest/index.md)
