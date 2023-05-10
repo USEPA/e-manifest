@@ -5,7 +5,7 @@
   - [The Electronic Manifest](Intro/electronic_manifest.md)
   - [e-Manifest Terminology](Intro/terminology.md)
   - [Registration](Intro/registration.md)
-- [Services](Manifest/index.md)
+- [Services](Services/index.md)
   - [Authentication](Services/authentication.md)
   - [e-Manifest](Services/Manifest/index.md)
     - [Save](Services/Manifest/e-manifest-save.md)

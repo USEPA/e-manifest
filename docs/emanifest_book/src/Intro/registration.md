@@ -1,1 +1,3 @@
 # User Registration
+
+## Permission Levels
