@@ -1,7 +1,8 @@
 # Summary
 
 - [Introduction](README.md)
-  - [About e-Manifest](Intro/e-Manifest.md)
+  - [The Manifest](Intro/paper_manifest.md)
+  - [The Electronic Manifest](Intro/electronic_manifest.md)
   - [e-Manifest Terminology](Intro/terminology.md)
   - [Registration](Intro/registration.md)
 - [Services](Manifest/index.md)

@@ -1,4 +1,4 @@
-# Introduction
+## e-Manifest
 
 June 30, 2018. the United States Environmental Protection Agency (USEPA or EPA) launched a national system for tracking
 hazardous waste shipments electronically, this system, known as "e-Manifest," modernizes the nation’s paper-intensive
@@ -16,15 +16,11 @@ e-Manifest can be accessed by its users in two ways:
 e-Manifest data is also publicly available 90-days after the manifest completed, or uploaded in the case of a paper
 manifest, on [RCRAInfo Web](https://rcrapublic.epa.gov/rcrainfoweb/action/main-menu/view).
 
-For up-to-date information about e-Manifest, visit [https://www.epa.gov/e-manifest](https://www.epa.gov/e-manifest)
+## Content
 
-## The Uniform Hazardous Waste Manifest
+This book is the developer documentation for the e-Manifest system. It's intended to act as technical guidance for those looking to make use of the resources exposed by the EPA e-Manifest (and RCRAInfo) system.
 
-ToDO: short overview of the manifest and its contents
-
-## The Manifesting Process
-
-ToDo: short overview of how the manifest is used during the shipment
+For general information on e-Manifest, please visit [www.epa.gov/e-manifest](https://www.epa.gov/e-manifest).
 
 ## Getting Started
 
@@ -32,6 +28,6 @@ If you're just getting started, you'll likely want to complete these prerequisit
 
 1. [Register in the RCRAInfo test environment](Setup/registration.md), Pre-Production.
 2. Subscribe to the e-Manifest mailing lists
-    - [e-Manifest General Program mailing list](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_4)
-    - [e-Manifest developer mailing list](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_9)
+   - [e-Manifest General Program mailing list](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_4)
+   - [e-Manifest developer mailing list](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_9)
 3. If you have any questions, you can [contact the EPA e-Manifest program]() directly.
