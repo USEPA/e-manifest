@@ -141,3 +141,7 @@ The service will validate the submitted JSON and if:
 
    - Generate an Error/Warning report with all errors and warnings found during validation process
    - Return Error/Warning report to the requestor
+
+## Response
+
+see the [crud-emanifest-return.json]()
