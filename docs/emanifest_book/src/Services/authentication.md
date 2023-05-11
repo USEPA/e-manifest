@@ -51,8 +51,7 @@ the [time zone offset designator ("+hh:mm")](https://www.w3.org/TR/NOTE-datetime
 
 ```json
 {
-  "expiration": "2023-05-10T19:10:05.923+00:00",
-  "exprFormat": "YYYY-MM-DDThh:mm:ss.sTZD"
+  "expiration": "2023-05-10T19:10:05.923+00:00"
 }
 ```
 
@@ -69,7 +68,7 @@ submitted in the HTTP header using the Authorization in the Key with a value of 
 ### Service Invocation Example
 
 The URL follows this pattern
-`<Production or Pre-Production domain>/rest/api/v1/auth/<api ID>/<API key>`
+`<Production or Pre-Production domain>/rest/api/v1/auth/<apiID>/<apiKey>`
 
 ```java
 /**
@@ -89,7 +88,7 @@ public class Main {
         String baseURL = "https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/";
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(baseURL + "/" + "myApiId" + "/" + "apiKey"))
+                .uri(URI.create(baseURL + "/" + "myApiID" + "/" + "apiKey"))
                 .build();
         client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
@@ -104,6 +103,25 @@ public class Main {
 ```json
 {
   "token": "eyJhbGciOiJIUzUxMiJ9.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_PGyN6for1GHwf6zqp0OJS10hwK8jEgRyRI0JpFUducwDKj5paWRTEsCky_06pryEve3Yw2w1bbBzqGdSnnw",
-  "expiration": "2017-06-23T23:15:45.095+0000"
+  "expiration": "2023-06-23T23:15:45.095+0000"
 }
 ```
+
+### Sequence of Steps
+
+1. System will check if one of the credentials is empty or incorrect. If so, the following error will be generated:
+   - `E_SecurityApiInvalidCredentials: Invalid API ID/Key Specified`
+2. System will check if API ID was disabled by the Administrator. If so following error will be generated:
+   - `E_SecurityApiInvalidStatus: API ID Status Invalid`
+3. If the System detects 3 unsuccessful attempts for authentication then following error will be generated:
+   - `E_SecurityApiIDLocked: API ID is locked. If API id was locked the User shall request API ID/API key re-generation`
+4. The System will generate JWT and token expiration Date. Security Token contains User Profile and User Role
+   Information in encrypted format. Security Token expiration time is 20 minutes.
+5. If successful the system will return JSON containing following information:
+   - token
+   - expiration
+6. If failed Authentication the System will return JSON containing the following field:
+   - `code` : Error code which designated for automated processing
+   - `message`: “Human readable” Error message corresponding to the error code
+   - `errorId`: Unique error id for auditing and tracking purpose
+   - `errorDate`: Error Date/Time for auditing and tracking purpose
