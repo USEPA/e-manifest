@@ -6,8 +6,8 @@ Users looking to use the RCRAInfo API need to register and obtain the necessary 
 to operate as. For information on registration and permission levels, see the chapter
 on [registration](../Intro/registration.md).
 
-Don't forget to see the RCRAInfo's
-Pre-production [Open API (swagger)](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger) page
+After registration, you can use our
+Pre-production [Open API (swagger)](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger) page.
 
 ## API ID and Keys
 
@@ -70,14 +70,20 @@ submitted in the HTTP header using the Authorization in the Key with a value of 
 
 ### Service Invocation Example
 
-The URL follows this pattern
-`<Production or Pre-Production domain>/rest/api/v1/auth/<apiID>/<apiKey>`
+Pre-Production
+
+- <https://rcrainfopreprod.epa.gov/rest/api/v1/auth/{{apiID}}/{{apiKey}}>
+- See also [Pre-production Open API (swagger) page](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger)
+
+Production
+
+- <https://rcrainfo.epa.gov/rest/api/v1/auth/{{apiID}}/{{apiKey}}>
 
 ```java
 /**
  * Main.java
  * makes a request to the Pre-production Auth endpoint and prints the response to std out
- * JDK 19
+ * open JDK 19
  */
 package org.example;
 
