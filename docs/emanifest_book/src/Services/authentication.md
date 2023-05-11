@@ -3,8 +3,11 @@
 ## Pre-requisites
 
 Users looking to use the RCRAInfo API need to register and obtain the necessary permissions for the site they're looking
-to operate as. For infomation on regsitration and permission levels, see the chanpter
+to operate as. For information on registration and permission levels, see the chapter
 on [registration](../Intro/registration.md).
+
+Don't forget to see the RCRAInfo's
+Pre-production [Open API (swagger)](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger) page
 
 ## API ID and Keys
 
@@ -28,7 +31,7 @@ To obtain a security token, users must utilize the [Authentication (auth)](#auth
 a JSON Web Token (JWT) and an expiration date. All subsequent requests must include the JWT as an HTTP header under
 the `Authorization` key with a value of `Bearer` plus the provided security token.
 
-For example, an HTTP requiest to the [federal-waste-codes]() endpoint would include...
+For example, an HTTP request to the [federal-waste-codes]() endpoint would include...
 
 ```http
 GET /api/v1/federal-waste-codes HTTP/1.1
@@ -38,7 +41,7 @@ Accept: application/json
 ...
 ```
 
-### Expirations and Refreshing Tokens
+### Token Expirations and Refreshing
 
 Security tokens expire after 20 minutes. The expiration time is included in the response from
 the [Authenticate service](#authenticate-service). Currently, RCRAinfo does not provide refresh tokens or a method to
@@ -98,6 +101,8 @@ public class Main {
 }
 ```
 
+For a python example, check out the [emanifest package](https://pypi.org/project/emanifest/) on PyPI.
+
 ### Response Body Example
 
 ```json
@@ -125,3 +130,23 @@ public class Main {
    - `message`: “Human readable” Error message corresponding to the error code
    - `errorId`: Unique error id for auditing and tracking purpose
    - `errorDate`: Error Date/Time for auditing and tracking purpose
+
+### Errors
+
+| Code                            | Message                         |
+| ------------------------------- | ------------------------------- |
+| E_SecurityApiInvalidCredentials | Invalid API Id/Key Specified    |
+| E_SecurityApiInvalidStatus      | API Id Status Invalid           |
+| E_SecurityApiIdLocked           | API Id is Locked                |
+| E_SystemError                   | Message describing system error |
+
+#### Example Error
+
+```json
+{
+  "code": "E_SecurityInvalidCredentials",
+  "message": "Invalid API Id was specified.",
+  "errorId": "470c188a-82ce-488e-8e85-3e1b71c72ab8",
+  "errorDate": "2023-05-11T12:27:59.332+00:00"
+}
+```
