@@ -13,13 +13,14 @@ hazardous waste management system.
 ## Remote Signer Policy
 
 The Remote Signer memorandum is a policy issued by EPA that describes how users can sign manifests through a "remote signer".
-The Remote Signer can be an individual or a system that is not the user, but is authorized to sign manifests on behalf of the user who has
-first-hand knowledge of the hazardous waste shipment.
+The Remote Signer, an individual with sufficient permissions to sign electronic manifests for their site, is authorized to 
+exeecute the electronic signature in e-Manifest on behalf of the field personnel who has first-hand knowledge of the hazardous waste shipment.
+The field personnel does not need to be a registered user in RCRAInfo.
 
 The Remote Signer policy allows field personnel to sign manifests through their sites hazardous waste management software
 using the remote signer's API credentials (ID and Key). The Remote Signer policy also allows the field personnel to
-contact a remote signer (i.e., the registered user with sufficient permissions to sign manifests in e-manifest) and
-authorize the remote signer to sign manifests on their behalf. The remote signer can then sign manifests through
+contact a remote signer (e.g., via phone) and authorize the remote signer to sign electronic manifests on their behalf.
+The remote signer can then execute the electronic signature manifests through
 the RCRAInfo user interface or using their own software that has been configured to use the remote signer's API credentials.
 
 The full policy can be read at [RCRA online](https://rcrapublic.epa.gov/files/14956.pdf)
