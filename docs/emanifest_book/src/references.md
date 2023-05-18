@@ -1,4 +1,4 @@
-# Helpful Utilities
+# Reference Material
 
 ## emanifest-py
 
@@ -24,10 +24,14 @@ the RCRAInfo user interface or using their own software that has been configured
 
 The full policy can be read at [RCRA online](https://rcrapublic.epa.gov/files/14956.pdf)
 
+## Haztrak
+
+Haztrak is a free, open-source, "overkill proof of concept" web application that servers as a reference
+for anyone looking for a working example of how waste management software can interface with RCRAInfo
+to track hazardous waste shipments electronically cradle to grave. Haztrak is an  
+It's built to use the e-Manifest RESTful APIs, designed to be cloud native,
+and is available on GitHub under [USEPA/haztrak](https://github.com/USEPA/haztrak)
+
 ## Sample Java Client
 
 section and link to java client on GitHub
-
-## Reference Material
-
-section and link to reference directory on GitHub
