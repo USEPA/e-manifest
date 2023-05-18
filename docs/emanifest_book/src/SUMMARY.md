@@ -17,8 +17,3 @@
   - [Sites]()
   - [Lookups]()
 - [Reference Materials](References/index.md)
-  - [Example Web App (Haztrak)](References/index.md)
-  - [emanifest Python](References/index.md)
-  - [Sample Java Client](References/index.md)
-  - [Postman]()
-  - [Remote Signer Policy](References/index.md)
