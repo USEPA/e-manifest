@@ -22,7 +22,7 @@ contact a remote signer (i.e., the registered user with sufficient permissions t
 authorize the remote signer to sign manifests on their behalf. The remote signer can then sign manifests through
 the RCRAInfo user interface or using their own software that has been configured to use the remote signer's API credentials.
 
-The full policy can be read at ...
+The full policy can be read at [RCRA online](https://rcrapublic.epa.gov/files/14956.pdf)
 
 ## Sample Java Client
 
