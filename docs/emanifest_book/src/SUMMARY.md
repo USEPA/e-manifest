@@ -13,7 +13,7 @@
     - [Delete](Services/Manifest/delete.md)
     - [Correct]()
     - [Signing Manifests]()
-    - [e-Manifest Services for states]()
+    - [e-Manifest Services for states](Services/Manifest/states.md)
   - [Sites]()
   - [Lookups]()
 - [Reference Materials](references.md)
