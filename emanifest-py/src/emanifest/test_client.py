@@ -92,15 +92,15 @@ class TestClientIsExtendable:
 class TestAutoAuthentication:
     api_id = os.getenv('RCRAINFO_API_ID')
     api_key = os.getenv('RCRAINFO_API_KEY')
-    rcrainfo = RcrainfoClient('preprod', api_key=api_key, api_id=api_id)
 
     def test_automatically_authenticates(self):
         """
         RcrainfoClient will automatically authenticate once a request is made,
         (e.g., calling get_manifest(...) will do the equivalent of authenticate(...) first
         """
-        _resp = self.rcrainfo.get_manifest(TEST_GEN_MTN)
-        assert self.rcrainfo.is_authenticated
+        rcrainfo = RcrainfoClient('preprod', api_key=self.api_key, api_id=self.api_id)
+        _resp = rcrainfo.get_manifest(TEST_GEN_MTN)
+        assert rcrainfo.is_authenticated
 
     def test_does_not_authenticate_when_false(self):
         """
