@@ -1,6 +1,6 @@
 # Summary
 
-- [Introduction](index.md)
+- [Introduction](README.md)
   - [The Manifest](Intro/the-manifest.md)
   - [e-Manifest Terminology](Intro/terminology.md)
   - [Registration](Intro/registration.md)
