@@ -18,16 +18,17 @@ manifest, on [RCRAInfo Web](https://rcrapublic.epa.gov/rcrainfoweb/action/main-m
 
 ## Content
 
-This book is the developer documentation for the e-Manifest system. It's intended to act as technical guidance for those looking to make use of the resources exposed by the EPA e-Manifest (and RCRAInfo) system.
+This book contains the developer documentation and technical guidance for the e-Manifest services.
 
 For general information on e-Manifest, please visit [www.epa.gov/e-manifest](https://www.epa.gov/e-manifest).
+
+The e-Manifest Program also maintains a comprehensive list of [FAQs](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest).
 
 ## Getting Started
 
 If you're just getting started, you'll likely want to complete these prerequisites
 
-1. [Register in the RCRAInfo test environment](./Intro/registration.md), Pre-Production.
+1. [Register in the RCRAInfo test environment](./Intro/registration.md) (Pre-Production).
 2. Subscribe to the e-Manifest mailing lists
    - [e-Manifest General Program mailing list](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_4)
    - [e-Manifest developer mailing list](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_9)
-3. If you have any questions, you can [contact the EPA e-Manifest program]() directly.

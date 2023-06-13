@@ -4,10 +4,6 @@ name: "e-Manifest Documentation"
 # It will only deploy to GitHub if the repo is 'USEPA/e-manifest'
 
 on:
-  push:
-    branches: ["master", "main"]
-    paths:
-      - "docs/**"
   workflow_dispatch:
 
 permissions:
@@ -31,7 +27,7 @@ jobs:
         working-directory: ${{ env.BOOK_DIRECTORY }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Setup mdBook
         run: |
@@ -56,4 +52,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v1
