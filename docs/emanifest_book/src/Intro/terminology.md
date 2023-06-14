@@ -65,7 +65,8 @@
 
 - A TSDF, also known as a Receiving Facility or the Designated Facility, is the handler to whom the hazardous waste is
   shipped. They are responsible for treating, storing, or disposing of the waste according to state and federal
-  law. The terms designated receiving facility, TSD, TSDF are interchangeable [EPA: About Permitted TSDFs](https://www.epa.gov/hwpermitting)
+  law. The terms designated receiving facility, TSD, TSDF are
+  interchangeable [EPA: About Permitted TSDFs](https://www.epa.gov/hwpermitting)
 
 **Alternate Facility**
 
@@ -126,3 +127,5 @@
 - [RCRAInfo Documentation](https://rcrainfo.epa.gov/rcrainfo-help/application/industryHelp/index.htm#t=Introduction.htm)
 - [RCRAInfo Data Element Dictionary](https://rcrainfo.epa.gov/rcrainfo-help/application/publicHelp/index.htm#t=introduction.htm)
 - [e-Manifest Frequently Asked Questions](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)
+
+{{#include ../components/footer.md}}

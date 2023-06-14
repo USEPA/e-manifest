@@ -1,13 +1,15 @@
 # User Registration
 
-In order to access the test environment, all users will be required to set up a test account on the RCRAInfo test environment.
+In order to access the test environment, all users will be required to set up a test account on the RCRAInfo test
+environment.
 
 - For testing, use RCRAInfo Pre-Production
   - <https://rcrainfopreprod.epa.gov>
 - For Production, use RCRAInfo
   - <https://rcrainfo.epa.gov>
 
-For the remainder of this chapter, we assume that you are using the pre-production (test) deployment as testing should never be done in the RCRAInfo Production deployment.
+For the remainder of this chapter, we assume that you are using the pre-production (test) deployment as testing should
+never be done in the RCRAInfo Production deployment.
 
 ## Registration Process
 
@@ -43,14 +45,16 @@ table sites are available for testing:
 
 - On the My Sites page, click on the “Add Existing Site” button
 
-- Search for your EPA ID number in the Site ID box or a test site and then select that facility. (For example: VA000532119)
+- Search for your EPA ID number in the Site ID box or a test site and then select that facility. (For example:
+  VA000532119)
 
 - Request a role for the site
 
   - The 'Site Manager' Role will allow you to use the API services.
 
 - After you submit your request, the request will go to your state or an EPA administrator. Please understand this is
-- not an instant access process and the administrator will need to manually activate your request during normal business hours.
+- not an instant access process and the administrator will need to manually activate your request during normal business
+  hours.
 
 - Once you have completed this registration you may use either <https://test.epacdx.net/> or
   <https://rcrainfopreprod.epa.gov/rcrainfo/> to log on to the application.
@@ -63,3 +67,5 @@ If you want to register for an API ID and key to test the services, you may crea
 and selecting API. The API page will allow you to generate your unique API ID and key. The API ID and Key can be used
 to access our web services which are documented on the [Services](../Services/index.md) chapter
 and, if logged into e-Manifest, on [Swagger](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/)
+
+{{#include ../components/footer.md}}
