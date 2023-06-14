@@ -362,17 +362,6 @@ Electronic manifests generally contain the same information as their paper count
 differences. Many of the differences stem from the fact that electronic manifests are not constrained by the physical
 space available on a piece of paper. As such, many fields present on the paper manifest have additional information.
 
-For example, federal waste code on a paper manifest is usually represented by a single string containing 1 letter and 3
-numbers, such as `'D001'`. The same federal waste code on an electronic manifest, would be represented by an object
-containing the code and a description.
-
-```json
-{
-  "code": "D001",
-  "description": "IGNITABLE WASTE"
-}
-```
-
 #### one-to-many relationships
 
 1. **Waste Codes**: A waste line can have many applicable waste codes. On paper manifests, generators are
@@ -395,14 +384,25 @@ containing the code and a description.
 As the e-Manifest continues to be developed, additional fields that benefit the e-Manifest stakeholders and EPA may be
 added.
 
-#### Values that are only found on the electronic manifest
+#### Field Values
 
-#### Status
+1. **status**: The status field of electronic manifests is managed by the e-Manifest system, starting with
+   the `NotAssigned` status through `Signed` and beyond if the manifest undergoes post-receipt corrections. Since paper
+   manifests are completed outside the e-Manifest system and uploaded 30 days after the shipment reaches the designated
+   receiving facility, paper manifests can only be assigned a subsection of the available statuses.
 
-The status field of electronic manifests is managed by the e-Manifest system, starting with the `NotAssigned` status
-through `Signed` and beyond if the manifest undergoes post-receipt corrections. Since paper manifests are completed
-outside the e-Manifest system and uploaded 30 days after the shipment reaches the designated receiving facility, paper
-manifests can only be assigned a subsection of the available statuses.
+2. **Codes**: Items such as waste codes, management method codes, units of measurements and others have a different
+   representation on electronic manifests than on paper manifests. For example, a federal waste codes
+   paper manifests are usually represented by a single string containing a single letter and three
+   numbers, such as `'D001'`. The same federal waste code on an electronic manifest, would be represented by an object
+   containing the code and a description.
+
+   ```json
+   {
+     "code": "D001",
+     "description": "IGNITABLE WASTE"
+   }
+   ```
 
 ## More Information
 
