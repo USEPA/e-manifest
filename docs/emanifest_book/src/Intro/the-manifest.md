@@ -406,11 +406,10 @@ manifests can only be assigned a subsection of the available statuses.
 
 ## More Information
 
-For more information on the uniform hazardous waste manifest and e-Manifest, visit
-<https://www.epa.gov/e-manifest>
-
 - [The paper manifest](https://www.epa.gov/hwgenerators/hazardous-waste-manifest-system)
   - [Instructions for completing the hazardous waste manifest](https://www.epa.gov/hwgenerators/uniform-hazardous-waste-manifest-instructions-sample-form-and-continuation-sheet)
   - [Paper manifest submission options](https://www.epa.gov/e-manifest/how-submit-hazardous-waste-manifest)
   - [e-Manifest submission Fees](https://www.epa.gov/e-manifest/e-manifest-user-fees-and-payment-information)
 - [Terminology](terminology.md)
+
+{{#include ../components/footer.md}}
