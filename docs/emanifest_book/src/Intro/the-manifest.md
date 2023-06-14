@@ -378,11 +378,12 @@ space available on a piece of paper. As such, many fields present on the paper m
 
 #### Additional Fields
 
-1. **Biennial Report**: The electronic manifest contains , not present on the paper manifest, to indicate whether
-   the waste shipment is part of the Biennial Report.
-
 As the e-Manifest continues to be developed, additional fields that benefit the e-Manifest stakeholders and EPA may be
 added.
+
+1. **Biennial Report**: the `"BrInfo"` field contains data related to the Biennial Report, another component of the
+   EPA's RCRAInfo system. Users can elect to provide this information on the manifest to be pulled into the Biennial
+   Report module of RCRAInfo when necessary later on.
 
 #### Field Values
 
