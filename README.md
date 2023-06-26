@@ -1,6 +1,6 @@
 # e-Manifest
 
-**visit our new service documentation at https://usepa.github.io/e-manifest/**
+**Attention: New services documentation is under construction at https://usepa.github.io/e-manifest/ and will be available soon**
 
 ## Background
 
