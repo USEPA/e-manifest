@@ -209,7 +209,6 @@ RcrainfoClient can be also customized by subclassing and overriding. For example
 ```python
 from emanifest import RcrainfoClient
 
-
 class MyClass(RcrainfoClient):
     def retrieve_id(self, api_id=None) -> str:
         # Custom behavior to retrieve your RCRAInfo API ID 
