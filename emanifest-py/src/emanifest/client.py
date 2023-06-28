@@ -649,7 +649,6 @@ class RcrainfoClient(Session):
         Retrieve manifest tracking numbers based on all or some of provided search criteria
 
         Args:
-            reg (bool): Use the regulator endpoint
             reg (bool): Use the Regulator endpoint, defaults to False
 
         Keyword Args:
@@ -913,11 +912,15 @@ class RcrainfoClient(Session):
         Args:
             activity_location (str): Two-letter US postal state code
             agency_code (str): One-letter code. B (State Contractor/Grantee),
-                                                C (EPA Contractor/Grantee), E (EPA),
-                                                L (Local), N (Native American), S (State),
+                                                C (EPA Contractor/Grantee),
+                                                E (EPA),
+                                                L (Local), 
+                                                N (Native American), 
+                                                S (State),
                                                 T (State-Initiated Oversight/Observation/Training Actions),
                                                 X (EPA-Initiated Oversight/Observation/Training Actions),
-                                                J (Joint State), P (Joint EPA)
+                                                J (Joint State), 
+                                                P (Joint EPA)
             nrr_flag (boolean): True/False if Non-Financial Record Review
         
         Returns:
