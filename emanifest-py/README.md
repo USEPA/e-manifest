@@ -7,10 +7,6 @@
 **emanifest** is a client library for accessing the e-Manifest REST APIs of the US Environmental Protection Agency's
 RCRAInfo national electronic hazardous waste management system.
 
-**Note:** The **emanifest** package was substantially refactored after version 2.0.7 and was released as a new major
-version at 3.0.0. Code relying on versions ≤3.0.0 should not upgrade to version 3.0.0 of this package without
-refactoring.
-
 ## Contents
 
 - [Requirements](#requirements)
@@ -41,7 +37,7 @@ Before using the **emanifest** package, ensure you have a RCRAInfo user account 
 the [necessary permissions](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest#user_question6) to
 generate an API ID and key.
 
-All methods to access the e-Manifest APIs are implemented by the `RcrainfoClient` class which needs your API ID and Key
+All methods to access the e-Manifest APIs are implemented by the `RcrainfoClient` class which needs your API ID and key
 to authenticate. A new instance of the class can be initiated like so:
 
 ```python
@@ -50,17 +46,17 @@ from emanifest import RcrainfoClient
 rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
 ```
 
-And that's it! You're ready to start using the RCRAInfo Restful web services.
+That's it! You're ready to start using the RCRAInfo Restful web services.
 
 The RcrainfoClient class requires one positional argument, a string, either `'preprod'`, or `'prod'`.
 
 ### Authentication
 
-Starting with version 3.0 and above of this package, the RcrainfoClient will automatically authenticate as needed once
+Starting with version 3.0 and above, the RcrainfoClient automatically authenticates as needed once
 API credentials have been provided, either during object initiation or by passing the API ID and key to
 the `authenticate` method.
 
-If you'd like to disable this behaviour, you can set the RcrainfoClient `auto_renew = False`, and call
+If you'd like to disable this behaviour, you can set the RcrainfoClient variable `auto_renew = False`, and call
 the `authenticate` method as necessary.
 
 ```python
@@ -98,7 +94,7 @@ rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY
 site_resp = rcrainfo.get_site('VATEST000001')
 ```
 
-Many of the POST request use keyword arguments to compose the http request's body. for example...
+Many of the POST request use keyword arguments to compose the http request's body. For example:
 
 ```python
 from emanifest import RcrainfoClient
@@ -117,25 +113,25 @@ would send a http requests with the following body to the manifest tracking numb
 }
 ```
 
-Note, the keyword arguments use the same naming convention seen in the RCRAInfo swagger pages and documentation.
+Keyword arguments use the same naming convention seen in the RCRAInfo Swagger pages and services documentation.
 
 `multipart/mixed` payloads (
 e.g., [JSON of a manifest](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema/manifest-save-return-examples)
 and [.zip file of attachments](https://github.com/USEPA/e-manifest/tree/master/Services-Information)) can be uploaded to
 RCRAInfo
-by passing a JSON string and the bytes of the optional attachment like so:
+by passing a dictionary and the bytes of the optional attachment like so:
 
 ```python
 from emanifest import RcrainfoClient
 
 rcrainfo = RcrainfoClient('preprod', api_id='YOUR_API_ID', api_key='YOUR_API_KEY')
 
-# The JSON and .zip file could come from a database, filesystem, an external service,
-# or json.dumps({'manifestTrackingNumber': '0123456789ELC', ... }) 
+# The dictionary and .zip file could come from a database, filesystem, an external service,
+# or json.load({'manifestTrackingNumber': '0123456789ELC', ... }) 
 with open('./attachments.zip', 'rb') as f:
     attachment = f.read()
 with open('./manifest.json', 'r') as f:
-    manifest_json = f.read()
+    manifest_json = json.loads(f.read())
 
 resp = rcrainfo.update_manifest(manifest_json, attachment)
 ```
@@ -165,7 +161,7 @@ downloaded_attachment = resp.zip
 
 ### Regulators
 
-Starting with version 3.0 and above of this package, regulator can use the same methods as industry but with
+Starting with version 3.0 and above of this package, regulatory users can use the same methods as industry but with
 the `reg` keyword argument set to `True`. For example:
 
 ```python
@@ -187,7 +183,7 @@ The following methods have regulator options:
 6. get_manifest
 7. get_sites
 
-The following methods are for regulator users only:
+The following methods are for regulatory users only:
 
 1. get_handler
 2. get_cme_lookups
@@ -201,10 +197,9 @@ if you are not authorized to access these resources in RCRAInfo.
 
 As of version 3.0, the RcrainfoClient is a subclass of
 the [requests library](https://requests.readthedocs.io/en/latest/)
-[Session Class](https://requests.readthedocs.io/en/latest/user/advanced/#session-objects). As such,
-you can take advantage of its functionality.
+[Session Class](https://requests.readthedocs.io/en/latest/user/advanced/#session-objects) which allows you to take advantage of its functionality.
 
-RcrainfoClient can be also customized by subclassing and overriding. For example,
+RcrainfoClient can be also customized by subclassing and overriding. For example:
 
 ```python
 from emanifest import RcrainfoClient
@@ -217,8 +212,7 @@ class MyClass(RcrainfoClient):
 ```
 
 For RcrainfoClient method specific documentation, you can use the `help()` function from the Python console to get a
-description of
-each method and its inputs.
+description of each method and its inputs.
 
 ```
 >>> from emanifest import RcrainfoClient
@@ -226,15 +220,10 @@ each method and its inputs.
 ```
 
 For more information about the RCRAInfo services, see the documentation
-in the [root directory of the e-Manifest GitHub repo](https://github.com/USEPA/e-manifest), and the Swagger page of your
-selected
+in the [root directory of the e-Manifest GitHub repo](https://github.com/USEPA/e-manifest), and the Swagger page of your selected
 environment ([Preproduction](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger/), [Production](https://rcrainfo.epa.gov/rcrainfoprod/secured/swagger/)).
 Do not use the RCRAInfo Production environment for testing. To register for a testing
 account in preproduction, visit the [preprod site](https://rcrainfopreprod.epa.gov/rcrainfo/action/secured/login).
-
-Please note, the API of emanifest python package was substantially modified from version 2.0 to 3.0. We intend for the
-3.0 package version to be much more stable than its predecessors. We will continue to adhere to semantic versioning,
-and will not break backwards compatibility within a major release.
 
 ## Contact
 
