@@ -212,17 +212,17 @@ class RcrainfoClient(Session):
             self.__set_token_expiration(resp.json()['expiration'])
 
     @staticmethod
-    def __encode_manifest(manifest_json: str, zip_bytes: bytes = None, *, json_name: str = 'manifest.json',
+    def __encode_manifest(manifest_json: dict, zip_bytes: bytes = None, *, json_name: str = 'manifest.json',
                           zip_name='attachments.zip'):
         """emanifest-py internal helper function to encode json and zip file for upload"""
         if zip_bytes:
             return encoder.MultipartEncoder(fields={
-                "manifest": (json_name, manifest_json, 'application/json'),
+                "manifest": (json_name, json.dumps(manifest_json), 'application/json'),
                 "attachment": (zip_name, zip_bytes, 'application/zip')
             })
         else:
             return encoder.MultipartEncoder(fields={
-                "manifest": (json_name, manifest_json, 'application/json'),
+                "manifest": (json_name, json.dumps(manifest_json), 'application/json'),
             })
 
     # The following methods are exposed so users can hook into our client and customize its behavior
@@ -783,18 +783,21 @@ class RcrainfoClient(Session):
             endpoint = f'{self.base_url}/api/v1/emanifest/site-ids/{state_code}/{site_type}'
         return self.__rcra_request('GET', endpoint)
 
-    def correct_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
+    def correct_manifest(self, manifest_json: dict, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Correct Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (str): JSON string containing manifest details
+            manifest_json (dict): Dictionary containing manifest details
             zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
             
         Returns:
             dict: message of success or failure
         """
-        multipart = self.__encode_manifest(manifest_json, zip_file)
+        if zip_file:
+            multipart = self.__encode_manifest(manifest_json, zip_file)
+        else:
+            multipart = self.__encode_manifest(manifest_json)
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/correct'
         return self.__rcra_request('PUT', endpoint, multipart=multipart)
 
@@ -811,19 +814,21 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/revert/{mtn}'
         return self.__rcra_request('GET', endpoint)
 
-    def update_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
+    def update_manifest(self, manifest_json: dict, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Update Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (str): JSON string containing manifest details
+            manifest_json (dict): Dictionary containing manifest details
             zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
 
         Returns:
             dict: message of success or failure
         """
-        multipart = self.__encode_manifest(manifest_json, zip_file)
-
+        if zip_file:
+            multipart = self.__encode_manifest(manifest_json, zip_file)
+        else:
+            multipart = self.__encode_manifest(manifest_json)
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/update'
         return self.__rcra_request('PUT', endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
             'application/json'}, multipart=multipart)
@@ -859,18 +864,21 @@ class RcrainfoClient(Session):
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/quicker-sign'
         return self.__rcra_request('POST', endpoint, **kwargs)
 
-    def save_manifest(self, manifest_json: str, zip_file: bytes = None) -> RcrainfoResponse:
+    def save_manifest(self, manifest_json: dict, zip_file: bytes = None) -> RcrainfoResponse:
         """
         Save Manifest by providing e-Manifest JSON and optional Zip attachment
         
         Args:
-            manifest_json (str): JSON string containing manifest details
+            manifest_json (dict): Dictionary containing manifest details
             zip_file (bytearray): bytes of zip file containing manifest attachments. Optional
 
         Returns:
             dict: message of success or failure
         """
-        multipart = self.__encode_manifest(manifest_json, zip_file)
+        if zip_file:
+            multipart = self.__encode_manifest(manifest_json, zip_file)
+        else:
+            multipart = self.__encode_manifest(manifest_json)
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/save'
         return self.__rcra_request('POST', endpoint, headers={'Content-Type': multipart.content_type, 'Accept':
             'application/json'}, multipart=multipart)
