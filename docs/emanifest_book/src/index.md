@@ -1,3 +1,5 @@
+{{#include ./components/beta-warning.md}}
+
 # e-Manifest
 
 June 30, 2018. the United States Environmental Protection Agency (USEPA or EPA) launched a national system for tracking
