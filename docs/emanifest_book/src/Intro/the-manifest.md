@@ -36,7 +36,10 @@ as the suffix to their manifest tracking number.
 Arguably the easiest way to visualize an electronic manifest is [JSON](https://www.json.org/json-en.html) encoded.
 
 <details>
-  <summary>Click to see example electronic manifest</summary>
+
+   <summary style="font-size: 18px; color: red;">
+      Click to see example JSON encoded electronic manifest
+   </summary>
 
 ```json
 {
