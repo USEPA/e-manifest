@@ -2,14 +2,14 @@
 
 The Uniform Hazardous Waste Manifest (AKA "manifest" or EPA form 8700-22) is form required by EPA for all hazardous
 waste generators who transport hazardous waste for off-site treatment, recycling, storage or disposal.
-It is also commonly used to satify and U.S. Department of Transportation (DOT) requirements.
+It is also commonly used to satisfy and U.S. Department of Transportation (DOT) requirements.
 When completed, the form contains information on the type and quantity of the waste being transported, instructions for
 handling the waste, and signature lines
 
 ## Paper Manifests
 
 Since the inception of the uniform manifest, the manifesting process was completed on
-[NCR paper](https://www.google.com/search?client=firefox-b-1-d&q=NCR+paper#ip=1) often refered to
+[NCR paper](https://www.google.com/search?client=firefox-b-1-d&q=NCR+paper#ip=1) often referred to
 as carbon-copy paper. e-Manifest collects these manifest in addition to managing electronic manifests.
 With paper manifests, once the waste reaches its destination, the designated receiving facility returns one of the
 signed copies to the generator, and submits one to the e-Manifest system using one of
@@ -22,8 +22,8 @@ paper manifest. You can print paper copies of electronic manifest from the e-Man
 carry onboard with the transporter for DOT purposes. EPA established this procedure, in part, to ensure that each
 manifest has a unique identifying string called the Manifest Tracking Number (MTN) in box 4.
 
-All paper manifests that accompany waste that requires manifesting (whether the waste is federally regualted or state
-regualted in the generatoring or receiving state) must be submitted to the e-Manifest system by the designated receving
+All paper manifests that accompany waste that requires manifesting (whether the waste is federally regulated or state
+regulated in the generating or receiving state) must be submitted to the e-Manifest system by the designated receiving
 facility. The Receiving facility is required to pay a fee, the amount depends on the submission type and the current
 e-Manifest fees.
 
