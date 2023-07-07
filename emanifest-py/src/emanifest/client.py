@@ -10,6 +10,9 @@ from datetime import datetime, timezone
 from requests import Response, Session, Request
 from requests_toolbelt.multipart import decoder, encoder
 
+RCRAINFO_PROD = "https://rcrainfo.epa.gov/rcrainfoprod/rest"
+RCRAINFO_PREPROD = "https://rcrainfopreprod.epa.gov/rcrainfo/rest"
+
 
 class RcrainfoResponse:
     """
@@ -977,8 +980,8 @@ class RcrainfoClient(Session):
 def _parse_url(base_url: str | None) -> str:
     """emanifest-py internal helper function"""
     urls = {
-        "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest",
-        "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest"
+        "PROD": RCRAINFO_PROD,
+        "PREPROD": RCRAINFO_PREPROD
     }
     if base_url is None:
         return urls["PREPROD"]

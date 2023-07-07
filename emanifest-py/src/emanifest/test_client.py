@@ -3,7 +3,7 @@ import zipfile
 
 import requests
 
-from . import RcrainfoClient, RcrainfoResponse, new_client
+from . import RcrainfoClient, RcrainfoResponse, new_client, RCRAINFO_PROD, RCRAINFO_PREPROD
 
 TEST_GEN_MTN = "100032437ELC"
 TEST_GEN_ID = 'VATESTGEN001'
@@ -153,6 +153,14 @@ class TestBadClient:
 
 class TestNewClientConstructor:
 
+    def test_returns_instance_of_client(self):
+        rcrainfo = new_client('prod')
+        preprod = new_client('preprod')
+        blank = new_client()
+        assert isinstance(rcrainfo, RcrainfoClient)
+        assert isinstance(preprod, RcrainfoClient)
+        assert isinstance(blank, RcrainfoClient)
+
     def test_new_client_defaults_to_preprod(self):
         rcrainfo = new_client()
-        assert rcrainfo.base_url == 'https://rcrainfopreprod.epa.gov/rcrainfo/rest'
+        assert rcrainfo.base_url == RCRAINFO_PREPROD
