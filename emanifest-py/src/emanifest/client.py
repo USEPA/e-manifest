@@ -7,7 +7,7 @@ import json
 import zipfile
 from datetime import datetime, timezone
 
-from requests import Response, Session, Request
+from requests import Request, Response, Session
 from requests_toolbelt.multipart import decoder, encoder
 
 RCRAINFO_PROD = "https://rcrainfo.epa.gov/rcrainfoprod/rest/api/"
