@@ -845,7 +845,7 @@ class RcrainfoClient(Session):
         """
         endpoint = f'{self.base_url}/api/v1/emanifest/manifest/delete/{mtn}'
         return self.__rcra_request('DELETE', endpoint)
-    
+
     def sign_manifest(self, **kwargs) -> RcrainfoResponse:
         """
         Quicker sign selected manifests
@@ -974,16 +974,35 @@ class RcrainfoClient(Session):
         return self.__rcra_request('GET', endpoint)
 
 
-def _parse_url(base_url: str) -> str:
+def _parse_url(base_url: str | None) -> str:
     """emanifest-py internal helper function"""
+    urls = {
+        "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest",
+        "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest"
+    }
+    if base_url is None:
+        return urls["PREPROD"]
     if "https" not in base_url:
-        urls = {
-            "PROD": "https://rcrainfo.epa.gov/rcrainfoprod/rest",
-            "PREPROD": "https://rcrainfopreprod.epa.gov/rcrainfo/rest"
-        }
         if base_url.upper() in urls:
             return urls[base_url.upper()]
         else:
             return urls["PREPROD"]
     else:
         return base_url
+
+
+def new_client(base_url: str = None, api_id: str = None, api_key: str = None,
+               auto_renew: bool = False) -> RcrainfoClient:
+    """
+    Create a new RCRAInfo client instance
+
+    Args:
+        base_url (str): Base URL of the RCRAInfo API. Defaults to 'PREPROD'
+        api_id (str): RCRAInfo API ID
+        api_key (str): RCRAInfo API key
+        auto_renew: (bool): Automatically renew API token when expired. Defaults to False
+
+    Returns:
+        RcrainfoClient: RCRAInfo client instance
+    """
+    return RcrainfoClient(base_url, api_id=api_id, api_key=api_key, auto_renew=auto_renew)
