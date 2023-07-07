@@ -84,10 +84,9 @@ class RcrainfoClient(Session):
     __expiration_fmt = "%Y-%m-%dT%H:%M:%S.%f%z"
     __default_headers = {"Accept": "application/json"}
     __default_timeout = 10
-    __default_auto_renew = True
 
     def __init__(
-        self, base_url: str, *, api_id=None, api_key=None, timeout=10, auto_renew=True
+            self, base_url: str, *, api_id=None, api_key=None, timeout=10, auto_renew=True
     ) -> None:
         super().__init__()
         self.base_url = base_url
@@ -142,9 +141,11 @@ class RcrainfoClient(Session):
     def is_authenticated(self) -> bool:
         """Returns True if the RcrainfoClient token exists and has not expired."""
         try:
-            if self.token_expiration > datetime.utcnow().replace(tzinfo=timezone.utc):
-                if self.token is not None:
-                    return True
+            if (
+                    self.token_expiration > datetime.utcnow().replace(tzinfo=timezone.utc)
+                    and self.token is not None
+            ):
+                return True
             else:
                 return False
         except TypeError:
@@ -178,7 +179,7 @@ class RcrainfoClient(Session):
         return self.is_authenticated
 
     def __rcra_request(
-        self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
+            self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
     ) -> RcrainfoResponse:
         """Client internal method for making requests to RCRAInfo"""
 
@@ -224,11 +225,11 @@ class RcrainfoClient(Session):
 
     @staticmethod
     def __encode_manifest(
-        manifest_json: dict,
-        zip_bytes: bytes = None,
-        *,
-        json_name: str = "manifest.json",
-        zip_name="attachments.zip",
+            manifest_json: dict,
+            zip_bytes: bytes = None,
+            *,
+            json_name: str = "manifest.json",
+            zip_name="attachments.zip",
     ):
         """emanifest-py internal helper function to encode json and zip file for upload"""
         if zip_bytes:
@@ -812,7 +813,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request("GET", endpoint)
 
     def get_sites(
-        self, state_code: str, site_type: str, reg: bool = False
+            self, state_code: str, site_type: str, reg: bool = False
     ) -> RcrainfoResponse:
         """
         Retrieve site ids for provided criteria
@@ -834,7 +835,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request("GET", endpoint)
 
     def correct_manifest(
-        self, manifest_json: dict, zip_file: bytes = None
+            self, manifest_json: dict, zip_file: bytes = None
     ) -> RcrainfoResponse:
         """
         Correct Manifest by providing e-Manifest JSON and optional Zip attachment
@@ -867,7 +868,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request("GET", endpoint)
 
     def update_manifest(
-        self, manifest_json: dict, zip_file: bytes = None
+            self, manifest_json: dict, zip_file: bytes = None
     ) -> RcrainfoResponse:
         """
         Update Manifest by providing e-Manifest JSON and optional Zip attachment
@@ -926,7 +927,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request("POST", endpoint, **kwargs)
 
     def save_manifest(
-        self, manifest_json: dict, zip_file: bytes = None
+            self, manifest_json: dict, zip_file: bytes = None
     ) -> RcrainfoResponse:
         """
         Save Manifest by providing e-Manifest JSON and optional Zip attachment
@@ -983,7 +984,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request("POST", endpoint, **kwargs)
 
     def get_cme_lookup(
-        self, activity_location: str, agency_code: str, nrr_flag: bool = True
+            self, activity_location: str, agency_code: str, nrr_flag: bool = True
     ) -> RcrainfoResponse:
         """
         Retrieve all lookups for specific activity location and agency code, including staff,
@@ -1063,10 +1064,10 @@ def _parse_url(base_url: str | None) -> str:
 
 
 def new_client(
-    base_url: str = None,
-    api_id: str = None,
-    api_key: str = None,
-    auto_renew: bool = False,
+        base_url: str = None,
+        api_id: str = None,
+        api_key: str = None,
+        auto_renew: bool = False,
 ) -> RcrainfoClient:
     """
     Create a new RCRAInfo client instance
