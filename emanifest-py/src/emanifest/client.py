@@ -80,7 +80,7 @@ class RcrainfoClient(Session):
     A http client for using the RCRAInfo (e-Manifest) Restful web services.
     """
 
-    # see datetime docs https://docs.python.org/3.7/library/datetime.html#strftime-strptime-behavior
+    # see datetime docs https://docs.python.org/3.11/library/datetime.html#strftime-strptime-behavior
     __expiration_fmt = "%Y-%m-%dT%H:%M:%S.%f%z"
     __default_headers = {"Accept": "application/json"}
     __default_timeout = 10
@@ -155,18 +155,6 @@ class RcrainfoClient(Session):
     def expiration_format(self) -> str:
         """Datetime format used by RCRAInfo for token expiration. Read only."""
         return self.__expiration_fmt
-
-    @property
-    def auto_renew(self) -> bool:
-        """whether the RcrainfoClient will automatically re-authenticate after session expiration."""
-        return self._auto_renew
-
-    @auto_renew.setter
-    def auto_renew(self, value) -> None:
-        if value:
-            self._auto_renew = True
-        else:
-            self._auto_renew = False
 
     def __str__(self) -> str:
         return self.__repr__()
