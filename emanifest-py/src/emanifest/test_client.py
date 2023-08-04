@@ -15,11 +15,15 @@ MOCK_API_KEY = "mock_api_key"
 
 @pytest.fixture
 def mock_response():
+    token_expiration = "2053-08-04T22:24:42.724+00:00"
     with responses.RequestsMock() as rsps:
         rsps.add(
             responses.GET,
             f"{RCRAINFO_PREPROD}v1/auth/{MOCK_API_ID}/{MOCK_API_KEY}",
-            json={"token": "mock_token", "expiration": "mock_expiration"},
+            json={
+                "token": "mock_token",
+                "expiration": token_expiration,
+            },
         )
         yield rsps
 
@@ -41,8 +45,10 @@ class TestRcrainfoClient:
         rcra_response = self.rcrainfo.get_site(TEST_GEN_ID)
         assert rcra_response.zip is None
 
-    def test_token_when_is_authenticated(self):
-        assert isinstance(self.rcrainfo.token, str) and self.rcrainfo.is_authenticated
+    def test_token_when_is_authenticated(self, mock_response):
+        client = RcrainfoClient("preprod")
+        client.authenticate(api_id=MOCK_API_ID, api_key=MOCK_API_KEY)
+        assert isinstance(client.token, str) and client.is_authenticated
 
     def test_token_when_not_authenticated(self):
         new_rcrainfo = RcrainfoClient("preprod")
