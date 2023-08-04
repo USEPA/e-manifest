@@ -1,20 +1,43 @@
 import os
 import zipfile
 
+import pytest
 import requests
+import responses
 
 from . import RCRAINFO_PREPROD, RcrainfoClient, RcrainfoResponse, new_client
 
 TEST_GEN_MTN = "100032437ELC"
 TEST_GEN_ID = "VATESTGEN001"
+MOCK_API_ID = "mock_api_id"
+MOCK_API_KEY = "mock_api_key"
+
+
+@pytest.fixture
+def mock_response():
+    with responses.RequestsMock() as rsps:
+        rsps.add(
+            responses.GET,
+            f"{RCRAINFO_PREPROD}v1/auth/{MOCK_API_ID}/{MOCK_API_KEY}",
+            json={"token": "mock_token", "expiration": "mock_expiration"},
+        )
+        yield rsps
 
 
 class TestRcrainfoClient:
-    api_id = os.getenv("RCRAINFO_API_ID")
-    api_key = os.getenv("RCRAINFO_API_KEY")
+    api_id = MOCK_API_ID
+    api_key = MOCK_API_KEY
     rcrainfo = RcrainfoClient("preprod", api_id=api_id, api_key=api_key)
 
-    def test_initial_zip_state(self):
+    def test_zip_attribute_is_none_when_attachment_not_returned(self, mock_response):
+        mock_response.add(
+            responses.GET,
+            f"{self.rcrainfo.base_url}v1/site-details/{TEST_GEN_ID}",
+            json={
+                "epaSiteId": TEST_GEN_ID,
+            },
+        )
+        # manifest_response = self.rcrainfo.get_manifest_attachments(TEST_GEN_ID)
         rcra_response = self.rcrainfo.get_site(TEST_GEN_ID)
         assert rcra_response.zip is None
 
@@ -47,7 +70,7 @@ class TestRcrainfoClient:
     def test_check_mtn_exits(self):
         mtn = "100032934ELC"
         assert (
-            self.rcrainfo.check_mtn_exists(mtn).json()["manifestTrackingNumber"] == mtn
+                self.rcrainfo.check_mtn_exists(mtn).json()["manifestTrackingNumber"] == mtn
         )
 
     def test_correction_get_attachments(self):
