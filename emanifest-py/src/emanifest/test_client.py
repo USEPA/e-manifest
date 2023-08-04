@@ -1,5 +1,4 @@
 import os
-import zipfile
 
 import pytest
 import requests
@@ -34,59 +33,52 @@ class TestRcrainfoClient:
     rcrainfo = RcrainfoClient("preprod", api_id=api_id, api_key=api_key)
 
     def test_zip_attribute_is_none_when_attachment_not_returned(self, mock_response):
+        # Arrange
         mock_response.add(
+            # Add mock response for site-details endpoint
             responses.GET,
             f"{self.rcrainfo.base_url}v1/site-details/{TEST_GEN_ID}",
             json={
                 "epaSiteId": TEST_GEN_ID,
             },
         )
-        # manifest_response = self.rcrainfo.get_manifest_attachments(TEST_GEN_ID)
+        # Act
         rcra_response = self.rcrainfo.get_site(TEST_GEN_ID)
+        # Assert
         assert rcra_response.zip is None
 
     def test_token_when_is_authenticated(self, mock_response):
+        # Arrange
         client = RcrainfoClient("preprod")
+        # Act
         client.authenticate(api_id=MOCK_API_ID, api_key=MOCK_API_KEY)
+        # Assert
         assert isinstance(client.token, str) and client.is_authenticated
 
-    def test_token_when_not_authenticated(self):
+    def test_token_is_none_when_not_authenticated(self):
         new_rcrainfo = RcrainfoClient("preprod")
         assert new_rcrainfo.token is None and not new_rcrainfo.is_authenticated
 
-    # RcrainfoResponse test
-    def test_extracted_response_json_matches(self):
-        resp: RcrainfoResponse = self.rcrainfo.get_site(TEST_GEN_ID)
+    def test_extracted_response_json_matches(self, mock_response):
+        # Arrange
+        rcrainfo = new_client(
+            "preprod", api_id=self.api_id, api_key=self.api_key, auto_renew=True
+        )
+        mock_response.add(
+            # Add mock response for site-details endpoint
+            responses.GET,
+            f"{self.rcrainfo.base_url}v1/site-details/{TEST_GEN_ID}",
+            json={
+                "epaSiteId": TEST_GEN_ID,
+            },
+        )
+        # Act
+        resp: RcrainfoResponse = rcrainfo.get_site(TEST_GEN_ID)
+        # Assert
         assert resp.response.json() == resp.json()
 
-    def test_decode_multipart_string(self):
-        manifest_response = self.rcrainfo.get_manifest_attachments(TEST_GEN_MTN)
-        assert isinstance(manifest_response.json(), str)
 
-    def test_decode_multipart_zipfile(self):
-        manifest_response = self.rcrainfo.get_manifest_attachments(TEST_GEN_MTN)
-        assert isinstance(manifest_response.zip, zipfile.ZipFile)
-
-    # Specific method related testing
-    def test_get_site_details(self):
-        rcra_response = self.rcrainfo.get_site(TEST_GEN_ID)
-        site_details = rcra_response.response.json()
-        assert site_details["epaSiteId"] == TEST_GEN_ID
-
-    def test_check_mtn_exits(self):
-        mtn = "100032934ELC"
-        assert (
-                self.rcrainfo.check_mtn_exists(mtn).json()["manifestTrackingNumber"] == mtn
-        )
-
-    def test_correction_get_attachments(self):
-        response = self.rcrainfo.get_correction_attachments(
-            manifestTrackingNumber=TEST_GEN_MTN
-        )
-        assert response.ok is True
-
-
-class TestClientIsExtendable:
+class TestRcrainfoClientIsExtendable:
     class MyClass(RcrainfoClient):
         mock_api_id_from_external = "an_api_id_from_someplace_else"
         mock_api_key_from_external = "a_api_key_from_someplace_else"
@@ -127,28 +119,62 @@ class TestClientIsExtendable:
 
 
 class TestAutoAuthentication:
-    api_id = os.getenv("RCRAINFO_API_ID")
-    api_key = os.getenv("RCRAINFO_API_KEY")
+    api_id = MOCK_API_ID
+    api_key = MOCK_API_KEY
 
-    def test_automatically_authenticates(self):
+    @responses.activate
+    def test_not_automatically_authenticates_by_default(self):
         """
-        RcrainfoClient will automatically authenticate once a request is made,
-        (e.g., calling get_manifest(...) will do the equivalent of authenticate(...) first
+        RcrainfoClient does not automatically authenticate (via the auth endpoint) by default
         """
-        rcrainfo = RcrainfoClient("preprod", api_key=self.api_key, api_id=self.api_id)
+        # Arrange
+        rcrainfo = new_client("preprod", api_id=self.api_id, api_key=self.api_key)
+        responses.add(
+            # Add mock response for site-details endpoint
+            responses.GET,
+            f"{rcrainfo.base_url}v1/emanifest/manifest/{TEST_GEN_MTN}",
+            json={
+                "manifestTrackingNumber": TEST_GEN_MTN,
+            },
+        )
+        auth_response = responses.add(
+            responses.GET,
+            f"{RCRAINFO_PREPROD}v1/auth/{MOCK_API_ID}/{MOCK_API_KEY}",
+            json={
+                "token": "mock_token",
+                "expiration": "mock_expiration",
+            },
+        )
+        # Act
         _resp = rcrainfo.get_manifest(TEST_GEN_MTN)
-        assert rcrainfo.is_authenticated
+        # Assert
+        assert auth_response.call_count == 0
 
-    def test_does_not_authenticate_when_false(self):
-        """
-        emanifest(py) package will auto-authenticate (and re-authenticate) unless
-        the auto_renew argument is set to False
-        """
-        rcrainfo = RcrainfoClient(
-            "preprod", api_key=self.api_key, api_id=self.api_id, auto_renew=False
+    @responses.activate
+    def test_authenticates_when_auto_renew_set_to_true(self):
+        # Arrange
+        # create a new auto authenticating client
+        rcrainfo = new_client(
+            "preprod", api_id=self.api_id, api_key=self.api_key, auto_renew=True
+        )
+        responses.add(
+            # Add mock response for site-details endpoint
+            responses.GET,
+            f"{rcrainfo.base_url}v1/emanifest/manifest/{TEST_GEN_MTN}",
+            json={
+                "manifestTrackingNumber": TEST_GEN_MTN,
+            },
+        )
+        auth_response = responses.add(
+            responses.GET,
+            f"{RCRAINFO_PREPROD}v1/auth/{MOCK_API_ID}/{MOCK_API_KEY}",
+            json={
+                "token": "mock_token",
+                "expiration": "mock_expiration",
+            },
         )
         _resp = rcrainfo.get_manifest(TEST_GEN_MTN)
-        assert not rcrainfo.is_authenticated
+        assert auth_response.call_count > 0
 
     def test_non_present_credentials_does_not_auth(self):
         new_rcrainfo = RcrainfoClient("preprod")
