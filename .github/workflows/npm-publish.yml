@@ -9,6 +9,7 @@ defaults:
 
 jobs:
   release:
+    if: github.repository == 'USEPA/e-manifest'
     name: Release
     runs-on: ubuntu-latest
     steps:
