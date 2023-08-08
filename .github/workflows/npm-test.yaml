@@ -5,14 +5,14 @@ on:
     paths:
       - 'emanifest-js/**'
 
+defaults:
+  run:
+    working-directory: emanifest-js
 
 jobs:
   release:
     name: Test NPM package
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: './emanifest-js'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
