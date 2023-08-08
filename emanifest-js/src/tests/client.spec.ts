@@ -49,7 +49,6 @@ describe('RcraClient', () => {
       .then((authResp: AxiosResponse) => {
         expect(authResp.status).toBe(200);
         expect(rcrainfo.token).toBeTruthy();
-        fail('should not have authenticated');
         return rcrainfo.getPackingGroups();
       })
       .then((resp) => {
@@ -58,12 +57,6 @@ describe('RcraClient', () => {
       .catch((err: AxiosError) => {
         console.log('error', err);
       });
-    // expect(authResponse.status).toBe(200);
-    // expect(rcrainfo.token).toBeTruthy(); // Ensure token is set
-    // console.log(rcrainfo.token);
-    // // Our mock service worker will return a 401 if Authorization: 'Bearer mockToken' is not set
-    // const resp = await rcrainfo.getPackingGroups();
-    // expect(resp.status).toBe(200);
   });
 });
 
