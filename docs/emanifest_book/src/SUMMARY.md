@@ -14,5 +14,7 @@
     - [Signing Manifests]()
     - [e-Manifest Services for states](Services/Manifest/states.md)
   - [Sites]()
-  - [Lookups]()
+  - [Lookups](Services/Lookup/lookup.md)
+    - [Lookups](Services/Lookup/lookup.md)
+    - [e-Manifest Lookups](Services/Lookup/e-manifest.md)
 - [Reference Materials](references.md)
