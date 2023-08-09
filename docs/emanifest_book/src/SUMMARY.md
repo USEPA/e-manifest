@@ -17,4 +17,5 @@
   - [Lookups](Services/Lookup/lookup.md)
     - [Lookups](Services/Lookup/lookup.md)
     - [e-Manifest Lookups](Services/Lookup/e-manifest.md)
+  - [User](Services/user.md)
 - [Reference Materials](references.md)
