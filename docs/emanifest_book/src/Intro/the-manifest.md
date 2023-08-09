@@ -1,31 +1,26 @@
 # The Manifest
 
-The Uniform Hazardous Waste Manifest (AKA "manifest" or EPA form 8700-22) is form required by EPA for all hazardous
-waste generators who transport hazardous waste for off-site treatment, recycling, storage or disposal.
-It is also commonly used to satisfy and U.S. Department of Transportation (DOT) requirements.
-When completed, the form contains information on the type and quantity of the waste being transported, instructions for
-handling the waste, and signature lines
+The Uniform Hazardous Waste Manifest (AKA "manifest" or EPA form 8700-22) is a form required by EPA for all hazardous
+waste [generators](./terminology.md#generator) who [transport](./terminology.md#transporter) hazardous waste for
+off-site [treatment, recycling, storage or disposal (TSD)](./terminology.md#treatment-storage-or-disposal-facility-tsdf--receiving-facility--designated-facility).
+It is also commonly used to satisfy and U.S. Department of Transportation (DOT) requirements. When completed, the form
+contains information on the type and quantity of the waste being transported, instructions for handling the waste, and
+signature lines
 
 ## Paper Manifests
 
-Since the inception of the uniform manifest, the manifesting process was completed on
-[NCR paper](https://www.google.com/search?client=firefox-b-1-d&q=NCR+paper#ip=1) often referred to
-as carbon-copy paper. e-Manifest collects these manifest in addition to managing electronic manifests.
-With paper manifests, once the waste reaches its destination, the designated receiving facility returns one of the
-signed copies to the generator, and submits one to the e-Manifest system using one of
+Historically, the manifesting process was completed
+on [NCR paper](https://www.google.com/search?client=firefox-b-1-d&q=NCR+paper#ip=1) often referred to
+as carbon-copy paper. When the waste reaches its destination, the designated receiving facility submits the paper
+manifest to the e-Manifest system using one of
 [the available submission methods](https://www.epa.gov/e-manifest/how-submit-hazardous-waste-manifest)
 
 ![sample paper manifest](../assets/sample_uniform_hazardous_waste_manifest.png)
 
 Only [registered manifest printers](https://www.epa.gov/hwgenerators/hazardous-waste-manifest-system#printer) can print
-paper manifest. You can print paper copies of electronic manifest from the e-Manifest system for Hybrid manifests and to
-carry onboard with the transporter for DOT purposes. EPA established this procedure, in part, to ensure that each
-manifest has a unique identifying string called the Manifest Tracking Number (MTN) in box 4.
-
-All paper manifests that accompany waste that requires manifesting (whether the waste is federally regulated or state
-regulated in the generating or receiving state) must be submitted to the e-Manifest system by the designated receiving
-facility. The Receiving facility is required to pay a fee, the amount depends on the submission type and the current
-e-Manifest fees.
+paper manifest. You can print paper copies of electronic and hybrid manifest from the e-Manifest system to carry onboard
+with the transporter for DOT purposes. EPA established this procedure, in part, to ensure that each manifest has a
+unique identifying string called the Manifest Tracking Number (MTN) in box 4.
 
 ## Electronic Manifests
 
@@ -37,7 +32,7 @@ Arguably the easiest way to visualize an electronic manifest is [JSON](https://w
 
 <details>
 
-   <summary style="font-size: 18px; color: red;">
+   <summary style="font-size: 18px; font-weight: bold">
       Click to see example JSON encoded electronic manifest
    </summary>
 
@@ -361,39 +356,42 @@ Arguably the easiest way to visualize an electronic manifest is [JSON](https://w
 
 ### Electronic vs Paper Manifest Content
 
-Electronic manifests generally contain the same information as their paper counterparts, however there are some
-differences. Many of the differences stem from the fact that electronic manifests are not constrained by the physical
-space available on a piece of paper. As such, many fields present on the paper manifest have additional information.
+Electronic manifests generally contain the same information as their paper counterparts, however electronic manifests
+are not constrained by the physical space available on a piece of paper. This allows for additional information to be
+included on the electronic manifest that is not available on the paper manifest during shipment. However, the paper
+manifest can be supplemented with much of this material when it is submitted to the e-Manifest system.
 
 #### one-to-many relationships
 
-1. **Waste Codes**: A waste line can have many applicable waste codes. On paper manifests, generators are
+1. **Waste Codes**: A waste stream can have many applicable waste codes. On paper manifests, generators are
    required to enter up to six (6) waste codes to describe each waste stream (
    see [Instructions for completing the hazardous waste manifest](https://www.epa.gov/hwgenerators/uniform-hazardous-waste-manifest-instructions-sample-form-and-continuation-sheet)).
    Electronic manifest are not constrained by space, all applicable waste codes can be entered for the applicable waste
    line.
 
-2. **Transporters**: A manifest can have one or more transporters. The paper manifest has space for up to three (3)
-   transporters before a continuation sheet must be used and carried with the waste shipment. Like paper manifests,
-   electronic manifests do not have a limit on the number of transporters. If a waste shipment has more than three
-   transporters, the e-Manifest will automatically generate the continuation sheet if the manifest needs to be printed (
-   for DOT purposes).
+2. **Transporters**: A manifest can have one or more transporters. Paper manifests have space for up to three (3)
+   transporters before a continuation sheet must be used. When more than three transporters are listed on an electronic
+   manifest, the e-Manifest system will automatically generate a continuation sheet if the electronic manifest needs to
+   be printed.
 
 #### Additional Fields
 
-As the e-Manifest continues to be developed, additional fields that benefit the e-Manifest stakeholders and EPA may be
+As e-Manifest continues to be developed, additional fields that benefit the e-Manifest stakeholders and EPA may be
 added.
 
-1. **Biennial Report**: the `"BrInfo"` field contains data related to the Biennial Report, another component of the
-   EPA's RCRAInfo system. Users can elect to provide this information on the manifest to be pulled into the Biennial
-   Report module of RCRAInfo when necessary later on.
+1. **Biennial Report**: the `"BrInfo"` field contains data related to
+   the [Biennial Report](https://www.epa.gov/hwgenerators/biennial-hazardous-waste-report). Users can elect to provide
+   this information on the manifest, RCRAInfo can make use of this data in the BR module to make reporting easier for
+   users who elect to provide this information.
 
 #### Field Values
 
-1. **status**: The status field of electronic manifests is managed by the e-Manifest system, starting with
-   the `NotAssigned` status through `Signed` and beyond if the manifest undergoes post-receipt corrections. Since paper
-   manifests are completed outside the e-Manifest system and uploaded 30 days after the shipment reaches the designated
-   receiving facility, paper manifests can only be assigned a subsection of the available statuses.
+1. **status**: The status field of electronic manifests is managed by the e-Manifest system. Since paper
+   manifests are completed outside the e-Manifest system and uploaded after the TSDF receives the shipment, paper
+   manifests can only be assigned a subsection of the available statuses.
+
+   ![manifest status](../assets/manifest_statuses.jpg)
+   _Green boxes are shared by electronic/hybrid and paper manifests._
 
 2. **Codes**: Items such as waste codes, management method codes, units of measurements and others have a different
    representation on electronic manifests than on paper manifests. For example, a federal waste codes
