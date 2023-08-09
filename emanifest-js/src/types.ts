@@ -102,7 +102,7 @@ export interface ManifestExistsResponse {
 
 export interface QuickerSign {
   manifestTrackingNumbers: string[];
-  siteId: string;
+  siteID: string;
   siteType: SiteType;
   printedSignatureName: string;
   printedSignatureDate: string;

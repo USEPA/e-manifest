@@ -58,9 +58,23 @@ describe('RcraClient', () => {
         console.log('error', err);
       });
   });
-  it('RcraClient returns an error if stateCode is not two characters long', async () => {
+});
+
+describe('RcraClient Validates before calling API', () => {
+  it('throws an error if stateCode is not two characters long', async () => {
     const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
     await expect(() => rcrainfo.getStateWasteCodes('BAD_STATE_CODE')).rejects.toThrowError(/two characters/);
+  });
+  it('throws an error if siteID is not 12 characters long', async () => {
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
+    await expect(() => rcrainfo.getSite('lengthy_site_id_yo_yo')).rejects.toThrowError();
+    await expect(() => rcrainfo.getSite('short_id')).rejects.toThrowError();
+  });
+  it('throws an error if siteID is empty', async () => {
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
+    // @ts-ignore
+    await expect(() => rcrainfo.getSite()).rejects.toThrowError();
+    await expect(() => rcrainfo.getSite('')).rejects.toThrowError();
   });
 });
 

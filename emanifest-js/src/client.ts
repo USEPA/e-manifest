@@ -220,6 +220,7 @@ class RcraClient {
    * Get a site by its EPA ID.
    */
   public getSite = async (siteID: string): Promise<AxiosResponse> => {
+    this.validateSiteID(siteID);
     return this.apiClient.get(`v1/site-details/${siteID}`);
   };
 
@@ -227,6 +228,7 @@ class RcraClient {
    * Returns true if the site, by EPA ID, exists in RCRAInfo.
    */
   public getSiteExists = async (siteID: string): Promise<AxiosResponse<{ result: boolean; epaSiteId: string }>> => {
+    this.validateSiteID(siteID);
     return this.apiClient.get(`v1/site-exists/${siteID}`);
   };
 
@@ -363,10 +365,11 @@ class RcraClient {
 
   /**
    * Performs 'quicker' signature for the entity within the manifest specified by given
-   * siteId and siteType. If siteType is 'Transporter', transporter order must be specified to
+   * siteID and siteType. If siteType is 'Transporter', transporter order must be specified to
    * indicate which transporter performs the signature.
    */
   public SignManifest = async (parameters: QuickerSign): Promise<AxiosResponse<any>> => {
+    this.validateSiteID(parameters.siteID);
     return this.apiClient.post('v1/emanifest/manifest/quicker-sign', parameters);
   };
 
@@ -374,4 +377,13 @@ class RcraClient {
   // public correctManifest = async (): Promise<AxiosResponse<any>> => {
   //   return this.apiClient.post('v1/emanifest/manifest/correct');
   // };
+
+  private validateSiteID = (siteID: string): void => {
+    if (!siteID || siteID === '') {
+      throw new Error('Site ID cannot be empty');
+    }
+    if (siteID.length !== 12) {
+      throw new Error('Site ID must be 12 characters long');
+    }
+  };
 }
