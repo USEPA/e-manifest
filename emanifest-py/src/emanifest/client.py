@@ -128,7 +128,7 @@ class RcrainfoClient(Session):
         try:
             self.__token_expiration_utc = datetime.strptime(
                 expiration, self.__expiration_fmt
-            )
+            ).replace(tzinfo=timezone.utc)
         except ValueError:
             self.__token_expiration_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
 
