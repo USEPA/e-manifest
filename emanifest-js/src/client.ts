@@ -39,7 +39,7 @@ export type RcraClientClass = typeof RcraClient;
  * @param apiKey - The API key for the RCRAInfo.
  * @param authAuth - Automatically authenticate if necessary. By default, this is disabled.
  */
-export const newClient = ({ apiBaseURL, apiID, apiKey, authAuth }: RcraClientConfig = {}) => {
+export const newClient = ({ apiBaseURL, apiID, apiKey, authAuth = false }: RcraClientConfig = {}) => {
   return new RcraClient(apiBaseURL, apiID, apiKey, authAuth);
 };
 
@@ -74,26 +74,26 @@ class RcraClient {
       },
     });
 
+    // Intercept all requests, make call to RCRAInfo auth service if necessary and add Authorization header
     this.apiClient.interceptors.request.use(async (config) => {
-      // if the request is for auth, don't add the token
+      // if the request is for auth service, don't add the token
       if (config.url?.includes('auth')) {
         return config;
       }
-      // if autoAuth is disabled return
-      if (!this.autoAuth) {
-        return config;
-      }
-      // If authAuth is enabled, check if we already have a token. If not, authenticate.
-      if (!this.token) {
-        // Check the RcraClient object for apiID and apiKey.
-        if (!this.apiID || !this.apiKey) {
-          // If there's no token and no apiID or apiKey, throw an error. We can't authenticate.
-          throw new Error('Please add API ID and Key to authenticate.');
+      // if autoAuth is enabled, check if we already have a token.
+      if (this.autoAuth) {
+        // If we do not have a token, check if we have an apiID and apiKey.
+        if (!this.token) {
+          // If we have an apiID and apiKey, try to authenticate.
+          if (!this.apiID || !this.apiKey) {
+            // If there's no token and no apiID or apiKey, throw an error. We can't authenticate.
+            throw new Error('Please add API ID and Key to authenticate.');
+          }
+          // If there's no token, but there is an apiID and apiKey, try to authenticate.
+          await this.authenticate().catch((err) => {
+            throw new Error(`Received an error while attempting to authenticate: ${err}`);
+          });
         }
-        // If there's no token, but there is an apiID and apiKey, try to authenticate.
-        await this.authenticate().catch((err) => {
-          throw new Error(`Received an error while attempting to authenticate: ${err}`);
-        });
       }
       config.headers.Authorization = `Bearer ${this.token}`;
       return config;
@@ -179,10 +179,13 @@ class RcraClient {
   /**
    * Returns a list of all available DOT Hazard classes.
    */
-  public getHazardClasses = async (
-    shippingName?: string,
-    idNumber?: string,
-  ): Promise<AxiosResponse<string[] | string>> => {
+  public getHazardClasses = async ({
+    shippingName,
+    idNumber,
+  }: {
+    shippingName?: string;
+    idNumber?: string;
+  } = {}): Promise<AxiosResponse<string[] | string>> => {
     if (shippingName || idNumber) {
       // if either shippingName or idNumber is provided, attempt to get by shipping name and id number
       if (!shippingName || !idNumber) {
@@ -199,10 +202,13 @@ class RcraClient {
   /**
    * Returns a list of all available DOT packing groups.
    */
-  public getPackingGroups = async (
-    shippingName?: string,
-    idNumber?: string,
-  ): Promise<AxiosResponse<string[] | string>> => {
+  public getPackingGroups = async ({
+    shippingName,
+    idNumber,
+  }: {
+    shippingName?: string;
+    idNumber?: string;
+  } = {}): Promise<AxiosResponse<string[] | string>> => {
     if (shippingName || idNumber) {
       // if either shippingName or idNumber is provided, attempt to get by shipping name and id number
       if (!shippingName || !idNumber) {

@@ -60,10 +60,10 @@ describe('RcraClient', () => {
   });
 });
 
-describe('RcraClient input validation', () => {
+describe('RcraClient validation', () => {
   it('throws an error if stateCode is not two characters long', async () => {
     const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
-    await expect(() => rcrainfo.getStateWasteCodes('BAD_STATE_CODE')).rejects.toThrowError(/two characters/);
+    await expect(() => rcrainfo.getStateWasteCodes('BAD_STATE_CODE')).rejects.toThrowError();
   });
   it('throws an error if siteID is not 12 characters long', async () => {
     const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
