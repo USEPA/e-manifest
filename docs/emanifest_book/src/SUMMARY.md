@@ -12,6 +12,7 @@
     - [Delete](Services/Manifest/delete.md)
     - [Correct]()
     - [Signing Manifests]()
+    - [UI link](Services/Manifest/ui-link.md)
     - [e-Manifest Services for states](Services/Manifest/states.md)
   - [Sites]()
   - [Lookups](Services/Lookup/lookup.md)
