@@ -58,6 +58,10 @@ describe('RcraClient', () => {
         console.log('error', err);
       });
   });
+  it('RcraClient returns an error if stateCode is not two characters long', async () => {
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
+    await expect(() => rcrainfo.getStateWasteCodes('BAD_STATE_CODE')).rejects.toThrowError(/two characters/);
+  });
 });
 
 describe('emanifest package', () => {

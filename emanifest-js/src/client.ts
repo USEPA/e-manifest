@@ -124,6 +124,9 @@ class RcraClient {
    * @param stateCode
    */
   public getStateWasteCodes = async (stateCode: string): Promise<AxiosResponse<RcraCode[]>> => {
+    if (stateCode.length !== 2) {
+      throw new Error('stateCode must be two characters long');
+    }
     return this.apiClient.get(`v1/lookup/state-waste-codes/${stateCode}`);
   };
 
