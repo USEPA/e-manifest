@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import {
   AuthResponse,
@@ -11,6 +13,8 @@ import {
   QuickerSign,
   RcraCode,
   SiteSearchParameters,
+  SiteType,
+  siteTypeValues,
   UserSearchParameters,
 } from './types';
 
@@ -51,8 +55,8 @@ export const newClient = ({ apiBaseURL, apiID, apiKey, authAuth }: RcraClientCon
 class RcraClient {
   private apiClient: AxiosInstance;
   env: RcrainfoEnv;
-  private apiID?: string;
-  private apiKey?: string;
+  private readonly apiID?: string;
+  private readonly apiKey?: string;
   token?: string;
   expiration?: string;
   autoAuth?: Boolean;
@@ -113,7 +117,7 @@ class RcraClient {
   /**
    * Returns true if the client has a valid token.
    */
-  isAuthenticated = (): boolean => {
+  public isAuthenticated = (): boolean => {
     return this.token !== undefined;
   };
 
@@ -124,9 +128,7 @@ class RcraClient {
    * @param stateCode
    */
   public getStateWasteCodes = async (stateCode: string): Promise<AxiosResponse<RcraCode[]>> => {
-    if (stateCode.length !== 2) {
-      throw new Error('stateCode must be two characters long');
-    }
+    this.validateStateCode(stateCode);
     return this.apiClient.get(`v1/lookup/state-waste-codes/${stateCode}`);
   };
 
@@ -283,6 +285,7 @@ class RcraClient {
    * @param manifestTrackingNumber
    */
   public deleteManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
+    this.validateMTN(manifestTrackingNumber);
     return this.apiClient.delete(`v1/emanifest/manifest/delete${manifestTrackingNumber}`);
   };
 
@@ -300,6 +303,7 @@ class RcraClient {
    * Retrieve information about all manifest correction versions by manifest tracking number
    */
   public getManifestCorrections = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
+    this.validateMTN(manifestTrackingNumber);
     return this.apiClient.get(`v1/emanifest/manifest/correction-details/${manifestTrackingNumber}`);
   };
 
@@ -324,14 +328,23 @@ class RcraClient {
   /**
    * Retrieve Manifest Tracking Numbers for provided site id.
    */
-  public getMTN = async (siteID: string): Promise<AxiosResponse<any>> => {
+  public getSiteMTN = async (siteID: string): Promise<AxiosResponse<string[]>> => {
+    this.validateSiteID(siteID);
     return this.apiClient.get(`v1/emanifest/manifest-tracking-numbers/${siteID}`);
   };
 
   /**
    * Retrieve site ids for provided state (code) and site type (i.e. Generator, Tsdf, Transporter).
    */
-  public getSiteID = async (stateCode: string, siteType: string): Promise<AxiosResponse<any>> => {
+  public getStateSites = async ({
+    stateCode,
+    siteType,
+  }: {
+    stateCode: string;
+    siteType: string;
+  }): Promise<AxiosResponse<any>> => {
+    this.validateSiteType(siteType);
+    this.validateStateCode(stateCode);
     return this.apiClient.get(`v1/emanifest/site-ids/${stateCode}/${siteType}`);
   };
 
@@ -339,6 +352,7 @@ class RcraClient {
    * Retrieve e-Manifest by provided manifest tracking number.
    */
   public getManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
+    this.validateMTN(manifestTrackingNumber);
     return this.apiClient.get(`v1/emanifest/manifest/${manifestTrackingNumber}`);
   };
 
@@ -360,6 +374,7 @@ class RcraClient {
    * Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version.
    */
   public revertManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
+    this.validateMTN(manifestTrackingNumber);
     return this.apiClient.get(`v1/emanifest/manifest/revert/${manifestTrackingNumber}`);
   };
 
@@ -370,6 +385,7 @@ class RcraClient {
    */
   public SignManifest = async (parameters: QuickerSign): Promise<AxiosResponse<any>> => {
     this.validateSiteID(parameters.siteID);
+    this.validateSiteType(parameters.siteType);
     return this.apiClient.post('v1/emanifest/manifest/quicker-sign', parameters);
   };
 
@@ -384,6 +400,30 @@ class RcraClient {
     }
     if (siteID.length !== 12) {
       throw new Error('Site ID must be 12 characters long');
+    }
+  };
+
+  private validateMTN = (manifestTrackingNumber: string): void => {
+    if (!manifestTrackingNumber || manifestTrackingNumber === '') {
+      throw new Error('Site ID cannot be empty');
+    }
+    if (manifestTrackingNumber.length !== 12) {
+      throw new Error('Site ID must be 12 characters long');
+    }
+  };
+
+  private validateStateCode = (stateCode: string): void => {
+    if (!stateCode || stateCode === '') {
+      throw new Error('State code cannot be empty');
+    }
+    if (stateCode.length !== 2) {
+      throw new Error('State code must be 2 characters long');
+    }
+  };
+
+  private validateSiteType = (siteType: SiteType): void => {
+    if (!siteTypeValues.includes(siteType)) {
+      throw new Error('Site types must be ${siteTypeValues}');
     }
   };
 }

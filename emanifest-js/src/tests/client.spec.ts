@@ -60,7 +60,7 @@ describe('RcraClient', () => {
   });
 });
 
-describe('RcraClient Validates before calling API', () => {
+describe('RcraClient input validation', () => {
   it('throws an error if stateCode is not two characters long', async () => {
     const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
     await expect(() => rcrainfo.getStateWasteCodes('BAD_STATE_CODE')).rejects.toThrowError(/two characters/);
@@ -75,6 +75,10 @@ describe('RcraClient Validates before calling API', () => {
     // @ts-ignore
     await expect(() => rcrainfo.getSite()).rejects.toThrowError();
     await expect(() => rcrainfo.getSite('')).rejects.toThrowError();
+  });
+  it('throws an error if siteType is not one of acceptable enums', async () => {
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
+    await expect(() => rcrainfo.getStateSites({ stateCode: 'VA', siteType: 'bad_site_type' })).rejects.toThrowError();
   });
 });
 

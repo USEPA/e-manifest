@@ -18,7 +18,8 @@ export type ManifestStatus =
 export type SubmissionType = 'FullElectronic' | 'DataImage5Copy' | 'Hybrid' | 'Image';
 export type OriginType = 'Web' | 'Service' | 'Mail';
 
-export type SiteType = 'Generator' | 'Tsdf' | 'Transporter' | 'Rejection_AlternateTsdf';
+export const siteTypeValues = ['Generator', 'Tsdf', 'Transporter', 'Rejection_AlternateTsdf'];
+export type SiteType = (typeof siteTypeValues)[number];
 
 /**
  * structure of many codes used by the manifest (waste codes, management methods codes, etc.)
