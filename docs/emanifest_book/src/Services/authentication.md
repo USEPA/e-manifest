@@ -107,7 +107,11 @@ public class Main {
 }
 ```
 
-For a python example, check out the [emanifest package](https://pypi.org/project/emanifest/) on PyPI.
+For a python example, check out the [emanifest package](https://pypi.org/project/emanifest/) on PyPI (source hosted
+on [USEPA/e-manifest](https://github.com/USEPA/e-manifest) repo).
+
+For a TypeScript example, check out the [emanifest package](https://www.npmjs.com/package/emanifest) on NPM (source
+hosted in [USEPA/e-manifest](https://github.com/USEPA/e-manifest) repo)
 
 ### Response Body Example
 
