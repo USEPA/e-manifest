@@ -6,6 +6,8 @@ import {
   BillGetParameters,
   BillHistoryParameters,
   BillSearchParameters,
+  DateType,
+  dateTypeValues,
   ManifestCorrectionParameters,
   ManifestExistsResponse,
   ManifestSearchParameters,
@@ -366,6 +368,16 @@ class RcraClient {
    * Retrieve manifest tracking numbers based on provided search criteria in JSON format.
    */
   public searchManifest = async (parameters: ManifestSearchParameters): Promise<AxiosResponse<any>> => {
+    // Many of the search parameters are optional, we only want to validate them if they are provided.
+    if (parameters.dateType) {
+      this.validateDateType(parameters.dateType);
+    }
+    if (parameters.stateCode) {
+      this.validateStateCode(parameters.stateCode);
+    }
+    if (parameters.siteType) {
+      this.validateSiteType(parameters.siteType);
+    }
     return this.apiClient.post('v1/emanifest/manifest/search', parameters);
   };
 
@@ -429,7 +441,13 @@ class RcraClient {
 
   private validateSiteType = (siteType: SiteType): void => {
     if (!siteTypeValues.includes(siteType)) {
-      throw new Error('Site types must be ${siteTypeValues}');
+      throw new Error(`Site types must be ${siteTypeValues}`);
+    }
+  };
+
+  private validateDateType = (dateType: DateType): void => {
+    if (!dateTypeValues.includes(dateType)) {
+      throw new Error(`Site types must be ${dateTypeValues}`);
     }
   };
 }

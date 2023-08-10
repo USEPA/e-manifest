@@ -18,12 +18,14 @@ import {
   ManifestStatus,
   SubmissionType,
   PackingGroups,
+  DateType,
 } from './types';
 
 export { RCRAINFO_PREPROD, RCRAINFO_PROD, newClient };
 export type {
   AuthResponse,
   BillGetParameters,
+  DateType,
   BillHistoryParameters,
   BillSearchParameters,
   ManifestCorrectionParameters,

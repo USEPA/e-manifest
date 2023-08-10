@@ -21,6 +21,9 @@ export type OriginType = 'Web' | 'Service' | 'Mail';
 export const siteTypeValues = ['Generator', 'Tsdf', 'Transporter', 'Rejection_AlternateTsdf'];
 export type SiteType = (typeof siteTypeValues)[number];
 
+export const dateTypeValues = ['CertifiedDate', 'ReceivedDate', 'ShippedDate', 'UpdatedDate'];
+export type DateType = (typeof dateTypeValues)[number];
+
 /**
  * structure of many codes used by the manifest (waste codes, management methods codes, etc.)
  */
@@ -86,7 +89,7 @@ export interface ManifestSearchParameters {
   stateCode: string;
   siteId: string;
   status: ManifestStatus;
-  dateType: 'CertifiedDate' | 'ReceivedDate' | 'ShippedDate' | 'UpdatedDate';
+  dateType: DateType;
   siteType: SiteType;
   startDate: string;
   endDate: string;
