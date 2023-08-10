@@ -50,29 +50,6 @@ That's it! You're ready to start using the RCRAInfo Restful web services.
 
 The RcrainfoClient class requires one positional argument, a string, either `'preprod'`, or `'prod'`.
 
-### Authentication
-
-Starting with version 3.0 and above, the RcrainfoClient automatically authenticates as needed once
-API credentials have been provided, either during object initiation or by passing the API ID and key to
-the `authenticate` method.
-
-If you'd like to disable this behaviour, you can set the RcrainfoClient variable `auto_renew = False`, and call
-the `authenticate` method as necessary.
-
-```python
-from emanifest import RcrainfoClient
-
-rcrainfo = RcrainfoClient('preprod', auto_renew=False)
-# or
-rcrainfo.auto_renew = False
-
-# Returns False if no token present, or has expired.
-if not rcrainfo.is_authenticated:
-    rcrainfo.authenticate(api_id='my_api_id', api_key='my_api_key')
-    # If RcrainfoClient already has your API credentials, you don't need to them supply again.
-    rcrainfo.authenticate()
-```
-
 The RcrainfoClient stores the JSON web token and its expiration period (20 minutes). See
 the [`RcrainfoClient` definition here](/emanifest-py/src/emanifest/client.py) for more details.
 
