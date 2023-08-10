@@ -3,7 +3,10 @@ name: Test e-Manifest Python Package
 on:
   push:
     paths:
-      - e-manifest-py/*
+      - 'e-manifest-py/*'
+  pull_request:
+    paths:
+      - 'e-manifest-py/*'
 
 jobs:
   test:
