@@ -157,14 +157,13 @@ class RcrainfoClient(Session):
         return self.__expiration_fmt
 
     def __str__(self) -> str:
-        return self.__repr__()
+        return f"{self.__class__.__name__}"
 
     def __repr__(self) -> str:
-        return f"<{self.__class__.__name__} [{self.base_url}]>"
-
-    def __bool__(self) -> bool:
-        """Return true if successfully authenticated"""
-        return self.is_authenticated
+        return (
+            f"<{self.__class__.__name__}('{self.base_url}', auto_renew={self.auto_renew}, "
+            f"api_id={self.__api_id}, api_key={self.__api_key})>"
+        )
 
     def __rcra_request(
         self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
