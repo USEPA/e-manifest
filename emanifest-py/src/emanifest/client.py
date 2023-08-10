@@ -86,7 +86,7 @@ class RcrainfoClient(Session):
     __default_timeout = 10
 
     def __init__(
-            self, base_url: str, *, api_id=None, api_key=None, timeout=10, auto_renew=True
+        self, base_url: str, *, api_id=None, api_key=None, timeout=10, auto_renew=True
     ) -> None:
         super().__init__()
         self.base_url = base_url
@@ -142,8 +142,8 @@ class RcrainfoClient(Session):
         """Returns True if the RcrainfoClient token exists and has not expired."""
         try:
             if (
-                    self.token_expiration > datetime.utcnow().replace(tzinfo=timezone.utc)
-                    and self.token is not None
+                self.token_expiration > datetime.utcnow().replace(tzinfo=timezone.utc)
+                and self.token is not None
             ):
                 return True
             else:
@@ -167,7 +167,7 @@ class RcrainfoClient(Session):
         return self.is_authenticated
 
     def __rcra_request(
-            self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
+        self, method, endpoint, *, headers=None, multipart=None, stream=False, **kwargs
     ) -> RcrainfoResponse:
         """Client internal method for making requests to RCRAInfo"""
 
@@ -213,11 +213,11 @@ class RcrainfoClient(Session):
 
     @staticmethod
     def __encode_manifest(
-            manifest_json: dict,
-            zip_bytes: bytes = None,
-            *,
-            json_name: str = "manifest.json",
-            zip_name="attachments.zip",
+        manifest_json: dict,
+        zip_bytes: bytes = None,
+        *,
+        json_name: str = "manifest.json",
+        zip_name="attachments.zip",
     ):
         """emanifest-py internal helper function to encode json and zip file for upload"""
         if zip_bytes:
@@ -566,6 +566,7 @@ class RcrainfoClient(Session):
         """
         Retrieve sites based on some or all of the provided criteria
 
+
         Keyword Args:
             epaSiteId (str): EPA site ID
             name (str): Site name (e.g. The White House)
@@ -801,7 +802,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request("GET", endpoint)
 
     def get_sites(
-            self, state_code: str, site_type: str, reg: bool = False
+        self, state_code: str, site_type: str, reg: bool = False
     ) -> RcrainfoResponse:
         """
         Retrieve site ids for provided criteria
@@ -823,7 +824,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request("GET", endpoint)
 
     def correct_manifest(
-            self, manifest_json: dict, zip_file: bytes = None
+        self, manifest_json: dict, zip_file: bytes = None
     ) -> RcrainfoResponse:
         """
         Correct Manifest by providing e-Manifest JSON and optional Zip attachment
@@ -856,7 +857,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request("GET", endpoint)
 
     def update_manifest(
-            self, manifest_json: dict, zip_file: bytes = None
+        self, manifest_json: dict, zip_file: bytes = None
     ) -> RcrainfoResponse:
         """
         Update Manifest by providing e-Manifest JSON and optional Zip attachment
@@ -900,7 +901,7 @@ class RcrainfoClient(Session):
         """
         Quicker sign selected manifests
 
-        Args:
+        Keyword Args:
             manifestTrackingNumbers (array) : An array of manifest tracking numbers to sign
             siteId (str) : The EPA ID for the site that signs
             siteType (str) : The site on the manifest that is signing (Generator, Tsdf, Transporter, RejectionInfo_AlternateTsdf). Case-sensitive
@@ -915,7 +916,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request("POST", endpoint, **kwargs)
 
     def save_manifest(
-            self, manifest_json: dict, zip_file: bytes = None
+        self, manifest_json: dict, zip_file: bytes = None
     ) -> RcrainfoResponse:
         """
         Save Manifest by providing e-Manifest JSON and optional Zip attachment
@@ -972,7 +973,7 @@ class RcrainfoClient(Session):
         return self.__rcra_request("POST", endpoint, **kwargs)
 
     def get_cme_lookup(
-            self, activity_location: str, agency_code: str, nrr_flag: bool = True
+        self, activity_location: str, agency_code: str, nrr_flag: bool = True
     ) -> RcrainfoResponse:
         """
         Retrieve all lookups for specific activity location and agency code, including staff,
@@ -1052,10 +1053,10 @@ def _parse_url(base_url: str | None) -> str:
 
 
 def new_client(
-        base_url: str = None,
-        api_id: str = None,
-        api_key: str = None,
-        auto_renew: bool = False,
+    base_url: str = None,
+    api_id: str = None,
+    api_key: str = None,
+    auto_renew: bool = False,
 ) -> RcrainfoClient:
     """
     Create a new RCRAInfo client instance
