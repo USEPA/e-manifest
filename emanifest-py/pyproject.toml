@@ -1,6 +1,6 @@
 [project]
 name = "emanifest"
-version = "3.0.5"
+version = "4.0.0"
 description = "An API utility wrapper for accessing the e-Manifest hazardous waste tracking system maintained by the US Environmental Protection Agency"
 readme = "README.md"
 authors = [
@@ -36,3 +36,11 @@ requires = [
     "wheel",
 ]
 build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 99
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 99
+select = ["F", "E", "W", "Q", "I001"]
