@@ -6,8 +6,8 @@ import responses
 
 from . import RCRAINFO_PREPROD, RcrainfoClient, RcrainfoResponse, new_client
 
-TEST_GEN_MTN = "100032437ELC"
-TEST_GEN_ID = "VATESTGEN001"
+MOCK_MTN = "100032437ELC"
+MOCK_GEN_ID = "VATESTGEN001"
 MOCK_API_ID = "mock_api_id"
 MOCK_API_KEY = "mock_api_key"
 
@@ -15,8 +15,8 @@ MOCK_API_KEY = "mock_api_key"
 @pytest.fixture
 def mock_response():
     token_expiration = "2053-08-04T22:24:42.724+00:00"
-    with responses.RequestsMock() as rsps:
-        rsps.add(
+    with responses.RequestsMock() as resp:
+        resp.add(
             responses.GET,
             f"{RCRAINFO_PREPROD}v1/auth/{MOCK_API_ID}/{MOCK_API_KEY}",
             json={
@@ -24,7 +24,7 @@ def mock_response():
                 "expiration": token_expiration,
             },
         )
-        yield rsps
+        yield resp
 
 
 class TestRcrainfoClient:
@@ -37,13 +37,13 @@ class TestRcrainfoClient:
         mock_response.add(
             # Add mock response for site-details endpoint
             responses.GET,
-            f"{self.rcrainfo.base_url}v1/site-details/{TEST_GEN_ID}",
+            f"{self.rcrainfo.base_url}v1/site-details/{MOCK_GEN_ID}",
             json={
-                "epaSiteId": TEST_GEN_ID,
+                "epaSiteId": MOCK_GEN_ID,
             },
         )
         # Act
-        rcra_response = self.rcrainfo.get_site(TEST_GEN_ID)
+        rcra_response = self.rcrainfo.get_site(MOCK_GEN_ID)
         # Assert
         assert rcra_response.zip is None
 
@@ -67,13 +67,13 @@ class TestRcrainfoClient:
         mock_response.add(
             # Add mock response for site-details endpoint
             responses.GET,
-            f"{self.rcrainfo.base_url}v1/site-details/{TEST_GEN_ID}",
+            f"{self.rcrainfo.base_url}v1/site-details/{MOCK_GEN_ID}",
             json={
-                "epaSiteId": TEST_GEN_ID,
+                "epaSiteId": MOCK_GEN_ID,
             },
         )
         # Act
-        resp: RcrainfoResponse = rcrainfo.get_site(TEST_GEN_ID)
+        resp: RcrainfoResponse = rcrainfo.get_site(MOCK_GEN_ID)
         # Assert
         assert resp.response.json() == resp.json()
 
@@ -132,9 +132,9 @@ class TestAutoAuthentication:
         responses.add(
             # Add mock response for site-details endpoint
             responses.GET,
-            f"{rcrainfo.base_url}v1/emanifest/manifest/{TEST_GEN_MTN}",
+            f"{rcrainfo.base_url}v1/emanifest/manifest/{MOCK_MTN}",
             json={
-                "manifestTrackingNumber": TEST_GEN_MTN,
+                "manifestTrackingNumber": MOCK_MTN,
             },
         )
         auth_response = responses.add(
@@ -146,7 +146,7 @@ class TestAutoAuthentication:
             },
         )
         # Act
-        _resp = rcrainfo.get_manifest(TEST_GEN_MTN)
+        _resp = rcrainfo.get_manifest(MOCK_MTN)
         # Assert
         assert auth_response.call_count == 0
 
@@ -160,9 +160,9 @@ class TestAutoAuthentication:
         responses.add(
             # Add mock response for site-details endpoint
             responses.GET,
-            f"{rcrainfo.base_url}v1/emanifest/manifest/{TEST_GEN_MTN}",
+            f"{rcrainfo.base_url}v1/emanifest/manifest/{MOCK_MTN}",
             json={
-                "manifestTrackingNumber": TEST_GEN_MTN,
+                "manifestTrackingNumber": MOCK_MTN,
             },
         )
         auth_response = responses.add(
@@ -173,12 +173,12 @@ class TestAutoAuthentication:
                 "expiration": "mock_expiration",
             },
         )
-        _resp = rcrainfo.get_manifest(TEST_GEN_MTN)
+        _resp = rcrainfo.get_manifest(MOCK_MTN)
         assert auth_response.call_count > 0
 
     def test_non_present_credentials_does_not_auth(self):
         new_rcrainfo = RcrainfoClient("preprod")
-        _mtn = new_rcrainfo.get_manifest(TEST_GEN_MTN)
+        _mtn = new_rcrainfo.get_manifest(MOCK_MTN)
         assert not new_rcrainfo.is_authenticated
 
 
@@ -200,7 +200,7 @@ class TestSessionSuperClassIsUsable:
             return resp
 
         self.rcrainfo.hooks = {"response": mock_hook}
-        hooked_resp = self.rcrainfo.get_manifest(TEST_GEN_MTN)
+        hooked_resp = self.rcrainfo.get_manifest(MOCK_MTN)
         assert hooked_resp.response.reason is test_string
 
 
