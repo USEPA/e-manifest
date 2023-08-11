@@ -44,7 +44,7 @@ import { newClient, RCRAINFO_PREPROD, AuthResponse } from 'emanifest';
 // apiBaseURL?: RcrainfoEnv; // default: RCRAINFO_PREPROD
 // apiID?: string;
 // apiKey?: string;
-// authAuth?: Boolean; // default: false
+// autoAuth?: Boolean; // default: false
 // validateInput?: Boolean; // default: false
 // }
 
@@ -60,7 +60,7 @@ the `apiBaseURL` property of the `RcraClientConfig` object.
 
 ### Types
 
-The emanifest package exports a types/interfaces that can be used in statically typed projects.
+The emanifest package exports types/interfaces that can be used in statically typed projects.
 The types follow the OpenAPI schema definitions that can be found in
 the [USEPA/e-manifest schema directory](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema)
 however, some names have been modified for clarity (for example `RcraCode` instead of simply `Code`).
@@ -105,6 +105,16 @@ Upon validation failure, the `RcraClient` will throw an error which can be caugh
 received from the axios library.
 
 ```typescript
+import { newClient } from 'emanifest';
+
+const rcrainfo = newClient({ validateInput: true });
+
+try {
+  const resp = await rcrainfo.getSite('VA12345');
+} catch (err) {
+  console.log(err.message); // "siteID must be a string of length 12"
+}
+```
 
 ```
 
@@ -120,3 +130,4 @@ otherwise, does not constitute or imply their endorsement, recommendation
 or favoring by EPA. The EPA seal and logo shall not be used in any manner
 to imply endorsement of any commercial product or activity by EPA or
 the United States Government.
+```

@@ -454,37 +454,37 @@ class RcraClient {
       throw new Error('Site ID cannot be empty');
     }
     if (siteID.length !== 12) {
-      throw new Error('Site ID must be 12 characters long');
+      throw new Error('siteID must be a string of length 12');
     }
   };
 
   private validateMTN = (manifestTrackingNumber: string): void => {
     if (!manifestTrackingNumber || manifestTrackingNumber === '') {
-      throw new Error('Site ID cannot be empty');
+      throw new Error('manifestTrackingNumber cannot be empty');
     }
     if (manifestTrackingNumber.length !== 12) {
-      throw new Error('Site ID must be 12 characters long');
+      throw new Error('manifestTrackingNumber must be a string of length 12');
     }
   };
 
   private validateStateCode = (stateCode: string): void => {
     if (!stateCode || stateCode === '') {
-      throw new Error('State code cannot be empty');
+      throw new Error('StateCode cannot be empty');
     }
     if (stateCode.length !== 2) {
-      throw new Error('State code must be 2 characters long');
+      throw new Error('StateCode must be 2 characters long');
     }
   };
 
   private validateSiteType = (siteType: SiteType): void => {
     if (!siteTypeValues.includes(siteType)) {
-      throw new Error(`Site types must be ${siteTypeValues}`);
+      throw new Error(`SiteType must be one of ${siteTypeValues}`);
     }
   };
 
   private validateDateType = (dateType: DateType): void => {
     if (!dateTypeValues.includes(dateType)) {
-      throw new Error(`Site types must be ${dateTypeValues}`);
+      throw new Error(`dateType must be one of ${dateTypeValues}`);
     }
   };
 }
