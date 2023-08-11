@@ -99,6 +99,7 @@ initiation.
 3. `siteType` must be one of the following: ['Generator', 'Tsdf', 'Transporter', 'Rejection_AlternateTsdf']
 4. `dateType` (a search parameter) must be one of the
    following: ['CertifiedDate', 'ReceivedDate', 'ShippedDate', 'UpdatedDate']
+5. `manifestTrackingNumber` must be a string of length 12
 
 Upon validation failure, the `RcraClient` will throw an error which can be caught and handled the same as an error
 received from the axios library.

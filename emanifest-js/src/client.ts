@@ -145,7 +145,9 @@ class RcraClient {
    * @param stateCode
    */
   public getStateWasteCodes = async (stateCode: string): Promise<AxiosResponse<RcraCode[]>> => {
-    this.validateStateCode(stateCode);
+    if (this.validateInput) {
+      this.validateStateCode(stateCode);
+    }
     return this.apiClient.get(`v1/lookup/state-waste-codes/${stateCode}`);
   };
 
@@ -245,7 +247,9 @@ class RcraClient {
    * Get a site by its EPA ID.
    */
   public getSite = async (siteID: string): Promise<AxiosResponse> => {
-    this.validateSiteID(siteID);
+    if (this.validateInput) {
+      this.validateSiteID(siteID);
+    }
     return this.apiClient.get(`v1/site-details/${siteID}`);
   };
 
@@ -253,7 +257,9 @@ class RcraClient {
    * Returns true if the site, by EPA ID, exists in RCRAInfo.
    */
   public getSiteExists = async (siteID: string): Promise<AxiosResponse<{ result: boolean; epaSiteId: string }>> => {
-    this.validateSiteID(siteID);
+    if (this.validateInput) {
+      this.validateSiteID(siteID);
+    }
     return this.apiClient.get(`v1/site-exists/${siteID}`);
   };
 
@@ -308,7 +314,9 @@ class RcraClient {
    * @param manifestTrackingNumber
    */
   public deleteManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
-    this.validateMTN(manifestTrackingNumber);
+    if (this.validateInput) {
+      this.validateMTN(manifestTrackingNumber);
+    }
     return this.apiClient.delete(`v1/emanifest/manifest/delete${manifestTrackingNumber}`);
   };
 
@@ -326,7 +334,9 @@ class RcraClient {
    * Retrieve information about all manifest correction versions by manifest tracking number
    */
   public getManifestCorrections = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
-    this.validateMTN(manifestTrackingNumber);
+    if (this.validateInput) {
+      this.validateMTN(manifestTrackingNumber);
+    }
     return this.apiClient.get(`v1/emanifest/manifest/correction-details/${manifestTrackingNumber}`);
   };
 
@@ -352,7 +362,9 @@ class RcraClient {
    * Retrieve Manifest Tracking Numbers for provided site id.
    */
   public getSiteMTN = async (siteID: string): Promise<AxiosResponse<string[]>> => {
-    this.validateSiteID(siteID);
+    if (this.validateInput) {
+      this.validateSiteID(siteID);
+    }
     return this.apiClient.get(`v1/emanifest/manifest-tracking-numbers/${siteID}`);
   };
 
@@ -366,8 +378,10 @@ class RcraClient {
     stateCode: string;
     siteType: string;
   }): Promise<AxiosResponse<any>> => {
-    this.validateSiteType(siteType);
-    this.validateStateCode(stateCode);
+    if (this.validateInput) {
+      this.validateSiteType(siteType);
+      this.validateStateCode(stateCode);
+    }
     return this.apiClient.get(`v1/emanifest/site-ids/${stateCode}/${siteType}`);
   };
 
@@ -375,7 +389,9 @@ class RcraClient {
    * Retrieve e-Manifest by provided manifest tracking number.
    */
   public getManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
-    this.validateMTN(manifestTrackingNumber);
+    if (this.validateInput) {
+      this.validateMTN(manifestTrackingNumber);
+    }
     return this.apiClient.get(`v1/emanifest/manifest/${manifestTrackingNumber}`);
   };
 
@@ -383,15 +399,17 @@ class RcraClient {
    * Retrieve manifest tracking numbers based on provided search criteria in JSON format.
    */
   public searchManifest = async (parameters: ManifestSearchParameters): Promise<AxiosResponse<any>> => {
-    // Many of the search parameters are optional, we only want to validate them if they are provided.
-    if (parameters.dateType) {
-      this.validateDateType(parameters.dateType);
-    }
-    if (parameters.stateCode) {
-      this.validateStateCode(parameters.stateCode);
-    }
-    if (parameters.siteType) {
-      this.validateSiteType(parameters.siteType);
+    if (this.validateInput) {
+      // Many of the search parameters are optional, we only want to validate them if they are provided.
+      if (parameters.dateType) {
+        this.validateDateType(parameters.dateType);
+      }
+      if (parameters.stateCode) {
+        this.validateStateCode(parameters.stateCode);
+      }
+      if (parameters.siteType) {
+        this.validateSiteType(parameters.siteType);
+      }
     }
     return this.apiClient.post('v1/emanifest/manifest/search', parameters);
   };
@@ -407,7 +425,9 @@ class RcraClient {
    * Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version.
    */
   public revertManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
-    this.validateMTN(manifestTrackingNumber);
+    if (this.validateInput) {
+      this.validateMTN(manifestTrackingNumber);
+    }
     return this.apiClient.get(`v1/emanifest/manifest/revert/${manifestTrackingNumber}`);
   };
 
@@ -417,8 +437,10 @@ class RcraClient {
    * indicate which transporter performs the signature.
    */
   public SignManifest = async (parameters: QuickerSign): Promise<AxiosResponse<any>> => {
-    this.validateSiteID(parameters.siteID);
-    this.validateSiteType(parameters.siteType);
+    if (this.validateInput) {
+      this.validateSiteID(parameters.siteID);
+      this.validateSiteType(parameters.siteType);
+    }
     return this.apiClient.post('v1/emanifest/manifest/quicker-sign', parameters);
   };
 

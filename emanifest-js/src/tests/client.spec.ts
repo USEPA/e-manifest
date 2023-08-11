@@ -62,24 +62,24 @@ describe('RcraClient', () => {
 
 describe('RcraClient validation', () => {
   it('throws an error if stateCode is not two characters long', async () => {
-    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
     await expect(() => rcrainfo.getStateWasteCodes('BAD_STATE_CODE')).rejects.toThrowError();
   });
   it('throws an error if siteID is not 12 characters long', async () => {
-    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
     await expect(() => rcrainfo.getSite('lengthy_site_id_yo_yo')).rejects.toThrowError(
       'Site ID must be 12 characters long',
     );
     await expect(() => rcrainfo.getSite('12345')).rejects.toThrowError('Site ID must be 12 characters long');
   });
   it('throws an error if siteID is empty', async () => {
-    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
     // @ts-ignore
     await expect(() => rcrainfo.getSite()).rejects.toThrowError('Site ID cannot be empty');
     await expect(() => rcrainfo.getSite('')).rejects.toThrowError();
   });
   it('throws an error if siteType is not one of acceptable enums', async () => {
-    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD });
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
     await expect(() => rcrainfo.getStateSites({ stateCode: 'VA', siteType: 'bad_site_type' })).rejects.toThrowError();
   });
 });
