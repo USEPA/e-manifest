@@ -68,9 +68,9 @@ describe('RcraClient validation', () => {
   it('throws an error if siteID is not 12 characters long', async () => {
     const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
     await expect(() => rcrainfo.getSite('lengthy_site_id_yo_yo')).rejects.toThrowError(
-      'Site ID must be 12 characters long',
+      'siteID must be a string of length 12',
     );
-    await expect(() => rcrainfo.getSite('12345')).rejects.toThrowError('Site ID must be 12 characters long');
+    await expect(() => rcrainfo.getSite('12345')).rejects.toThrowError('siteID must be a string of length 12');
   });
   it('throws an error if siteID is empty', async () => {
     const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
