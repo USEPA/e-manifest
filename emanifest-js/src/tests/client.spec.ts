@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { MOCK_API_ID, MOCK_API_KEY, MOCK_PACKING_GROUPS, MOCK_TOKEN } from './mockConstants';
+import { MOCK_API_ID, MOCK_API_KEY, MOCK_BAD_SITE_ID, MOCK_PACKING_GROUPS, MOCK_TOKEN } from './mockConstants';
 import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
 import { newClient, RCRAINFO_PREPROD, RCRAINFO_PROD } from '../index';
 // @ts-ignore
@@ -61,6 +61,15 @@ describe('RcraClient', () => {
 });
 
 describe('RcraClient validation', () => {
+  it('is disabled by default', async () => {
+    const rcrainfo = newClient({
+      apiBaseURL: RCRAINFO_PREPROD,
+      apiID: MOCK_API_ID,
+      apiKey: MOCK_API_KEY,
+      authAuth: true,
+    });
+    await expect(() => rcrainfo.getSite(MOCK_BAD_SITE_ID)).rejects.toThrowError();
+  });
   it('throws an error if stateCode is not two characters long', async () => {
     const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
     await expect(() => rcrainfo.getStateWasteCodes('BAD_STATE_CODE')).rejects.toThrowError();
