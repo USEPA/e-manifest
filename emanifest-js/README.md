@@ -5,10 +5,11 @@
 ## Intro
 
 The [emanifest npm package](https://www.npmjs.com/package/emanifest) is an API client library.
-It simplifies the task of using the RCRAInfo/e-Manifest web services by abstracting the 
+It simplifies the task of using the RCRAInfo/e-Manifest web services by abstracting the
 authentication process, providing developer friendly API, and exporting TypeScript types.
-It's built on top of the [Axios](https://axios-http.com/) library, and can be used in both Node and browser 
-runtime environments (EPA has discussed making some public API available that do not need authentication in the near future).
+It's built on top of the [Axios](https://axios-http.com/) library, and can be used in both Node and browser
+runtime environments (EPA has discussed making some public API available that do not need authentication in the near
+future).
 
 For additional information about e-Manifest, check out the below links
 
@@ -22,20 +23,21 @@ For a python alternative see the [emanifest package on PyPI](https://pypi.org/pr
 
 ## Installation
 
-```bash 
-  $ npm install emanifest 
+```bash
+  $ npm install emanifest
   or
   $ yarn add emanifest
 ```
+
 ## Basic Usage
 
 The primary export of the `emanifest` package is the `newClient` function.
-A constructor that accepts a configuration object and returns a new `RcraClient` 
-instance. 
+A constructor that accepts a configuration object and returns a new `RcraClient`
+instance.
 
 ```typescript
 import { AxiosResponse } from 'axios';
-import { newClient, RCRAINFO_PREPROD, AuthResponse } from 'emanifest'
+import { newClient, RCRAINFO_PREPROD, AuthResponse } from 'emanifest';
 
 // The newClient accepts an instance of the RcraClientConfig which follows this interface
 // interface RcraClientConfig {
@@ -43,25 +45,25 @@ import { newClient, RCRAINFO_PREPROD, AuthResponse } from 'emanifest'
 // apiID?: string;
 // apiKey?: string;
 // authAuth?: Boolean; // default: false
+// validateInput?: Boolean; // default: false
 // }
 
-const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, apiID: 'my_api_id', apiKey: 'my_api_key' })
-const authResponse: AxiosResponse<AuthResponse> = await rcrainfo.authenticate()
-console.log(authResponse.data)
-
+const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, apiID: 'my_api_id', apiKey: 'my_api_key' });
+const authResponse: AxiosResponse<AuthResponse> = await rcrainfo.authenticate();
+console.log(authResponse.data);
 ```
 
-### Other Exports 
+### Other Exports
 
-The emanifest package also exports the `RCRAINFO_PREPROD` and `RCRAINFO_PROD` constants which can be used to set 
+The emanifest package also exports the `RCRAINFO_PREPROD` and `RCRAINFO_PROD` constants which can be used to set
 the `apiBaseURL` property of the `RcraClientConfig` object.
 
 ### Types
 
 The emanifest package exports a types/interfaces that can be used in statically typed projects.
-The types follow the OpenAPI schema definitions that can be found in the [USEPA/e-manifest schema directory](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema)
+The types follow the OpenAPI schema definitions that can be found in
+the [USEPA/e-manifest schema directory](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema)
 however, some names have been modified for clarity (for example `RcraCode` instead of simply `Code`).
-
 
 ## Auto-Authentication
 
@@ -69,24 +71,41 @@ The `emanifest` package can be explicitly configured to automatically authentica
 
 ```typescript
 import { AxiosResponse } from 'axios';
-import { newClient, RCRAINFO_PREPROD, AuthResponse, RcraClientClass, RcraCode } from 'emanifest'
+import { newClient, RCRAINFO_PREPROD, AuthResponse, RcraClientClass, RcraCode } from 'emanifest';
 
 const rcrainfo = newClient({
   apiBaseURL: RCRAINFO_PREPROD,
   apiID: 'my_api_id',
   apiKey: 'my_api_key',
-  autoAuth: true // Set the RcraClient to automatically authenticate as needed
-})
+  autoAuth: true, // Set the RcraClient to automatically authenticate as needed
+});
 
 // the authenticate method is NOT explicitly called
-const resp: AxtiosResponse<RcraCode> = await rcrainfo.getStateWasteCodes('VA')
+const resp: AxtiosResponse<RcraCode> = await rcrainfo.getStateWasteCodes('VA');
 
-console.log(resp.data) // [ { code: 'BCRUSH', description: 'Bulb or Lamp Crusher' } ]
+console.log(resp.data); // [ { code: 'BCRUSH', description: 'Bulb or Lamp Crusher' } ]
 
-console.log(rcrainfo.isAuthenticated()) // true
-
+console.log(rcrainfo.isAuthenticated()); // true
 ```
 
+## Input Validation
+
+The `emanifest` package can be explicitly configured to provide some simple input validation. This behavior is disabled
+by default. It must be explicitly enabled by setting the `validateInput` property of the `RcraClientConfig` on
+initiation.
+
+1. `siteID` must be a string of length 12
+2. `stateCode` must be a string of length 2
+3. `siteType` must be one of the following: ['Generator', 'Tsdf', 'Transporter', 'Rejection_AlternateTsdf']
+4. `dateType` (a search parameter) must be one of the
+   following: ['CertifiedDate', 'ReceivedDate', 'ShippedDate', 'UpdatedDate']
+
+Upon validation failure, the `RcraClient` will throw an error which can be caught and handled the same as an error
+received from the axios library.
+
+```typescript
+
+```
 
 ## Disclaimer
 

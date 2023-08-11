@@ -30,6 +30,7 @@ interface RcraClientConfig {
   apiID?: string;
   apiKey?: string;
   authAuth?: Boolean;
+  validateInput?: Boolean;
 }
 
 export type RcraClientClass = typeof RcraClient;
@@ -41,8 +42,14 @@ export type RcraClientClass = typeof RcraClient;
  * @param apiKey - The API key for the RCRAInfo.
  * @param authAuth - Automatically authenticate if necessary. By default, this is disabled.
  */
-export const newClient = ({ apiBaseURL, apiID, apiKey, authAuth = false }: RcraClientConfig = {}) => {
-  return new RcraClient(apiBaseURL, apiID, apiKey, authAuth);
+export const newClient = ({
+  apiBaseURL,
+  apiID,
+  apiKey,
+  authAuth = false,
+  validateInput = false,
+}: RcraClientConfig = {}) => {
+  return new RcraClient(apiBaseURL, apiID, apiKey, authAuth, validateInput);
 };
 
 /**
@@ -62,12 +69,20 @@ class RcraClient {
   token?: string;
   expiration?: string;
   autoAuth?: Boolean;
+  validateInput?: Boolean;
 
-  constructor(apiBaseURL: RcrainfoEnv, apiID?: string, apiKey?: string, autoAuth: Boolean = false) {
+  constructor(
+    apiBaseURL: RcrainfoEnv,
+    apiID?: string,
+    apiKey?: string,
+    autoAuth: Boolean = false,
+    validateInput: Boolean = false,
+  ) {
     this.env = apiBaseURL || RCRAINFO_PREPROD;
     this.apiID = apiID;
     this.apiKey = apiKey;
     this.autoAuth = autoAuth;
+    this.validateInput = validateInput;
     this.apiClient = axios.create({
       baseURL: this.env,
       headers: {
