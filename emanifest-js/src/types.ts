@@ -18,7 +18,11 @@ export type ManifestStatus =
 export type SubmissionType = 'FullElectronic' | 'DataImage5Copy' | 'Hybrid' | 'Image';
 export type OriginType = 'Web' | 'Service' | 'Mail';
 
-export type SiteType = 'Generator' | 'Tsdf' | 'Transporter' | 'Rejection_AlternateTsdf';
+export const siteTypeValues = ['Generator', 'Tsdf', 'Transporter', 'Rejection_AlternateTsdf'];
+export type SiteType = (typeof siteTypeValues)[number];
+
+export const dateTypeValues = ['CertifiedDate', 'ReceivedDate', 'ShippedDate', 'UpdatedDate'];
+export type DateType = (typeof dateTypeValues)[number];
 
 /**
  * structure of many codes used by the manifest (waste codes, management methods codes, etc.)
@@ -85,7 +89,7 @@ export interface ManifestSearchParameters {
   stateCode: string;
   siteId: string;
   status: ManifestStatus;
-  dateType: 'CertifiedDate' | 'ReceivedDate' | 'ShippedDate' | 'UpdatedDate';
+  dateType: DateType;
   siteType: SiteType;
   startDate: string;
   endDate: string;
@@ -102,7 +106,7 @@ export interface ManifestExistsResponse {
 
 export interface QuickerSign {
   manifestTrackingNumbers: string[];
-  siteId: string;
+  siteID: string;
   siteType: SiteType;
   printedSignatureName: string;
   printedSignatureDate: string;

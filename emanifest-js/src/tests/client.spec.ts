@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { MOCK_API_ID, MOCK_API_KEY, MOCK_PACKING_GROUPS, MOCK_TOKEN } from './mockConstants';
+import { MOCK_API_ID, MOCK_API_KEY, MOCK_BAD_SITE_ID, MOCK_PACKING_GROUPS, MOCK_TOKEN } from './mockConstants';
 import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
 import { newClient, RCRAINFO_PREPROD, RCRAINFO_PROD } from '../index';
 // @ts-ignore
@@ -57,6 +57,39 @@ describe('RcraClient', () => {
       .catch((err: AxiosError) => {
         console.log('error', err);
       });
+  });
+});
+
+describe('RcraClient validation', () => {
+  it('is disabled by default', async () => {
+    const rcrainfo = newClient({
+      apiBaseURL: RCRAINFO_PREPROD,
+      apiID: MOCK_API_ID,
+      apiKey: MOCK_API_KEY,
+      authAuth: true,
+    });
+    await expect(() => rcrainfo.getSite(MOCK_BAD_SITE_ID)).rejects.toThrowError();
+  });
+  it('throws an error if stateCode is not two characters long', async () => {
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
+    await expect(() => rcrainfo.getStateWasteCodes('BAD_STATE_CODE')).rejects.toThrowError();
+  });
+  it('throws an error if siteID is not 12 characters long', async () => {
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
+    await expect(() => rcrainfo.getSite('lengthy_site_id_yo_yo')).rejects.toThrowError(
+      'siteID must be a string of length 12',
+    );
+    await expect(() => rcrainfo.getSite('12345')).rejects.toThrowError('siteID must be a string of length 12');
+  });
+  it('throws an error if siteID is empty', async () => {
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
+    // @ts-ignore
+    await expect(() => rcrainfo.getSite()).rejects.toThrowError('Site ID cannot be empty');
+    await expect(() => rcrainfo.getSite('')).rejects.toThrowError();
+  });
+  it('throws an error if siteType is not one of acceptable enums', async () => {
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, validateInput: true });
+    await expect(() => rcrainfo.getStateSites({ stateCode: 'VA', siteType: 'bad_site_type' })).rejects.toThrowError();
   });
 });
 

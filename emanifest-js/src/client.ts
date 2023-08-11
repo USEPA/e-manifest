@@ -1,9 +1,13 @@
+// noinspection JSUnusedGlobalSymbols
+
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import {
   AuthResponse,
   BillGetParameters,
   BillHistoryParameters,
   BillSearchParameters,
+  DateType,
+  dateTypeValues,
   ManifestCorrectionParameters,
   ManifestExistsResponse,
   ManifestSearchParameters,
@@ -11,6 +15,8 @@ import {
   QuickerSign,
   RcraCode,
   SiteSearchParameters,
+  SiteType,
+  siteTypeValues,
   UserSearchParameters,
 } from './types';
 
@@ -24,6 +30,7 @@ interface RcraClientConfig {
   apiID?: string;
   apiKey?: string;
   authAuth?: Boolean;
+  validateInput?: Boolean;
 }
 
 export type RcraClientClass = typeof RcraClient;
@@ -35,8 +42,14 @@ export type RcraClientClass = typeof RcraClient;
  * @param apiKey - The API key for the RCRAInfo.
  * @param authAuth - Automatically authenticate if necessary. By default, this is disabled.
  */
-export const newClient = ({ apiBaseURL, apiID, apiKey, authAuth }: RcraClientConfig = {}) => {
-  return new RcraClient(apiBaseURL, apiID, apiKey, authAuth);
+export const newClient = ({
+  apiBaseURL,
+  apiID,
+  apiKey,
+  authAuth = false,
+  validateInput = false,
+}: RcraClientConfig = {}) => {
+  return new RcraClient(apiBaseURL, apiID, apiKey, authAuth, validateInput);
 };
 
 /**
@@ -51,17 +64,25 @@ export const newClient = ({ apiBaseURL, apiID, apiKey, authAuth }: RcraClientCon
 class RcraClient {
   private apiClient: AxiosInstance;
   env: RcrainfoEnv;
-  private apiID?: string;
-  private apiKey?: string;
+  private readonly apiID?: string;
+  private readonly apiKey?: string;
   token?: string;
   expiration?: string;
   autoAuth?: Boolean;
+  validateInput?: Boolean;
 
-  constructor(apiBaseURL: RcrainfoEnv, apiID?: string, apiKey?: string, autoAuth: Boolean = false) {
+  constructor(
+    apiBaseURL: RcrainfoEnv,
+    apiID?: string,
+    apiKey?: string,
+    autoAuth: Boolean = false,
+    validateInput: Boolean = false,
+  ) {
     this.env = apiBaseURL || RCRAINFO_PREPROD;
     this.apiID = apiID;
     this.apiKey = apiKey;
     this.autoAuth = autoAuth;
+    this.validateInput = validateInput;
     this.apiClient = axios.create({
       baseURL: this.env,
       headers: {
@@ -70,26 +91,26 @@ class RcraClient {
       },
     });
 
+    // Intercept all requests, make call to RCRAInfo auth service if necessary and add Authorization header
     this.apiClient.interceptors.request.use(async (config) => {
-      // if the request is for auth, don't add the token
+      // if the request is for auth service, don't add the token
       if (config.url?.includes('auth')) {
         return config;
       }
-      // if autoAuth is disabled return
-      if (!this.autoAuth) {
-        return config;
-      }
-      // If authAuth is enabled, check if we already have a token. If not, authenticate.
-      if (!this.token) {
-        // Check the RcraClient object for apiID and apiKey.
-        if (!this.apiID || !this.apiKey) {
-          // If there's no token and no apiID or apiKey, throw an error. We can't authenticate.
-          throw new Error('Please add API ID and Key to authenticate.');
+      // if autoAuth is enabled, check if we already have a token.
+      if (this.autoAuth) {
+        // If we do not have a token, check if we have an apiID and apiKey.
+        if (!this.token) {
+          // If we have an apiID and apiKey, try to authenticate.
+          if (!this.apiID || !this.apiKey) {
+            // If there's no token and no apiID or apiKey, throw an error. We can't authenticate.
+            throw new Error('Please add API ID and Key to authenticate.');
+          }
+          // If there's no token, but there is an apiID and apiKey, try to authenticate.
+          await this.authenticate().catch((err) => {
+            throw new Error(`Received an error while attempting to authenticate: ${err}`);
+          });
         }
-        // If there's no token, but there is an apiID and apiKey, try to authenticate.
-        await this.authenticate().catch((err) => {
-          throw new Error(`Received an error while attempting to authenticate: ${err}`);
-        });
       }
       config.headers.Authorization = `Bearer ${this.token}`;
       return config;
@@ -113,7 +134,7 @@ class RcraClient {
   /**
    * Returns true if the client has a valid token.
    */
-  isAuthenticated = (): boolean => {
+  public isAuthenticated = (): boolean => {
     return this.token !== undefined;
   };
 
@@ -124,6 +145,9 @@ class RcraClient {
    * @param stateCode
    */
   public getStateWasteCodes = async (stateCode: string): Promise<AxiosResponse<RcraCode[]>> => {
+    if (this.validateInput) {
+      this.validateStateCode(stateCode);
+    }
     return this.apiClient.get(`v1/lookup/state-waste-codes/${stateCode}`);
   };
 
@@ -174,10 +198,13 @@ class RcraClient {
   /**
    * Returns a list of all available DOT Hazard classes.
    */
-  public getHazardClasses = async (
-    shippingName?: string,
-    idNumber?: string,
-  ): Promise<AxiosResponse<string[] | string>> => {
+  public getHazardClasses = async ({
+    shippingName,
+    idNumber,
+  }: {
+    shippingName?: string;
+    idNumber?: string;
+  } = {}): Promise<AxiosResponse<string[] | string>> => {
     if (shippingName || idNumber) {
       // if either shippingName or idNumber is provided, attempt to get by shipping name and id number
       if (!shippingName || !idNumber) {
@@ -194,10 +221,13 @@ class RcraClient {
   /**
    * Returns a list of all available DOT packing groups.
    */
-  public getPackingGroups = async (
-    shippingName?: string,
-    idNumber?: string,
-  ): Promise<AxiosResponse<string[] | string>> => {
+  public getPackingGroups = async ({
+    shippingName,
+    idNumber,
+  }: {
+    shippingName?: string;
+    idNumber?: string;
+  } = {}): Promise<AxiosResponse<string[] | string>> => {
     if (shippingName || idNumber) {
       // if either shippingName or idNumber is provided, attempt to get by shipping name and id number
       if (!shippingName || !idNumber) {
@@ -217,6 +247,9 @@ class RcraClient {
    * Get a site by its EPA ID.
    */
   public getSite = async (siteID: string): Promise<AxiosResponse> => {
+    if (this.validateInput) {
+      this.validateSiteID(siteID);
+    }
     return this.apiClient.get(`v1/site-details/${siteID}`);
   };
 
@@ -224,6 +257,9 @@ class RcraClient {
    * Returns true if the site, by EPA ID, exists in RCRAInfo.
    */
   public getSiteExists = async (siteID: string): Promise<AxiosResponse<{ result: boolean; epaSiteId: string }>> => {
+    if (this.validateInput) {
+      this.validateSiteID(siteID);
+    }
     return this.apiClient.get(`v1/site-exists/${siteID}`);
   };
 
@@ -278,6 +314,9 @@ class RcraClient {
    * @param manifestTrackingNumber
    */
   public deleteManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
+    if (this.validateInput) {
+      this.validateMTN(manifestTrackingNumber);
+    }
     return this.apiClient.delete(`v1/emanifest/manifest/delete${manifestTrackingNumber}`);
   };
 
@@ -295,6 +334,9 @@ class RcraClient {
    * Retrieve information about all manifest correction versions by manifest tracking number
    */
   public getManifestCorrections = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
+    if (this.validateInput) {
+      this.validateMTN(manifestTrackingNumber);
+    }
     return this.apiClient.get(`v1/emanifest/manifest/correction-details/${manifestTrackingNumber}`);
   };
 
@@ -319,14 +361,27 @@ class RcraClient {
   /**
    * Retrieve Manifest Tracking Numbers for provided site id.
    */
-  public getMTN = async (siteID: string): Promise<AxiosResponse<any>> => {
+  public getSiteMTN = async (siteID: string): Promise<AxiosResponse<string[]>> => {
+    if (this.validateInput) {
+      this.validateSiteID(siteID);
+    }
     return this.apiClient.get(`v1/emanifest/manifest-tracking-numbers/${siteID}`);
   };
 
   /**
    * Retrieve site ids for provided state (code) and site type (i.e. Generator, Tsdf, Transporter).
    */
-  public getSiteID = async (stateCode: string, siteType: string): Promise<AxiosResponse<any>> => {
+  public getStateSites = async ({
+    stateCode,
+    siteType,
+  }: {
+    stateCode: string;
+    siteType: string;
+  }): Promise<AxiosResponse<any>> => {
+    if (this.validateInput) {
+      this.validateSiteType(siteType);
+      this.validateStateCode(stateCode);
+    }
     return this.apiClient.get(`v1/emanifest/site-ids/${stateCode}/${siteType}`);
   };
 
@@ -334,6 +389,9 @@ class RcraClient {
    * Retrieve e-Manifest by provided manifest tracking number.
    */
   public getManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
+    if (this.validateInput) {
+      this.validateMTN(manifestTrackingNumber);
+    }
     return this.apiClient.get(`v1/emanifest/manifest/${manifestTrackingNumber}`);
   };
 
@@ -341,6 +399,18 @@ class RcraClient {
    * Retrieve manifest tracking numbers based on provided search criteria in JSON format.
    */
   public searchManifest = async (parameters: ManifestSearchParameters): Promise<AxiosResponse<any>> => {
+    if (this.validateInput) {
+      // Many of the search parameters are optional, we only want to validate them if they are provided.
+      if (parameters.dateType) {
+        this.validateDateType(parameters.dateType);
+      }
+      if (parameters.stateCode) {
+        this.validateStateCode(parameters.stateCode);
+      }
+      if (parameters.siteType) {
+        this.validateSiteType(parameters.siteType);
+      }
+    }
     return this.apiClient.post('v1/emanifest/manifest/search', parameters);
   };
 
@@ -355,15 +425,22 @@ class RcraClient {
    * Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version.
    */
   public revertManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
+    if (this.validateInput) {
+      this.validateMTN(manifestTrackingNumber);
+    }
     return this.apiClient.get(`v1/emanifest/manifest/revert/${manifestTrackingNumber}`);
   };
 
   /**
    * Performs 'quicker' signature for the entity within the manifest specified by given
-   * siteId and siteType. If siteType is 'Transporter', transporter order must be specified to
+   * siteID and siteType. If siteType is 'Transporter', transporter order must be specified to
    * indicate which transporter performs the signature.
    */
   public SignManifest = async (parameters: QuickerSign): Promise<AxiosResponse<any>> => {
+    if (this.validateInput) {
+      this.validateSiteID(parameters.siteID);
+      this.validateSiteType(parameters.siteType);
+    }
     return this.apiClient.post('v1/emanifest/manifest/quicker-sign', parameters);
   };
 
@@ -371,4 +448,43 @@ class RcraClient {
   // public correctManifest = async (): Promise<AxiosResponse<any>> => {
   //   return this.apiClient.post('v1/emanifest/manifest/correct');
   // };
+
+  private validateSiteID = (siteID: string): void => {
+    if (!siteID || siteID === '') {
+      throw new Error('Site ID cannot be empty');
+    }
+    if (siteID.length !== 12) {
+      throw new Error('siteID must be a string of length 12');
+    }
+  };
+
+  private validateMTN = (manifestTrackingNumber: string): void => {
+    if (!manifestTrackingNumber || manifestTrackingNumber === '') {
+      throw new Error('manifestTrackingNumber cannot be empty');
+    }
+    if (manifestTrackingNumber.length !== 12) {
+      throw new Error('manifestTrackingNumber must be a string of length 12');
+    }
+  };
+
+  private validateStateCode = (stateCode: string): void => {
+    if (!stateCode || stateCode === '') {
+      throw new Error('StateCode cannot be empty');
+    }
+    if (stateCode.length !== 2) {
+      throw new Error('StateCode must be 2 characters long');
+    }
+  };
+
+  private validateSiteType = (siteType: SiteType): void => {
+    if (!siteTypeValues.includes(siteType)) {
+      throw new Error(`SiteType must be one of ${siteTypeValues}`);
+    }
+  };
+
+  private validateDateType = (dateType: DateType): void => {
+    if (!dateTypeValues.includes(dateType)) {
+      throw new Error(`dateType must be one of ${dateTypeValues}`);
+    }
+  };
 }
