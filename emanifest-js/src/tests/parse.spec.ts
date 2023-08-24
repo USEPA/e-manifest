@@ -24,11 +24,13 @@ describe('Parse module', () => {
     const body = await readMultipartBodyForTesting();
     const boundary = extractBoundary(mockContentType);
     if (body && boundary) {
-      // const parts = parseText(body.toString(), boundary);
-      // parts.then((parts) => console.log(parts[1]));
-
       const parts = parse(body, boundary);
-      parts.then((parts) => console.log(parts));
+      parts
+        .then((parts) => parts[0])
+        .then((part) => {
+          // fs.writeFile('test.pdf', part.data);
+          console.log('output: ', part);
+        });
     }
   });
 });

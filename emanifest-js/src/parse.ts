@@ -1,3 +1,13 @@
+/**
+ * This file contains the code to parse a multipart response as defined in RFC 1341
+ * https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html
+ *
+ * This source was adapted from the parse-multipart npm package. It was modified to
+ * work asynchronously, use ES modules, export Types. Also, just can inline this dependency, as the health of
+ * the parse-multipart package is questionable.
+ * https://github.com/freesoftwarefactory/parse-multipart
+ */
+
 type Part = {
   contentDispositionHeader: string;
   contentTypeHeader: string;
@@ -10,6 +20,15 @@ type Input = {
   type: string;
   data: Buffer;
 };
+
+enum ParsingState {
+  INIT,
+  READING_HEADERS,
+  READING_DATA,
+  READING_PART_SEPARATOR,
+  OTHER,
+  OTHER_2,
+}
 
 /**
  * Extract the boundary that separates the parts of a multipart response
@@ -35,19 +54,16 @@ function checkBoundary(headerBoundary: string): string {
 
 /**
  * Parse a multipart response
- * This source was adapted from the parse-multipart npm package. It was modified to
- * work asynchronously, use ES modules. Also, just so we can inline this dependency, as the health of
- * the parse-multipart package is questionable.
- * https://github.com/freesoftwarefactory/parse-multipart
  * @param multipartBodyBuffer
  * @param headerBoundary
  */
 export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string): Promise<any[]> {
   const boundary = checkBoundary(headerBoundary);
-  let lastLine = '';
+  // Set initial state before looping through the multipartBodyBuffer
+  let lastLine = ''; // The last line read
   let header = '';
-  let info = '';
-  let state = 0;
+  let info = ''; // info about the part (e.g., content-disposition) that's included BEFORE the actual part's data
+  let state = ParsingState.INIT;
   let buffer = [];
   const allParts = [];
 
@@ -57,56 +73,75 @@ export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string)
     const newLineDetected = oneByte == 0x0a && prevByte == 0x0d;
     const newLineChar = oneByte == 0x0a || oneByte == 0x0d;
 
+    // loop through the response body, one byte at a time, and append to the current line buffer
+    // Every time we find a newline, depending on the current state, decide where that line belongs
     if (!newLineChar) lastLine += String.fromCharCode(oneByte);
 
-    if (0 == state && newLineDetected) {
+    // If starting to read, the first newline should be after the first boundary
+    if (state == ParsingState.INIT && newLineDetected) {
       if (boundary == lastLine) {
-        state = 1;
+        // the boundary should be followed by the Content-Type header
+        state = ParsingState.READING_HEADERS;
+        console.log('Found first boundary, update state to READING_HEADERS');
+      } else {
+        throw new Error('The first line did not match the provided boundary');
       }
       lastLine = '';
-    } else if (1 == state && newLineDetected) {
+      // Set the Content-Type header when we encounter the newline after the boundary
+    } else if (state == ParsingState.READING_HEADERS && newLineDetected) {
       header = lastLine;
-      state = 2;
+      // After the Content-Type header, an additional header may be present before the actual data (e.g., Content-Disposition)
+      console.log('Found header', header);
+      state = ParsingState.READING_DATA;
       lastLine = '';
-    } else if (2 == state && newLineDetected) {
+    } else if (state == ParsingState.READING_DATA && newLineDetected) {
       info = lastLine;
-      state = 3;
+      console.log('Found info', info);
+      state = ParsingState.READING_PART_SEPARATOR;
       lastLine = '';
-    } else if (3 == state && newLineDetected) {
-      state = 4;
+    } else if (state == ParsingState.READING_PART_SEPARATOR && newLineDetected) {
+      state = ParsingState.OTHER;
       buffer = [];
       lastLine = '';
-    } else if (4 == state) {
+    } else if (state == ParsingState.OTHER) {
       if (lastLine.length > boundary.length + 4) lastLine = ''; // mem save
       if (boundary == lastLine) {
         const j = buffer.length - lastLine.length;
         const data = buffer.slice(0, j - 1);
+        console.log('data', data);
         const p: Part = { contentTypeHeader: header, contentDispositionHeader: info, data: data };
-        // allParts.push(p);
         allParts.push(process(p));
         buffer = [];
         lastLine = '';
-        state = 5;
+        state = ParsingState.OTHER_2;
         header = '';
         info = '';
       } else {
         buffer.push(oneByte);
       }
       if (newLineDetected) lastLine = '';
-    } else if (5 == state) {
-      if (newLineDetected) state = 1;
+    } else if (state == ParsingState.OTHER_2) {
+      if (newLineDetected) state = ParsingState.READING_HEADERS;
     }
   }
   return allParts;
 }
 
+/**
+ * Process the part of a multipart response
+ * transforms raw part, with header and metadata, into a more useful and JavaScript idiomatic object
+ *
+ * { header: 'Content-Disposition: form-data; name="uploads[]"; filename="A.txt"',
+ * info: 'Content-Type: text/plain',
+ * data: 'AAAABBBB' }
+ *
+ * into this one:
+ *
+ * { filename: 'A.txt', type: 'text/plain', data: <Buffer 41 41 41 41 42 42 42 42> }
+ * @param part
+ */
 async function process(part: Part): Promise<Input> {
   // will transform this object:
-  // { header: 'Content-Disposition: form-data; name="uploads[]"; filename="A.txt"',
-  // info: 'Content-Type: text/plain',
-  // part: 'AAAABBBB' }
-  // into this one:
-  // { filename: 'A.txt', type: 'text/plain', data: <Buffer 41 41 41 41 42 42 42 42> }
   const obj = (str: string) => {
     const k = str.split('=');
     const a = k[0].trim();
@@ -124,13 +159,7 @@ async function process(part: Part): Promise<Input> {
   // If the part only contains the 'Content-Type' header, set some defaults
   const info = part.contentDispositionHeader
     ? part.contentDispositionHeader.split(';')
-    : [
-        'Content-Disposition: form-data',
-        ' filename="fd983141-4f82-4f0b-8290-f4e5db60b4589127020486266855753.tmp"',
-        ' modification-date="Thu, 24 Aug 2023 00:32:06 GMT"',
-        ' size=1029434',
-        ' name="attachments.zip"',
-      ];
+    : ['Content-Disposition: form-data', 'filename="manifest.zip"', 'name="attachments.zip"'];
 
   const filenameData = info[2];
   let input = {};
