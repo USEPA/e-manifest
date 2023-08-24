@@ -1,6 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { OutputPart, parseAttachments } from './parse';
 import {
   AuthResponse,
   BillGetParameters,
@@ -119,7 +120,7 @@ class RcraClient {
 
   authenticate = async (): Promise<AxiosResponse<AuthResponse>> => {
     return this.apiClient
-      .get(`v1/auth/${this.apiID}/${this.apiKey}`)
+      .get(`/v1/auth/${this.apiID}/${this.apiKey}`)
       .then((resp: AxiosResponse<AuthResponse>) => {
         if (resp.status === 200) {
           this.token = `${resp.data.token}`;
@@ -148,49 +149,49 @@ class RcraClient {
     if (this.validateInput) {
       this.validateStateCode(stateCode);
     }
-    return this.apiClient.get(`v1/lookup/state-waste-codes/${stateCode}`);
+    return this.apiClient.get(`/v1/lookup/state-waste-codes/${stateCode}`);
   };
 
   /**
    * Returns a list of all available federal waste codes.
    */
   public getFederalWasteCodes = async (): Promise<AxiosResponse<RcraCode[]>> => {
-    return this.apiClient.get('v1/lookup/federal-waste-codes');
+    return this.apiClient.get('/v1/lookup/federal-waste-codes');
   };
 
   /**
    * Returns a list of all available density units of measurement (UOM).
    */
   public getDensityUOMs = async (): Promise<AxiosResponse<RcraCode[]>> => {
-    return this.apiClient.get('v1/lookup/density-uom');
+    return this.apiClient.get('/v1/lookup/density-uom');
   };
 
   /**
    * Returns a list of all available source codes (type of activity or process that produced the waste).
    */
   public getSourceCodes = async (): Promise<AxiosResponse<RcraCode[]>> => {
-    return this.apiClient.get('v1/lookup/source-codes');
+    return this.apiClient.get('/v1/lookup/source-codes');
   };
 
   /**
    * Returns a list of all available management method codes (how the waste is managed).
    */
   public getManagementMethodCodes = async (): Promise<AxiosResponse<RcraCode[]>> => {
-    return this.apiClient.get('v1/lookup/management-method-codes');
+    return this.apiClient.get('/v1/lookup/management-method-codes');
   };
 
   /**
    * Returns a list of all available waste minimization codes.
    */
   public getWasteMinimizationCodes = async (): Promise<AxiosResponse<RcraCode[]>> => {
-    return this.apiClient.get('v1/lookup/waste-minimization-codes');
+    return this.apiClient.get('/v1/lookup/waste-minimization-codes');
   };
 
   /**
    * Returns a list of all available ports of entry where the waste can enter/exit the United States.
    */
   public getPortsOfEntry = async (): Promise<AxiosResponse<PortOfEntry[]>> => {
-    return this.apiClient.get('v1/lookup/ports-of-entry');
+    return this.apiClient.get('/v1/lookup/ports-of-entry');
   };
 
   // e-Manifest Lookup Services
@@ -212,10 +213,10 @@ class RcraClient {
         throw new Error('Please provide both a shipping name and an ID number.');
       }
       return this.apiClient.get(
-        `v1/emanifest/lookup/hazard-classes-by-shipping-name-id-number/${shippingName}/${idNumber}`,
+        `/v1/emanifest/lookup/hazard-classes-by-shipping-name-id-number/${shippingName}/${idNumber}`,
       );
     }
-    return this.apiClient.get('v1/emanifest/lookup/hazard-classes');
+    return this.apiClient.get('/v1/emanifest/lookup/hazard-classes');
   };
 
   /**
@@ -235,10 +236,10 @@ class RcraClient {
         throw new Error('Please provide both a shipping name and an ID number.');
       }
       return this.apiClient.get(
-        `v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/${shippingName}/${idNumber}`,
+        `/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/${shippingName}/${idNumber}`,
       );
     }
-    return this.apiClient.get('v1/emanifest/lookup/packing-groups');
+    return this.apiClient.get('/v1/emanifest/lookup/packing-groups');
   };
 
   // Site Services
@@ -250,7 +251,7 @@ class RcraClient {
     if (this.validateInput) {
       this.validateSiteID(siteID);
     }
-    return this.apiClient.get(`v1/site-details/${siteID}`);
+    return this.apiClient.get(`/v1/site-details/${siteID}`);
   };
 
   /**
@@ -260,14 +261,14 @@ class RcraClient {
     if (this.validateInput) {
       this.validateSiteID(siteID);
     }
-    return this.apiClient.get(`v1/site-exists/${siteID}`);
+    return this.apiClient.get(`/v1/site-exists/${siteID}`);
   };
 
   /**
    * Search for sites by name, address (city, state, zip, etc.) EPA ID, or type.
    */
   public searchSites = async (searchParameters: SiteSearchParameters): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('v1/site-search', searchParameters);
+    return this.apiClient.post('/v1/site-search', searchParameters);
   };
 
   // User Services
@@ -276,7 +277,7 @@ class RcraClient {
    * Search for RCRAInfo registered users
    */
   public searchUsers = async (searchParameters: UserSearchParameters): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('v1/user/user-search', searchParameters);
+    return this.apiClient.post('/v1/user/user-search', searchParameters);
   };
 
   // e-Manifest Services
@@ -286,14 +287,14 @@ class RcraClient {
    * @param searchParameters
    */
   public getBill = async (searchParameters: BillGetParameters): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('v1/emanifest/billing/bill', searchParameters);
+    return this.apiClient.post('/v1/emanifest/billing/bill', searchParameters);
   };
 
   /**
    * Search for bills by the given parameters.
    */
   public searchBill = async (searchParameters: BillSearchParameters): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('v1/emanifest/billing/bill-search', searchParameters);
+    return this.apiClient.post('/v1/emanifest/billing/bill-search', searchParameters);
   };
 
   /**
@@ -301,12 +302,12 @@ class RcraClient {
    * @param searchParameters
    */
   public getBillHistory = async (searchParameters: BillHistoryParameters): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('v1/emanifest/billing/bill-history', searchParameters);
+    return this.apiClient.post('/v1/emanifest/billing/bill-history', searchParameters);
   };
 
   // ToDo
   // public updateManifest = async (): Promise<AxiosResponse<any>> => {
-  //   return this.apiClient.put('v1/emanifest/manifest/update');
+  //   return this.apiClient.put('/v1/emanifest/manifest/update');
   // };
 
   /**
@@ -317,18 +318,27 @@ class RcraClient {
     if (this.validateInput) {
       this.validateMTN(manifestTrackingNumber);
     }
-    return this.apiClient.delete(`v1/emanifest/manifest/delete${manifestTrackingNumber}`);
+    return this.apiClient.delete(`/v1/emanifest/manifest/delete${manifestTrackingNumber}`);
   };
 
   // ToDo
   // public saveManifest = async (): Promise<AxiosResponse<any>> => {
-  //   return this.apiClient.post('v1/emanifest/manifest/save');
+  //   return this.apiClient.post('/v1/emanifest/manifest/save');
   // };
 
-  // ToDo
-  // public getManifestAttachments = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
-  //   return this.apiClient.get(`v1/emanifest/manifest/${manifestTrackingNumber}/attachments`);
-  // };
+  public getManifestAttachments = async ({
+    manifestTrackingNumber,
+    parseResponse = false,
+  }: {
+    manifestTrackingNumber: string;
+    parseResponse?: boolean;
+  }): Promise<AxiosResponse<OutputPart>> => {
+    let response = await this.apiClient.get(`/v1/emanifest/manifest/${manifestTrackingNumber}/attachments`);
+    if (parseResponse) {
+      response.data = await parseAttachments(response.data, response.headers['content-type']);
+    }
+    return response;
+  };
 
   /**
    * Retrieve information about all manifest correction versions by manifest tracking number
@@ -337,7 +347,7 @@ class RcraClient {
     if (this.validateInput) {
       this.validateMTN(manifestTrackingNumber);
     }
-    return this.apiClient.get(`v1/emanifest/manifest/correction-details/${manifestTrackingNumber}`);
+    return this.apiClient.get(`/v1/emanifest/manifest/correction-details/${manifestTrackingNumber}`);
   };
 
   /**
@@ -346,16 +356,24 @@ class RcraClient {
   public getManifestCorrectionVersion = async (
     parameters: ManifestCorrectionParameters,
   ): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('v1/emanifest/manifest/correction-version', parameters);
+    return this.apiClient.post('/v1/emanifest/manifest/correction-version', parameters);
   };
 
   /**
    * Retrieve details of manifest correction version including attachments.
    */
-  public getManifestCorrectionAttachments = async (
-    parameters: ManifestCorrectionParameters,
-  ): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('v1/emanifest/manifest/correction-version/attachments', parameters);
+  public getManifestCorrectionAttachments = async ({
+    parameters,
+    parseResponse = false,
+  }: {
+    parameters: ManifestCorrectionParameters;
+    parseResponse?: boolean;
+  }): Promise<AxiosResponse<any>> => {
+    let response = await this.apiClient.post('/v1/emanifest/manifest/correction-version/attachments', parameters);
+    if (parseResponse) {
+      response.data = await parseAttachments(response.data, response.headers['content-type']);
+    }
+    return response;
   };
 
   /**
@@ -365,7 +383,7 @@ class RcraClient {
     if (this.validateInput) {
       this.validateSiteID(siteID);
     }
-    return this.apiClient.get(`v1/emanifest/manifest-tracking-numbers/${siteID}`);
+    return this.apiClient.get(`/v1/emanifest/manifest-tracking-numbers/${siteID}`);
   };
 
   /**
@@ -382,7 +400,7 @@ class RcraClient {
       this.validateSiteType(siteType);
       this.validateStateCode(stateCode);
     }
-    return this.apiClient.get(`v1/emanifest/site-ids/${stateCode}/${siteType}`);
+    return this.apiClient.get(`/v1/emanifest/site-ids/${stateCode}/${siteType}`);
   };
 
   /**
@@ -392,7 +410,7 @@ class RcraClient {
     if (this.validateInput) {
       this.validateMTN(manifestTrackingNumber);
     }
-    return this.apiClient.get(`v1/emanifest/manifest/${manifestTrackingNumber}`);
+    return this.apiClient.get(`/v1/emanifest/manifest/${manifestTrackingNumber}`);
   };
 
   /**
@@ -411,14 +429,14 @@ class RcraClient {
         this.validateSiteType(parameters.siteType);
       }
     }
-    return this.apiClient.post('v1/emanifest/manifest/search', parameters);
+    return this.apiClient.post('/v1/emanifest/manifest/search', parameters);
   };
 
   /**
    * Check if Manifest Tracking Number exists. Unless system error happens, this service always returns 200 HTTP code.
    */
   public getMTNExists = async (manifestTrackingNumber: string): Promise<AxiosResponse<ManifestExistsResponse>> => {
-    return this.apiClient.get(`v1/emanifest/manifest/mtn-exists/${manifestTrackingNumber}`);
+    return this.apiClient.get(`/v1/emanifest/manifest/mtn-exists/${manifestTrackingNumber}`);
   };
 
   /**
@@ -428,7 +446,7 @@ class RcraClient {
     if (this.validateInput) {
       this.validateMTN(manifestTrackingNumber);
     }
-    return this.apiClient.get(`v1/emanifest/manifest/revert/${manifestTrackingNumber}`);
+    return this.apiClient.get(`/v1/emanifest/manifest/revert/${manifestTrackingNumber}`);
   };
 
   /**
@@ -441,12 +459,12 @@ class RcraClient {
       this.validateSiteID(parameters.siteID);
       this.validateSiteType(parameters.siteType);
     }
-    return this.apiClient.post('v1/emanifest/manifest/quicker-sign', parameters);
+    return this.apiClient.post('/v1/emanifest/manifest/quicker-sign', parameters);
   };
 
   // ToDo
   // public correctManifest = async (): Promise<AxiosResponse<any>> => {
-  //   return this.apiClient.post('v1/emanifest/manifest/correct');
+  //   return this.apiClient.post('/v1/emanifest/manifest/correct');
   // };
 
   private validateSiteID = (siteID: string): void => {

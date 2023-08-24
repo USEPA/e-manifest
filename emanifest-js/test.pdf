@@ -1,0 +1,293 @@
+{
+  "createdDate" : "2023-08-02T13:44:02.508+00:00",
+  "updatedDate" : "2023-08-02T13:47:50.613+00:00",
+  "manifestTrackingNumber" : "100035569ELC",
+  "status" : "Pending",
+  "discrepancy" : false,
+  "submissionType" : "NotSelected",
+  "originType" : "Web",
+  "generator" : {
+    "epaSiteId" : "VATESTGEN001",
+    "name" : "VA TEST GEN 2021",
+    "modified" : false,
+    "registered" : true,
+    "mailingAddress" : {
+      "address1" : "123 VA TEST GEN 2021 WAY",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "siteAddress" : {
+      "address1" : "123 VA TEST GEN 2021 WAY",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "contact" : {
+      "firstName" : "SCOTT",
+      "lastName" : "CHRISTIAN",
+      "phone" : {
+        "number" : "888-888-8888"
+      },
+      "email" : "graham.david@epa.gov"
+    },
+    "emergencyPhone" : {
+      "number" : "555-555-5555"
+    },
+    "gisPrimary" : false,
+    "canEsign" : true,
+    "limitedEsign" : true,
+    "hasRegisteredEmanifestUser" : true
+  },
+  "transporters" : [ {
+    "epaSiteId" : "VATESTRAN01",
+    "name" : "TEST TRANSPORTER 02",
+    "modified" : false,
+    "registered" : true,
+    "mailingAddress" : {
+      "address1" : "12 WEST ST",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "siteAddress" : {
+      "address1" : "12 WEST ST",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "contact" : {
+      "firstName" : "TEST",
+      "lastName" : "TESTER",
+      "phone" : {
+        "number" : "888-888-8888"
+      }
+    },
+    "gisPrimary" : false,
+    "canEsign" : true,
+    "limitedEsign" : true,
+    "hasRegisteredEmanifestUser" : true,
+    "order" : 1
+  } ],
+  "designatedFacility" : {
+    "epaSiteId" : "VATESTTSDF03",
+    "name" : "VA TEST TSDF 2021",
+    "modified" : false,
+    "registered" : true,
+    "mailingAddress" : {
+      "address1" : "234 VA TEST TSDF 2021 DRIVE",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "siteAddress" : {
+      "address1" : "234 VA TEST TSDF 2021 DRIVE",
+      "city" : "ARLINGTON",
+      "state" : {
+        "code" : "VA",
+        "name" : "VIRGINIA"
+      },
+      "country" : {
+        "code" : "US",
+        "name" : "UNITED STATES"
+      },
+      "zip" : "22202"
+    },
+    "contact" : {
+      "firstName" : "TSDF",
+      "lastName" : "TEST",
+      "phone" : {
+        "number" : "888-888-8888"
+      }
+    },
+    "gisPrimary" : false,
+    "canEsign" : true,
+    "limitedEsign" : true,
+    "hasRegisteredEmanifestUser" : true
+  },
+  "wastes" : [ {
+    "dotHazardous" : true,
+    "dotInformation" : {
+      "idNumber" : {
+        "code" : "UN1906"
+      },
+      "printedDotInformation" : "UN1906, Waste Sludge acid, 8, II"
+    },
+    "quantity" : {
+      "containerNumber" : 5,
+      "containerType" : {
+        "code" : "DM",
+        "description" : "Metal drums, barrels, kegs"
+      },
+      "quantity" : 55,
+      "unitOfMeasurement" : {
+        "code" : "G",
+        "description" : "Gallons"
+      }
+    },
+    "hazardousWaste" : {
+      "federalWasteCodes" : [ {
+        "code" : "D001",
+        "description" : "IGNITABLE WASTE"
+      }, {
+        "code" : "D003",
+        "description" : "REACTIVE WASTE"
+      }, {
+        "code" : "D002",
+        "description" : "CORROSIVE WASTE"
+      } ],
+      "tsdfStateWasteCodes" : [ ],
+      "generatorStateWasteCodes" : [ ]
+    },
+    "additionalInfo" : {
+      "handlingInstructions" : "Don't drop"
+    },
+    "lineNumber" : 1,
+    "br" : false,
+    "managementMethod" : {
+      "code" : "H070",
+      "description" : "CHEMICAL TREATMENT"
+    },
+    "pcb" : false,
+    "discrepancyResidueInfo" : {
+      "wasteQuantity" : false,
+      "wasteType" : false,
+      "residue" : false
+    },
+    "epaWaste" : true
+  }, {
+    "dotHazardous" : true,
+    "dotInformation" : {
+      "idNumber" : {
+        "code" : "UN2949"
+      },
+      "printedDotInformation" : "X"
+    },
+    "quantity" : {
+      "containerNumber" : 12,
+      "containerType" : {
+        "code" : "BA",
+        "description" : "Burlap, cloth, paper, or plastic bags"
+      },
+      "quantity" : 211,
+      "unitOfMeasurement" : {
+        "code" : "K",
+        "description" : "Kilograms"
+      }
+    },
+    "hazardousWaste" : {
+      "federalWasteCodes" : [ {
+        "code" : "D003",
+        "description" : "REACTIVE WASTE"
+      } ],
+      "tsdfStateWasteCodes" : [ ],
+      "generatorStateWasteCodes" : [ ]
+    },
+    "additionalInfo" : { },
+    "lineNumber" : 2,
+    "br" : false,
+    "managementMethod" : {
+      "code" : "H039",
+      "description" : "OTHER RECOVERY OR RECLAMATION FOR REUSE"
+    },
+    "pcb" : false,
+    "discrepancyResidueInfo" : {
+      "wasteQuantity" : false,
+      "wasteType" : false,
+      "residue" : false
+    },
+    "epaWaste" : true
+  }, {
+    "dotHazardous" : true,
+    "dotInformation" : {
+      "idNumber" : {
+        "code" : "UN1221"
+      },
+      "printedDotInformation" : "22332"
+    },
+    "quantity" : {
+      "containerNumber" : 12,
+      "containerType" : {
+        "code" : "BA",
+        "description" : "Burlap, cloth, paper, or plastic bags"
+      },
+      "quantity" : 211,
+      "unitOfMeasurement" : {
+        "code" : "G",
+        "description" : "Gallons"
+      }
+    },
+    "hazardousWaste" : {
+      "federalWasteCodes" : [ {
+        "code" : "D003",
+        "description" : "REACTIVE WASTE"
+      } ],
+      "tsdfStateWasteCodes" : [ ],
+      "generatorStateWasteCodes" : [ ]
+    },
+    "additionalInfo" : { },
+    "lineNumber" : 3,
+    "br" : false,
+    "managementMethod" : {
+      "code" : "H020",
+      "description" : "SOLVENTS RECOVERY"
+    },
+    "pcb" : false,
+    "discrepancyResidueInfo" : {
+      "wasteQuantity" : false,
+      "wasteType" : false,
+      "residue" : false
+    },
+    "epaWaste" : true
+  } ],
+  "additionalInfo" : {
+    "handlingInstructions" : "Haztrak test manifest"
+  },
+  "rejection" : false,
+  "residue" : false,
+  "import" : false,
+  "containsPreviousRejectOrResidue" : false,
+  "formDocument" : {
+    "name" : "form-2050.pdf",
+    "size" : 1097320,
+    "mimeType" : "APPLICATION_PDF"
+  },
+  "correctionInfo" : {
+    "active" : true
+  }
+}
