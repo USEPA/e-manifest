@@ -327,7 +327,7 @@ class RcraClient {
 
   // ToDo
   // public getManifestAttachments = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
-  //   return this.apiClient.get(`/v1/emanifest/manifest/${manifestTrackingNumber}/attachments`);
+  //   return this.apiClient.get(``);
   // };
 
   /**
