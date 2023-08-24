@@ -362,10 +362,18 @@ class RcraClient {
   /**
    * Retrieve details of manifest correction version including attachments.
    */
-  public getManifestCorrectionAttachments = async (
-    parameters: ManifestCorrectionParameters,
-  ): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('/v1/emanifest/manifest/correction-version/attachments', parameters);
+  public getManifestCorrectionAttachments = async ({
+    parameters,
+    parseResponse = false,
+  }: {
+    parameters: ManifestCorrectionParameters;
+    parseResponse?: boolean;
+  }): Promise<AxiosResponse<any>> => {
+    let response = await this.apiClient.post('/v1/emanifest/manifest/correction-version/attachments', parameters);
+    if (parseResponse) {
+      response.data = await parseManifest(response.data, response.headers['content-type']);
+    }
+    return response;
   };
 
   /**
