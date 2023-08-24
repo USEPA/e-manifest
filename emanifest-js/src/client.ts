@@ -1,6 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { OutputPart, parseManifest } from './parse';
 import {
   AuthResponse,
   BillGetParameters,
@@ -325,10 +326,19 @@ class RcraClient {
   //   return this.apiClient.post('/v1/emanifest/manifest/save');
   // };
 
-  // ToDo
-  // public getManifestAttachments = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
-  //   return this.apiClient.get(``);
-  // };
+  public getManifestAttachments = async ({
+    manifestTrackingNumber,
+    parseResponse = false,
+  }: {
+    manifestTrackingNumber: string;
+    parseResponse?: boolean;
+  }): Promise<AxiosResponse<OutputPart>> => {
+    let response = await this.apiClient.get(`/v1/emanifest/manifest/${manifestTrackingNumber}/attachments`);
+    if (parseResponse) {
+      response.data = await parseManifest(response.data, response.headers['content-type']);
+    }
+    return response;
+  };
 
   /**
    * Retrieve information about all manifest correction versions by manifest tracking number

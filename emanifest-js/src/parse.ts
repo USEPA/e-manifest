@@ -20,7 +20,7 @@ interface InputPart {
 /**
  * The output of parsing the multipart/mixed response
  */
-interface OutputPart {
+export interface OutputPart {
   contentType: 'application/json' | 'application/octet-stream';
   contentDisposition?: string;
   data: Buffer | string;
@@ -75,7 +75,7 @@ function checkBoundary(headerBoundary: string): string {
  * @param multipartBodyBuffer
  * @param headerBoundary
  */
-export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string): Promise<OutputPart[]> {
+export async function parseManifest(multipartBodyBuffer: Buffer, headerBoundary: string): Promise<OutputPart[]> {
   const boundary = checkBoundary(headerBoundary);
   // Set initial state before looping through the multipartBodyBuffer
   let lastLine = ''; // The current line buffer
