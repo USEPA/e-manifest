@@ -8,18 +8,27 @@
  * https://github.com/freesoftwarefactory/parse-multipart
  */
 
+/**
+ * Initially parsed data from the multipart response that has not been processed into a more useful object
+ */
 interface InputPart {
   contentDispositionHeader: string;
   contentTypeHeader: string;
   data: number[];
 }
 
+/**
+ * The output of parsing the multipart/mixed response
+ */
 interface OutputPart {
   contentType: 'application/json' | 'application/octet-stream';
   contentDisposition?: string;
   data: Buffer | string;
 }
 
+/**
+ * The state of the parser
+ */
 enum ParsingState {
   INIT,
   READING_HEADERS,
