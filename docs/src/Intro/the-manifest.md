@@ -1,8 +1,8 @@
 # The Manifest
 
 The Uniform Hazardous Waste Manifest (AKA "manifest" or EPA form 8700-22) is a form required by EPA for all hazardous
-waste [generators](./terminology.md#generator) who [transport](./terminology.md#transporter) hazardous waste for
-off-site [treatment, recycling, storage or disposal (TSD)](./terminology.md#treatment-storage-or-disposal-facility-tsdf--receiving-facility--designated-facility).
+waste [generators](terminology.md#generator) who [transport](terminology.md#transporter) hazardous waste for
+off-site [treatment, recycling, storage or disposal (TSD)](terminology.md#treatment-storage-or-disposal-facility-tsdf--receiving-facility--designated-facility).
 It is also commonly used to satisfy and U.S. Department of Transportation (DOT) requirements. When completed, the form
 contains information on the type and quantity of the waste being transported, instructions for handling the waste, and
 signature lines

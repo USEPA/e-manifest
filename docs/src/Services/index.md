@@ -9,10 +9,10 @@ resource.
 3. [All users] Lookup Services
 4. [All users] Site Services
 5. [All users] User Services
-6. [Industry users] [e-Manifest Services](./Manifest/save.md)
+6. [Industry users] [e-Manifest Services](Manifest/save.md)
 7. [Industry users] e-Manifest UI Link Services
 8. [Regulator users] CM&E Evaluation Services
-9. [Regulator users] [e-Manifest Services](./Manifest/states.md)
+9. [Regulator users] [e-Manifest Services](Manifest/states.md)
 10. [Regulator users] Handler Services
 11. [Regulator users] User Services
 

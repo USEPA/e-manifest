@@ -31,7 +31,7 @@ of [FAQs](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest).
 
 If you're just getting started, you'll likely want to complete these prerequisites
 
-1. [Register in the RCRAInfo test environment](./Intro/registration.md) (Pre-Production).
+1. [Register in the RCRAInfo test environment](Intro/registration.md) (Pre-Production).
 2. Subscribe to the e-Manifest mailing lists
    - [e-Manifest General Program mailing list](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_4)
    - [e-Manifest developer mailing list](https://public.govdelivery.com/accounts/USEPAORCR/subscriber/new?topic_id=USEPAORCR_9)
