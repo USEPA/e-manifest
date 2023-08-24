@@ -1,22 +1,34 @@
 import fs from 'fs/promises';
-import { extractBoundary } from '../parse';
+import { extractBoundary, parse } from '../parse';
 import { describe, it, expect } from 'vitest';
 
-const mockContentType = 'multipart/mixed;boundary=Boundary_12_141861297_1692842024406';
+const fileBoundary = 'Boundary_10_712184523_1692837126159';
+const mockContentType = `multipart/mixed;boundary=${fileBoundary}`;
 
 // @ts-ignore
-async function prepareContentsForTesting() {
+async function readMultipartBodyForTesting() {
   try {
-    const filename = '100035569ELC-multipart-mixed.bin';
+    const filename = `${__dirname}/100035569ELC-multipart-mixed.bin`;
     return await fs.readFile(filename);
   } catch (error) {
     console.error('Error preparing contents for testing:', error);
   }
 }
 
-describe('Parsing multipart/mixed', () => {
+describe('Parse module', () => {
   it('extracts the boundary', () => {
     const boundary = extractBoundary(mockContentType);
-    expect(boundary).toBe('Boundary_12_141861297_1692842024406');
+    expect(boundary).toBe(fileBoundary);
+  });
+  it('splits the body into two parts', async () => {
+    const body = await readMultipartBodyForTesting();
+    const boundary = extractBoundary(mockContentType);
+    if (body && boundary) {
+      // const parts = parseText(body.toString(), boundary);
+      // parts.then((parts) => console.log(parts[1]));
+
+      const parts = parse(body, boundary);
+      parts.then((parts) => console.log(parts));
+    }
   });
 });
