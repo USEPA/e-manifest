@@ -1,7 +1,7 @@
 type Part = {
   contentDispositionHeader: string;
   contentTypeHeader: string;
-  part: number[];
+  data: number[];
 };
 
 type Input = {
@@ -42,7 +42,7 @@ function checkBoundary(headerBoundary: string): string {
  * @param multipartBodyBuffer
  * @param headerBoundary
  */
-export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string) {
+export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string): Promise<any[]> {
   const boundary = checkBoundary(headerBoundary);
   let lastLine = '';
   let header = '';
@@ -80,9 +80,10 @@ export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string)
       if (lastLine.length > boundary.length + 4) lastLine = ''; // mem save
       if (boundary == lastLine) {
         const j = buffer.length - lastLine.length;
-        const part = buffer.slice(0, j - 1);
-        const p = { header: header, info: info, part: part };
-        allParts.push(p);
+        const data = buffer.slice(0, j - 1);
+        const p: Part = { contentTypeHeader: header, contentDispositionHeader: info, data: data };
+        // allParts.push(p);
+        allParts.push(process(p));
         buffer = [];
         lastLine = '';
         state = 5;
@@ -106,7 +107,7 @@ async function process(part: Part): Promise<Input> {
   // part: 'AAAABBBB' }
   // into this one:
   // { filename: 'A.txt', type: 'text/plain', data: <Buffer 41 41 41 41 42 42 42 42> }
-  const obj = function (str: string) {
+  const obj = (str: string) => {
     const k = str.split('=');
     const a = k[0].trim();
 
@@ -120,9 +121,18 @@ async function process(part: Part): Promise<Input> {
     });
     return o;
   };
-  const header = part.contentDispositionHeader.split(';');
+  // If the part only contains the 'Content-Type' header, set some defaults
+  const info = part.contentDispositionHeader
+    ? part.contentDispositionHeader.split(';')
+    : [
+        'Content-Disposition: form-data',
+        ' filename="fd983141-4f82-4f0b-8290-f4e5db60b4589127020486266855753.tmp"',
+        ' modification-date="Thu, 24 Aug 2023 00:32:06 GMT"',
+        ' size=1029434',
+        ' name="attachments.zip"',
+      ];
 
-  const filenameData = header[2];
+  const filenameData = info[2];
   let input = {};
   if (filenameData) {
     input = obj(filenameData);
@@ -136,14 +146,14 @@ async function process(part: Part): Promise<Input> {
   }
   // always process the name field
   Object.defineProperty(input, 'name', {
-    value: header[1].split('=')[1].replace(/"/g, ''),
+    value: info[1].split('=')[1].replace(/"/g, ''),
     writable: true,
     enumerable: true,
     configurable: true,
   });
 
   Object.defineProperty(input, 'data', {
-    value: Buffer.from(part.part),
+    value: Buffer.from(part.data),
     writable: true,
     enumerable: true,
     configurable: true,
