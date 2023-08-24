@@ -75,7 +75,7 @@ function checkBoundary(headerBoundary: string): string {
  * @param multipartBodyBuffer
  * @param headerBoundary
  */
-export async function parseManifest(multipartBodyBuffer: Buffer, headerBoundary: string): Promise<OutputPart[]> {
+export async function parseAttachments(multipartBodyBuffer: Buffer, headerBoundary: string): Promise<OutputPart[]> {
   const boundary = checkBoundary(headerBoundary);
   // Set initial state before looping through the multipartBodyBuffer
   let lastLine = ''; // The current line buffer

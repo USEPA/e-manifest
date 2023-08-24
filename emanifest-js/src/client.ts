@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { OutputPart, parseManifest } from './parse';
+import { OutputPart, parseAttachments } from './parse';
 import {
   AuthResponse,
   BillGetParameters,
@@ -335,7 +335,7 @@ class RcraClient {
   }): Promise<AxiosResponse<OutputPart>> => {
     let response = await this.apiClient.get(`/v1/emanifest/manifest/${manifestTrackingNumber}/attachments`);
     if (parseResponse) {
-      response.data = await parseManifest(response.data, response.headers['content-type']);
+      response.data = await parseAttachments(response.data, response.headers['content-type']);
     }
     return response;
   };
@@ -371,7 +371,7 @@ class RcraClient {
   }): Promise<AxiosResponse<any>> => {
     let response = await this.apiClient.post('/v1/emanifest/manifest/correction-version/attachments', parameters);
     if (parseResponse) {
-      response.data = await parseManifest(response.data, response.headers['content-type']);
+      response.data = await parseAttachments(response.data, response.headers['content-type']);
     }
     return response;
   };

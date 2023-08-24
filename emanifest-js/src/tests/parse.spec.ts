@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { extractBoundary, parse } from '../parse';
+import { extractBoundary, parseAttachments } from '../parse';
 import { describe, it, expect } from 'vitest';
 
 const fileBoundary = 'Boundary_10_712184523_1692837126159';
@@ -24,8 +24,8 @@ describe('Parse module', () => {
     const body = await readMultipartBodyForTesting();
     const boundary = extractBoundary(mockContentType);
     if (body && boundary) {
-      parse(body, boundary).then((parts) => {
-        console.log('parts: ', parts);
+      parseAttachments(body, boundary).then((parts) => {
+        // console.log('parts: ', parts);
         // The manifest attachment service returns two parts
         expect(parts.length).toBe(2);
       });
@@ -37,7 +37,7 @@ describe('Parse module', () => {
     const body = await readMultipartBodyForTesting();
     const boundary = extractBoundary(mockContentType);
     if (body && boundary) {
-      parse(body, boundary).then((parts) => {
+      parseAttachments(body, boundary).then((parts) => {
         parts.forEach(
           (part) => part.contentType === 'application/json' || part.contentType === 'application/octet-stream',
         );
