@@ -8,18 +8,17 @@
  * https://github.com/freesoftwarefactory/parse-multipart
  */
 
-type Part = {
+interface InputPart {
   contentDispositionHeader: string;
   contentTypeHeader: string;
   data: number[];
-};
+}
 
-type Input = {
-  filename?: string;
-  name?: string;
-  type: string;
-  data: Buffer;
-};
+interface OutputPart {
+  contentType: 'application/json' | 'application/octet-stream';
+  contentDisposition?: string;
+  data: Buffer | string;
+}
 
 enum ParsingState {
   INIT,
@@ -27,8 +26,7 @@ enum ParsingState {
   READING_INFO,
   READING_DATA,
   READING_PART_SEPARATOR,
-  OTHER,
-  OTHER_2,
+  POST_READING_DATA,
 }
 
 /**
@@ -43,6 +41,16 @@ export function extractBoundary(contentType: string): string | null {
   return null;
 }
 
+/**
+ * check the boundary and fix if possible.
+ * e-Manifest attachments are returned following RFC 1341
+ * --Boundary_10_12345
+ * foo bar
+ * --Boundary_10_12345
+ * bar foo
+ * --Boundary_10_12345--
+ * @param headerBoundary
+ */
 function checkBoundary(headerBoundary: string): string {
   if (!headerBoundary) {
     throw new Error('headerBoundary is undefined');
@@ -58,23 +66,24 @@ function checkBoundary(headerBoundary: string): string {
  * @param multipartBodyBuffer
  * @param headerBoundary
  */
-export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string): Promise<any[]> {
+export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string): Promise<OutputPart[]> {
   const boundary = checkBoundary(headerBoundary);
   // Set initial state before looping through the multipartBodyBuffer
-  let lastLine = ''; // The last line read
+  let lastLine = ''; // The current line buffer
   let header = '';
   let info = ''; // info about the part (e.g., content-disposition) that's included BEFORE the actual part's data
   let state = ParsingState.INIT;
   let buffer = [];
   const allParts = [];
 
+  // loop through the response body, one byte at a time
   for (let i = 0; i < multipartBodyBuffer.length; i++) {
     const oneByte = multipartBodyBuffer[i];
     const prevByte = i > 0 ? multipartBodyBuffer[i - 1] : null;
     const newLineDetected = oneByte == 0x0a && prevByte == 0x0d;
     const newLineChar = oneByte == 0x0a || oneByte == 0x0d;
 
-    // loop through the response body, one byte at a time, and append to the current line buffer
+    // append the byte to the lastLine buffer unless it is a new line character
     // Every time we find a newline, depending on the current state, decide where that line belongs
     if (!newLineChar) lastLine += String.fromCharCode(oneByte);
 
@@ -111,22 +120,26 @@ export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string)
       buffer = [];
       lastLine = '';
     } else if (state == ParsingState.READING_DATA) {
-      if (lastLine.length > boundary.length + 4) lastLine = ''; // mem save
-      if (boundary == lastLine) {
+      // If reading the data, and we find the line length is the boundary + 2 ('--' at the end)
+      // we assume we've reached the end of the part (--Boundary_12345--)
+      if (lastLine.length > boundary.length + 2) lastLine = '';
+      if (lastLine == boundary) {
         const j = buffer.length - lastLine.length;
         const data = buffer.slice(0, j - 1);
-        const p: Part = { contentTypeHeader: header, contentDispositionHeader: info, data: data };
-        allParts.push(process(p));
+        allParts.push(process({ contentTypeHeader: header, contentDispositionHeader: info, data: data }));
         buffer = [];
         lastLine = '';
-        state = ParsingState.OTHER_2;
+        state = ParsingState.POST_READING_DATA;
         header = '';
         info = '';
       } else {
+        // If not at the end of the part, append the line to the buffer
         buffer.push(oneByte);
       }
+      // If a newline is found, reset the line buffer
       if (newLineDetected) lastLine = '';
-    } else if (state == ParsingState.OTHER_2) {
+      // If we find more data after the boundary, we're reading another part of the multipart response
+    } else if (state == ParsingState.POST_READING_DATA) {
       if (newLineDetected) state = ParsingState.READING_HEADERS;
     }
   }
@@ -136,62 +149,16 @@ export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string)
 /**
  * Process the part of a multipart response
  * transforms raw part, with header and metadata, into a more useful and JavaScript idiomatic object
- *
- * { header: 'Content-Disposition: form-data; name="uploads[]"; filename="A.txt"',
- * info: 'Content-Type: text/plain',
- * data: 'AAAABBBB' }
- *
- * into this one:
- *
- * { filename: 'A.txt', type: 'text/plain', data: <Buffer 41 41 41 41 42 42 42 42> }
  * @param part
  */
-async function process(part: Part): Promise<Input> {
-  // will transform this object:
-  const obj = (str: string) => {
-    const k = str.split('=');
-    const a = k[0].trim();
-
-    const b = JSON.parse(k[1].trim());
-    const o = {};
-    Object.defineProperty(o, a, {
-      value: b,
-      writable: true,
-      enumerable: true,
-      configurable: true,
-    });
-    return o;
+function process(part: InputPart): OutputPart {
+  const contentType = part.contentTypeHeader.split(':')[1].trim();
+  let outputPart: OutputPart = {
+    contentType: contentType as 'application/json' | 'application/octet-stream',
+    data: contentType === 'application/json' ? JSON.parse(Buffer.from(part.data).toString()) : Buffer.from(part.data),
   };
-  // If the part only contains the 'Content-Type' header, set some defaults
-  const info = part.contentDispositionHeader
-    ? part.contentDispositionHeader.split(';')
-    : ['Content-Disposition: form-data', 'filename="manifest.zip"', 'name="attachments.zip"'];
-
-  const filenameData = info[2];
-  let input = {};
-  if (filenameData) {
-    input = obj(filenameData);
-    const contentType = part.contentTypeHeader.split(':')[1].trim();
-    Object.defineProperty(input, 'type', {
-      value: contentType,
-      writable: true,
-      enumerable: true,
-      configurable: true,
-    });
+  if (part.contentDispositionHeader) {
+    outputPart.contentDisposition = part.contentDispositionHeader.split(':')[1].trim();
   }
-  // always process the name field
-  Object.defineProperty(input, 'name', {
-    value: info[1].split('=')[1].replace(/"/g, ''),
-    writable: true,
-    enumerable: true,
-    configurable: true,
-  });
-
-  Object.defineProperty(input, 'data', {
-    value: Buffer.from(part.data),
-    writable: true,
-    enumerable: true,
-    configurable: true,
-  });
-  return input as Input;
+  return outputPart;
 }

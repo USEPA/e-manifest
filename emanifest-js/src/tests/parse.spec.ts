@@ -24,12 +24,26 @@ describe('Parse module', () => {
     const body = await readMultipartBodyForTesting();
     const boundary = extractBoundary(mockContentType);
     if (body && boundary) {
-      const parts = parse(body, boundary);
-      parts.then((parts) => console.log(parts));
-      // .then((part) => {
-      //   // fs.writeFile('test.pdf', part.data);
-      //   console.log('output: ', part.data.toString());
-      // });
+      parse(body, boundary).then((parts) => {
+        console.log('parts: ', parts);
+        // The manifest attachment service returns two parts
+        expect(parts.length).toBe(2);
+      });
+    } else {
+      throw new Error('Error reading multipart body');
+    }
+  });
+  it('captures information about the attachments', async () => {
+    const body = await readMultipartBodyForTesting();
+    const boundary = extractBoundary(mockContentType);
+    if (body && boundary) {
+      parse(body, boundary).then((parts) => {
+        parts.forEach(
+          (part) => part.contentType === 'application/json' || part.contentType === 'application/octet-stream',
+        );
+      });
+    } else {
+      throw new Error('Error reading multipart body');
     }
   });
 });
