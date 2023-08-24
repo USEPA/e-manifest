@@ -25,12 +25,11 @@ describe('Parse module', () => {
     const boundary = extractBoundary(mockContentType);
     if (body && boundary) {
       const parts = parse(body, boundary);
-      parts
-        .then((parts) => parts[0])
-        .then((part) => {
-          // fs.writeFile('test.pdf', part.data);
-          console.log('output: ', part);
-        });
+      parts.then((parts) => console.log(parts));
+      // .then((part) => {
+      //   // fs.writeFile('test.pdf', part.data);
+      //   console.log('output: ', part.data.toString());
+      // });
     }
   });
 });

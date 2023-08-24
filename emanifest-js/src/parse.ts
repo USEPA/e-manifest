@@ -24,6 +24,7 @@ type Input = {
 enum ParsingState {
   INIT,
   READING_HEADERS,
+  READING_INFO,
   READING_DATA,
   READING_PART_SEPARATOR,
   OTHER,
@@ -82,7 +83,6 @@ export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string)
       if (boundary == lastLine) {
         // the boundary should be followed by the Content-Type header
         state = ParsingState.READING_HEADERS;
-        console.log('Found first boundary, update state to READING_HEADERS');
       } else {
         throw new Error('The first line did not match the provided boundary');
       }
@@ -90,25 +90,31 @@ export async function parse(multipartBodyBuffer: Buffer, headerBoundary: string)
       // Set the Content-Type header when we encounter the newline after the boundary
     } else if (state == ParsingState.READING_HEADERS && newLineDetected) {
       header = lastLine;
-      // After the Content-Type header, an additional header may be present before the actual data (e.g., Content-Disposition)
-      console.log('Found header', header);
-      state = ParsingState.READING_DATA;
+      state = ParsingState.READING_INFO;
       lastLine = '';
-    } else if (state == ParsingState.READING_DATA && newLineDetected) {
+      // After the Content-Type header, an additional header (we call info) may be present before the actual data
+      // includes things like Content-Disposition, filename, etc.
+    } else if (state == ParsingState.READING_INFO && newLineDetected) {
       info = lastLine;
-      console.log('Found info', info);
-      state = ParsingState.READING_PART_SEPARATOR;
-      lastLine = '';
+      // if the info header is empty, we're done reading the headers. Start reading data
+      if (info == '') {
+        state = ParsingState.READING_DATA;
+        lastLine = '';
+      } else {
+        // if the info header is not empty, we expect a newline after it
+        state = ParsingState.READING_PART_SEPARATOR;
+        lastLine = '';
+      }
     } else if (state == ParsingState.READING_PART_SEPARATOR && newLineDetected) {
-      state = ParsingState.OTHER;
+      // This is the newline after the info header. We're done reading headers. Start reading data
+      state = ParsingState.READING_DATA;
       buffer = [];
       lastLine = '';
-    } else if (state == ParsingState.OTHER) {
+    } else if (state == ParsingState.READING_DATA) {
       if (lastLine.length > boundary.length + 4) lastLine = ''; // mem save
       if (boundary == lastLine) {
         const j = buffer.length - lastLine.length;
         const data = buffer.slice(0, j - 1);
-        console.log('data', data);
         const p: Part = { contentTypeHeader: header, contentDispositionHeader: info, data: data };
         allParts.push(process(p));
         buffer = [];
