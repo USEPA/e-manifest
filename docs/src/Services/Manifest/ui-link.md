@@ -1,4 +1,4 @@
-# The e-Manifest User Interface Link service
+# Manifest User Interface (UI) Link service
 
 The e-Manifest UI service exposes one endpoint that can be used to generate a link (URL) to the RCRAInfo user
 interface (specifically the e-Manifest module). This service provides a method to streamline the manifest signing

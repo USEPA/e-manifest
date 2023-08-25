@@ -1,4 +1,4 @@
-# Saving Manifests
+# Manifests Save Service
 
 The Save Service creates the new Manifest. The service accepts Manifest data in JSON format compliant with e-Manifest
 JSON

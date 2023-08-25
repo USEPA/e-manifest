@@ -1,4 +1,4 @@
-# Deleting Manifests
+# Manifest Delete Service
 
 The Delete service deletes the manifest by provided Manifest Tracking Number. Depending on the manifest submission type,
 the manifest can be deleted in the following statuses:
@@ -10,4 +10,3 @@ the manifest can be deleted in the following statuses:
   MtnValidationFailed" status
 
 Service will check if the manifest is locked. The manifest is locked for delete when Manifest is in a queue for signing.
-

@@ -10,7 +10,7 @@
     - [Save](Services/Manifest/save.md)
     - [Update](Services/Manifest/update.md)
     - [Delete](Services/Manifest/delete.md)
-    - [Correct]()
+    - [Correct](Services/Manifest/correct.md)
     - [Signing Manifests]()
     - [UI link](Services/Manifest/ui-link.md)
     - [e-Manifest Services for states](Services/Manifest/states.md)

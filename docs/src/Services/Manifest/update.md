@@ -1,4 +1,4 @@
-# Updating Manifests
+# Manifest Update Service
 
 The Update service updates an existing Manifest. The service requires that the industry system submits a complete
 Manifest JSON in order to update a manifest. Individual Manifest fields cannot be updated via this service, only the
@@ -48,4 +48,3 @@ Service will validate submitted JSON (see sectionManifest entities and fields va
 - Error(s) were found: The service won't update the manifest and returns Error Report containing all found errors.
 - Error(s) and Warnings were found. The service won't update the manifest and returns Error Report containing all found
   errors and warnings.
-
