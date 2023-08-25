@@ -116,6 +116,29 @@ try {
 }
 ```
 
+## Manifest Attachments
+
+The `emanifest` NPM package has alpha support for retrieving multipart/mixed content types from the RCRAInfo services.
+This feature is disabled by default and must be explicitly enabled by passing `parseResponse` as true in methods that
+return multipart/mixed content types.
+
+```typescript
+import { AxiosResponse } from 'axios';
+import { newClient } from 'emanifest';
+import { OutputPart } from 'emanifest-js/src/parse';
+
+const rcrainfo = newClient({ validateInput: true });
+
+const resp: AxiosResponse<OutputPart> = await rcrainfo.getManifestAttachments({
+  manifestTrackingNumber: '123456789ELC',
+  parseResponse: true,
+});
+console.log(resp.data);
+// {
+//  contentType: 'application/json' | 'application/octet-stream';
+//  contentDisposition?: string;
+//  data: string | Buffer;
+// }
 ```
 
 ## Disclaimer
@@ -130,4 +153,11 @@ otherwise, does not constitute or imply their endorsement, recommendation
 or favoring by EPA. The EPA seal and logo shall not be used in any manner
 to imply endorsement of any commercial product or activity by EPA or
 the United States Government.
+
+```
+
+```
+
+```
+
 ```
