@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  BOOK_DIRECTORY: ./docs/emanifest_book
+  BOOK_DIRECTORY: ./docs
   MDBOOK_VERSION: v0.4.25
 
 jobs:
