@@ -136,9 +136,9 @@ Validation Error Return example
 
 ```json
 {
-"code": "E_ManifestTrackingNumberNotFound ",
-"message": "Provided Manifest Tracking Number was not Found"
-"errorId" : "9v7a9808-s35a5-4874-928f-12fc3def4b56",
-"date" : "2017-06-23T23:15:45.095+0000"
+  "code": "E_ManifestTrackingNumberNotFound ",
+  "message": "Provided Manifest Tracking Number was not Found",
+  "errorId": "9v7a9808-s35a5-4874-928f-12fc3def4b56",
+  "date": "2017-06-23T23:15:45.095+0000"
 }
 ```
