@@ -50,6 +50,18 @@ Content-Type: multipart/mixed; boundary=Boundary_example_12345
  --Boundary_example_12345--
 ```
 
+## Example Implementations
+
+The [USEPA/e-manifest]() repository contains a couple working implementations for parsing and using the content of
+multipart/mixed responses:
+
+1. The [emanifest JavaScript package](https://github.com/USEPA/e-manifest/tree/master/emanifest-js), an API client
+   library that abstracts the RCRAInfo services. A example of manually parsing the multipart/mixed response can be found
+   in [emanifest-js/src/parse.ts](https://github.com/USEPA/e-manifest/blob/master/emanifest-js/src/parse.ts)
+2. The [sample Java client](https://github.com/USEPA/e-manifest/tree/master/Services-Information/sample-client).
+3. The [emanifest Python package](https://github.com/USEPA/e-manifest/tree/master/emanifest-py), an API client library.
+   It uses the request tool belt package to parse the multipart/mixed response.
+
 ## Attachment Validation
 
 The e-Manifest system does not accept attachments for electronic manifests (they are not required for the electronic
