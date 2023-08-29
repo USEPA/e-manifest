@@ -1,6 +1,6 @@
 /**
- * This file contains the code to parse a multipart response as defined in RFC 1341
- * https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html
+ * This file contains the code to parse a multipart response as defined in RFC 2046
+ * https://datatracker.ietf.org/doc/html/rfc2046
  *
  * This source was adapted from the parse-multipart npm package. It was modified to
  * work asynchronously, use ES modules, export Types. Also, just can inline this dependency, as the health of
