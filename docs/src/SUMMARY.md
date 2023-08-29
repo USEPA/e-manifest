@@ -15,6 +15,7 @@
     - [Revert](Services/Manifest/revert.md)
     - [UI link](Services/Manifest/ui-link.md)
     - [e-Manifest Services for states](Services/Manifest/states.md)
+    - [Manifest Attachments](Services/Manifest/manifest-attachments.md)
   - [Sites]()
   - [Lookups](Services/Lookup/lookup.md)
     - [Lookups](Services/Lookup/lookup.md)

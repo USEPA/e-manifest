@@ -18,7 +18,11 @@ multipart/mixed MIME type:
 2. A .zip file containing the manifest attachment in PDF format
 
 The two parts of the multipart entity are separated by a boundary string, which is specified in the `Content-Type`
-header, like so, `Content-Type: multipart/mixed; boundary=Bounday_example_12345`.
+header, like so:
+
+```
+Content-Type: multipart/mixed; boundary=Bounday_example_12345
+```
 
 When uploading to (e.g., the [Save Manifest service](./save.md)) the .zip file must contain only 1 one PDF file
 
@@ -42,18 +46,20 @@ Content-Type: multipart/mixed; boundary=Boundary_example_12345
     "createdDate": "2018-01-01T00:00:00Z",
     ...
  }
-
  --Boundary_example_12345
  Content-Type: application/octet-stream
+ Content-Disposition: form-data; filename="f4e5db60b4589127020486266855753.tmp"; modification-date="Thu, 24 Aug 2023 00:32:06 GMT"; size=1029434; name="attachments.zip"
 
-    <binary data>
+ <binary data...>
  --Boundary_example_12345--
 ```
 
+Note the hyphens (`--`) at the beginning of the boundary string are required (and end on the final boundary).
+
 ## Example Implementations
 
-The [USEPA/e-manifest]() repository contains a couple working implementations for parsing and using the content of
-multipart/mixed responses:
+The [USEPA/e-manifest]() repository contains a couple working implementations for parsing and using the contents of
+Manifest Attachments transmitted as part multipart/mixed responses:
 
 1. The [emanifest JavaScript package](https://github.com/USEPA/e-manifest/tree/master/emanifest-js), an API client
    library that abstracts the RCRAInfo services. A example of manually parsing the multipart/mixed response can be found
