@@ -74,3 +74,7 @@ Content-Type: application/json
     },
 }
 ```
+
+## Sequence of Steps
+
+{{#include ../../components/service-validate-token-step.md}}
