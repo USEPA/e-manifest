@@ -13,8 +13,8 @@ Returns the list of all Hazard Classes
 none
 
 ```http
-GET /api/v1/emanifest/lookup/hazard-classes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/hazard-classes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -54,8 +54,8 @@ Accept: application/json
 2. ID Number
 
 ```http
-GET /api/v1/emanifest/lookup/hazard-class-by-shipping-name-id-number/{shippingName}/{idNumber} HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/hazard-class-by-shipping-name-id-number/{shippingName}/{idNumber} HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -81,8 +81,8 @@ Returns the list of all Printed Manifest Tracking Number suffixes (e.g., ELC, JJ
 None
 
 ```http
-GET /api/v1/emanifest/lookup/printed-tracking-number-suffixes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/printed-tracking-number-suffixes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -145,8 +145,8 @@ Returns the list of all Container Types and Container Type Descriptions.
 None
 
 ```http
-GET /api/v1/emanifest/lookup/container-types HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/container-types HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -189,8 +189,8 @@ Returns the list of Quantity UOM Codes and Descriptions
 None
 
 ```http
-GET /api/v1/emanifest/lookup/quantity-uom HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/quantity-uom HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -241,8 +241,8 @@ List of Polychlorinated biphenyl (PCB) load type
 None
 
 ```http
-GET /api/v1/emanifest/lookup/load-types HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/load-types HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -286,8 +286,8 @@ Technical Name Indicators
 None
 
 ```http
-GET /api/v1/emanifest/lookup/proper-shipping-names HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/proper-shipping-names HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -331,8 +331,8 @@ Returns list of DOT Proper Shipping names by DOT ID Number
 1. ID Number
 
 ```http
-GET /api/v1/emanifest/lookup/proper-shipping-names-by-id-number HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/proper-shipping-names-by-id-number HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -385,8 +385,8 @@ Returns a list of DOT ID Numbers
 None
 
 ```http
-GET /api/v1/emanifest/lookup/id-numbers HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/id-numbers HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -422,8 +422,8 @@ Returns the list of ID Numbers by the Proper Shipping Name.
 1. Proper Shipping Name
 
 ```http
-GET /api/v1/emanifest/lookup/proper-shipping-names-by-id-number HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/proper-shipping-names-by-id-number HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -467,8 +467,8 @@ Returns list of all DOT Packing Groups
 None
 
 ```http
-GET /api/v1/emanifest/lookup/packing-groups HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/packing-groups HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -495,8 +495,8 @@ Returns list of DOT Packing Groups by DOT Proper Shipping name and ID Number
 2. ID Number
 
 ```http
-GET /api/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/{shippingNmae}/{idNumber} HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/{shippingNmae}/{idNumber} HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```

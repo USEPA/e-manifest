@@ -12,8 +12,8 @@ Returns the list of State Waste Codes and State Waste Code Descriptions by State
 1. state waste code: 2 character state code (e.g., AL, AK, AZ, etc.)
 
 ```http
-GET /api/v1/lookup/state-waste-codes/{stateCode} HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/state-waste-codes/{stateCode} HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -74,8 +74,8 @@ Returns the list of Federal Waste Codes and Federal Waste Code Descriptions
 none
 
 ```http
-GET /api/v1/lookup/federal-waste-codes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/federal-waste-codes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -118,8 +118,8 @@ Accept: application/json
 none
 
 ```http
-GET /api/v1/lookup/density-uom HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/density-uom HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -154,8 +154,8 @@ Returns the list of Form Codes and Form Code Descriptions
 none
 
 ```http
-GET /api/v1/lookup/form-codes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/form-codes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -198,8 +198,8 @@ Returns the list of Management Method Codes and Management Method Code Descripti
 none
 
 ```http
-GET /api/v1/lookup/managment-method-codes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/managment-method-codes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -242,8 +242,8 @@ Returns the list of Waste Minimization Codes and Waste Minimization Code Descrip
 none
 
 ```http
-GET /api/v1/lookup/waste-minimization-codes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/waste-minimization-codes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
@@ -302,8 +302,8 @@ Returns the list of import Ports of Entry by City, State name, and State code
 none
 
 ```http
-GET /api/v1/lookup/ports-of-entry HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/ports-of-entry HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```

@@ -31,8 +31,8 @@ the `Authorization` header when making requests to protected resources.
 An example HTTP request to the federal waste codes service would look like the following...
 
 ```http
-GET /api/v1/lookup/federal-waste-codes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/federal-waste-codes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ...

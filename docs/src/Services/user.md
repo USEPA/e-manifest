@@ -9,8 +9,8 @@ A service that allows user to search for other users by user ID, siteId(s).
 example HTTP request
 
 ```http
-POST /api/v1/users/user-search HTTP/1.1
-Host: rcrainfo.epa.gov
+POST /rcrainfo/rest/api/v1/users/user-search HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Content-Type: application/json
 

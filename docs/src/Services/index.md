@@ -1,20 +1,42 @@
-# Services Information
+# Web Services
 
-The RCRAInfo provides a set of services that can be used by industry and regulators.
-The services are available via a RESTful API, and are categorized by the type of user that can access them and the
-resource.
+RCRAInfo exposes a set of web services that allow industry and regulators to interact with the system programmatically.
+These services implement a RESTful design and can be categorized by the resource exposed and the type of user accessing
+The service. The services are secured using a [token-based authentication system](./authentication.md).
 
 1. [All users] [Authentication services](authentication.md)
-2. [All users] e-Manifest Lookup Services
-3. [All users] Lookup Services
+2. [All users] [e-Manifest Lookup Services](./Lookup/e-manifest.md)
+3. [All users] [Lookup Services](./Lookup/lookup.md)
 4. [All users] Site Services
 5. [All users] User Services
 6. [Industry users] [e-Manifest Services](Manifest/save.md)
-7. [Industry users] e-Manifest UI Link Services
+7. [Industry users] [e-Manifest UI Link Services](./Manifest/ui-link.md)
 8. [Regulator users] CM&E Evaluation Services
 9. [Regulator users] [e-Manifest Services](Manifest/states.md)
-10. [Regulator users] Handler Services
+10. [Regulator users] [Handler Services](./site-handler.md)
 11. [Regulator users] User Services
+
+## Base URL
+
+Developers can access the services on both the Production and Pre-Production environments using the following base URLs:
+
+### Production
+
+- Hostname: `https://rcrainfo.epa.gov`
+- Base Path: `/rcrainfoprod/rest`
+- example: `https://rcrainfo.epa.gov/rcrainfoprod/rest/api/v1/lookup/federal-waste-codes`
+
+### Pre-Production
+
+- Hostname: `https://rcrainfopreprod.epa.gov`
+- Base Path: `/rcrainfo/rest`
+- example: `https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/lookup/federal-waste-codes`
+
+The RCRAInfo Production services should not be used for testing. Conversely, actions performed in the Pre-Production
+environment will not be reflected in the Production environment, cannot be used to satisfy regulatory requirements.
+e-Manifest user fees cannot be paid through the Pre-Production environment.
+
+We use the pre-production environment when referencing services URLs in this documentation.
 
 ## Tools for Testers
 
