@@ -21,8 +21,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of DOT hazard classes.
 
 #### Completed Response Example
@@ -62,8 +63,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of DOT hazard classes.
 
 #### Completed Response Example
@@ -89,8 +91,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of manifest tracking number suffixes.
 
 #### Completed Response Example
@@ -153,8 +156,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of container types.
 
 #### Completed Response Example
@@ -197,8 +201,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of quantity units of measurement .
 
 #### Completed Response Example
@@ -249,8 +254,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of PCB load types.
 
 #### Completed Response Example
@@ -295,7 +301,7 @@ Accept: application/json
 #### Sequence of Steps
 
 1. [Security Token Validation](../authentication.md#security-token-validation).
-2. [Authorization](../authentication.md#sequence-of-steps).
+2. [User Authorization](../authentication.md#user-authorization).
 3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of all DOT proper shipping names.
 
@@ -340,8 +346,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request
 
    - 2.1 The system will check if provided ID Number has valid format.
    - 2.2 Provided ID Number shall be compliant with the following format:
@@ -353,7 +360,7 @@ Accept: application/json
    - 2.4 If no ID number is found in the system, will return error
      `E_IdNumberNotFound: Id Number not found`
 
-3. return the response. If successful, the response body will contain JSON encoded
+4. return the response. If successful, the response body will contain JSON encoded
    list of all DOT proper shipping names.
 
 #### Completed Response Example
@@ -394,8 +401,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of all DOT ID numbers.
 
 #### Completed Response Example
@@ -431,15 +439,16 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request
 
    - 2.1 if provided shipping name exceeds 300 characters, the system will return error
      `E_InvalidProperShippingName: Invalid Proper Shipping Name`
    - 2.2 f no ID Numbers were found the system stops processing and generates the following error:
      `E_ProperShippingNameNotFound: Proper Shipping Name Not Found`
 
-3. return the response. If successful, the response body will contain JSON encoded
+4. return the response. If successful, the response body will contain JSON encoded
    list of all DOT ID numbers.
 
 #### Completed Response Example
@@ -476,8 +485,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of all DOT Packing Groups.
 
 #### Completed Response Example
@@ -504,8 +514,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request
 
    - 2.1 f the size of provided Proper Shipping Name exceeds 300 characters the system stops processing and generate
      the following error:
@@ -524,7 +535,7 @@ Accept: application/json
      following error:
      `E_CombinationProperShippingNameIdNumberNotFound: combination of Proper Shipping Name and Id Number was not found`
 
-3. return the response. If successful, the response body will contain JSON encoded
+4. return the response. If successful, the response body will contain JSON encoded
    list of the appropriate DOT packing group.
 
 #### Completed Response Example

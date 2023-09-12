@@ -5,7 +5,7 @@ These services implement a RESTful design and can be categorized by the resource
 The service. The services are secured using a [token-based authentication system](./authentication.md).
 
 1. [All users] [Authentication services](authentication.md)
-2. [All users] [e-Manifest Lookup Services](./Lookup/e-manifest.md)
+2. [All users] [e-Manifest Lookup Services](./Lookup/e-manifest-lookup.md)
 3. [All users] [Lookup Services](./Lookup/lookup.md)
 4. [All users] Site Services
 5. [All users] User Services

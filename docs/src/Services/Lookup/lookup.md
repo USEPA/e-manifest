@@ -20,15 +20,16 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request
    - 2.1. The system will check if provided State Code is valid. If the provided State Code is invalid the system will
      stop the processing and generate the following error:
      `E_InvalidStateCode: Provided State Code is invalid`
    - 2.2 If no state waste codes are defined for the provided State Code the system will stop the processing and
      generate the following error:
      `E_StateCodesUndefined: State Waste Codes are Not Defined for this State`
-3. The system will return the response. If successful, the response body will contain JSON encoded list of state waste
+4. The system will return the response. If successful, the response body will contain JSON encoded list of state waste
    code for the requested state.
 
 #### Completed Response Example
@@ -82,8 +83,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of federal waste codes.
 
 #### Completed Response Example
@@ -126,8 +128,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of density units of measurement.
 
 #### Completed Response Example
@@ -162,8 +165,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of form codes.
 
 #### Completed Response Example
@@ -206,8 +210,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of management method codes.
 
 #### Completed Response Example
@@ -250,8 +255,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of waste minimization codes.
 
 #### Completed Response Example
@@ -310,8 +316,9 @@ Accept: application/json
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of ports of entry where waste can be imported.
 
 #### Completed Response Example
