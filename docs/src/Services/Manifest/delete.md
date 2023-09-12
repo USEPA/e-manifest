@@ -10,3 +10,8 @@ the manifest can be deleted in the following statuses:
   MtnValidationFailed" status
 
 Service will check if the manifest is locked. The manifest is locked for delete when Manifest is in a queue for signing.
+
+## Sequence of Steps
+
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).

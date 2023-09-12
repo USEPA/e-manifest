@@ -200,6 +200,22 @@ the following checks are performed for all protected resources:
 
    - `E_IndustryPermissions: The user does not have industry permissions for any Site`
 
+2. The System will validate the Security Token
+
+   1.1 If Web Security Token is invalid, the system stops the submission and generates the following error:
+
+   - `E_SecurityApiTokenInvalid: Invalid Security Token`
+
+   1.2. If Web Security Token expired, the system stops the submission and generates the following
+   error:
+
+   - `E_SecurityApiTokenExpired: Security Token is Expired`
+
+   1.3. If Account was inactivated after the token was issued, the system stops the submission and
+   generates the following error:
+
+   - `E_SecurityApiInvalidStatus: This API ID is no longer active`
+
 ### Manifest Services User Authorization
 
 1. For requests include an `"Image"` or `"DataImage5Copy"` submission type, the user must be authorized for the site

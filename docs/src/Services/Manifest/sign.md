@@ -42,8 +42,8 @@ transporter order must be specified to indicate which transporter performs the s
 
 ## Sequence of Steps
 
-1. The system will validate the security token
-2. The system will perform User Authorization
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
 3. The system will process the request
 
    - 3.1. The system will check for valid Site Type Enumerated values. If the value provided does not

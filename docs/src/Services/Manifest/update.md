@@ -77,4 +77,5 @@ Content-Type: application/json
 
 ## Sequence of Steps
 
-{{#include ../../components/service-validate-token-step.md}}
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).

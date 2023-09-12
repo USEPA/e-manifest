@@ -51,23 +51,8 @@ Content-Type: application/json
 
 ## Sequence of Steps
 
-1. The System will validate Security Token
-
-   - 1.1. If the Web Security Token is invalid the system stops the processing and generates the following error:
-     `E_SecurityApiTokenInvalid: Invalid Security Token`
-
-   - 1.2. If the Web Security Token expired the system stops and processing generates the following error:
-     `E_SecurityApiTokenExpired: Security Token is Expired`
-   - 1.3. If Account was Inactivated after the token was issued the system stops the processing and generates the
-     following error:
-     `E_SecurityApiInvalidStatus: This API Id is no longer active`
-
-2. The system will perform User Authorization.
-
-   - 2.1. System will check if the User has Site Manager (Industry) permissions for any Site.
-   - 2.2. If the User does not have permission the System will stop processing and generate the following error:
-     `E_IndustryPermissions: The user does not have industry permissions for any Site`
-
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
 3. The system will process the request
 
    - 3.1. If page is not provided then the service generates following error:
