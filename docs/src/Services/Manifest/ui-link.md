@@ -32,6 +32,21 @@ The following parameters can be passes in JSON format in the body of the request
    page. This is a required parameter if the provided `page` value is either `Dashboard` or `BulkSign`. This parameter
    may not be provided is the `page` value is equal to `View`, `Edit`, or `Sign`.
 
+## Example
+
+```http
+POST /rcrainfo/rest/api/v1/links/emanifest HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Content-Type: application/json
+
+{
+    "page": "View",
+    "epaSiteId": "VATESTGEN001",
+    "manifestTrackingNumber": "100035836ELC"
+}
+```
+
 ## Sequence of Steps
 
 1. The System will validate Security Token
