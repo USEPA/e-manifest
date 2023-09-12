@@ -5,27 +5,32 @@ JSON
 schema [e-Manifest JSON Schema](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/emanifest.json).
 The following submission types are supported for this release:
 
-- `FullElectronic`
-- `DataImage5Copy`
-- `Image`
-- `Hybrid`
+- `"FullElectronic"`
+- `"DataImage5Copy"`
+- `"Image"`
+- `"Hybrid"`
 
-For the `FullElectronic` and `Hybrid` submission types, the Manifest can be submitted at either `Pending` or `Scheduled`
-status. If the manifest was created in `Pending` status the transition to `Scheduled` status will be done via the update
-service. The transition to the statuses after `Scheduled` for these submission types will be done automatically by
+For the `"FullElectronic"` and `"Hybrid"` submission types, the Manifest can be submitted at either `"Pending"`
+or `"Scheduled"`
+status. If the manifest was created in `"Pending"` status the transition to `"Scheduled"` status will be done via the
+update
+service. The transition to the statuses after `"Scheduled"` for these submission types will be done automatically by
 e-Manifest.
 
-For the `DataImage5Copy` and `Image` submission types, the Manifest will be assigned the "ReadyForSignature" status. The
+For the `"DataImage5Copy"` and `"Image"` submission types, the Manifest will be assigned the `"ReadyForSignature"`
+status.
+The
 transition to the next status for these submission type will be done automatically by e-Manifest.
 
-Manifests with the `Mail` origin type cannot be saved via the Save service.
+Manifests with the `"Mail"` origin type cannot be saved via the Save service.
 
-For the `DataImage5Copy` and `Image` submission types, the service requires receiving the scanned compressed document
+For the `"DataImage5Copy"` and `"Image"` submission types, the service requires receiving the scanned compressed
+document
 attachment (Printed/Paper, Signed, Scanned Manifest form-2050). Manifest attachment shall be passed as a multipart
 binary content. (See sample client implementation for details
 at: https://github.com/USEPA/e-manifest/tree/master/Services-Information/sample-client)
 
-For the `DataImage5Copy` and `Image` submission types, if the
+For the `"DataImage5Copy"` and `"Image"` submission types, if the
 Manifest contains an attachment, the
 following metadata
 JSON elements shall be presented in the Manifest JSON:

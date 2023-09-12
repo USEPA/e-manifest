@@ -16,8 +16,9 @@ manifest. The following submission types are supported:
 - `"Image"`
 - `"Hybrid"`
 
-For`"FullElectronic"`and`"Hybrid"`submission types, the Manifest can be updated with "Pending" or "Scheduled" statuses.
-For these submission types the transition to the next statuses after "Scheduled" will be done by e-Manifest.
+For`"FullElectronic"`and`"Hybrid"`submission types, the Manifest can be updated with "Pending" or `"Scheduled"`
+statuses.
+For these submission types the transition to the next statuses after `"Scheduled"` will be done by e-Manifest.
 
 For `"DataImage5Copy"` and `"Image"` submission types the Manifest status shall not be submitted. For this submission
 type

@@ -20,7 +20,8 @@ Content-Type: application/json
 }
 ```
 
-Both fields, `userId` and `siteIds` are optional. If you know the user ID, you can use this service to return the user's
+Both fields, `"userId"` and `"siteIds"` are optional. If you know the user ID, you can use this service to return the
+user's
 information, such as what site's they have access to and the permissions in RCRAInfo they have for each site.
 
 <details>
