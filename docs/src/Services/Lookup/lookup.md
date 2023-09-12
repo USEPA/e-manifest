@@ -12,23 +12,24 @@ Returns the list of State Waste Codes and State Waste Code Descriptions by State
 1. state waste code: 2 character state code (e.g., AL, AK, AZ, etc.)
 
 ```http
-GET /api/v1/lookup/state-waste-codes/{stateCode} HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/state-waste-codes/{stateCode} HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request
    - 2.1. The system will check if provided State Code is valid. If the provided State Code is invalid the system will
      stop the processing and generate the following error:
      `E_InvalidStateCode: Provided State Code is invalid`
    - 2.2 If no state waste codes are defined for the provided State Code the system will stop the processing and
      generate the following error:
      `E_StateCodesUndefined: State Waste Codes are Not Defined for this State`
-3. The system will return the response. If successful, the response body will contain JSON encoded list of state waste
+4. The system will return the response. If successful, the response body will contain JSON encoded list of state waste
    code for the requested state.
 
 #### Completed Response Example
@@ -74,16 +75,17 @@ Returns the list of Federal Waste Codes and Federal Waste Code Descriptions
 none
 
 ```http
-GET /api/v1/lookup/federal-waste-codes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/federal-waste-codes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of federal waste codes.
 
 #### Completed Response Example
@@ -118,16 +120,17 @@ Accept: application/json
 none
 
 ```http
-GET /api/v1/lookup/density-uom HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/density-uom HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of density units of measurement.
 
 #### Completed Response Example
@@ -154,16 +157,17 @@ Returns the list of Form Codes and Form Code Descriptions
 none
 
 ```http
-GET /api/v1/lookup/form-codes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/form-codes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of form codes.
 
 #### Completed Response Example
@@ -198,16 +202,17 @@ Returns the list of Management Method Codes and Management Method Code Descripti
 none
 
 ```http
-GET /api/v1/lookup/managment-method-codes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/managment-method-codes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of management method codes.
 
 #### Completed Response Example
@@ -242,16 +247,17 @@ Returns the list of Waste Minimization Codes and Waste Minimization Code Descrip
 none
 
 ```http
-GET /api/v1/lookup/waste-minimization-codes HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/waste-minimization-codes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of waste minimization codes.
 
 #### Completed Response Example
@@ -302,16 +308,17 @@ Returns the list of import Ports of Entry by City, State name, and State code
 none
 
 ```http
-GET /api/v1/lookup/ports-of-entry HTTP/1.1
-Host: rcrainfo.epa.gov
+GET /rcrainfo/rest/api/v1/lookup/ports-of-entry HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
 ```
 
 #### Sequence of Steps
 
-1. [Authentication and Authorization](../authentication.md#sequence-of-steps).
-2. The system will process the request return the response. If successful, the response body will contain JSON encoded
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
+3. The system will process the request return the response. If successful, the response body will contain JSON encoded
    list of ports of entry where waste can be imported.
 
 #### Completed Response Example

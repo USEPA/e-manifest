@@ -3,13 +3,13 @@
 RCRAInfo API exposes a number of services for managing electronic and paper manifests. The following services are
 available:
 
-- [save](./save.md)
-- [update](./update.md)
-- [delete](./delete.md)
-- [correct](./correct.md)
-- [sign](./signing.md)
+- [Save](./save.md)
+- [Update](./update.md)
+- [Delete](./delete.md)
+- [Correct](./correct.md)
+- [Sign](./signing.md)
 - [UI link](./ui-link.md)
-- [revert](./revert.md)
+- [Revert](./revert.md)
 
 In addition, the following services are available for states:
 

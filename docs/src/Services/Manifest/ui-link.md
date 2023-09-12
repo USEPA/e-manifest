@@ -25,32 +25,34 @@ The following parameters can be passes in JSON format in the body of the request
    - `"BulkSign"`
 2. `"epaSiteId"`: the epa site ID of either the generator, transporter(s) or TSDF participating in the manifest. This is
    a required parameter.
-3. `"manifestTrackingNumber"`: the tracking number of the manifest. This is a required parameter if the provided `page`
-   value is either `View`, `Edit`, or `Sign`. This parameter may not be provided is the `page` value is equal
-   to `Dashboard` or `BulkSign`.
+3. `"manifestTrackingNumber"`: the tracking number of the manifest. This is a required parameter if the
+   provided `"page"`
+   value is either `"View"`, `"Edit"`, or `"Sign"`. This parameter may not be provided is the `"page"` value is equal
+   to `"Dashboard"` or `"BulkSign"`.
 4. `"filter"`: An array of manifest tracking number(s) which should be displayed on the manifest Dashboard or bulk sign
-   page. This is a required parameter if the provided `page` value is either `Dashboard` or `BulkSign`. This parameter
-   may not be provided is the `page` value is equal to `View`, `Edit`, or `Sign`.
+   page. This is a required parameter if the provided `page` value is either `"Dashboard"` or `"BulkSign"`. This
+   parameter
+   may not be provided is the `"page"` value is equal to `"View"`, `"Edit"`, or `"Sign"`.
+
+## Example
+
+```http
+POST /rcrainfo/rest/api/v1/links/emanifest HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Content-Type: application/json
+
+{
+    "page": "View",
+    "epaSiteId": "VATESTGEN001",
+    "manifestTrackingNumber": "100035836ELC"
+}
+```
 
 ## Sequence of Steps
 
-1. The System will validate Security Token
-
-   - 1.1. If the Web Security Token is invalid the system stops the processing and generates the following error:
-     `E_SecurityApiTokenInvalid: Invalid Security Token`
-
-   - 1.2. If the Web Security Token expired the system stops and processing generates the following error:
-     `E_SecurityApiTokenExpired: Security Token is Expired`
-   - 1.3. If Account was Inactivated after the token was issued the system stops the processing and generates the
-     following error:
-     `E_SecurityApiInvalidStatus: This API Id is no longer active`
-
-2. The system will perform User Authorization.
-
-   - 2.1. System will check if the User has Site Manager (Industry) permissions for any Site.
-   - 2.2. If the User does not have permission the System will stop processing and generate the following error:
-     `E_IndustryPermissions: The user does not have industry permissions for any Site`
-
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
 3. The system will process the request
 
    - 3.1. If page is not provided then the service generates following error:

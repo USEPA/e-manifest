@@ -13,59 +13,8 @@ signing.
 
 ## Sequence of Steps
 
-1. The System will validate the Security Token
-
-   1.1 If Web Security Token is invalid, the system stops the submission and generates the following error:
-
-   - `E_SecurityApiTokenInvalid: Invalid Security Token`
-
-   1.2. If Web Security Token expired, the system stops the submission and generates the following
-   error:
-
-   - `E_SecurityApiTokenExpired: Security Token is Expired`
-
-   1.3. If Account was inactivated after the token was issued, the system stops the submission and
-   generates the following error:
-
-   - `E_SecurityApiInvalidStatus: This API ID is no longer active`
-
-2. The system will perform User Authorization
-
-   2.1 If Generator, Designated Facility, Transporters, Broker and Alternate Facility entities are not provided, then
-   the System will stop the processing and generates the following error:
-
-   - `E_UnableToAuthorize JSON does not contain manifest handlers, unable to authorize`
-
-   2.2 If the User does not have permissions for any Site provided in the manifest JSON, the system will stop the
-   processing and generates the following error:
-
-   - `E_IndustryPermissions: The user does not have industry permissions for any Site on this manifest`
-
-   2.3. If user is associated with a Broker site and the manifest submission type is “Image”, then the System will
-   stop the processing and generates the following error:
-
-   - `E_BrokerAuthorizationSave: Brokers are not authorized to create Image manifests`
-
-   2.4. For `Image` or `DataImage5Copy` submission types, the user must be authorized for the site that is required to
-   submit the manifest to EPA.
-
-   2.4.1. If rejection = false and user is not authorized for the designatedFacility.epaSiteId, the following error is
-   generated:
-
-   - `E_DesignatedFacilityAuthorizationSave: User is not authorized for the Designated Facility. Cannot create Image or DataImage5Copy manifests.`
-
-   - 2.4.2 If `rejection` is true, `rejectionInfo.transporterOnSite` is true,
-     `alternateDesignatedFacilityType` is “Tsdf” and user is not authorized for
-     `rejectionInfo.alternateDesignatedFacility.epaSiteId`, the following error is generated:
-
-   - `E_AltFacilityAuthorizationSave: User is not authorized for the Alternate Designated Facility. Cannot create Image or DataImage5Copy manifests.`
-
-   - 2.4.3. If `containsPreviousRejectOrResidue` is true, `additionalInfo.newManifestDestination`
-     is `"OriginalGenerator"`and user is not authorized for `generator.epaSiteId`, the following error is
-     generated:
-
-   - `E_GeneratorAuthorizationSave: User is not authorized for the Generator. Cannot create Image or DataImage5Copy manifests`
-
+1. [Security Token Validation](../authentication.md#security-token-validation).
+2. [User Authorization](../authentication.md#user-authorization).
 3. If the User is authenticated and authorized, the system will check if the manifest is locked for corrections.
 
    3.1. If manifest is in the signing queue, it is locked for correct. The following error will be generated
@@ -78,29 +27,9 @@ signing.
 
 4. The system will process the request.
 
-   4.1. The system will check if the provided MTN is valid and exists in the system.
+   4.1 {{#include ../../components/mtn-validation-steps.md}}
 
-   4.1.1. Manifest Tracking Number shall be compliant with following rules:
-
-   - Nine numeric characters + valid three character Manifest Tracking Suffix
-
-   - If the provided Manifest Tracking Number does not have valid format the processing will be stopped and system
-     generates the following error:
-     - `E_InvalidManifestTrackingNumber: Provided Manifest Tracking Number has invalid format`
-   - If the provided Manifest Tracking Number does not have a valid suffix the processing will be stopped and system
-     generates the following error:
-     - `E_InvalidManifestTrackingNumberSuffix: Provided Manifest Tracking Number has invalid`
-   - If the Manifest Tracking Number is not in the system the processing will stop and the system generates the
-     following error:
-     - `E_ ManifestTrackingNumberNotFound: Provided Manifest Tracking Number was not found`
-
-   4.2 the system will check if the user has Industry Permissions for the TSDF Site or for the Generator site or
-   for the Alternate TSDF site, any Transporter site , or Broker site provided on the manifest. If the User does
-   not have permission, the system will stop the processing and generates the following error:
-
-   - `E_SitePermissions: The user does not have Industry Permissions for either the TSDF Site or Generator Site or Alternate TSDF site, any Transporter site, or Broker site specified in provided JSON`
-
-   4.3 The system will check if the manifest ca be reverted. if no `"UnderCorrection"` version of the manifest exists,
+   4.2 The system will check if the manifest ca be reverted. if no `"UnderCorrection"` version of the manifest exists,
    the system will stop processing and generate the following error:
 
    - `E_NoVersionForUnderCorrectionStatus: Manifest does not contain the Version in 'UnderCorrection' status`

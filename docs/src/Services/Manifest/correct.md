@@ -55,95 +55,64 @@ validation for Create Correction service”) and if:
 
 ## Parameters
 
-- manifest JSON ([schema]())
-- [attachment ]() if applicable, manifest attachment shall be passed as a multipart
-  binary content (optional).
+- manifest JSON ([schema](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/emanifest.json))
+- [attachment](./manifest-attachments.md) (optional)
 - [Security Token](../authentication.md#security-tokens)
+
+## Example
+
+```http
+PUT /rcrainfo/rest/api/v1/emanifest/manifest/correct HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Content-Type: application/json
+
+{
+    "manifestTrackingNumber": "123456789ELC",
+    "status": "Signed",
+    "discrepancy": false,
+    "submissionType": "FullElectronic",
+    "generator": {
+        "epaSiteId": "VATESTGEN001",
+        "name": "VA TEST GEN 2021",
+        "..." : "..."
+    },
+}
+```
 
 ## Sequence of Steps
 
-1. The System will validate the Security Token
+1.  [Security Token Validation](../authentication.md#security-token-validation).
+2.  [User Authorization](../authentication.md#user-authorization).
+3.  The system will check if the manifest is locked for corrections.
 
-   1.1 If Web Security Token is invalid, the system stops the submission and generates the following error:
+    3.1. If manifest is in the signing queue, it is locked for correct. The following error will be generated
 
-   - `E_SecurityApiTokenInvalid: Invalid Security Token`
+        - `E_ManifestLockedAsyncSign: Manifest is locked because it is in the queue for signing. Manifest cannot be corrected.`
 
-   1.2. If Web Security Token expired, the system stops the submission and generates the following
-   error:
+    3.2. If the manifest is in teh Change Biller process by EPA, it is locked for corrections. The following error will
 
-   - `E_SecurityApiTokenExpired: Security Token is Expired`
+        - `E_ManifestLockedEpaChangeBiller: Manifest is Locked because EPA is Changing Biller. Manifested cannot be corrected.`
 
-   1.3. If Account was inactivated after the token was issued, the system stops the submission and
-   generates the following error:
+4.  The system will process the request.
 
-   - `E_SecurityApiInvalidStatus: This API ID is no longer active`
+    4.1. The system will validate the provided Manifest JSON and Attachment Document according to
+    the [Manifest Save Service](./save.md)
 
-2. The system will perform User Authorization
+    4.2 If no errors or warnings were generated during the validation process, the service will perform the following
+    steps:
 
-   2.1 If Generator, Designated Facility, Transporters, Broker and Alternate Facility entities are not provided, then
-   the System will stop the processing and generates the following error:
+    - If the current manifest status is either `"Signed"` or `"Corrected"`, then the service creates a new manifest
+      version with the provided Manifest information. The service assigns the `"UnderCorrection"` status to the new
+      manifest version.
+    - If the current manifest status is `"UnderCorrection"`, then the service updates the existing Manifest with the
+      provided Manifest information.
+    - Returns manifest Tracking Number, operation status, and operation date and warning(s) report to the requester.
 
-   - `E_UnableToAuthorize JSON does not contain manifest handlers, unable to authorize`
+    4.3. If a warning is generated during the validation process, the service performs the following steps:
 
-   2.2 If the User does not have permissions for any Site provided in the manifest JSON, the system will stop the
-   processing and generates the following error:
-
-   - `E_IndustryPermissions: The user does not have industry permissions for any Site on this manifest`
-
-   2.3. If user is associated with a Broker site and the manifest submission type is “Image”, then the System will
-   stop the processing and generates the following error:
-
-   - `E_BrokerAuthorizationSave: Brokers are not authorized to create Image manifests`
-
-   2.4. For `Image` or `DataImage5Copy` submission types, the user must be authorized for the site that is required to
-   submit the manifest to EPA.
-
-   2.4.1. If rejection = false and user is not authorized for the designatedFacility.epaSiteId, the following error is
-   generated:
-
-   - `E_DesignatedFacilityAuthorizationSave: User is not authorized for the Designated Facility. Cannot create Image or DataImage5Copy manifests.`
-
-   - 2.4.2 If `rejection` is true, `rejectionInfo.transporterOnSite` is true,
-     `alternateDesignatedFacilityType` is “Tsdf” and user is not authorized for
-     `rejectionInfo.alternateDesignatedFacility.epaSiteId`, the following error is generated:
-
-   - `E_AltFacilityAuthorizationSave: User is not authorized for the Alternate Designated Facility. Cannot create Image or DataImage5Copy manifests.`
-
-   - 2.4.3. If `containsPreviousRejectOrResidue` is true, `additionalInfo.newManifestDestination`
-     is `"OriginalGenerator"`and user is not authorized for `generator.epaSiteId`, the following error is
-     generated:
-
-   - `E_GeneratorAuthorizationSave: User is not authorized for the Generator. Cannot create Image or DataImage5Copy manifests`
-
-3. If the User is authenticated and authorized, the system will check if the manifest is locked for corrections.
-
-   3.1. If manifest is in the signing queue, it is locked for correct. The following error will be generated
-
-   - `E_ManifestLockedAsyncSign: Manifest is locked because it is in the queue for signing. Manifest cannot be corrected.`
-
-   3.2. If the manifest is in teh Change Biller process by EPA, it is locked for corrections. The following error will
-
-   - `E_ManifestLockedEpaChangeBiller: Manifest is Locked because EPA is Changing Biller. Manifested cannot be corrected.`
-
-4. The system will process the request.
-
-   4.1. The system will validate the provided Manifest JSON and Attachment Document according to
-   the [Manifest Create Service](./save.md)
-
-   4.2 If no errors or warnings were generated during the validation process, the service will perform the following
-   steps:
-
-   - If the current manifest status is either `"Signed"` or `"Corrected"`, then the service creates a new manifest
-     version with the provided Manifest information. The service assigns the `"UnderCorrection"` status to the new
-     manifest version.
-   - If the current manifest status is `"UnderCorrection"`, then the service updates the existing Manifest with the
-     provided Manifest information.
-   - Returns manifest Tracking Number, operation status, and operation date and warning(s) report to the requester.
-
-   4.3. If a warning is generated during the validation process, the service performs the following steps:
-
-   - Generate an Error/Warning Report with all errors and warnings found during validation process.
-   - Return Error/Warning report to the requester.
+    - Generate an Error/Warning Report with all errors and warnings found during validation process.
+    - Return Error/Warning report to the requester.
 
 ## Response JSON Schema
 

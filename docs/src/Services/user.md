@@ -9,8 +9,8 @@ A service that allows user to search for other users by user ID, siteId(s).
 example HTTP request
 
 ```http
-POST /api/v1/users/user-search HTTP/1.1
-Host: rcrainfo.epa.gov
+POST /rcrainfo/rest/api/v1/users/user-search HTTP/1.1
+Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Content-Type: application/json
 
@@ -20,7 +20,8 @@ Content-Type: application/json
 }
 ```
 
-Both fields, `userId` and `siteIds` are optional. If you know the user ID, you can use this service to return the user's
+Both fields, `"userId"` and `"siteIds"` are optional. If you know the user ID, you can use this service to return the
+user's
 information, such as what site's they have access to and the permissions in RCRAInfo they have for each site.
 
 <details>
