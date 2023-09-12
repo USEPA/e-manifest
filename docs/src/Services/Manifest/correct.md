@@ -82,37 +82,37 @@ Content-Type: application/json
 
 ## Sequence of Steps
 
-1. [Security Token Validation](../authentication.md#security-token-validation).
-2. [User Authorization](../authentication.md#user-authorization).
-3. The system will check if the manifest is locked for corrections.
+1.  [Security Token Validation](../authentication.md#security-token-validation).
+2.  [User Authorization](../authentication.md#user-authorization).
+3.  The system will check if the manifest is locked for corrections.
 
-   3.1. If manifest is in the signing queue, it is locked for correct. The following error will be generated
+    3.1. If manifest is in the signing queue, it is locked for correct. The following error will be generated
 
-   - `E_ManifestLockedAsyncSign: Manifest is locked because it is in the queue for signing. Manifest cannot be corrected.`
+        - `E_ManifestLockedAsyncSign: Manifest is locked because it is in the queue for signing. Manifest cannot be corrected.`
 
-   3.2. If the manifest is in teh Change Biller process by EPA, it is locked for corrections. The following error will
+    3.2. If the manifest is in teh Change Biller process by EPA, it is locked for corrections. The following error will
 
-   - `E_ManifestLockedEpaChangeBiller: Manifest is Locked because EPA is Changing Biller. Manifested cannot be corrected.`
+        - `E_ManifestLockedEpaChangeBiller: Manifest is Locked because EPA is Changing Biller. Manifested cannot be corrected.`
 
-4. The system will process the request.
+4.  The system will process the request.
 
-   4.1. The system will validate the provided Manifest JSON and Attachment Document according to
-   the [Manifest Create Service](./save.md)
+    4.1. The system will validate the provided Manifest JSON and Attachment Document according to
+    the [Manifest Save Service](./save.md)
 
-   4.2 If no errors or warnings were generated during the validation process, the service will perform the following
-   steps:
+    4.2 If no errors or warnings were generated during the validation process, the service will perform the following
+    steps:
 
-   - If the current manifest status is either `"Signed"` or `"Corrected"`, then the service creates a new manifest
-     version with the provided Manifest information. The service assigns the `"UnderCorrection"` status to the new
-     manifest version.
-   - If the current manifest status is `"UnderCorrection"`, then the service updates the existing Manifest with the
-     provided Manifest information.
-   - Returns manifest Tracking Number, operation status, and operation date and warning(s) report to the requester.
+    - If the current manifest status is either `"Signed"` or `"Corrected"`, then the service creates a new manifest
+      version with the provided Manifest information. The service assigns the `"UnderCorrection"` status to the new
+      manifest version.
+    - If the current manifest status is `"UnderCorrection"`, then the service updates the existing Manifest with the
+      provided Manifest information.
+    - Returns manifest Tracking Number, operation status, and operation date and warning(s) report to the requester.
 
-   4.3. If a warning is generated during the validation process, the service performs the following steps:
+    4.3. If a warning is generated during the validation process, the service performs the following steps:
 
-   - Generate an Error/Warning Report with all errors and warnings found during validation process.
-   - Return Error/Warning report to the requester.
+    - Generate an Error/Warning Report with all errors and warnings found during validation process.
+    - Return Error/Warning report to the requester.
 
 ## Response JSON Schema
 
