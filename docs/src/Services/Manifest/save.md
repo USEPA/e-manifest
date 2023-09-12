@@ -53,9 +53,30 @@ The service will validate the submitted JSON and if:
 
 ## Parameters
 
-- manifest JSON ([schema]())
-- [attachment (optional)]()
+- manifest JSON ([schema](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/emanifest.json))
+- [attachment (optional)](./manifest-attachments.md)
 - [Security Token](../authentication.md#security-tokens)
+
+## Example
+
+```http
+POST /rcrainfo/rest/api/v1/emanifest/manifest/save HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Content-Type: application/json
+
+{
+    "manifestTrackingNumber": "123456789ELC",
+    "status": "Signed",
+    "discrepancy": false,
+    "submissionType": "FullElectronic",
+    "generator": {
+        "epaSiteId": "VATESTGEN001",
+        "name": "VA TEST GEN 2021",
+        "..." : "..."
+    },
+}
+```
 
 ## Sequence of Steps
 
