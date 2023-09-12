@@ -2,28 +2,32 @@
 
 The Update service updates an existing Manifest. The service requires that the industry system submits a complete
 Manifest JSON in order to update a manifest. Individual Manifest fields cannot be updated via this service, only the
-entire manifest. The update service accepts Manifest data in JSON format compliant with the e-Manifest JSON
+entire manifest (see the [manifest correct service](./correct.md) docs for making post-shipment corrections). The update
+service accepts Manifest data in JSON format compliant with the e-Manifest JSON
 schema ([e-Manifest JSON Schema](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/emanifest.json))
-and can also accept a Manifest attachment for the "DataImage5Copy" and "Image" submission types (Scanned Signed Paper
-Manifest Image pdf). Manifest JSON must contain the Manifest Tracking Number generated for that manifest by the Save
-Manifest service. The Save manifest service must be invoked prior to the Update Manifest service for any manifest. The
-following submission types are supported:
+and can also accept a Manifest attachment for the `"DataImage5Copy"` and `"Image"` submission types (Scanned Signed
+Paper
+Manifest Image pdf). Manifest JSON must contain the Manifest Tracking Number generated for that manifest by the [Save
+Manifest service](./save.md). The Save manifest service must be invoked prior to the Update Manifest service for any
+manifest. The following submission types are supported:
 
-- "FullElectronic"
-- "DataImage5Copy"
-- "Image"
-- "Hybrid"
+- `"FullElectronic"`
+- `"DataImage5Copy"`
+- `"Image"`
+- `"Hybrid"`
 
-For "FullElectronic" and "Hybrid" submission types, the Manifest can be updated with "Pending" or "Scheduled" statuses.
+For`"FullElectronic"`and`"Hybrid"`submission types, the Manifest can be updated with "Pending" or "Scheduled" statuses.
 For these submission types the transition to the next statuses after "Scheduled" will be done by e-Manifest.
 
-For "DataImage5Copy" and "Image" submission types the Manifest status shall not be submitted. For this submission type
+For `"DataImage5Copy"` and `"Image"` submission types the Manifest status shall not be submitted. For this submission
+type
 the status transition will be done by e-Manifest.
 
-Signed manifests of any submission types cannot be Updated via Update service. "Image" Manifests submitted via mail
-cannot be updated via Update service at any time.For the "DataImage5Copy" and "Image" submission types the service
+Signed manifests of any submission types cannot be Updated via Update service. `"Image"` Manifests submitted via mail
+cannot be updated via Update service at any time.For the `"DataImage5Copy"` and `"Image"` submission types the service
 supports receiving the scanned document attachment (Printed, Signed, Scanned Manifest form-2050). Manifest attachment
-shall be passed as a multipart binary content. (See sample client implementation for details). For the "DataImage5Copy"
+shall be passed as a multipart binary content. (See sample client implementation for details). For
+the `"DataImage5Copy"`
 submission type if the Manifest contains an attachment the following metadata JSON elements shall be presented in the
 Manifest JSON:
 
