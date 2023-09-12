@@ -15,3 +15,6 @@ Service will check if the manifest is locked. The manifest is locked for delete 
 
 1. [Security Token Validation](../authentication.md#security-token-validation).
 2. [User Authorization](../authentication.md#user-authorization).
+3. The system will check if the provided manifest tracking number is valid and exists in the system.
+
+   3.1 {{#include ../../components/mtn-validation-steps.md}}
