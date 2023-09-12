@@ -55,10 +55,30 @@ validation for Create Correction service”) and if:
 
 ## Parameters
 
-- manifest JSON ([schema]())
-- [attachment ]() if applicable, manifest attachment shall be passed as a multipart
-  binary content (optional).
+- manifest JSON ([schema](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/emanifest.json))
+- [attachment](./manifest-attachments.md) (optional)
 - [Security Token](../authentication.md#security-tokens)
+
+## Example
+
+```http
+PUT /rcrainfo/rest/api/v1/emanifest/manifest/correct HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Content-Type: application/json
+
+{
+    "manifestTrackingNumber": "123456789ELC",
+    "status": "Signed",
+    "discrepancy": false,
+    "submissionType": "FullElectronic",
+    "generator": {
+        "epaSiteId": "VATESTGEN001",
+        "name": "VA TEST GEN 2021",
+        "..." : "..."
+    },
+}
+```
 
 ## Sequence of Steps
 

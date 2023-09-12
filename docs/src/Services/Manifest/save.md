@@ -54,7 +54,7 @@ The service will validate the submitted JSON and if:
 ## Parameters
 
 - manifest JSON ([schema](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/emanifest.json))
-- [attachment (optional)](./manifest-attachments.md)
+- [attachment](./manifest-attachments.md) (optional)
 - [Security Token](../authentication.md#security-tokens)
 
 ## Example
