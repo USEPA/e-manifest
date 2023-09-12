@@ -53,3 +53,24 @@ Service will validate submitted JSON (see sectionManifest entities and fields va
 - Error(s) were found: The service won't update the manifest and returns Error Report containing all found errors.
 - Error(s) and Warnings were found. The service won't update the manifest and returns Error Report containing all found
   errors and warnings.
+
+## Example
+
+```http
+POST /rcrainfo/rest/api/v1/emanifest/manifest/update HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Content-Type: application/json
+
+{
+    "manifestTrackingNumber": "123456789ELC",
+    "status": "Scheduled",
+    "discrepancy": false,
+    "submissionType": "FullElectronic",
+    "generator": {
+        "epaSiteId": "VATESTGEN001",
+        "name": "VA TEST GEN 2021",
+        "..." : "..."
+    },
+}
+```

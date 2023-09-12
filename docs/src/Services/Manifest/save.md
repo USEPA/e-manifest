@@ -72,7 +72,6 @@ Content-Type: application/json
 
 {
     "manifestTrackingNumber": "123456789ELC",
-    "status": "Signed",
     "discrepancy": false,
     "submissionType": "FullElectronic",
     "generator": {
