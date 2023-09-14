@@ -210,37 +210,198 @@ The manifest fee will be determined based on the Generator signature date (if pr
    - Emanifest.rejectionInfo.rejectionType = "FullReject"
    - Emanifest.rejectionInfo.alternateDesignatedFacilityType = "Tsdf"
 
+### Transporter Information Validation
+
+1. If `submissionType` is "FullElectronic" or "Hybrid", then the Transporter is valid if the Transporter is registered
+   in RCRAInfo and the Transporter has at least one User with the e-Manifest Certifier Role and this user has a Received
+   ESA.
+
+   - 1.1. If the Transporter Site ID is not provided, the service generates schema validation error.
+   - 1.2. If the Transporter Site ID has an invalid format, the service generates schema validation error.
+   - 1.3. If the Transporter Site ID is not registered, the service generates the following error:
+     ```json
+     {
+       "message": "For FullElectronic submission type registered Transporter Site Id must be provided",
+       "field": "Emanifest.transporter.epaSiteId",
+       "value": "Site ID value"
+     }
+     ```
+   - 1.4. If the Transporter Site ID is registered and there are no users with the e-Manifest Certifier role for the
+     provided Transporter, the service generates the following error:
+     ```json
+     {
+       "message": "Site doesn't have any users with Certifier role or with ESA status 'Received",
+       "field": "Emanifest.transporter.epaSiteId",
+       "value": "Site ID value"
+     }
+     ```
+   - 1.5. If the Transporter Site ID is registered and there are no users with a received ESA, the service generates
+     the following error:
+     ```json
+     {
+       "message": "Site doesn't have any users with Certifier role or with ESA status 'Received",
+       "field": "Emanifest.transporter.epaSiteId",
+       "value": "Site ID value"
+     }
+     ```
+
+2. If `submissionType` is "DataImage5Copy", then registered and non-registered Transporters are valid.
+
+   - 2.1. If the Transporter is registered in RCRAInfo as a Transporter, then only the epaSiteId must be provided. All
+     the site information will be obtained from RCRAInfo. If other site information is provided it will be ignored with
+     warnings.
+   - 2.2. If the Transporter is not registered in RCRAInfo, then the following site information must be provided:
+     - Site Address
+     - Site Name
+     - Contact phone
+   - 2.3. If Site ID AND Site Information are not provided, the system generates errors.
+
+     ```json
+     {
+       "message": "Value is not provided",
+       "field": "Emanifest.transporter.epaSiteId"
+     }
+     ```
+
+     ```json
+     {
+       "message": "Value is not provided",
+       "field": "Emanifest.transporter.siteAddress"
+     }
+     ```
+
+     ```json
+     {
+       "message": "Mandatory field is not provided",
+       "field": "Emanifest.transporter.name"
+     }
+     ```
+
+     ```json
+     {
+       "message": "Value is not provided",
+       "field": "Emanifest.transporter.contact.phone.number"
+     }
+     ```
+
+   - 2.4. If Site ID is provided AND Site Information is not provided, the system performs the following steps: -
+     2.4.1. Validate Site ID format. - 2.4.2. If Site ID is not valid, the service generates the following error:
+
+     ```json
+     {
+       "message": "Provided Value is not Valid. Does not match format of: Two Letter Activity Location Code + Up to 10 alphanumeric characters",
+       "field": "Emanifest.transporter.epaSiteId"
+     }
+     ```
+
+     - 2.4.3. If the Site ID is valid, the system will search in RCRAInfo by Site ID. - 2.4.4. If the site is found,
+       the system obtains Site Information from RCRAInfo and stores it into the Manifest. - 2.4.5. If the site is not
+       found, the service generates the following error:
+
+     ```json
+     {
+       "message": "Site with the provided EPA Site ID is not registered",
+       "field": "Emanifest.transporter.epaSiteId"
+     }
+     ```
+
+   - 2.5. If the Site ID is provided AND Site Information is provided, the site information will be ignored with
+     warnings,
+     and the system will perform the following steps:
+
+     - 2.5.1. Validate provided Site ID.
+     - 2.5.2. If Site ID is not valid, the service generates an error:
+       ```json
+       {
+         "message": "Provided value is not valid. Does not match format of: Two Letter Activity Location Code + Up to 10 alphanumeric characters",
+         "field": "Emanifest.transporter.epaSiteId",
+         "value": "EPA Site ID value"
+       }
+       ```
+     - 2.5.3. If Site ID is valid, check if the site is registered.
+     - 2.5.4. If the site is not registered, the service generates a warning:
+
+       ```json
+       {
+         "message": "Site with provided EPA Site ID is not registered",
+         "field": "Emanifest.transporter.epaSiteId",
+         "value": "Site ID value"
+       }
+       ```
+
+   - 2.6. If Site ID is not provided AND Site Information is provided, the system will perform the following
+     steps: -
+
+     - 2.6.1. Validate the provided Site Information. - 2.6.2. Validate the Site Name. - 2.6.3. If the Site Name
+       is not
+       valid, the service generates the following error:
+
+       ```json
+       {
+         "message": "Provided Value is not Valid",
+         "field": "Emanifest.transporter.name",
+         "value": "site name value"
+       }
+       ```
+
+       - 2.6.4. Validate the mandatory site address fields: - address1 (50 Character maximum) - city (25
+         Character
+         maximum) - state.code (2 Character State Abbreviation) - zip (14 Character maximum) - 2.6.5. If any of
+         the
+         mandatory
+         location address fields are not provided or invalid, the service generates the
+         following error:
+
+         ```json
+         {
+           "message": "Value is not Provided/Provided Value is not Valid",
+           "field": "Emanifest.transporter.siteAddress.address1/city/state/zip",
+           "value": "address1/city/state/zip value"
+         }
+         ```
+
+   - 2.7. If Emanifest.submissionType is “Hybrid” or “FullElectronic” and Emanifest.status > Scheduled and provided
+     transporter information is different than currently stored, the service generates the following warning:
+
+     ```json
+     {
+       "message": "Provided Transporter information will be ignored. Transporter Information cannot be updated if the manifest status is InTransit or thereafter",
+       "field": "Emanifest.transporter.epaSiteId"
+     }
+     ```
+
 ### Designated Facility (TSDF)/Generator SiteIDand Site Information Validation
 
 1. If submissionType is "FullElectronic" and status >= Scheduled then the following applies
-   1.1. If Emanifest.generator.epaSiteId is not provided then the service generates the following error:
-
-   ```json
+   1.1. If Emanifest.generator.epaSiteId is not provided then the service generates the following error: ```json
    {
-     "message": "Mandatory Field is not Provided",
-     "field": "Emanifest.generator.epaSiteId"
+   "message": "Mandatory Field is not Provided",
+   "field": "Emanifest.generator.epaSiteId"
    }
+
    ```
 
-   1.2. If Emanifest. generator.epaSiteId has an incorrect format then the service generates the following error:
-
-   ```json
-   {
-     "message": "Invalid Field Format",
-     "field": "Emanifest. generator.epaSiteId",
-     "value": " epa siteIDvalue"
-   }
    ```
 
-   1.3. If Emanifest.generator.epaSiteId is not registered in RCRAInfo then the service generates the following error:
+1.2. If Emanifest. generator.epaSiteId has an incorrect format then the service generates the following error:
 
-   ```json
-   {
-     "message": "Provided Generator FacilityIDis not registered in RCRAInfo",
-     "field": "Emanifest. generator.epaSiteId",
-     "value": " epa siteIDvalue"
-   }
-   ```
+```json
+{
+  "message": "Invalid Field Format",
+  "field": "Emanifest. generator.epaSiteId",
+  "value": " epa siteIDvalue"
+}
+```
+
+1.3. If Emanifest.generator.epaSiteId is not registered in RCRAInfo then the service generates the following error:
+
+```json
+{
+  "message": "Provided Generator FacilityIDis not registered in RCRAInfo",
+  "field": "Emanifest. generator.epaSiteId",
+  "value": " epa siteIDvalue"
+}
+```
 
 2. If submissionType is "FullElectronic" or "Hybrid" and status >= Scheduled, or submissionType is "DataImage5Copy" then
    the following applies
