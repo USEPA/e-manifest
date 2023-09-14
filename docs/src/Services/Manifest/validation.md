@@ -1209,3 +1209,107 @@ The system will perform the following steps on the DOT Information fields:
   "value": "value of container type"
 }
 ```
+
+### Waste Additional Information Validation
+
+1. All Additional Information fields are optional. If any of the fields are invalid, they will be ignored with a
+   warning.
+2. Handling Instructions Validation.
+
+   - If handling instructions is invalid, the service generates the following warning:
+
+   ```json
+   {
+     "message": "Invalid Field format. Text can be no longer than 4000 characters",
+     "field": "Emanifest.wastes.additionalInformation.handlingInstructions",
+     "value": "value of handling instructions"
+   }
+   ```
+
+3. Comments Validation
+
+   - 3.1. handlerId validation
+     - 3.1.1. If the handler Id is not provided, then the comment will be ignored and generate the following warning:
+       ```json
+       {
+         "message": "Comment will be ignored. Field is not Provided",
+         "field": "Emanifest.wastes[i].additionalInfo.comments.handlerId"
+       }
+       ```
+     - 3.1.2. If the handlerId has an invalid format provided, then the comment will be ignored and generate the
+       following warning:
+       ```json
+       {
+         "message": "Comment will be ignored, due to an invalid Site ID format being submitted",
+         "field": "Emanifest.wastes[i].additionalInfo.comments.handlerId",
+         "value": "Handler ID value"
+       }
+       ```
+     - 3.1.3. If the provided handlerId does not match the Generator or TSDF or any of Transporter Site IDs in the
+       manifest, the comment will be ignored and generate the following warning:
+       ```json
+       {
+         "message": "Comment will be ignored. Provided handlerId does not match Generator or TSDF or any of Transporter Site IDs",
+         "field": "Emanifest.wastes[i].additionalInfo.comments.handlerId",
+         "value": "Handler ID value"
+       }
+       ```
+   - 3.2. Label validation
+
+     - 3.2.1. If the label element is not provided, then the comment will be ignored and generate the following
+       warning:
+       ```json
+       {
+         "message": "Comment will be ignored. Field is not Provided",
+         "field": "Emanifest.wastes[i].additionalInfo.comments.label"
+       }
+       ```
+     - 3.2.2. If the label element has an invalid format provided, then the comment will be ignored and generate the
+       following warning:
+
+       ```json
+       {
+         "message": "Comment will be ignored. Invalid Value. Text can be no longer than 250 characters.",
+         "field": "Emanifest.wastes[i].additionalInfo.comments.label",
+         "value": "Label value"
+       }
+       ```
+
+   - 3.3. Description validation
+
+     - 3.3.1. If the description element is not provided, then the comment will be ignored and generate the following
+       warning:
+       ```json
+       {
+         "message": "Comment will be ignored. Field is not Provided",
+         "field": "Emanifest.wastes[i].additionalInfo.comments.description"
+       }
+       ```
+     - 3.3.2. If the description element has an invalid format, the provided comment will be ignored and generate the
+       following warning:
+
+       ```json
+       {
+         "message": "Comment will be ignored. Invalid Value. Text can be no longer than 250 characters.",
+         "field": "Emanifest.wastes[i].additionalInfo.comments.description",
+         "value": "Description value"
+       }
+       ```
+
+   - 3.4. If originalManifestTrackingNumbers are provided then the service generates the following warning:
+     ```json
+     {
+       "message": "originalManifestTrackingNumbers will be ignored. This field shall not be provided for the Waste.additionalInfo",
+       "field": "Emanifest.wastes[i].additionalInfo.originalManifestTrackingNumbers",
+       "value": "originalManifestTrackingNumbers value"
+     }
+     ```
+   - 3.5. If newManifestDestination is provided then the service generates the following warning:
+
+   ```json
+   {
+     "message": "newManifestDestination will be ignored. This field shall not be provided for the Waste.additionalInfo",
+     "field": "Emanifest.wastes[i].additionalInfo.newManifestDestination",
+     "value": "newManifestDestination value"
+   }
+   ```
