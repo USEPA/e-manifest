@@ -1133,9 +1133,9 @@ The system will perform the following steps on the DOT Information fields:
      error:
    ```json
    {
-   "message": "Provided Value is not Found",
-   "field": "Emanifest.wastes.dotInformation.IdNumber"
-   "value": "value ofIDNumber"
+     "message": "Provided Value is not Found",
+     "field": "Emanifest.wastes.dotInformation.IdNumber",
+     "value": "value ofIDNumber"
    }
    ```
 2. Validate Printed Dot Information.
@@ -1154,3 +1154,58 @@ The system will perform the following steps on the DOT Information fields:
      "value": "value of printedDotInformation"
    }
    ```
+
+### Containers and quantity fields validation
+
+1. Containers and Quantity fields are mandatory
+2. If the quantity entity is not provided, the system generates the following error:
+   ```json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.waste.quantity"
+   }
+   ```
+3. If any of the Containers and Quantity fields are not provided, the service generates the following error:
+   ```json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.waste.quantity.containerNumber/containerType/quantity/quantityUnitOfMeasurement"
+   }
+   ```
+4. If the element containerNumber is provided, the service validates containerNumber format. If
+   format is not valid the service generates the following error:
+   ```json
+   {
+     "message": "Numeric instance is greater than the required maximum (maximum: 9999, found:{provided container number})",
+     "field": "Emanifest.wastes.quantity.containerNumber",
+     "value": "value of container number"
+   }
+   ```
+5. If the element containerType code is provided, the service validates the containerType code. If
+   containerType code is not valid the service generates the following error:
+   ```json
+   {
+     "message": "Instance value (\"AB\") not found in enum (possible values: [\"BA\",\"DT\",\"CF\",\"DW\",\"CM\",\"HG\",\"CW\",\"TC\",\"CY\",\"TP\",\"DF\",\"TT\",\"DM\"])",
+     "field": "Emanifest.wastes.quantity.containerType.code",
+     "value": "value of container type code "
+   }
+   ```
+6. If the element quantity is provided, the service validates the quantity format. If the format is not valid the
+   service generates the following error:
+   ```json
+   {
+     "message": " Numeric instance is greater than the required maximum (maximum: 99999999999, found: {provided quantity})",
+     "field": "Emanifest.wastes.quantity.quantity ",
+     "value": "value of quantity "
+   }
+   ```
+7. If the quantityUnitOfMeasurement code is provided, the service validates the quantityUnitOfMeasurement code. If the
+   quantityUnitOfMeasurement code is not valid, the service generates the following error:
+
+```json
+{
+  "message": "Instance value (\"{provided code}\") not found in enum (possible values: [\"P\",\"T\",\"K\",\"M\",\"G\",\"L\",\"Y\",\"N\"])",
+  "field": "Emanifest.wastes.quantity.quantityUnitOfMeasurement.code ",
+  "value": "value of container type"
+}
+```
