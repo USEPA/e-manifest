@@ -2022,3 +2022,62 @@ The system will perform the following steps on the DOT Information fields:
      "value": "rejectionType/transporterOnSite/alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility value"
    }
    ```
+
+### Discrepancy Information Validation
+
+1. If status >= ReadyForSignature and DiscrepancyResidueInfo.wasteQuantity is not provided then the service generates
+   the following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.discrepancyResidueInfo.wasteQuantity"
+   }
+   ```
+
+2. If status >= ReadyForSignature and DiscrepancyResidueInfo.wasteType is not provided then the service generates the
+   following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.discrepancyResidueInfo.wasteType"
+   }
+   ```
+
+3. If DiscrepancyResidueInfo.wasteQuantity == true or DiscrepancyResidueInfo.wasteType == true and
+   DiscrepancyResidueInfo.discrepancyComments is not provided then the service generates the following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.discrepancyResidueInfo.discrepancyComments"
+   }
+   ```
+
+4. If DiscrepancyResidueInfo.discrepancyComments has an invalid format then the service generates the following error:
+
+   ```json
+   {
+     "message": "String \"{provided discrepancyComments value}\" is too long (length: {provided discrepancyComments value length}, maximum allowed: 255)",
+     "field": "Emanifest.discrepancyResidueInfo.discrepancyComments",
+     "value": "discrepancyComments value"
+   }
+   ```
+
+5. If DiscrepancyResidueInfo.wasteQuantity == false and DiscrepancyResidueInfo.wasteType == false and
+   DiscrepancyResidueInfo.discrepancyComments is provided then the service generates the following warning:
+
+   ```json
+   {
+     "message": "Provided Field will be Ignored.",
+     "field": "Emanifest.discrepancyResidueInfo.discrepancyComments",
+     "value": "discrepancyComments value"
+   }
+   ```
+
+6. If DiscrepancyResidueInfo.wasteQuantity == true or DiscrepancyResidueInfo.wasteType == true then the service sets
+   Emanifest.discrepancy = true
+
+7. If DiscrepancyResidueInfo.wasteQuantity == false and DiscrepancyResidueInfo.wasteType == false then the service sets
+   Emanifest.discrepancy
