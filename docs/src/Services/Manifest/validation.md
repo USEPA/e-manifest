@@ -1008,111 +1008,98 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 2. If the waste element is provided, the system will perform the following steps:
 
-   - If waste.dotHazardous is not provided, the service generates the following error:
+   - 2.1. If `waste.dotHazardous` is not provided, the service generates the following error:
+     ```json
+     {
+       "message": "Object has missing required properties (['dotHazardous'])",
+       "field": "Emanifest.wastes.{i}.dotHazardous"
+     }
+     ```
+   - 2.2. If `waste.epaWaste` is not provided, the service generates the following error:
+     ```json
+     {
+       "message": "Object has missing required properties (['epaWaste'])",
+       "field": "Emanifest.waste.{i}.epaWaste"
+     }
+     ```
+   - 2.3. If `waste.pcb` is not provided, the service generates the following error:
+     ```json
+     {
+       "message": "Object has missing required properties (['pcb'])",
+       "field": "Emanifest.waste.{i}.pcb"
+     }
+     ```
+   - 2.4. If `waste.pcb` is true, then the system will validate `pcbInfos`. See details in PCB Information Validation
+     section.
+   - 2.5. If `waste.br` is not provided, the service generates the following error:
+     ```json
+     {
+       "message": "Object has missing required properties (['br'])",
+       "field": "Emanifest.waste.{i}.br"
+     }
+     ```
+   - 2.6. If the `waste.br` is true, the system will validate `brInfo`. See details in Biennial Report Information
+     Validation section.
+   - 2.7. Validate `dotInformation/wasteDescription`.
 
-   ```json
-   {
-     "message": "Object has missing required properties ([\"dotHazardous\"])",
-     "field": "Emanifest.wastes.{i}.dotHazardous"
-   }
-   ```
-
-   - If waste.epaWaste is not provided, the service generates the following error:
-
-   ```json
-   {
-     "message": "Object has missing required properties ([\"epaWaste \"])",
-     "field": "Emanifest.waste. {i}.epaWaste"
-   }
-   ```
-
-   - If waste.pcb is not provided, the service generates the following error:
-
-   ```json
-   {
-     "message": "Object has missing required properties ([\"pcb \"])",
-     "field": "Emanifest.waste.{i}.pcb"
-   }
-   ```
-
-   - If waste.pcb is true then the system will validate pcbInfos. See details in PCB Information Validation section
-   - If waste.br is not provided, the service generates the following error:
-
-   ```json
-   {
-     "message": "Object has missing required properties ([\"br \"])",
-     "field": "Emanifest.waste.{i}.br"
-   }
-   ```
-
-   - If the waste.br is true, the system will validate brInfo. See details in Biennial Report Information Validation
-     section
-   - Validate dotInformation/wasteDescription.
-
-     - If the element dotHazardous is true, the waste must contain dotInformation
-     - If the element dotHazardous is false, the waste must contain the wasteDescription
-     - If the element dotHazardous is true, and dotInformation is not provided, the service generates the following
-       error:
+     - 2.7.1. If the element `dotHazardous` is true, the waste must contain `dotInformation`.
+     - 2.7.2. If the element `dotHazardous` is false, the waste must contain `wasteDescription`.
+     - 2.7.3. If the element `dotHazardous` is true, and `dotInformation` is not provided, the service generates the
+       following error:
        ```json
        {
          "message": "Mandatory Field is not Provided.",
          "field": "Emanifest.waste.dotInformation"
        }
        ```
-     - If the element dotHazardous is true and dotInformation is provided, the service will validate the
-       dotInformation
-       fields. See section DOT Information fields validation for details
-     - If the element dotHazardous is false and dotInformation is provided, the service generates the following
-       warning:
-
-     ```json
-     {
-       "message": "For non hazardous Waste Dot Information will be ignored. ",
-       "field": "Emanifest.waste.dotIformation"
-     }
-     ```
-
-     - If the element dotHazardous is false and the element wasteDescription is not provided, then the service
-       generates
-       the following error:
-
-     ```json
-     {
-       "message": "Mandatory Field is not Provided.",
-       "field": "Emanifest.waste.wasteDescription"
-     }
-     ```
-
-     - If the element dotHazardous is false and the element wasteDescription is provided, then the service validates
-       wasteDescription. If wasteDescription is not valid the service generates the following error:
-
-     ```json
-     {
-       "message": "Invalid Field format.Value of no longer than 500 characters is expected",
-       "field": "Emanifest.waste.wasteDescription",
-       "value": "wasteDescription value"
-     }
-     ```
-
-     - If the element dotHazardous is true and the element wasteDescription is provided, the service generates the
+     - 2.7.4. If the element `dotHazardous` is true and `dotInformation` is provided, the service will validate
+       the `dotInformation` fields. See section DOT Information fields validation for details.
+     - 2.7.5. If the element `dotHazardous` is false and `dotInformation` is provided, the service generates the
        following warning:
+       ```json
+       {
+         "message": "For non-hazardous Waste Dot Information will be ignored.",
+         "field": "Emanifest.waste.dotInformation"
+       }
+       ```
+     - 2.7.6. If the element `dotHazardous` is false and the element `wasteDescription` is not provided, then the
+       service
+       generates the following error:
+       ```json
+       {
+         "message": "Mandatory Field is not Provided.",
+         "field": "Emanifest.waste.wasteDescription"
+       }
+       ```
+     - 2.7.7. If the element `dotHazardous` is false and the element `wasteDescription` is provided, then the service
+       validates `wasteDescription`. If `wasteDescription` is not valid, the service generates the following error:
+       ```json
+       {
+         "message": "Invalid Field format. Value of no longer than 500 characters is expected",
+         "field": "Emanifest.waste.wasteDescription",
+         "value": "wasteDescription value"
+       }
+       ```
+     - 2.7.8. If the element `dotHazardous` is true and the element `wasteDescription` is provided, the service
+       generates
+       the following warning:
 
-     ```json
-     {
-       "message": "For hazardous Waste, wasteDescription will be ignored.",
-       "field": "Emanifest.waste.wasteDescription"
-     }
-     ```
+       ```json
+       {
+         "message": "For hazardous Waste, wasteDescription will be ignored.",
+         "field": "Emanifest.waste.wasteDescription"
+       }
+       ```
 
-   - Validate Management Method Code. See section Management Method Code Validation for details
-   - Validate Waste.consentNumber
-     - if Emanifest.import is true, Waste.consentNumber can be provided at any status.
-     - if Emanifest.import is false, Waste.consentNumber shall not be provided.
-   - Validate DOT Information. See that section for further details
-   - Validate Containers and Quantity. See that section for further details
-   - Validate Hazardous Waste Codes. See that section for further details
-   - Validate Instructions and Additional Information. See that section for further details
-   - Validate Biennial Report Information. See that section for further details
+   - 2.8 Validate Management Method Code. See section Management Method Code Validation for details
+   - 2.9 Validate Waste.consentNumber
+     - 2.9.1 if Emanifest.import is true, Waste.consentNumber can be provided at any status.
+     - 2.91. if Emanifest.import is false, Waste.consentNumber shall not be provided.
+   - 2.10 Validate DOT Information. See that section for further details
+   - 2.11 Validate Containers and Quantity. See that section for further details
+   - 2.12 Validate Hazardous Waste Codes. See that section for further details
+   - 2.13Validate Instructions and Additional Information. See that section for further details
+   - 2.14 Validate Biennial Report Information. See that section for further details
 
 ### DOT Information Fields Validation
 
