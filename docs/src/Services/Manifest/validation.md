@@ -726,81 +726,270 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    - Store provided Site Information (if no other manifest errors were found)
 
-4. If the Site ID is not provided AND the Site Information is provided, the system performs the
-   following steps:
-   4.1. Validate the provided Site Information.
-   4.1.1. Validate the site name
-   4.1.2. If the site name is not valid the service generates the following error:
+### Paper Signature Info Validation
+
+1. If submissionType is "FullElectronic" and any (Transporter(s), designatedFacility) of the paperSignature
+   Information (printedName or signatureDate) is provided, the service generates a warning:
+
+   ```json
    {
-   "message": "Provided Value is not Valid",
-   "field": "Emanifest.generator.name",
-   "value": "name value"
+     "message": "Provided Field will be ignored. Paper Signature Information is not applicable for FullElectronic/Image submission type",
+     "field": "Emanifest. transporter/designatedFacility.paperSignatureInfo",
+     "value": "printedName or signatureDate value"
    }
-   4.1.3. Validate the mandatory site location address fields:
-   - address1
-   - city
-   - state.code
-   - zip
-     4.1.4. If any of the mandatory location address fields are not provided or invalid, the
+   ```
+
+2. If submissionType is "Hybrid" and Emanifest.status > Scheduled and generator.PaperSignature is provided, the service
+   generates the following warning:
+
+   ```json
+   {
+     "message": "Provided value will be ignored. Generator paper signature Date/Printed Name shall not be provided after Scheduled status.",
+     "field": "emanifest.generatorPaperSignature.signatureDate/printedName",
+     "value": " value"
+   }
+   ```
+
+3. If submissionType is "Image", the following applies:
+
+   3.1. If Generator Printed Name is not provided, the service generates a warning:
+
+   ```json
+   {
+     "message": "Field is not Provided",
+     "field": "Emanifest.generator.paperSignature.printedName"
+   }
+   ```
+
+   3.2. If the Generator Printed Name is provided, validate the format. If an invalid format is provided, the service
+   generates the following warning:
+
+   ```json
+   {
+     "message": "String \"{provided printed name value}\" is too long (length: { provided printed name length}, maximum allowed: 255)",
+     "field": "Emanifest.generator.paperSignature.printedName",
+     "value": "value"
+   }
+   ```
+
+   3.3. If the Generator Signature Date is not provided, the service generates the following warning:
+
+   ```json
+   {
+     "message": "Field is not Provided",
+     "field": "Emanifest.generator.paperSignatureInfo.signatureDate"
+   }
+   ```
+
+   3.4. If Generator Signature Date is provided, validate format. If format is invalid the service generates the
+   following warning:
+
+   ```json
+   {
+     "message": "String \"{provided signature date}\" is invalid against requested date format(s) [yyyy-MM-dd'T'HH:mm:ssZ, yyyy-MM-dd'T'HH:mm:ss.SSSZ]",
+     "field": "Emanifest.generator.paperSignatureInfo. signatureDate",
+     "value": "value"
+   }
+   ```
+
+   3.5. If provided Generator Signature Date is later than Emanifest.createdDate the service generates the following
+   warning:
+
+   ```json
+   {
+     "message": "Provided Generator Signature Date is later than manifest created Date",
+     "field": "Emanifest.generator.paperSignatureInfo.signatureDate",
+     "value": "value"
+   }
+   ```
+
+4. If submissionType is "DataImage5Copy", the following applies:
+
+   4.1. If Generator/Transporter/designatedFacility Printed Names are not provided, the service generates a warning:
+
+   ```json
+   {
+     "message": "Field is not Provided",
+     "field": "Emanifest.generator/transporter/designatedFacility.paperSignature.printedName"
+   }
+   ```
+
+   4.2. If the Generator/Transporter/designatedFacility Printed Names are provided, validate the format. If an invalid
+   format is provided, the service generates the following error:
+
+   ```json
+   {
+     "message": "String \"{provided printed name value}\" is too long (length: { provided printed name length}, maximum allowed: 255)",
+     "field": "Emanifest.generator/transporter/designatedFacility.paperSignature.printedName",
+     "value": "value"
+   }
+   ```
+
+   4.3. If the Generator/Transporter/designatedFacility Signature Dates are not provided, the service generates the
+   following error
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.generator/transporter/designatedFacility.paperSignatureInfo.signatureDate"
+   }
+   ```
+
+   4.4. If Generator/Transporter/TSDF Signature Dates are provided, validate format. If format is invalid the service
+   generates the following error (for this example: TSDF is used)
+
+   ```json
+   {
+     "message": "String \"{provided signature date}\" is invalid against requested date format(s) [yyyy-MM-dd'T'HH:mm:ssZ, yyyy-MM-dd'T'HH:mm:ss.SSSZ]",
+     "field": "Emanifest.generator/transporter/designatedFacility.paperSignatureInfo.signatureDate",
+     "value": "value"
+   }
+   ```
+
+5. The system will perform the following validation for consecutive of Signature Dates for DataImage5Copy:
+
+   5.1. If the signature dates for Generator, all Transporters, and designated Facility are provided and have a valid
+   format, and more than one transporter is provided, the system performs the following steps:
+
+   - Check if Generator signatureDate <= First Transporter signature date (Transporter.order will be used to determine
+     consecutive of transporters). If not, the service generates the following error:
+
+   ```json
+   {
+     "message": "Transporter Signature date must be on or after Generator Signature date",
+     "field": "Emanifest.generator.paperSignatureInfo.signatureDate",
+     "value": "Generator Signature Date value"
+   }
+   ```
+
+   ```json
+   {
+     "message": "Generator Signature Date must be earlier or the same date as the first Transporter Signature Date",
+     "field": "Emanifest.transporter.paperSignatureInfo.signatureDate",
+     "value": "Transporter Signature Date value"
+   }
+   ```
+
+   - Check the order of the Transporters signature dates. If there is more than one Transporter provided, check if
+     signature dates of transporters are in order or the same. For example, if there are two transporters and the
+     signature date of transporter which has order = 2 is earlier than signature date of transporter with order = 1,
+     the service generates the following error:
+
+   ```json
+   {
+     "message": "Signature Date of previous transporter must be before this transporter's signature date",
+     "field": "Emanifest.transporters[1].paperSignatureInfo.signatureDate",
+     "value": " Second Transporter Signature Date value "
+   }
+   ```
+
+   5.1.3. Check if the Designated Facility signature date >= Last Transporter signature date. If not, the service
+   generates the following error:
+
+   ```json
+   {
+     "message": "Signature of designated facility must be on or after the last transporter's signature date",
+     "field": "Emanifest.designatedFacility.paperSignatureInfo.signatureDate",
+     "value": "Designated Facility Signature Date value "
+   }
+   ```
+
+   5.1.4. If any of the Signature Dates > current date the service generates the following error:
+
+   ```json
+   {
+     "message": "Generator/Transporter/Designated Facility Signature Date cannot be in the future",
+     "field": "Emanifest.generator/transporter/designatedFacility.paperSignatureInfo.signatureDate",
+     "value": "Signature Date value"
+   }
+   ```
+
+   5.2. If Emanifest.rejectionInfo.rejectionType = "FullReject" and Emanifest.rejectionInfo.transporterOnsite == true
+   the following applies
+
+   - If Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Tsdf" the following applies
+   - If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate is not provided, the
      service generates the following error:
-     {
-     "message": "Value is not Provided/Provided Value is not Valid",
-     "field": "Emanifest.generator.siteAddress.address1/city/state/zip",
-     "value": "address1/city/state/zip value"
-     }
-     4.1.5. Validate the mandatory mailing address fields:
-   - address1
-   - city
-   - state.code
-   - zip
 
-4.1.6. If any of the mandatory mailing address fields are not provided or invalid, the
-service generates the following error:
-{
-"message": "Value is not Provided/Provided Value is not Valid",
-"field": "Emanifest.generator.mailingAddress.address1/city/state/zip",
-"value": "address1/city/state/zip provided value"
-}
-4.2. If the provided Site Information is valid, but the Site ID is not provided, the system
-performs the following steps:
-4.2.1. The service generates the following warning:
-{
-"message": "Value is not Provided",
-"field": "Emanifest.generator.epaSiteId"
-}
-4.2.2. Store the provided Site Information (if no other manifest errors were found)
-4.3. If the Site Contact Phone number is not provided and site is registered in RCRAInfo, the
-system checks if the site has a Contact Phone value registered for the site. If the Contact
-Phone is not registered in the system for that site, the system generates the following
-error:
-{
-"message": "Mandatory Field is not provided"
-"field": "Emanifest.generator.contact.Phone.number"
-}
-4.4. If the Site Contact Phone number is provided and registered in RCRAinfo the system checks
-that the phone number is in the correct format.
-4.4.1. If the provided phone number has valid format the, system will store site contact
-phone number into e-Manifest database
-4.4.2. If the provided phone number has an incorrect format, the system will store
-registered in RCRAInfo Contact Phone number into e-Manifest database and
-generates the following warning:
-{
-"message": "String \"{provided phone value}\" is too long (length: { provided phone value
-length}, maximum allowed: 12)",
-"field": "Emanifest.generator.contact.phone.number ",
-"value": "number value"
-}
-4.5. If the Site Contact Phone number is provided and registered in RCRAinfo the system checks
-that the phone number is in the correct format.
-4.5.1. If the provided phone number has valid format, the system will store site contact
-phone number into the e-Manifest database
-4.5.2. If the provided phone number has an incorrect format, the system generates the
-following error:
+   ```json
+   {
+     "message": "Mandatory field is not provided",
+     "field": "Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate"
+   }
+   ```
 
-```
+   - If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.printed Name is not provided, the
+     service generates the following error:
 
-```
+   ```json
+   {
+     "message": "Mandatory field is not provided",
+     "field": "Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.printedName"
+   }
+   ```
 
-```
+   - If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate is invalid the service
+     generates the following error:
 
-```
+   ```json
+   {
+     "message": "String \"{provided signature date}\" is invalid against requested date format(s) [yyyy-MM-dd'T'HH:mm:ssZ, yyyy-MM-dd'T'HH:mm:ss.SSSZ]",
+     "field": "Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate",
+     "value": "value"
+   }
+   ```
+
+   - If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate <
+     Emanifest.designatedFacility.paperSignatureInfo.signatureDate then the service generates the following error:
+
+   ```json
+   {
+     "message": "Signature of alternate designated facility must be on or after the designated facility’s signature date",
+     "field": "Emanifest.designatedFacility.paperSignatureInfo.signatureDate",
+     "value": "Alternate Designated Facility Signature Date value "
+   }
+   ```
+
+   - If Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Generator" the following applies
+
+   - If Emanifest.rejectionInfo.generator.paperSignatureInfo.signatureDate is not provided, the service generates the
+     following error:
+
+   ```json
+   {
+     "message": "Mandatory field is not provided",
+     "field": "Emanifest.rejectionInfo.generator.PaperSignatureInfo.signatureDate"
+   }
+   ```
+
+   - If Emanifest.rejectionInfo.generator.paperSignatureInfo.printedName is not provided, the service generates the
+     following error:
+
+   ```json
+   {
+     "message": "Mandatory field is not provided",
+     "field": "Emanifest.rejectionInfo. generator.paperSignatureInfo.printedName"
+   }
+   ```
+
+   - If Emanifest.rejectionInfo.generator.paperSignatureInfo.signatureDate is invalid the service generates the
+     following error:
+
+   ```json
+   {
+     "message": "String \"{provided signature date}\" is invalid against requested date format(s) [yyyy-MM-dd'T'HH:mm:ssZ, yyyy-MM-dd'T'HH:mm:ss.SSSZ]",
+     "field": "Emanifest.rejectionInfo.generator.paperSignatureInfo.signatureDate",
+     "value": "value"
+   }
+   ```
+
+   - If Emanifest.rejectionInfo.generator.paperSignatureInfo.signatureDate <
+     Emanifest.designatedFacility.paperSignatureInfo.signatureDate then the service generates the following error:
+
+   ```json
+   {
+     "message": "Invalid Value. Generator Signature Date must be the same or later than Designated Facility Signature Date",
+     "field": " Emanifest.rejectionInfo. generator.paperSignatureInfo.signatureDate",
+     "value": "value"
+   }
+   ```
