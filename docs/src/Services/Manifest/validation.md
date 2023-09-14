@@ -360,7 +360,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
          }
          ```
 
-   - 2.7. If Emanifest.submissionType is “Hybrid” or “FullElectronic” and Emanifest.status > Scheduled and provided
+   - 2.7. If Emanifest.submissionType is "Hybrid" or "FullElectronic" and Emanifest.status > Scheduled and provided
      transporter information is different from currently stored, the service generates the following warning:
 
      ```json
@@ -598,7 +598,57 @@ The manifest fee will be determined based on the Generator signature date (if pr
      }
      ```
 
-### Generator SiteIDand Site Information Validation
+### New Manifest Information Validation
+
+json
+
+1. If the New Manifest is created for shipping the waste to another TSDF or back to the Generator
+
+   - If Emanifest.status >= "ReadyForSignature" and Emanifest.containsPreviousRejectOrResidue is not provided then the
+     service generates the following error:
+     ```json
+     {
+       "message": "Mandatory Field is not Provided.",
+       "field": "Emanifest.containsPreviousRejectOrResidue"
+     }
+     ```
+   - If Emanifest.containsPreviousRejectOrResidue == true and
+     Emanifest.additionalInfo.newManifestDestination is not provided then the service
+     generates the following error:
+     ```json
+     {
+       "message": "Mandatory Field is not Provided.",
+       "field": "Emanifest.additionalInfo.newManifestDestination"
+     }
+     ```
+   - If Emanifest.containsPreviousRejectOrResidue == true and
+     Emanifest.additionalInfo.originalManifestTrackingNumbers are not valid the service
+     generates the following warning:
+     ```json
+     {
+       "message": "Invalid value provided. Provided Field will be ignored.",
+       "field": "Emanifest.additionalInfo.originalManifestTrackingNumbers",
+       "value": "provided value"
+     }
+     ```
+   - If Emanifest.additionalInfo.newManifestDestination == "OriginalGenerator" and
+     Emanifest.rejection == true the service generates the following errors:
+     ```json
+     {
+       "message": "New Manifest cannot be rejected if shipped back to the original Generator",
+       "field": "Emanifest.additionalInfo.newManifestDestination",
+       "value": "newManifestDestination value"
+     }
+     ```
+     ```json
+     {
+       "message": "New Manifest cannot be rejected if shipped back to the original Generator",
+       "field": "Emanifest.rejection",
+       "value": "rejection value"
+     }
+     ```
+
+### Generator Site Information Validation
 
 1. If submissionType is "FullElectronic" then the Generator is valid if the Generator SiteIDis registered in RCRAInfo
    and the Generator has at least one User with the e-Manifest Certifier Role and this user has a Received ESA.
