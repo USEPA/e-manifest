@@ -10,7 +10,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 1. Generator information and Generator signature date can be provided for Image submission type
    manifests for the save and update services. See modification details in sections Facility
-   Information Validation for "Image" submission type, Generator Site Id and Site Information
+   Information Validation for "Image" submission type, Generator Site IDand Site Information
    Validation and Paper Signature Info Validation. If Generator information and Generator printed
    signature date is provided and data is valid, the following applies
 
@@ -43,21 +43,21 @@ The manifest fee will be determined based on the Generator signature date (if pr
 ### Facility Information Validation for "Image" submission type
 
 1. For the Image submission type one of the following facility EPA Site Ids must be provided: Designated Facility EPA
-   Site Id, Generator EPA Site Id or Alternate Designated Facility Site Id
+   Site Id, Generator EPA Site IDor Alternate Designated Facility Site Id
 2. The following Facility EPA site Ids shall be provided for the following scenarios:
-   - Original Manifest, no Full Rejection: Designated Facility EPA Site Id shall be provided.
+   - Original Manifest, no Full Rejection: Designated Facility EPA SiteIDshall be provided.
    - Original Manifest, Full Rejection to Alternate Designated Facility: Alternate Designated Facility EPA Site Id
      shall be provided.
-   - Original Manifest, Full Rejection to the Generator: Designated Facility EPA site Id shall be provided.
+   - Original Manifest, Full Rejection to the Generator: Designated Facility EPA siteIDshall be provided.
    - New Manifest shipping waste back to original Generator (New Manifest is the manifest created as a "result" of the
-     Original manifest rejection or residue): Generator Facility EPA Site Id shall be provided. This EPA Site Id shall
+     Original manifest rejection or residue): Generator Facility EPA SiteIDshall be provided. This EPA SiteIDshall
      contain the Original Designated Facility Site Id.
-   - New Manifest shipping rejected waste to another Designated Facility: Designated Facility EPA Site Id shall be
+   - New Manifest shipping rejected waste to another Designated Facility: Designated Facility EPA SiteIDshall be
      provided.
 3. If one of the following Ids: Emanifest.designatedFacility.epaSiteId and Emanifest.generator.epaSiteId and
    Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is not provided then the service will return an
    authorization error.
-4. If the provided EPA Site Id is not registered, then the service will return an authorization error.
+4. If the provided EPA SiteIDis not registered, then the service will return an authorization error.
 5. If Emanifest.designatedFacility.epaSiteId or Emanifest.generator.epaSiteId or
    Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is provided, the following applies
 
@@ -77,7 +77,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    5.2. Validation of the Contact information is identical to #2 in section
 
-   5.3. Designated Facility (TSDF)/Generator Site Id and Site Information Validation
+   5.3. Designated Facility (TSDF)/Generator SiteIDand Site Information Validation
 
    5.4. If Emanifest.wastes are provided then the service generates the following warning:
 
@@ -210,7 +210,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    - Emanifest.rejectionInfo.rejectionType = "FullReject"
    - Emanifest.rejectionInfo.alternateDesignatedFacilityType = "Tsdf"
 
-### Designated Facility (TSDF)/Generator Site Id and Site Information Validation
+### Designated Facility (TSDF)/Generator SiteIDand Site Information Validation
 
 1. If submissionType is "FullElectronic" and status >= Scheduled then the following applies
    1.1. If Emanifest.generator.epaSiteId is not provided then the service generates the following error:
@@ -228,7 +228,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    {
      "message": "Invalid Field Format",
      "field": "Emanifest. generator.epaSiteId",
-     "value": " epa site id value"
+     "value": " epa siteIDvalue"
    }
    ```
 
@@ -236,9 +236,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    ```json
    {
-     "message": "Provided Generator Facility Id is not registered in RCRAInfo",
+     "message": "Provided Generator FacilityIDis not registered in RCRAInfo",
      "field": "Emanifest. generator.epaSiteId",
-     "value": " epa site id value"
+     "value": " epa siteIDvalue"
    }
    ```
 
@@ -260,7 +260,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    {
      "message": "Invalid Field Format",
      "field": "Emanifest.designatedFacility.epaSiteId",
-     "value": " epa site id value"
+     "value": " epa siteIDvalue"
    }
    ```
 
@@ -269,9 +269,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    ```json
    {
-     "message": "Provided Designated Facility Id is not registered in RCRAInfo",
+     "message": "Provided Designated FacilityIDis not registered in RCRAInfo",
      "field": "Emanifest.designatedFacility.epaSiteId",
-     "value": " epa site id value"
+     "value": " epa siteIDvalue"
    }
    ```
 
@@ -329,8 +329,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   2.8. If the user is authorized to use the e-Manifest Save service for the provided Generator Site ID (It means that
-   TSDF acts as Generator), then the provided Site ID was already validated during authorization and the system will
+   2.8. If the user is authorized to use the e-Manifest Save service for the provided Generator SiteID(It means that
+   TSDF acts as Generator), then the provided SiteIDwas already validated during authorization and the system will
    perform following steps:
 
    2.9. If the Site Contact Phone number is not provided in the JSON and site the is registered in RCRAInfo, the system
@@ -433,65 +433,65 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-### Generator Site Id and Site Information Validation
+### Generator SiteIDand Site Information Validation
 
-1. If submissionType is "FullElectronic" then the Generator is valid if the Generator Site ID is registered in RCRAInfo
+1. If submissionType is "FullElectronic" then the Generator is valid if the Generator SiteIDis registered in RCRAInfo
    and the Generator has at least one User with the e-Manifest Certifier Role and this user has a Received ESA.
 2. If submissionType is "FullElectronic" the following applies
 
-   2.1. If the Generator Site ID is not provided, the service generates the following error:
+   2.1. If the Generator SiteIDis not provided, the service generates the following error:
 
    ```json
    {
-     "message": "Mandatory Field is not Provided. For FullElectronic submission type registered Generator Site Id must be provided",
+     "message": "Mandatory Field is not Provided. For FullElectronic submission type registered Generator SiteIDmust be provided",
      "field": "Emanifest.designatedFacility.epaSiteId"
    }
    ```
 
-   2.2. If the Generator Site ID has an invalid format the service generates the following error:
+   2.2. If the Generator SiteIDhas an invalid format the service generates the following error:
 
    ```json
    {
-     "message": "Invalid Field Format. For FullElectronic submission type registered Generator Site Id must be provided",
+     "message": "Invalid Field Format. For FullElectronic submission type registered Generator SiteIDmust be provided",
      "field": "Emanifest.generator.epaSiteId",
-     "value": "Site ID value"
+     "value": "SiteIDvalue"
    }
    ```
 
-   2.3. If the Generator Site ID is not registered in RCRAInfo the service generates the following error:
+   2.3. If the Generator SiteIDis not registered in RCRAInfo the service generates the following error:
 
    ```json
    {
-     "message": "Provided Generator Facility Id is not registered in RCRAInfo",
+     "message": "Provided Generator FacilityIDis not registered in RCRAInfo",
      "field": "Emanifest.generator.epaSiteId",
-     "value": "Site ID value"
+     "value": "SiteIDvalue"
    }
    ```
 
-   2.4. If the Generator Site ID is registered in RCRAInfo and there are no users with the e-Manifest Certifier role for
+   2.4. If the Generator SiteIDis registered in RCRAInfo and there are no users with the e-Manifest Certifier role for
    the provided Generator the service generates the following error:
 
    ```json
    {
      "message": "Site doesn't have any users with Certifier role or with ESA status Received",
      "field": "Emanifest.designatedFacility.epaSiteId",
-     "value": "Site ID value"
+     "value": "SiteIDvalue"
    }
    ```
 
-   2.5. If the Generator with the provided Site ID is registered and there are no users with a received ESA, the service
+   2.5. If the Generator with the provided SiteIDis registered and there are no users with a received ESA, the service
    generates the following error:
 
    ```json
    {
      "message": "Site doesn't have any users with Certifier role or with ESA status Received",
      "field": "Emanifest.designatedFacility.epaSiteId",
-     "value": "Site ID value"
+     "value": "SiteIDvalue"
    }
    ```
 
 3. If submissionType is "DataImage5Copy" or "Hybrid", then registered and non-registered Generators are valid and the
-   following cases are possible for the Generator Site ID and Generator Information:
+   following cases are possible for the Generator SiteIDand Generator Information:
 
    3.1. If the Generator is registered in RCRAInfo and service requester does not intend to provide different (than
    registered) Site Information, then only the epaSiteId shall be provided. All site information will be obtained from
@@ -507,22 +507,22 @@ The manifest fee will be determined based on the Generator signature date (if pr
    - Contact Phone
    - Provided Site Information will be validated and if valid will be stored in e-Manifest.
 
-   3.3. If Generator is not registered in RCRAInfo, then following site information must be provided:
+     3.3. If Generator is not registered in RCRAInfo, then following site information must be provided:
 
    - Site Name
    - Site Address (all fields)
    - Mailing Address (all fields)
    - Contact phone
 
-     Requester also can provide Site ID which is an optional field for this case. If Site ID is provided,
+     Requester also can provide SiteIDwhich is an optional field for this case. If Site ID is provided,
      the system will check if there is a registered Generator for the provided Site ID
 
-   3.4. For all above cases Emergency Phone Number must be provided
+     3.4. For all above cases Emergency Phone Number must be provided
 
-   3.5. If the manifest status is InTransit or thereafter then Generator information cannot be updated.
+     3.5. If the manifest status is InTransit or thereafter then Generator information cannot be updated.
 
-   3.6. If different than currently stored Generator information is provided, the service generates the following
-   warning:
+     3.6. If different than currently stored Generator information is provided, the service generates the following
+     warning:
 
    ```json
    {
@@ -564,7 +564,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    {
      "message": "Provided Value is not Valid. Does not match format of: Two Letter Activity Location Code + Up to 10 alphanumeric characters",
      "field": "Emanifest.generator.epaSiteId ",
-     "value": "EPA site Id value"
+     "value": "EPA siteIDvalue"
    }
    ```
 
@@ -991,5 +991,166 @@ The manifest fee will be determined based on the Generator signature date (if pr
      "message": "Invalid Value. Generator Signature Date must be the same or later than Designated Facility Signature Date",
      "field": " Emanifest.rejectionInfo. generator.paperSignatureInfo.signatureDate",
      "value": "value"
+   }
+   ```
+
+### Waste Validation
+
+1. If the waste field is not provided for a manifest with status >= `Scheduled`. The service generates the following
+   error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.waste"
+   }
+   ```
+
+2. If the waste element is provided, the system will perform the following steps:
+
+   - If waste.dotHazardous is not provided, the service generates the following error:
+
+   ```json
+   {
+     "message": "Object has missing required properties ([\"dotHazardous\"])",
+     "field": "Emanifest.wastes.{i}.dotHazardous"
+   }
+   ```
+
+   - If waste.epaWaste is not provided, the service generates the following error:
+
+   ```json
+   {
+     "message": "Object has missing required properties ([\"epaWaste \"])",
+     "field": "Emanifest.waste. {i}.epaWaste"
+   }
+   ```
+
+   - If waste.pcb is not provided, the service generates the following error:
+
+   ```json
+   {
+     "message": "Object has missing required properties ([\"pcb \"])",
+     "field": "Emanifest.waste.{i}.pcb"
+   }
+   ```
+
+   - If waste.pcb is true then the system will validate pcbInfos. See details in PCB Information Validation section
+   - If waste.br is not provided, the service generates the following error:
+
+   ```json
+   {
+     "message": "Object has missing required properties ([\"br \"])",
+     "field": "Emanifest.waste.{i}.br"
+   }
+   ```
+
+   - If the waste.br is true, the system will validate brInfo. See details in Biennial Report Information Validation
+     section
+   - Validate dotInformation/wasteDescription.
+
+     - If the element dotHazardous is true, the waste must contain dotInformation
+     - If the element dotHazardous is false, the waste must contain the wasteDescription
+     - If the element dotHazardous is true, and dotInformation is not provided, the service generates the following
+       error:
+       ```json
+       {
+         "message": "Mandatory Field is not Provided.",
+         "field": "Emanifest.waste.dotInformation"
+       }
+       ```
+     - If the element dotHazardous is true and dotInformation is provided, the service will validate the
+       dotInformation
+       fields. See section DOT Information fields validation for details
+     - If the element dotHazardous is false and dotInformation is provided, the service generates the following
+       warning:
+
+     ```json
+     {
+       "message": "For non hazardous Waste Dot Information will be ignored. ",
+       "field": "Emanifest.waste.dotIformation"
+     }
+     ```
+
+     - If the element dotHazardous is false and the element wasteDescription is not provided, then the service
+       generates
+       the following error:
+
+     ```json
+     {
+       "message": "Mandatory Field is not Provided.",
+       "field": "Emanifest.waste.wasteDescription"
+     }
+     ```
+
+     - If the element dotHazardous is false and the element wasteDescription is provided, then the service validates
+       wasteDescription. If wasteDescription is not valid the service generates the following error:
+
+     ```json
+     {
+       "message": "Invalid Field format.Value of no longer than 500 characters is expected",
+       "field": "Emanifest.waste.wasteDescription",
+       "value": "wasteDescription value"
+     }
+     ```
+
+     - If the element dotHazardous is true and the element wasteDescription is provided, the service generates the
+       following warning:
+
+     ```json
+     {
+       "message": "For hazardous Waste, wasteDescription will be ignored.",
+       "field": "Emanifest.waste.wasteDescription"
+     }
+     ```
+
+   - Validate Management Method Code. See section Management Method Code Validation for details
+   - Validate Waste.consentNumber
+     - if Emanifest.import is true, Waste.consentNumber can be provided at any status.
+     - if Emanifest.import is false, Waste.consentNumber shall not be provided.
+   - Validate DOT Information. See that section for further details
+   - Validate Containers and Quantity. See that section for further details
+   - Validate Hazardous Waste Codes. See that section for further details
+   - Validate Instructions and Additional Information. See that section for further details
+   - Validate Biennial Report Information. See that section for further details
+
+### DOT Information Fields Validation
+
+The system will perform the following steps on the DOT Information fields:
+
+1. Validate ID Number
+   - There are Proper Shipping Names which do not have corresponding Id Numbers in the DOT specifications. For these
+     Proper Shipping Names the Emanifest requires Id Number value of
+     "NOID"
+   - If dotInformation.IdNumber is not provided, the service generates the following error:
+   ```json
+   {
+     "message": "Mandatory Field is Not Provided",
+     "field": "Emanifest.wastes.dotInformation.idNumber "
+   }
+   ```
+   - If dotInformation.IdNumber is provided and not found in Id Number Lookup, the service generates the following
+     error:
+   ```json
+   {
+   "message": "Provided Value is not Found",
+   "field": "Emanifest.wastes.dotInformation.IdNumber"
+   "value": "value ofIDNumber"
+   }
+   ```
+2. Validate Printed Dot Information.
+   - If printedDotInformation is not provided, the service generates the following error:
+   ```json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.wastes.dotInformation.printedDotInformation "
+   }
+   ```
+   - If printedDotInformation exceeds the 500-character limit, the service generates the following error:
+   ```json
+   {
+     "message": "Invalid Field Format. Printed Dot Information exceeds the 500 character length",
+     "field": "Emanifest.wastes.dotInformation.printedDotInformation ",
+     "value": "value of printedDotInformation"
    }
    ```
