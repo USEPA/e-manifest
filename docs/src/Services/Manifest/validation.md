@@ -2081,3 +2081,73 @@ The system will perform the following steps on the DOT Information fields:
 
 7. If DiscrepancyResidueInfo.wasteQuantity == false and DiscrepancyResidueInfo.wasteType == false then the service sets
    Emanifest.discrepancy
+
+### Residue Information Validation
+
+1. If status >= ReadyForSignature and DiscrepancyResidueInfo.residue is not provided, then the service generates the
+   following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.discrepancyResidueInfo.residue"
+   }
+   ```
+
+2. If DiscrepancyResidueInfo.residue == true and DiscrepancyResidueInfo.residueComments is provided, the service
+   validates if DiscrepancyResidueInfo.residueComments has valid format. If DiscrepancyResidueInfo.residueComments has
+   invalid format, the service generates the following error:
+
+   ```json
+   {
+     "message": "String \"{provided residueComments value}\" is too long (length: {provided residueComments value length}, maximum allowed: 255)",
+     "field": "Emanifest.discrepancyResidueInfo.residueComments",
+     "value": "residueComments value"
+   }
+   ```
+
+3. If DiscrepancyResidueInfo.residue == false and DiscrepancyResidueInfo.residueComments is provided, then the service
+   generates the following warning:
+
+   ```json
+   {
+     "message": "Provided Field will be Ignored.",
+     "field": "Emanifest.discrepancyResidueInfo.residueComments",
+     "value": "residueComments value"
+   }
+   ```
+
+4. If DiscrepancyResidueInfo.residue == true then the service sets Emanifest.residue = true
+5. If DiscrepancyResidueInfo.residue == true then the Emanifest. residueNewManifestTrackingNumber(s) can be provided.
+
+   - 5.1. If no Emanifest.residueNewManifestTrackingNumber(s) is provided, the service generates the following warning:
+
+     ```json
+     {
+       "message": "One of the Waste has residue. Manifest Tracking Number(s) for shipping waste to another Facility(ies) is not provided",
+       "field": "Emanifest.residueNewManifestTrackingNumber",
+       "value": "residueNewManifestTrackingNumber value"
+     }
+     ```
+
+   - 5.2. If Emanifest.residueNewManifestTrackingNumber(s) are provided then the service validates the format of
+     residueNewManifestTrackingNumber(s). If it has an invalid format, the service generates the following warning:
+
+     ```json
+     {
+       "message": "Field will be ignored. Invalid Field Format. 9 digits followed by 3 upper case letters is expected",
+       "field": "Emanifest.residueNewManifestTrackingNumbers",
+       "value": "residueNewManifestTrackingNumbers value"
+     }
+     ```
+
+   - 5.3. If the residueNewManifestTrackingNumber has a valid format, the service checks if the provided
+     residueNewManifestTrackingNumber suffix is valid. If the suffix is invalid, the service generates the following
+     warning:
+     ```json
+     {
+       "message": "Field will be ignored. Invalid Manifest Tracking Number Suffix is Provided",
+       "field": "Emanifest.residueNewManifestTrackingNumber",
+       "value": "residueNewManifestTrackingNumber value"
+     }
+     ```
