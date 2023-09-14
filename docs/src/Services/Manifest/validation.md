@@ -2151,3 +2151,151 @@ The system will perform the following steps on the DOT Information fields:
        "value": "residueNewManifestTrackingNumber value"
      }
      ```
+
+### Biennial Report Validation
+
+# JSON
+
+1. If the Waste.br == true and the Waste.brInfo is not provided or empty, then the following applies
+
+   - 1.1. The system generates the following warning:
+     ```json
+     {
+       "message": "If brInfo is not Provided/Provided brInfo contains no fields, provided br shall be false",
+       "field": "Emanifest.waste.br",
+       "value": "Emanifest.waste.br value"
+     }
+     ```
+   - 1.2. The system sets Waste.br = false and stores it as a part of the manifest
+
+2. If the Waste.br == true and none of the provided Waste.brInfo fields are valid, then the following applies
+
+   - 2.1. The system generates the following warning:
+     ```json
+     {
+       "message": "None of the provided brInfo are valid, provided br will be set to false",
+       "field": "Emanifest.waste.br",
+       "value": "Emanifest.waste.br value"
+     }
+     ```
+   - 2.2. The system sets Waste.br = false and stores it as a part of the manifest
+
+3. If Waste.br == false or not provided and at least one of the provided Waste.brInfo fields is valid, then the
+   following applies:
+
+   - 3.1. The system generates the following warning:
+     ```json
+     {
+       "message": "Provided brInfo is valid, provided br will be set to true",
+       "field": "Emanifest.waste.br",
+       "value": "Emanifest.waste.br value"
+     }
+     ```
+   - 3.2. The system sets Waste.br = true and stores it as a part of the manifest
+
+4. If Waste.br == true and Waste.brInfo fields are provided, then the following applies:
+
+5. Source Codes
+
+   - 5.1. Validate Source Code
+
+     - 5.1.1. If the Source Code is not provided, the service generates the following warning:
+       ```json
+       {
+         "message": "Field is not Provided",
+         "field": "Emanifest.waste.brInfo.sourceCode.code"
+       }
+       ```
+
+   - 5.2. Validate Form Code
+
+     - 5.2.1. If Form Code is not provided, the service generates the following warning:
+       ```json
+       {
+         "message": "Field is not Provided",
+         "field": "Emanifest.waste.brInfo.formCode.code"
+       }
+       ```
+
+   - 5.3. Validate Waste Minimization Code
+
+     - 5.3.1. If Waste Minimization is not provided, the service generates the following warning:
+       ```json
+       {
+         "message": "Field is not Provided",
+         "field": "Emanifest.waste.brInfo.wasteMinimization.code"
+       }
+       ```
+
+   - 5.4. Validate Density and Density Units Of Measurement
+
+     - 5.4.1. If Waste.UnitOfMeasurement.code is not G, L, Y, or N (volumes), then the following applies:
+
+       - 5.4.1.1. If Density is provided, the service generates the following warning:
+         ```json
+         {
+           "message": "Provided field will be ignored. Density shall be provided only if the quantity units of measurement is the volume (G, L, N, Y)",
+           "field": "Emanifest.waste.brInfo.density",
+           "value": "density value"
+         }
+         ```
+       - 5.4.1.2. If Density Units Of Measurement is provided, the service generates the following warning:
+
+         ```json
+         {
+           "message": "Provided field will be ignored. Units Of Measurement shall be provided only if the quantity units of measurement is the volume (G, L, N, Y)",
+           "field": "Emanifest.waste.brInfo.densityUnitOfMeasurement",
+           "value": "densityUnitOfMeasurement value"
+         }
+         ```
+
+       - 5.4.2. If Waste.UnitOfMeasurement.code is G, L, Y, or N (volumes), then the following applies:
+
+         - 5.4.2.1. The service will store the provided density and the densityUnitOfMeasurement.code if both are
+           valid.
+         - 5.4.2.2. The service will not store the valid density if densityUnitOfMeasurement.code is not provided
+           or
+           provided densityUnitOfMeasurement.code is not valid.
+         - 5.4.2.3. The service will not store the valid densityUnitOfMeasurement.code if density is not provided
+           or
+           provided density is not valid.
+         - 5.4.2.4. If Density and densityUnitOfMeasurement.code are not provided, the system will generate a
+           warning:
+
+           ```json
+           {
+             "message": "Density and densityUnitOfMeasurement.code are not provided. Both fields – Density and densityUnitOfMeasurement.code fields shall be provided",
+             "field": "Emanifest.waste.brInfo.density densityUnitOfMeasurement.code"
+           }
+           ```
+
+       - 5.4.2.5. If either Density or densityUnitOfMeasurement.code is not provided, the system will generate a
+         warning:
+
+         ```json
+         {
+           "message": "Density/densityUnitOfMeasurement.code is not provided. Both fields – Density and densityUnitOfMeasurement.code fields shall be provided",
+           "field": "Emanifest.waste.brInfo.density"
+         }
+         ```
+
+       - 5.4.2.6. If provided Density is invalid, the service generates the following warning:
+
+         ```json
+         {
+           "message": "Invalid Field Format. Numeric value containing no more than 3 whole digit(s) and 2 decimal digit(s) expected",
+           "field": "Emanifest.waste.brInfo.density",
+           "value": "density value"
+         }
+         ```
+
+       - 5.4.2.7. If provided densityUnitOfMeasurement.code is not valid, the service generates the following
+         warning:
+
+         ```json
+         {
+           "message": "Invalid Field Format. Numeric value 1 ('lbs/gal') or 2 ('sg') shall be provided",
+           "field": "Emanifest.waste.brInfo.densityUnitOfMeasurement.code",
+           "value": "code value"
+         }
+         ```
