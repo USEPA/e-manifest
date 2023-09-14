@@ -16,6 +16,7 @@
     - [UI link](Services/Manifest/ui-link.md)
     - [e-Manifest Services for states](Services/Manifest/states.md)
     - [Manifest Attachments](Services/Manifest/manifest-attachments.md)
+    - [Manifest Section Validations](Services/Manifest/validation.md)
   - [Sites]()
   - [Lookups](Services/Lookup/lookup.md)
     - [Lookups](Services/Lookup/lookup.md)
