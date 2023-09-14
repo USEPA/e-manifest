@@ -1313,3 +1313,174 @@ The system will perform the following steps on the DOT Information fields:
      "value": "newManifestDestination value"
    }
    ```
+
+### PCB Information Validation
+
+1. If `pcb` is `false` and any of the `pcbInfos` entities or fields are provided, the service generates the following
+   warning:
+
+   ```json
+   {
+     "message": "Provided value will be ignored. PcbInfos provided but pcb flag equals false",
+     "field": "Emanifest.waste.pcbInfos",
+     "value": "pcbsInfo value"
+   }
+   ```
+
+2. If `pcb` is `true` and `pcbInfos` are not provided, the service generates the following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.waste.pcbInfos"
+   }
+   ```
+
+3. If at least one `PcbInfos` element is provided, then the service validates pcbInfo fields
+
+   - 3.1. Validate `PcbInfos.loadType.code`
+
+     - 3.1.1. If `PcbInfos.loadType` is not provided, the service generates the following error:
+       ```json
+       {
+         "message": "Mandatory Field is not Provided",
+         "field": "Emanifest.wastes.pcbInfos.loadType.code"
+       }
+       ```
+     - 3.1.2. If `pcbInfos.loadType.code` is provided, the service validates it against LoadType lookup. If the field
+       is not valid, the service generates the following error:
+       ```json
+       {
+         "message": "Invalid Field Format. One of the following values is expected: 'Container', 'ArticleInContainer', 'ArticleNotInContainer', 'BulkWaste'",
+         "field": "Emanifest.waste.pcbInfos.loadType.code",
+         "value": "loadType.code value"
+       }
+       ```
+
+   - 3.2. Validate `pcbInfos.articleContainerId`
+
+     - 3.2.1. If `pcbInfos.loadType.code` is "Container", "ArticleInContainer", or "ArticleNotInContainer"
+       and `PcbInfos.articleContainerId` is not provided, the service generates the following error:
+       ```json
+       {
+         "message": "Mandatory Field is not Provided. Fields must be provided if PCB load type is 'Container', 'ArticleInContainer', or 'ArticleNotInContainer'",
+         "field": "Emanifest.waste.pcbInfos.articleContainerId"
+       }
+       ```
+     - 3.2.2. If `pcbInfos.articleContainerId` is provided, the service checks the field length. If the field is
+       invalid, the service generates the following error:
+       ```json
+       {
+         "message": "Invalid Field Format. Text no longer than 255 characters is expected",
+         "field": "Emanifest.waste.pcbInfos.articleContainerId",
+         "value": "articleContainerId value"
+       }
+       ```
+     - 3.2.3. If `pcbInfos.loadType.code` is "BulkWaste" and `articleContainerId` is provided, then the service
+       generates the following warning:
+       ```json
+       {
+         "message": "Field will be ignored",
+         "field": "Emanifest.waste.pcbInfos.articleContainerId",
+         "value": "articleContainerId value"
+       }
+       ```
+
+   - 3.3. Validate `PcbInfo.dateOfRemoval`
+
+     - 3.3.1. If `pcbInfos.dateOfRemoval` is not provided, the service generates the following error:
+       ```json
+       {
+         "message": "Mandatory Field is not Provided.",
+         "field": "Emanifest.waste.pcbInfos.dateOfRemoval"
+       }
+       ```
+     - 3.3.2. If `PcbInfos.dateOfRemoval` is provided, the service validates field format. If the field format is
+       invalid, the service generates the following error:
+       ```json
+       {
+         "message": "Invalid Field Format.",
+         "field": "Emanifest.waste.pcbInfos.dateOfRemoval",
+         "value": "dateOfRemoval value"
+       }
+       ```
+
+   - 3.4. Validate `pcbInfos.weight`
+
+     - 3.4.1. If `pcbInfos.weight` is not provided, the service generates the following error:
+       ```json
+       {
+         "message": "Mandatory Field is not Provided.",
+         "field": "Emanifest.waste.pcbInfos.weight"
+       }
+       ```
+     - 3.4.2. If `PcbInfos.weight` is provided, the service validates field format. If the field format is invalid,
+       the
+       service generates the following error:
+       ```json
+       {
+         "message": "Invalid Field Format. Value containing no more than 11 whole digit(s) and 6 decimal digit(s) is expected",
+         "field": "Emanifest.waste.pcbInfo.weight",
+         "value": "weight value"
+       }
+       ```
+
+   - 3.5. Validate `PcbInfos.wasteType`
+
+     - 3.5.1. If `pcbInfos.loadType` is "Container" or "ArticleInContainer" and `wasteType` is not provided, the
+       service
+       generates the following error:
+       ```json
+       {
+         "message": "Mandatory Field is not Provided.",
+         "field": "Emanifest.waste.pcbInfos.wasteType"
+       }
+       ```
+     - 3.5.2. If `PcbInfos.loadType` is "BulkWaste" and `wasteType` is provided, the service generates the following
+       warning:
+       ```json
+       {
+         "message": "Field will be ignored",
+         "field": "Emanifest.waste.pcbInfos.wasteType",
+         "value": "containerType value"
+       }
+       ```
+     - 3.5.3. If `PcbInfos.wasteType` is provided, the service checks the field length. If the field is invalid, the
+       service generates the following error:
+       ```json
+       {
+         "message": "Invalid Field Format. Text no longer than 255 characters is expected",
+         "field": "Emanifest.waste.pcbInfos.wasteType",
+         "value": "containerType value"
+       }
+       ```
+
+   - 3.6. Validate `PcbInfos.bulkIdentity`
+     - 3.6.1. If `PcbInfos.loadType` is "BulkWaste" and `bulkIdentity` is not provided, the service generates the
+       following error:
+       ```json
+       {
+         "message": "Mandatory Field is not Provided.",
+         "field": "Emanifest.waste.pcbInfos.bulkIdentity"
+       }
+       ```
+     - 3.6.2. If `PcbInfos.loadType` is "Container" or "ArticleInContainer" and `bulkIdentity` is provided, the
+       service
+       generates the following warning:
+       ```json
+       {
+         "message": "Field will be ignored",
+         "field": "Emanifest.waste.pcbInfos.bulkIdentity",
+         "value": "bulkIdentity value"
+       }
+       ```
+     - 3.6.3. If `PcbInfos.bulkIdentity` is provided, the service checks the field length. If the field is invalid,
+       the
+       service generates the following error:
+       ```json
+       {
+         "message": "Invalid Field Format. Text no longer than 255 characters is expected",
+         "field": "Emanifest.waste.pcbInfos. bulkIdentity",
+         "value": "bulkIdentity value"
+       }
+       ```
