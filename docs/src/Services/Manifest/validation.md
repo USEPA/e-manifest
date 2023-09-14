@@ -1957,3 +1957,68 @@ The system will perform the following steps on the DOT Information fields:
        "value": "transporterOnSite value"
      }
      ```
+
+   - 5.6. If RejectionInfo.transporterOnSite == false the following applies
+
+     - 5.6.1. If RejectionInfo.rejectionType is not provided then the service generates the following error:
+
+       ```json
+       {
+         "message": "Mandatory Field is not Provided.",
+         "field": "Emanifest.RejectionInfo.rejectionType"
+       }
+       ```
+
+     - 5.6.2. If RejectionInfo.newManifestTrackingNumber(s) is provided and not valid, the service generates the
+       following error:
+
+       ```json
+       {
+         "message": "Invalid Field Format. 9 digits followed by 3 upper case letters is expected",
+         "field": "Emanifest.RejectionInfo.newManifestTrackingNumbers",
+         "value": "newManifestTrackingNumber value"
+       }
+       ```
+
+     - 5.6.3. If manifestTrackingNumber has a valid format, the service checks if the provided manifestTrackingNumber
+       suffix is valid. If the suffix is invalid, the service generates the following error:
+
+       ```json
+       {
+         "message": "Invalid Manifest Tracking Number Suffix is Provided",
+         "field": "Emanifest.RejectionInfo.newManifestTrackingNumber",
+         "value": "manifestTrackingNumber value"
+       }
+       ```
+
+     - 5.6.4. If any of the following fields are provided:
+
+       - RejectionInfo.alternateDesignatedFacilityType
+       - RejectionInfo.generatorPaperSignature
+       - RejectionInfo.alternateDesignatedFacility
+         the service generates the following warning:
+
+       ```json
+       {
+         "message": "Provided Field will be Ignored. alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility not applicable if Transporter is Off Site",
+         "field": "Emanifest.RejectionInfo.alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility",
+         "value": "alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility value"
+       }
+       ```
+
+6. If Emanifest.rejection == false and If any of the following RejectionInfo fields are provided:
+
+   - RejectionInfo.rejectionType
+   - RejectionInfo.transporterOnSite
+   - RejectionInfo.alternateDesignatedFacilityType
+   - RejectionInfo.generatorPaperSignature
+   - RejectionInfo.alternateDesignatedFacility
+     the service generates the following warning:
+
+   ```json
+   {
+     "message": "Provided Field will be Ignored. {Field} not applicable if Manifest is not Rejected",
+     "field": "Emanifest.RejectionInfo.rejectionType /transporterOnSite/alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility",
+     "value": "rejectionType/transporterOnSite/alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility value"
+   }
+   ```
