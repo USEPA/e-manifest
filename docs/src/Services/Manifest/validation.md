@@ -43,16 +43,16 @@ The manifest fee will be determined based on the Generator signature date (if pr
 ### Facility Information Validation for "Image" submission type
 
 1. For the Image submission type one of the following facility EPA Site Ids must be provided: Designated Facility EPA
-   Site Id, Generator EPA Site IDor Alternate Designated Facility Site Id
+   Site ID, Generator EPA Site IDor Alternate Designated Facility Site ID
 2. The following Facility EPA site Ids shall be provided for the following scenarios:
-   - Original Manifest, no Full Rejection: Designated Facility EPA SiteIDshall be provided.
-   - Original Manifest, Full Rejection to Alternate Designated Facility: Alternate Designated Facility EPA Site Id
+   - Original Manifest, no Full Rejection: Designated Facility EPA SiteID shall be provided.
+   - Original Manifest, Full Rejection to Alternate Designated Facility: Alternate Designated Facility EPA Site ID
      shall be provided.
-   - Original Manifest, Full Rejection to the Generator: Designated Facility EPA siteIDshall be provided.
+   - Original Manifest, Full Rejection to the Generator: Designated Facility EPA siteID shall be provided.
    - New Manifest shipping waste back to original Generator (New Manifest is the manifest created as a "result" of the
-     Original manifest rejection or residue): Generator Facility EPA SiteIDshall be provided. This EPA SiteIDshall
-     contain the Original Designated Facility Site Id.
-   - New Manifest shipping rejected waste to another Designated Facility: Designated Facility EPA SiteIDshall be
+     Original manifest rejection or residue): Generator Facility EPA SiteID shall be provided. This EPA SiteID shall
+     contain the Original Designated Facility Site ID.
+   - New Manifest shipping rejected waste to another Designated Facility: Designated Facility EPA SiteID shall be
      provided.
 3. If one of the following Ids: Emanifest.designatedFacility.epaSiteId and Emanifest.generator.epaSiteId and
    Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is not provided then the service will return an
@@ -729,14 +729,14 @@ json
    - Mailing Address (all fields)
    - Contact phone
 
-     Requester also can provide SiteIDwhich is an optional field for this case. If Site ID is provided,
+     Requester also can provide SiteID which is an optional field for this case. If Site ID is provided,
      the system will check if there is a registered Generator for the provided Site ID
 
      3.4. For all above cases Emergency Phone Number must be provided
 
      3.5. If the manifest status is InTransit or thereafter then Generator information cannot be updated.
 
-     3.6. If different than currently stored Generator information is provided, the service generates the following
+     3.6. If different from currently stored Generator information is provided, the service generates the following
      warning:
 
    ```json
@@ -1742,3 +1742,218 @@ The system will perform the following steps on the DOT Information fields:
          "value": "code value"
        }
        ```
+
+### Rejection Information Validation
+
+1. If an Original Manifest is rejected then Emanifest.rejection shall be specified as “true”.
+
+2. Emanifest.rejection and RejectionInfo shall be provided at the “ReadyForSignature” status. If provided for earlier
+   statuses these fields will be ignored.
+
+   - 2.1 If Emanifest.status < “ReadyForSignature” and either Emanifest.rejection or RejectionInfo fields are provided
+     then the service generates the following warning:
+     ```json
+     {
+       "message": "Provided Field will be ignored. Rejection information shall be provided at ReadyForSignature status",
+       "field": "Emanifest.rejection/Emanifest.rejectionInfo",
+       "value": "provided value"
+     }
+     ```
+
+3. If submissionStatus >= “ReadyForSignature” and Emanifest.rejection is not provided then the service generates the
+   following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.rejection"
+   }
+   ```
+
+4. Emanifest.containsPreviousRejectOrResidue is not provided then the service generates the following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.containsPreviousRejectOrResidue"
+   }
+   ```
+
+5. If Emanifest.rejection == true then the following applies
+
+   - 5.1. If RejectionInfo.rejectionComments is not provided then the service generates the following error:
+
+     ```json
+     {
+       "message": "Mandatory Field is not Provided.",
+       "field": "Emanifest.RejectionInfo. rejectionComments"
+     }
+     ```
+
+   - 5.2. If RejectionInfo.rejectionComments are not valid then the service generates the following error:
+
+     ```json
+     {
+       "message": "String \"{provided rejection comments value}\" is too long (length: { provided rejection comments length}, maximum allowed: 255)",
+       "field": "Emanifest.RejectionInfo.rejectionComments",
+       "vale": "rejectionComments value"
+     }
+     ```
+
+   - 5.3. If RejectionInfo.transporterOnSite is not provided then the service generates the following error:
+
+     ```json
+     {
+       "message": "Mandatory Field is not Provided.",
+       "field": "Emanifest.RejectionInfo.transporterOnSite"
+     }
+     ```
+
+   - 5.4. If RejectionInfo.transporterOnSite is provided and not valid then the service generates the following error:
+
+     ```json
+     {
+       "message": "Invalid Field Format. Boolean value is expected",
+       "field": "Emanifest.RejectionInfo.transporterOnSite",
+       "value": "transporterOnSite value"
+     }
+     ```
+
+   - 5.4. If Emanifest.submissionType == “DataImage5Copy” and RejectionInfo.transporterOnSite == true the following
+     applies
+
+   - 5.4.1. If RejectionInfo.rejectionType == “PartialReject” then the service sets RejectionInfo.rejectionType =
+     “FullReject” and generates the following warning:
+
+     ```json
+     {
+       "message": "Provided value will be Ignored. If Transporter is On Site rejection type must be “FullReject",
+       "field": "Emanifest.RejectionInfo.rejectionType",
+       "value": "rejectionType value"
+     }
+     ```
+
+   - 5.4.2. e-Manifest sets rejectionInfo.rejectionType as “FullReject” in the e-Manifest database
+
+   - 5.4.3. If RejectionInfo.newManifestTrackingNumbers is provided then the service generates the following warning:
+
+     ```json
+     {
+       "message": "Provided Field will be Ignored. New Manifest(s) are not created if Transporter is On Site",
+       "field": "Emanifest.RejectionInfo.newManifestTrackingNumbers"
+     }
+     ```
+
+   - 5.4.4. If RejectionInfo.alternateDesignatedFacilityType is not provided then the service generates the following
+     error:
+
+     ```json
+     {
+       "message": "Mandatory Field is not Provided.",
+       "field": "Emanifest.RejectionInfo.alternateDesignatedFacilityType"
+     }
+     ```
+
+   - 5.4.5. If RejectionInfo.alternateDesignatedFacilityType == “Generator then the following applies
+
+     - 5.4.5.1. If generatorPaperSignatureInfo.printedName is not provided then the service generates the following
+       warning:
+
+       ```json
+       {
+         "message": "Mandatory Field is not Provided.",
+         "field": "Emanifest.RejectionInfo.generatorPaperSignature.printedName "
+       }
+       ```
+
+     - 5.4.5.2. If generatorPaperSignature.printedName has an invalid format then the service generates the following
+       warning:
+
+       ```json
+       {
+         "message": "String \"{provided printed name value}\" is too long (length: {provided printed name length}, maximum allowed: 255)",
+         "field": "Emanifest.RejectionInfo.generatorPaperSignature.printedName ",
+         "value": "printedName value"
+       }
+       ```
+
+     - 5.4.5.3. If generatorPaperSignature.signatureDate is not provided then the service generates the following
+       error:
+
+       ```json
+       {
+         "message": "Mandatory Field is not Provided.",
+         "field": "Emanifest.RejectionInfo.generatorPaperSignature.signatureDate "
+       }
+       ```
+
+     - 5.4.5.4. If generatorPaperSignature.signatureDate < Emanifest.designatedFacility.paperSignature.signatureDate
+       then the service generates the following error:
+
+       ```json
+       {
+         "message": "Invalid Value Provided. Generator signature date (signing as alternate Facility) shall be on or later than TSDF signature",
+         "field": "Emanifest.RejectionInfo.generatorPaperSignature.signatureDate ",
+         "value": "signatureDate value"
+       }
+       ```
+
+     - 5.4.5.5. If generatorPaperSignature.signatureDate > current Date then the service generates the following
+       error:
+
+       ```json
+       {
+         "message": "Invalid Value Provided. Generator signature date (signing as alternate Facility) cannot be in the future",
+         "field": "Emanifest.RejectionInfo.generatorPaperSignature.signatureDate ",
+         "value": "signatureDate value"
+       }
+       ```
+
+   - 5.4.6. If RejectionInfo.alternateDesignatedFacilityType == “Tsdf” the following applies
+
+     - 5.4.6.1. If RejectionInfo.alternateDesignatedFacility.epaSiteId is not provided then the service generates the
+       following error:
+
+       ```json
+       {
+         "message": "Mandatory Field is not Provided.",
+         "field": "Emanifest.RejectionInfo. alternateDesignatedFacility.epaSiteId"
+       }
+       ```
+
+     - 5.4.6.2. If RejectionInfo.alternateDesignatedFacility.epaSiteId has an invalid format then the service
+       generates
+       the following error:
+
+       ```json
+       {
+         "message": "Provided Value is not Valid. Does not match the format of: Two Letter Activity Location Code + Up to 10 alphanumeric characters",
+         "field": "Emanifest.RejectionInfo.alternateDesignatedFacility.epaSiteId",
+         "value": "epaSiteId value"
+       }
+       ```
+
+     - 5.4.6.3. If epaSiteId is valid, the system will search RCRAInfo by Site ID. If the Site ID is found the system
+       will obtain the Site information from RCRAInfo and store it into the Manifest.
+
+     - 5.4.6.4. If the epaSiteId is not found, the service generates the following error:
+
+       ```json
+       {
+         "message": "Provided Value is not Found",
+         "field": "Emanifest.RejectionInfo.alternateDesignatedFacility.epaSiteId",
+         "value": "epaSiteId value"
+       }
+       ```
+
+     - 5.5. If Emanifest.submissionType == “FullElectronic” or “Hybrid” and provided
+       RejectionInfo.transporterOnSite == true
+       then the service generates the following warning:
+
+     ```json
+     {
+       "message": "Provided Value will be ignored",
+       "field": "Emanifest.rejectionInfo.transporterOnSite",
+       "value": "transporterOnSite value"
+     }
+     ```
