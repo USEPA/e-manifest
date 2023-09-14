@@ -1484,3 +1484,59 @@ The system will perform the following steps on the DOT Information fields:
          "value": "bulkIdentity value"
        }
        ```
+
+### Management Method Code Validation
+
+1. If `submissionType` is "DataImage5Copy" the following applies
+
+   - 1.1. If `epaWaste` is `true` and `Waste.managementMethod.code` is not provided, the service generates the
+     following error:
+     ```json
+     {
+       "message": "Field is Not Provided",
+       "field": "Emanifest.wastes.managementMethod.code"
+     }
+     ```
+   - 1.2. If the `Waste.managementMethod.code` is provided, validate if the code is in the lookup. If the provided code
+     is not found, the service generates the following error:
+     ```json
+     {
+       "message": "Provided Value not Found",
+       "field": "Emanifest.wastes.managementMethod.code",
+       "value": "code value"
+     }
+     ```
+
+2. If `submissionType` is "FullElectronic" or "Hybrid" the following applies
+
+   - 2.1. If `Emanifest.status` is "Scheduled," "InTransit," or "ReadyForSignature," the following applies
+
+     - 2.1.1. If the `Waste.managementMethod.code` is provided, validate if the code is in the lookup. If the
+       provided code is not found, the service generates a warning:
+       ```json
+       {
+         "message": "Provided Value not Found",
+         "field": "Emanifest.wastes.managementMethod.code",
+         "value": "code value"
+       }
+       ```
+
+   - 2.2. If `Emanifest.status` is "Signed," the following applies
+     - 2.2.1. If the `Waste.managementMethod.code` is provided, then the service updates `Emanifest.validationStatus`
+       to `true`
+     - 2.2.2. If the `Waste.managementMethod.code` is not provided, the service generates the following error:
+       ```json
+       {
+         "message": "Field is Not Provided",
+         "field": "Emanifest.wastes.managementMethod.code"
+       }
+       ```
+     - 2.2.3. If the `Waste.managementMethod.code` is provided, validate if the code is in the lookup. If the
+       provided code is not found, the service generates the following error:
+       ```json
+       {
+         "message": "Provided Value not Found",
+         "field": "Emanifest.wastes.managementMethod.code",
+         "value": "code value"
+       }
+       ```
