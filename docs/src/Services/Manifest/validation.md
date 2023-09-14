@@ -212,171 +212,223 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 ### Designated Facility (TSDF)/Generator Site Id and Site Information Validation
 
-1. If submissionType is “FullElectronic” and status >= Scheduled then the following applies
-   1.1. 1.2. If Emanifest.generator.epaSiteId is not provided then the service generates the
-   following error:
+1. If submissionType is "FullElectronic" and status >= Scheduled then the following applies
+   1.1. If Emanifest.generator.epaSiteId is not provided then the service generates the following error:
+
+   ```json
    {
-   “message”: “Mandatory Field is not Provided”,
-   “field”: “Emanifest. generator.epaSiteId”,
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.generator.epaSiteId"
    }
-   1.2. If Emanifest. generator.epaSiteId has an incorrect format then the service generates the
-   following error:
+   ```
+
+   1.2. If Emanifest. generator.epaSiteId has an incorrect format then the service generates the following error:
+
+   ```json
    {
-   “message”: “Invalid Field Format”,
-   “field”: “Emanifest. generator.epaSiteId”,
-   “value”: “ epa site id value”
+     "message": "Invalid Field Format",
+     "field": "Emanifest. generator.epaSiteId",
+     "value": " epa site id value"
    }
-   1.3. If Emanifest.generator.epaSiteId is not registered in RCRAInfo then the service generates the
-   following error:
+   ```
+
+   1.3. If Emanifest.generator.epaSiteId is not registered in RCRAInfo then the service generates the following error:
+
+   ```json
    {
-   “message”: “Provided Generator Facility Id is not registered in RCRAInfo”,
-   “field”: “Emanifest. generator.epaSiteId”,
-   “value”: “ epa site id value”
+     "message": "Provided Generator Facility Id is not registered in RCRAInfo",
+     "field": "Emanifest. generator.epaSiteId",
+     "value": " epa site id value"
    }
-2. If submissionType is “FullElectronic” or “Hybrid” and status >= Scheduled, or submissionType is
-   “DataImage5Copy” then the following applies
-   2.1. If Emanifest.designatedFacility.epaSiteId is not provided then the service generates the
-   following error:
+   ```
+
+2. If submissionType is "FullElectronic" or "Hybrid" and status >= Scheduled, or submissionType is "DataImage5Copy" then
+   the following applies
+
+   2.1. If Emanifest.designatedFacility.epaSiteId is not provided then the service generates the following error:
+
+   ```json
    {
-   “message”: “Mandatory Field is not Provided”,
-   “field”: “Emanifest.designatedFacility.epaSiteId”,
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.designatedFacility.epaSiteId"
    }
-   2.2. If Emanifest.designatedFacility.epaSiteId has an incorrect format then service generates the
-   following error:
+   ```
+
+   2.2. If Emanifest.designatedFacility.epaSiteId has an incorrect format then service generates the following error:
+
+   ```json
    {
-   “message”: “Invalid Field Format”,
-   “field”: “Emanifest.designatedFacility.epaSiteId”,
-   “value”: “ epa site id value”
+     "message": "Invalid Field Format",
+     "field": "Emanifest.designatedFacility.epaSiteId",
+     "value": " epa site id value"
    }
-   2.3. If Emanifest.designatedFacility.epaSiteId is not registered in RCRAInfo then service
-   generates the following error:
+   ```
 
-#### {
+   2.3. If Emanifest.designatedFacility.epaSiteId is not registered in RCRAInfo then service generates the following
+   error:
 
-“message”: “Provided Designated Facility Id is not registered in RCRAInfo”,
-“field”: “Emanifest.designatedFacility.epaSiteId”,
-“value”: “ epa site id value”
-}
-2.4. If the Site Contact Phone number is not provided and registered in RCRAInfo Site does not
-contain the Site Contact Phone Number, the system generates the following error:
-{
-“message”: “Mandatory Field is not Provided”,
-“field”: “Emanifest.designatedFacility.contact.phone.number”,
-}
-2.5. If the Site Contact Phone number is provided, the system will check the format.
-2.5.1. If the provided phone number has a valid format the system will store site contact
-phone number into e-Manifest database
-2.5.2. If the provided phone number has an incorrect format the system generates the
-following warning:
-{
-“message”: "String \"{provided phone value}\" is too long (length: {provided phone value
-length}, maximum allowed: 12)",
-“field”: “Emanifest.designatedFacility.contact.phone.number “,
-“value”: “number value”
-}
-2.6. If the Site Contact Phone Extension is provided, the system will check the format.
-2.6.1. If provided phone extension has a valid format, the system will store the site contact
-phone extension into e-Manifest database
-2.6.2. If the provided phone has an incorrect format, the system generates the following
-warning:
-{
-“message”: "String \"{provided phone extension value}\" is too long (length: {provided
-phone value length}, maximum allowed: 6 )",
-“field”: “Emanifest.designatedFacility.contact.phone.extension “,
-“value”: “extension value”
-}
+   ```json
+   {
+     "message": "Provided Designated Facility Id is not registered in RCRAInfo",
+     "field": "Emanifest.designatedFacility.epaSiteId",
+     "value": " epa site id value"
+   }
+   ```
 
-2.7. If any of the following TSDF Site Information entities were provided:
+   2.4. If the Site Contact Phone number is not provided and registered in RCRAInfo Site does not contain the Site
+   Contact Phone Number, the system generates the following error:
 
-- Site Name
-- Site Address
-- Mailing Address
+   ```json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.designatedFacility.contact.phone.number"
+   }
+   ```
 
-The system generates the following warning:
+   2.5. If the Site Contact Phone number is provided, the system will check the format.
 
-{
+   - If the provided phone number has a valid format the system will store site contact phone number into e-Manifest
+     database
+   - If the provided phone number has an incorrect format the system generates the following warning:
 
-"message": “Registered site was found. Provided site information will be ignored and
-replaced with registered information”,
-"field": "Emanifest.designatedFacility.name /siteAddress",
-“value”: “name/siteAddress”
-}
-2.8. If the user is authorized to use the e-Manifest Save service for the provided Generator Site
-ID (It means that TSDF acts as Generator), then the provided Site ID was already validated
-during authorization and the system will perform following steps:
-2.9. If the Site Contact Phone number is not provided in the JSON and site the is registered in
-RCRAInfo, the system checks if the site has a Contact Phone value registered for the site. If
-the Contact Phone is not registered in the system for that site, the system generates the
-following error:
-{
-"message": “Mandatory Field is not provided”
-"field": "Emanifest.generator.contact.Phone.number”
-}
-2.10. If the Site Contact Phone number is provided and registered in RCRAinfo the system
-checks that the phone number is in the correct format.
-2.10.1. If the provided phone number has a valid format, the system will store site contact
-phone number into the e-Manifest database
-2.10.2. If provided phone number has an incorrect format, the system will store registered
-in RCRAInfo Contact Phone number into e-Manifest database and generate the
-following warning:
-{
-“message”: "String \"{provided phone value}\" is too long (length: { provided phone value
-length}, maximum allowed: 12)",
-“field”: “Emanifest.generator.contact.phone.number “,
-“value”: “number value”
-}
-2.11. If the Site Contact Phone number is provided and registered in RCRAinfo site does not
-contain Contact Phone.
-2.11.1. If the provided phone number has valid format, the system will store site contact
-phone number into e-Manifest database
-2.11.2. If provided phone number has incorrect format, the system generates the following
-error:
-{
-“message”: "String \"{provided phone value}\" is too long (length: { provided phone value
-length}, maximum allowed: 12)",
-“field”: “Emanifest.generator.contact.phone.number “,
-“value”: “number value”
-}
-2.12. Validate emergency phone
+   ```json
+   {
+     "message": "String \"{provided phone value}\" is too long (length: { provided phone value length}, maximum allowed: 12)",
+     "field": "Emanifest.designatedFacility.contact.phone.number",
+     "value": "number value"
+   }
+   ```
 
-```
-2.12.1. If emergency phone number is not provided, the system generates the following
-error:
-{
-“message”: “Mandatory Field is not provided”
-“field”: “Emanifest.generator.emergencyPhone.number”
-}
-2.12.2. If emergency phone number is provided and has an invalid format, the system
-generates the following error:
-{
-“message”: "String \"{provided phone value}\" is too long (length: { provided phone
-value length}, maximum allowed: 12)",
-“field”: “Emanifest.generator.emergencyPhone.number “,
-“value”: “phone number value”
-}
-2.12.3. If emergency phone extension is provided and has an invalid format, the system
-generates the following warning:
-{
-"message": "String \"{provided phone value}\" is too long (length: { provided phone
-value length}, maximum allowed: 6)",
-"field": "Emanifest.generator.emergencyPhone.extension ",
-“value”: “extension value”
-}
-2.13. If Site Name, Site Location, Site Mailing Address are provided, the system generates the
-following warning:
-{
-"message": “Provided Values will be Ignored. RCRAInfo values will be used”,
-"field": "Emanifest.genrator.name/mailingAddress/siteAddress ",
-“value”: “name/mailingAddress/siteAdress value”
-}
-2.14. If the contact email was provided, the system will check the format
-2.14.1. If provided contact email has a valid format the system will store site contact email
-into e-Manifest database
-2.14.2. If the provided contact email has an incorrect format the system generates the
-following warning:
-{
-"message": “Invalid Field format. Valid email format is expected.”,
-"field": "Emanifest.designatedFacility.contact.email ",
-“value”: “email value”
-}
-```
+   2.6. If the Site Contact Phone Extension is provided, the system will check the format.
+
+   - If provided phone extension has a valid format, the system will store the site contact phone extension into
+     e-Manifest database
+   - If the provided phone has an incorrect format, the system generates the following warning:
+
+   ```json
+   {
+     "message": "String \"{provided phone extension value}\" is too long (length: {provided phone value length}, maximum allowed: 6 )",
+     "field": "Emanifest.designatedFacility.contact.phone.extension",
+     "value": "extension value"
+   }
+   ```
+
+   2.7. If any of the following TSDF Site Information entities were provided:
+
+   - Site Name
+   - Site Address
+   - Mailing Address
+
+   The system generates the following warning:
+
+   ```json
+   {
+     "message": "Registered site was found. Provided site information will be ignored and replaced with registered information",
+     "field": "Emanifest.designatedFacility.name /siteAddress",
+     "value": "name/siteAddress"
+   }
+   ```
+
+   2.8. If the user is authorized to use the e-Manifest Save service for the provided Generator Site ID (It means that
+   TSDF acts as Generator), then the provided Site ID was already validated during authorization and the system will
+   perform following steps:
+
+   2.9. If the Site Contact Phone number is not provided in the JSON and site the is registered in RCRAInfo, the system
+   checks if the site has a Contact Phone value registered for the site. If the Contact Phone is not registered in the
+   system for that site, the system generates the following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.designatedFacility.contact.phone.number"
+   }
+   ```
+
+   2.10. If the Site Contact Phone number is provided and registered in RCRAinfo the system checks that the phone number
+   is in the correct format.
+
+   2.10.1. If the provided phone number has a valid format, the system will store site contact phone number into the
+   e-Manifest database
+
+   2.10.2. If provided phone number has an incorrect format, the system will store registered in RCRAInfo Contact Phone
+   number into e-Manifest database and generate the following warning:
+
+   ```json
+   {
+     "message": "String \"{provided phone value}\" is too long (length: { provided phone value length}, maximum allowed: 12)",
+     "field": "Emanifest.designatedFacility.contact.phone.number",
+     "value": "number value"
+   }
+   ```
+
+   2.11. If the Site Contact Phone number is provided and registered in RCRAinfo site does not contain Contact Phone.
+
+   2.11.1. If the provided phone number has valid format, the system will store site contact phone number into
+   e-Manifest database
+
+   2.11.2. If provided phone number has incorrect format, the system generates the following error:
+
+   ```json
+   {
+     "message": "String \"{provided phone value}\" is too long (length: { provided phone value length}, maximum allowed: 12)",
+     "field": "Emanifest.designatedFacility.contact.phone.number",
+     "value": "number value"
+   }
+   ```
+
+   2.12. Validate emergency phone
+
+   2.12.1. If emergency phone number is not provided, the system generates the following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not provided",
+     "field": "Emanifest.designatedFacility.emergencyPhone.number"
+   }
+   ```
+
+   2.12.2. If emergency phone number is provided and has an invalid format, the system generates the following error:
+
+   ```json
+   {
+     "message": "String \"{provided phone value}\" is too long (length: { provided phone value length}, maximum allowed: 12)",
+     "field": "Emanifest.designatedFacility.emergencyPhone.number ",
+     "value": "phone number value"
+   }
+   ```
+
+   2.12.3. If emergency phone extension is provided and has an invalid format, the system generates the following
+   warning:
+
+   ```json
+   {
+     "message": "String \"{provided phone value}\" is too long (length: { provided phone value length}, maximum allowed: 6)",
+     "field": "Emanifest.generator.emergencyPhone.extension ",
+     "value": "extension value"
+   }
+   ```
+
+   2.13. If Site Name, Site Location, Site Mailing Address are provided, the system generates the following warning:
+
+   ```json
+   {
+     "message": "Provided Values will be Ignored. RCRAInfo values will be used",
+     "field": "Emanifest.generator.name/mailingAddress/siteAddress ",
+     "value": "name/mailingAddress/siteAddress value"
+   }
+   ```
+
+   2.14. If the contact email was provided, the system will check the format
+
+   2.14.1. If provided contact email has a valid format the system will store site contact email into e-Manifest
+   database
+
+   2.14.2. If the provided contact email has an incorrect format the system generates the following warning:
+
+   ```json
+   {
+     "message": "Invalid Field format. Valid email format is expected.",
+     "field": "Emanifest.designatedFacility.contact.email",
+     "value": "email value"
+   }
+   ```
