@@ -432,3 +432,375 @@ The manifest fee will be determined based on the Generator signature date (if pr
      "value": "email value"
    }
    ```
+
+### Generator Site Id and Site Information Validation
+
+1. If submissionType is "FullElectronic" then the Generator is valid if the Generator Site ID is registered in RCRAInfo
+   and the Generator has at least one User with the e-Manifest Certifier Role and this user has a Received ESA.
+2. If submissionType is "FullElectronic" the following applies
+
+   2.1. If the Generator Site ID is not provided, the service generates the following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided. For FullElectronic submission type registered Generator Site Id must be provided",
+     "field": "Emanifest.designatedFacility.epaSiteId"
+   }
+   ```
+
+   2.2. If the Generator Site ID has an invalid format the service generates the following error:
+
+   ```json
+   {
+     "message": "Invalid Field Format. For FullElectronic submission type registered Generator Site Id must be provided",
+     "field": "Emanifest.generator.epaSiteId",
+     "value": "Site ID value"
+   }
+   ```
+
+   2.3. If the Generator Site ID is not registered in RCRAInfo the service generates the following error:
+
+   ```json
+   {
+     "message": "Provided Generator Facility Id is not registered in RCRAInfo",
+     "field": "Emanifest.generator.epaSiteId",
+     "value": "Site ID value"
+   }
+   ```
+
+   2.4. If the Generator Site ID is registered in RCRAInfo and there are no users with the e-Manifest Certifier role for
+   the provided Generator the service generates the following error:
+
+   ```json
+   {
+     "message": "Site doesn't have any users with Certifier role or with ESA status Received",
+     "field": "Emanifest.designatedFacility.epaSiteId",
+     "value": "Site ID value"
+   }
+   ```
+
+   2.5. If the Generator with the provided Site ID is registered and there are no users with a received ESA, the service
+   generates the following error:
+
+   ```json
+   {
+     "message": "Site doesn't have any users with Certifier role or with ESA status Received",
+     "field": "Emanifest.designatedFacility.epaSiteId",
+     "value": "Site ID value"
+   }
+   ```
+
+3. If submissionType is "DataImage5Copy" or "Hybrid", then registered and non-registered Generators are valid and the
+   following cases are possible for the Generator Site ID and Generator Information:
+
+   3.1. If the Generator is registered in RCRAInfo and service requester does not intend to provide different (than
+   registered) Site Information, then only the epaSiteId shall be provided. All site information will be obtained from
+   RCRAInfo.
+
+   3.2. If the Generator is registered in RCRAInfo and service requester intends to provide different (than registered)
+   Site Information, then the following site information entities must be provided:
+
+   - Site ID
+   - Site Name
+   - Site Address (all fields)
+   - Mailing Address (all fields)
+   - Contact Phone
+   - Provided Site Information will be validated and if valid will be stored in e-Manifest.
+
+   3.3. If Generator is not registered in RCRAInfo, then following site information must be provided:
+
+   - Site Name
+   - Site Address (all fields)
+   - Mailing Address (all fields)
+   - Contact phone
+
+     Requester also can provide Site ID which is an optional field for this case. If Site ID is provided,
+     the system will check if there is a registered Generator for the provided Site ID
+
+   3.4. For all above cases Emergency Phone Number must be provided
+
+   3.5. If the manifest status is InTransit or thereafter then Generator information cannot be updated.
+
+   3.6. If different than currently stored Generator information is provided, the service generates the following
+   warning:
+
+   ```json
+   {
+     "message": "Provided Generator information will be ignored. Generator Information cannot be updated if the manifest status is InTransit or thereafter",
+     "field": "Emanifest.generator"
+   }
+   ```
+
+   3.7. If the Site ID is not provided AND any of the mandatory Site information entities are not provided, the service
+   generates the following error(s):
+
+   ```json
+   {
+     "message": "Mandatory Field is not provided",
+     "field": "Emanifest.generator.epaSiteId"
+   }
+   ```
+
+   ```json
+   {
+     "message": "Mandatory Field is not provided",
+     "field": "Emanifest.generator.siteAddress"
+   }
+   ```
+
+   ```json
+   {
+     "message": "Mandatory Field is not provided",
+     "field": "Emanifest.generator.mailingAddress"
+   }
+   ```
+
+   3.8. If the Site ID is provided AND Site Address information is not provided, the system performs the following
+   steps:
+
+   - If Site ID is not valid the service generates the following error:
+
+   ```json
+   {
+     "message": "Provided Value is not Valid. Does not match format of: Two Letter Activity Location Code + Up to 10 alphanumeric characters",
+     "field": "Emanifest.generator.epaSiteId ",
+     "value": "EPA site Id value"
+   }
+   ```
+
+   - If Site ID is valid and found in RCRAInfo, the system will obtain the Site information from RCRAInfo and store it
+     into the Manifest. System sets modified= false, registered = true
+   - If the Site ID is not found, the service generates the following error:
+
+   ```json
+   {
+     "message": "Provided Value is not Found",
+     "field": "Emanifest.generator.epaSiteId",
+     "value": "EPA Site ID value"
+   }
+   ```
+
+   3.9. If the Site ID is provided and the Site Information entities are provided, the system performs the following
+   steps:
+
+   - If the site name is not provided, the service generates the following error:
+
+   ```json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.generator.name"
+   }
+   ```
+
+   - If the site name is not valid (exceeds maximum length), the service generates the following error:
+
+   ```json
+   {
+     "message": "Provided Value is not Valid. Exceeded maximum length of 80",
+     "field": "Emanifest.generator.name",
+     "value": "name value"
+   }
+   ```
+
+   - Validate the mandatory location address fields:
+
+     - address1 (50 Character maximum)
+     - city (25 Character maximum)
+     - state.code (2 Character State abbreviation)
+     - zip (14 Character maximum)
+
+   - If any of the mandatory location address fields are not provided or invalid, the service generates the following
+     error:
+
+   ```json
+   {
+     "message": "Value is not Provided/Provided Value is not Valid",
+     "field": "Emanifest.generator.siteAddress.address1/city/state/zip",
+     "value": "address1/city/state/zip value"
+   }
+   ```
+
+   - Validate the mailing address fields. If country is not provided, the service generates the following warning:
+
+   ```json
+   {
+     "message": "Field not Provided. Other mailing address fields will be validated assuming this site is located in the US",
+     "field": "Emanifest.generator.mailingAddress.country"
+   }
+   ```
+
+   - If the provided country == US then Following address fields must be provided:
+
+   - address1 (50 Character maximum)
+   - city (25 Character Maximum)
+   - state.code (2 Character State Abbreviation)
+   - zip (14 Character Maximum)
+
+     If any of the mandatory mailing address fields are not provided or invalid, the service generates the following
+     error:
+
+   ```json
+   {
+     "message": "Value is not Provided/Provided Value is not Valid",
+     "field": "Emanifest.generator.mailingAddress.address1/city/state/zip",
+     "value": "address1/city/state/zip provided value"
+   }
+   ```
+
+   - If provided country == Canada or Mexico then following applies address fields must be provided:
+
+     - address1 (50 Character maximum)
+     - city (25 Character Maximum)
+     - zip (50 Character Maximum)
+
+   If any of the mandatory mailing address fields are not provided or invalid, the service generates the following
+   error:
+
+   ```json
+   {
+     "message": "Value is not Provided/Provided Value is not Valid",
+     "field": "Emanifest.generator.mailingAddress.address1/city/zip",
+     "value": "address1/city/zip provided value"
+   }
+   ```
+
+   - If provided state.code is not valid, the service generates following warning:
+
+   ```json
+   {
+     "message": "Provided Value is not Valid",
+     "field": "Emanifest.generator.mailingAddress.state.code",
+     "value": "address1/city/zip provided value"
+   }
+   ```
+
+   - If provided country != "United States", "Canada" or "Mexico" then following fields must be provided:
+
+     - address1 (50 Character maximum)
+     - city (25 Character Maximum)
+     - zip (50 Character Maximum)
+       If any of the mandatory mailing address fields are not provided or invalid, the service generates the
+       following error:
+
+   ```json
+   {
+     "message": "Value is not Provided/Provided Value is not Valid",
+     "field": "Emanifest.generator.mailingAddress.address1/city/zip",
+     "value": "address1/city/zip provided value"
+   }
+   ```
+
+   3.10. Validate provided Site ID
+
+   - If Site ID is not valid, the service generates the following warning:
+
+   ```json
+   {
+     "message": "Provided value is not valid. Two Letter Activity Location Code + Up to 10 alphanumeric characters",
+     "field": "Emanifest.generator.epaSiteId",
+     "value": "EPA Site ID value"
+   }
+   ```
+
+   - If the Site ID is valid the system checks if the site is registered
+   - If the site is registered, the system validates if the provided site address state code matches Site ID activity
+     location.
+
+   - If the state code does not match the Site ID activity location, the service generates the following error:
+     ```json
+     {
+       "message": "Location State Code is different than Site Id Activity Location",
+       "field": "Emanifest.generator.siteAddress.state.code",
+       "value": "site address state code value"
+     }
+     ```
+   - If the site is not registered, the service generates a warning:
+
+   ```json
+   {
+     "message": "Site with provided EPA Site ID is not registered",
+     "field": "Emanifest.generator.epaSiteId",
+     "value": "Site ID value"
+   }
+   ```
+
+   - Store provided Site Information (if no other manifest errors were found)
+
+4. If the Site ID is not provided AND the Site Information is provided, the system performs the
+   following steps:
+   4.1. Validate the provided Site Information.
+   4.1.1. Validate the site name
+   4.1.2. If the site name is not valid the service generates the following error:
+   {
+   "message": "Provided Value is not Valid",
+   "field": "Emanifest.generator.name",
+   "value": "name value"
+   }
+   4.1.3. Validate the mandatory site location address fields:
+   - address1
+   - city
+   - state.code
+   - zip
+     4.1.4. If any of the mandatory location address fields are not provided or invalid, the
+     service generates the following error:
+     {
+     "message": "Value is not Provided/Provided Value is not Valid",
+     "field": "Emanifest.generator.siteAddress.address1/city/state/zip",
+     "value": "address1/city/state/zip value"
+     }
+     4.1.5. Validate the mandatory mailing address fields:
+   - address1
+   - city
+   - state.code
+   - zip
+
+4.1.6. If any of the mandatory mailing address fields are not provided or invalid, the
+service generates the following error:
+{
+"message": "Value is not Provided/Provided Value is not Valid",
+"field": "Emanifest.generator.mailingAddress.address1/city/state/zip",
+"value": "address1/city/state/zip provided value"
+}
+4.2. If the provided Site Information is valid, but the Site ID is not provided, the system
+performs the following steps:
+4.2.1. The service generates the following warning:
+{
+"message": "Value is not Provided",
+"field": "Emanifest.generator.epaSiteId"
+}
+4.2.2. Store the provided Site Information (if no other manifest errors were found)
+4.3. If the Site Contact Phone number is not provided and site is registered in RCRAInfo, the
+system checks if the site has a Contact Phone value registered for the site. If the Contact
+Phone is not registered in the system for that site, the system generates the following
+error:
+{
+"message": "Mandatory Field is not provided"
+"field": "Emanifest.generator.contact.Phone.number"
+}
+4.4. If the Site Contact Phone number is provided and registered in RCRAinfo the system checks
+that the phone number is in the correct format.
+4.4.1. If the provided phone number has valid format the, system will store site contact
+phone number into e-Manifest database
+4.4.2. If the provided phone number has an incorrect format, the system will store
+registered in RCRAInfo Contact Phone number into e-Manifest database and
+generates the following warning:
+{
+"message": "String \"{provided phone value}\" is too long (length: { provided phone value
+length}, maximum allowed: 12)",
+"field": "Emanifest.generator.contact.phone.number ",
+"value": "number value"
+}
+4.5. If the Site Contact Phone number is provided and registered in RCRAinfo the system checks
+that the phone number is in the correct format.
+4.5.1. If the provided phone number has valid format, the system will store site contact
+phone number into the e-Manifest database
+4.5.2. If the provided phone number has an incorrect format, the system generates the
+following error:
+
+```
+
+```
+
+```
+
+```
