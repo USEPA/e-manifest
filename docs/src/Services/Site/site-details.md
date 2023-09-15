@@ -34,6 +34,8 @@ Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 
 ```
 
+Where there URL parameter represented by `VATESTGEN001` is the Site ID that is being requested.
+
 ### Success Response Body
 
 ```json

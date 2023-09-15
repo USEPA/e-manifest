@@ -1321,8 +1321,8 @@ json
 The system will perform the following steps on the DOT Information fields:
 
 1. Validate ID Number
-   - There are Proper Shipping Names which do not have corresponding Id Numbers in the DOT specifications. For these
-     Proper Shipping Names the Emanifest requires Id Number value of
+   - There are Proper Shipping Names which do not have corresponding ID Numbers in the DOT specifications. For these
+     Proper Shipping Names the Emanifest requires ID Number value of
      "NOID"
    - If dotInformation.IdNumber is not provided, the service generates the following error:
    ```json

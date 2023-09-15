@@ -20,6 +20,7 @@
   - [Site](Services/Site/index.md)
     - [Search](Services/Site/site-search.md)
     - [Details](Services/Site/site-details.md)
+    - [Exists](Services/Site/site-exists.md)
   - [Lookups](Services/Lookup/lookup.md)
     - [Lookups](Services/Lookup/lookup.md)
     - [e-Manifest Lookups](Services/Lookup/e-manifest-lookup.md)
