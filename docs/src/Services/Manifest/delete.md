@@ -38,14 +38,14 @@ Accept: application/json
    - If the manifest submission type is `"FullElectronic"` or `"Hybrid"` or not selected and manifest status is
      not `"Pending"`of `"Scheduled"` the system will stop the processing and generate the following error:
      - `E_IncorrectStatusForDelete: Manifest with submission type of [Full Electronic/Hybrid] can be deleted only in Pending or Scheduled status`
-   - If Manifest submission type is `“DataImage5Copy”` and Manifest status is not `“ReadyForSignature”` the system will
+   - If Manifest submission type is `"DataImage5Copy"` and Manifest status is not `"ReadyForSignature"` the system will
      stop the processing and generates the following error:
      - `E_IncorrectStatusForDelete: Manifest with submission type of DataImage5Copy can be deleted only in ReadyForSignature or MtnValidationFailed status`
-   - If Manifest submission type is “Image” following applies
-     - If manifest origin type is `“Web”` or `“Service”` and Manifest status is not `“ReadyForSignature”` the system
+   - If Manifest submission type is "Image" following applies
+     - If manifest origin type is `"Web"` or `"Service"` and Manifest status is not `"ReadyForSignature"` the system
        will stop the processing and generates the following error:
        - ` E_IncorrectStatusForDelete: Manifest with submission type of Image can be deleted only in ReadyForSignature or MtnValidationFailed status`
-     - If manifest origin type is “Mail” the system will stop the processing and generates the following error:
+     - If manifest origin type is "Mail" the system will stop the processing and generates the following error:
        - `E_IncorrectOriginForDelete: Manifest with origin type of Mail cannot be deleted`
 
 4. The system will delete the manifest.

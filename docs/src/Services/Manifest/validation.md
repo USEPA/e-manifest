@@ -42,9 +42,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 ### Facility Information Validation for "Image" submission type
 
-1. For the Image submission type one of the following facility EPA Site Ids must be provided: Designated Facility EPA
+1. For the Image submission type one of the following facility EPA Site IDs must be provided: Designated Facility EPA
    Site ID, Generator EPA Site IDor Alternate Designated Facility Site ID
-2. The following Facility EPA site Ids shall be provided for the following scenarios:
+2. The following Facility EPA site IDs shall be provided for the following scenarios:
    - Original Manifest, no Full Rejection: Designated Facility EPA SiteID shall be provided.
    - Original Manifest, Full Rejection to Alternate Designated Facility: Alternate Designated Facility EPA Site ID
      shall be provided.
@@ -54,7 +54,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
      contain the Original Designated Facility Site ID.
    - New Manifest shipping rejected waste to another Designated Facility: Designated Facility EPA SiteID shall be
      provided.
-3. If one of the following Ids: Emanifest.designatedFacility.epaSiteId and Emanifest.generator.epaSiteId and
+3. If one of the following IDs: Emanifest.designatedFacility.epaSiteID and Emanifest.generator.epaSiteId and
    Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is not provided then the service will return an
    authorization error.
 4. If the provided EPA SiteIDis not registered, then the service will return an authorization error.
@@ -1745,12 +1745,12 @@ The system will perform the following steps on the DOT Information fields:
 
 ### Rejection Information Validation
 
-1. If an Original Manifest is rejected then Emanifest.rejection shall be specified as “true”.
+1. If an Original Manifest is rejected then Emanifest.rejection shall be specified as "true".
 
-2. Emanifest.rejection and RejectionInfo shall be provided at the “ReadyForSignature” status. If provided for earlier
+2. Emanifest.rejection and RejectionInfo shall be provided at the "ReadyForSignature" status. If provided for earlier
    statuses these fields will be ignored.
 
-   - 2.1 If Emanifest.status < “ReadyForSignature” and either Emanifest.rejection or RejectionInfo fields are provided
+   - 2.1 If Emanifest.status < "ReadyForSignature" and either Emanifest.rejection or RejectionInfo fields are provided
      then the service generates the following warning:
      ```json
      {
@@ -1760,7 +1760,7 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-3. If submissionStatus >= “ReadyForSignature” and Emanifest.rejection is not provided then the service generates the
+3. If submissionStatus >= "ReadyForSignature" and Emanifest.rejection is not provided then the service generates the
    following error:
 
    ```json
@@ -1819,21 +1819,21 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - 5.4. If Emanifest.submissionType == “DataImage5Copy” and RejectionInfo.transporterOnSite == true the following
+   - 5.4. If Emanifest.submissionType == "DataImage5Copy" and RejectionInfo.transporterOnSite == true the following
      applies
 
-   - 5.4.1. If RejectionInfo.rejectionType == “PartialReject” then the service sets RejectionInfo.rejectionType =
-     “FullReject” and generates the following warning:
+   - 5.4.1. If RejectionInfo.rejectionType == "PartialReject" then the service sets RejectionInfo.rejectionType =
+     "FullReject" and generates the following warning:
 
      ```json
      {
-       "message": "Provided value will be Ignored. If Transporter is On Site rejection type must be “FullReject",
+       "message": "Provided value will be Ignored. If Transporter is On Site rejection type must be "FullReject",
        "field": "Emanifest.RejectionInfo.rejectionType",
        "value": "rejectionType value"
      }
      ```
 
-   - 5.4.2. e-Manifest sets rejectionInfo.rejectionType as “FullReject” in the e-Manifest database
+   - 5.4.2. e-Manifest sets rejectionInfo.rejectionType as "FullReject" in the e-Manifest database
 
    - 5.4.3. If RejectionInfo.newManifestTrackingNumbers is provided then the service generates the following warning:
 
@@ -1854,7 +1854,7 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - 5.4.5. If RejectionInfo.alternateDesignatedFacilityType == “Generator then the following applies
+   - 5.4.5. If RejectionInfo.alternateDesignatedFacilityType == "Generator then the following applies
 
      - 5.4.5.1. If generatorPaperSignatureInfo.printedName is not provided then the service generates the following
        warning:
@@ -1909,7 +1909,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-   - 5.4.6. If RejectionInfo.alternateDesignatedFacilityType == “Tsdf” the following applies
+   - 5.4.6. If RejectionInfo.alternateDesignatedFacilityType == "Tsdf" the following applies
 
      - 5.4.6.1. If RejectionInfo.alternateDesignatedFacility.epaSiteId is not provided then the service generates the
        following error:
@@ -1946,7 +1946,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-     - 5.5. If Emanifest.submissionType == “FullElectronic” or “Hybrid” and provided
+     - 5.5. If Emanifest.submissionType == "FullElectronic" or "Hybrid" and provided
        RejectionInfo.transporterOnSite == true
        then the service generates the following warning:
 

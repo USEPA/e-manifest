@@ -19,6 +19,7 @@
     - [Manifest Section Validations](Services/Manifest/validation.md)
   - [Site](Services/Site/index.md)
     - [Search](Services/Site/site-search.md)
+    - [Details](Services/Site/site-details.md)
   - [Lookups](Services/Lookup/lookup.md)
     - [Lookups](Services/Lookup/lookup.md)
     - [e-Manifest Lookups](Services/Lookup/e-manifest-lookup.md)

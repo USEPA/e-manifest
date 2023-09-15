@@ -138,7 +138,7 @@ hosted in [USEPA/e-manifest](https://github.com/USEPA/e-manifest) repo)
    - expiration
 6. If failed Authentication the System will return JSON containing the following field:
    - `code` : Error code which designated for automated processing
-   - `message`: “Human readable” Error message corresponding to the error code
+   - `message`: "Human readable" Error message corresponding to the error code
    - `errorId`: Unique error id for auditing and tracking purpose
    - `errorDate`: Error Date/Time for auditing and tracking purpose
 
@@ -226,7 +226,7 @@ the following checks are performed for all protected resources:
 
    - `E_DesignatedFacilityAuthorizationSave: User is not authorized for the Designated Facility. Cannot create Image or DataImage5Copy manifests.`
 
-   2.2 If `rejection` is true, `rejectionInfo.transporterOnSite` is true, `alternateDesignatedFacilityType` is “Tsdf”
+   2.2 If `rejection` is true, `rejectionInfo.transporterOnSite` is true, `alternateDesignatedFacilityType` is "Tsdf"
    and user is not authorized for `rejectionInfo.alternateDesignatedFacility.epaSiteId`, the following error is
    generated:
 
@@ -237,7 +237,7 @@ the following checks are performed for all protected resources:
 
    - `E_GeneratorAuthorizationSave: User is not authorized for the Generator. Cannot create Image or DataImage5Copy manifests`
 
-2. If the user is associated with a Broker site and the manifest submission type is “Image”, then the System will stop
+2. If the user is associated with a Broker site and the manifest submission type is "Image", then the System will stop
    the processing and generates the following error:
 
    - `E_BrokerAuthorizationSave: Brokers are not authorized to create Image manifests`

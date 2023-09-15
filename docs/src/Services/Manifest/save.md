@@ -88,7 +88,7 @@ Content-Type: application/json
 2. [User Authorization](../authentication.md#user-authorization).
 3. If the User is authenticated and authorized, the system processes the request
 4. The system validates the provided Manifest JSON and Attachment Document according to the rules described
-   in “[Manifest entities and fields validation for Save service]()”. If no errors or warnings were generated during the
+   in "[Manifest entities and fields validation for Save service]()". If no errors or warnings were generated during the
    validation process, the service perform the following steps:
 
    - Generate a Manifest Tracking Number (MTN) for the provided manifest data
