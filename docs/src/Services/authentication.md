@@ -58,7 +58,7 @@ submitted in the HTTP header using the Authorization in the Key with a value of 
 - `API ID`: API ID generated through the RCRAInfo web application. This is not the user's username.
 - `API key`: API key generated through the RCRAInfo web application. Keys can be regenerated when necessary.
 
-### Example
+### Examples
 
 Pre-Production
 
@@ -151,7 +151,7 @@ hosted in [USEPA/e-manifest](https://github.com/USEPA/e-manifest) repo)
 | E_SecurityApiIdLocked           | API Id is Locked                |
 | E_SystemError                   | Message describing system error |
 
-#### Example Error
+An example JSON body would contain the following information:
 
 ```json
 {

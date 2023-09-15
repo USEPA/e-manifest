@@ -54,7 +54,7 @@ Service will validate submitted JSON (see sectionManifest entities and fields va
 - Error(s) and Warnings were found. The service won't update the manifest and returns Error Report containing all found
   errors and warnings.
 
-## Example
+## Examples
 
 ```http
 POST /rcrainfo/rest/api/v1/emanifest/manifest/update HTTP/1.1

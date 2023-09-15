@@ -34,7 +34,7 @@ The following parameters can be passes in JSON format in the body of the request
    parameter
    may not be provided is the `"page"` value is equal to `"View"`, `"Edit"`, or `"Sign"`.
 
-## Example
+## Examples
 
 ```http
 POST /rcrainfo/rest/api/v1/links/emanifest HTTP/1.1
