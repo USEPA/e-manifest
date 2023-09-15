@@ -62,7 +62,7 @@ The service will validate the submitted JSON and if:
 - [attachment](./manifest-attachments.md) (optional)
 - [Security Token](../authentication.md#security-tokens)
 
-## Example
+## Examples
 
 ```http
 POST /rcrainfo/rest/api/v1/emanifest/manifest/save HTTP/1.1

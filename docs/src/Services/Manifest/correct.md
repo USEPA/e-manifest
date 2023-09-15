@@ -59,7 +59,7 @@ validation for Create Correction service”) and if:
 - [attachment](./manifest-attachments.md) (optional)
 - [Security Token](../authentication.md#security-tokens)
 
-## Example
+## Examples
 
 ```http
 PUT /rcrainfo/rest/api/v1/emanifest/manifest/correct HTTP/1.1

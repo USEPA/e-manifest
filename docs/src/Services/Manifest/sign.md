@@ -27,7 +27,9 @@ transporter order must be specified to indicate which transporter performs the s
     the system.
   - `manifestTrackingNumbers`: required, an array of manifest tracking numbers to sign
 
-### Example request body
+## Examples
+
+An example of the JSON body of a site signing 2 manifest as the transporter.
 
 ```json
 {
@@ -37,6 +39,40 @@ transporter order must be specified to indicate which transporter performs the s
   "printedSignatureName": "John Trucker Smith",
   "printedSignatureDate": "2021-10-27T03:19:25.443+0000",
   "manifestTrackingNumbers": ["200030073ELC", "100030074ELC"]
+}
+```
+
+A successful signature will return a report including information like the following
+
+```json
+{
+  "reportId": "6XedXX88-2YYb-4zOe-9pj1-2iuy2c20zed7",
+  "date": "2023-02-06T23:16:20.380+00:00",
+  "operationStatus": "Completed",
+  "manifestReports": [
+    {
+      "manifestTrackingNumber": "100034662ELC"
+    }
+  ],
+  "signerReport": {
+    "printedSignatureName": "John Smith",
+    "printedSignatureDate": "2023-02-06T12:00:00.000+00:00",
+    "electronicSignatureDate": "2023-02-06T23:16:20.795+00:00",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "userId": "JANEDOERCRA",
+    "warnings": [
+      {
+        "field": "printedSignatureDate",
+        "message": "Printed Signature Date is set to noon UTC of the day of the provided date",
+        "value": "2023-02-06T19:55:58.971Z"
+      }
+    ]
+  },
+  "siteReport": {
+    "siteId": "VATESTTSDF03",
+    "siteType": "Tsdf"
+  }
 }
 ```
 
@@ -131,37 +167,3 @@ transporter order must be specified to indicate which transporter performs the s
    - manifestReports: If applicable the errors encountered
    - signerReport: If applicable the errors encountered
    - siteReport: If applicable the errors encountered
-
-## Example Success Response
-
-```json
-{
-  "reportId": "6XedXX88-2YYb-4zOe-9pj1-2iuy2c20zed7",
-  "date": "2023-02-06T23:16:20.380+00:00",
-  "operationStatus": "Completed",
-  "manifestReports": [
-    {
-      "manifestTrackingNumber": "100034662ELC"
-    }
-  ],
-  "signerReport": {
-    "printedSignatureName": "John Smith",
-    "printedSignatureDate": "2023-02-06T12:00:00.000+00:00",
-    "electronicSignatureDate": "2023-02-06T23:16:20.795+00:00",
-    "firstName": "Jane",
-    "lastName": "Doe",
-    "userId": "JANEDOERCRA",
-    "warnings": [
-      {
-        "field": "printedSignatureDate",
-        "message": "Printed Signature Date is set to noon UTC of the day of the provided date",
-        "value": "2023-02-06T19:55:58.971Z"
-      }
-    ]
-  },
-  "siteReport": {
-    "siteId": "VATESTTSDF03",
-    "siteType": "Tsdf"
-  }
-}
-```

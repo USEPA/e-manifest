@@ -15,7 +15,7 @@ Service will check if the manifest is locked. The manifest is locked for delete 
 
 - Manifest Tracking Number
 
-## Example
+## Examples
 
 ```http
 DELETE /rcrainfo/rest/api/v1/emanifest/manifest/delete/123456789ELC HTTP/1.1
