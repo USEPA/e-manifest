@@ -21,7 +21,7 @@
 #### RCRA / Subtitle C
 
 - The Resource Conservation and Recovery Act (RCRA) is the primary United States federal law that governs solid and
-  hazardous waste. Subtitle C of RCRA addresses hazardous waste and is the framework for the nation’s “cradle-to-grave”
+  hazardous waste. Subtitle C of RCRA addresses hazardous waste and is the framework for the nation’s "cradle-to-grave"
   management program from its generation to treatment, storage, or disposal. [EPA: About RCRA](https://www.epa.gov/rcra)
 
 #### Hazardous Waste

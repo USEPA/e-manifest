@@ -2,7 +2,7 @@
 
 ## Description
 
-The Revert Manifest service deletes the manifest version in the `“UnderCorrection”` status by provided Manifest Tracking
+The Revert Manifest service deletes the manifest version in the `"UnderCorrection"` status by provided Manifest Tracking
 Number. Service will check if the manifest is locked. The manifest is locked for revert when Manifest is in a queue for
 signing.
 

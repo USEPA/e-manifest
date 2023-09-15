@@ -43,7 +43,7 @@ table sites are available for testing:
 | VATEST000003 | TEST TSDF OF VA TWO      | Virginia | 22202 | Generator, TSDF        |       |
 | VATEST000004 | TEST GENERATOR OF VA     | Virginia | 22202 | Generator only         |       |
 
-- On the My Sites page, click on the “Add Existing Site” button
+- On the My Sites page, click on the "Add Existing Site" button
 
 - Search for your EPA ID number in the Site ID box or a test site and then select that facility. (For example:
   VA000532119)

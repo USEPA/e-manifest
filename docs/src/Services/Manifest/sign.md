@@ -85,7 +85,7 @@ A successful signature will return a report including information like the follo
    - 3.1. The system will check for valid Site Type Enumerated values. If the value provided does not
      match the values in the quicker sign schema, then the service generates the following error:
 
-     - `E_SystemError: Instance value (\"TSDF\") not found in enum (possible values:[\"Generator\",\"Transporter\",\"Tsdf\",\"RejectionInfo_AlternateTsdf\"]): TSDF”`
+     - `E_SystemError: Instance value (\"TSDF\") not found in enum (possible values:[\"Generator\",\"Transporter\",\"Tsdf\",\"RejectionInfo_AlternateTsdf\"]): TSDF"`
 
    - 3.2 If the site type is set to Transporter, the system will check for a value in the `transporterOrder` field. If
      the field is null, the service will generate the following error:
@@ -146,7 +146,7 @@ A successful signature will return a report including information like the follo
 
 4. On success, the system returns JSON containing
 
-   - Operation Status: “Completed”
+   - Operation Status: "Completed"
    - Date: Date/Time of the operation
    - manifestReports: The manifests signed from the submission
    - signerReport: Information on the user and the printed signer that signed the manifest(s)
@@ -154,7 +154,7 @@ A successful signature will return a report including information like the follo
 
 5. If at least one manifest but not all the manifests were signed the system returns JSON containing:
 
-   - Operation Status: “PartiallyCompleted”
+   - Operation Status: "PartiallyCompleted"
    - Date: Date/Time of the operation
    - manifestReports: The manifests signed from the submission and manifests not signed as
      well as the errors as to why they were not signed
@@ -162,7 +162,7 @@ A successful signature will return a report including information like the follo
    - siteReport: The site that signed the manifest(s)
 
 6. If any system error were encountered during processing, the system will return:
-   - Operation Status: “Failed”
+   - Operation Status: "Failed"
    - Date: Date/Time of the operation
    - manifestReports: If applicable the errors encountered
    - signerReport: If applicable the errors encountered
