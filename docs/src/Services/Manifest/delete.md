@@ -13,6 +13,7 @@ Service will check if the manifest is locked. The manifest is locked for delete 
 
 ## Parameters
 
+- [Security Token](../authentication.md#security-tokens)
 - Manifest Tracking Number
 
 ## Examples

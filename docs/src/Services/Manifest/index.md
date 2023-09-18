@@ -1,7 +1,7 @@
 # e-Manifest
 
 The following pages document the available manifest services, for use with paper and electronic manifests, as well as
-some auxiliary information on things such as handling attachments over the services.
+some auxiliary information on things such as handling attachments, manifest schema validation performed by RCRAInfo.
 
 - [Save](./save.md)
 - [Update](./update.md)
