@@ -14,25 +14,28 @@ It can be used for the following use cases:
 
 ## Parameters
 
-The following parameters can be passes in JSON format in the body of the request:
+- [Security Token](../authentication.md#security-tokens)
+- The following parameters can be passes in JSON format in the body of the request:
 
-1. `"page"` specifies the type of the page the link should direct users to. This is a required parameter the options
-   include:
-   - `"Sign"`
-   - `"View"`
-   - `"Edit"`
-   - `"Dashboard"`
-   - `"BulkSign"`
-2. `"epaSiteId"`: the epa site ID of either the generator, transporter(s) or TSDF participating in the manifest. This is
-   a required parameter.
-3. `"manifestTrackingNumber"`: the tracking number of the manifest. This is a required parameter if the
-   provided `"page"`
-   value is either `"View"`, `"Edit"`, or `"Sign"`. This parameter may not be provided is the `"page"` value is equal
-   to `"Dashboard"` or `"BulkSign"`.
-4. `"filter"`: An array of manifest tracking number(s) which should be displayed on the manifest Dashboard or bulk sign
-   page. This is a required parameter if the provided `page` value is either `"Dashboard"` or `"BulkSign"`. This
-   parameter
-   may not be provided is the `"page"` value is equal to `"View"`, `"Edit"`, or `"Sign"`.
+  - `"page"` specifies the type of the page the link should direct users to. This is a required parameter the options
+    include:
+    - `"Sign"`
+    - `"View"`
+    - `"Edit"`
+    - `"Dashboard"`
+    - `"BulkSign"`
+  - `"epaSiteId"`: the epa site ID of either the generator, transporter(s) or TSDF participating in the manifest. This
+    is
+    a required parameter.
+  - `"manifestTrackingNumber"`: the tracking number of the manifest. This is a required parameter if the
+    provided `"page"`
+    value is either `"View"`, `"Edit"`, or `"Sign"`. This parameter may not be provided is the `"page"` value is equal
+    to `"Dashboard"` or `"BulkSign"`.
+  - `"filter"`: An array of manifest tracking number(s) which should be displayed on the manifest Dashboard or bulk
+    sign
+    page. This is a required parameter if the provided `page` value is either `"Dashboard"` or `"BulkSign"`. This
+    parameter
+    may not be provided is the `"page"` value is equal to `"View"`, `"Edit"`, or `"Sign"`.
 
 ## Examples
 
