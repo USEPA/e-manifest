@@ -81,6 +81,35 @@ Content-Type: application/json
 
 See {{#include ../../components/manifest-json-link.md}}.
 
+and [crud-emanifest-return.json](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/crud-emanifest-return.json)
+
+### Response Examples
+
+Correction created response without warnings
+
+```json
+{
+  "manifestTrackingNumber": "100001380ELC",
+  "reportId": "43f52e98-4b01-4b61-8c42-3d6ab42c5bf3",
+  "date": "2018-10-09T15:18:56.145+0000",
+  "operationStatus": "CorrectionCreated"
+}
+```
+
+correction updated response without warning
+
+```json
+{
+  "manifestTrackingNumber": "100001380ELC",
+  "reportId": "33f561fc-2142-48b5-97eb-c6de0899814f",
+  "date": "2018-10-09T15:21:09.306+0000",
+  "operationStatus": "CorrectionUpdated"
+}
+```
+
+Response with Warnings and Response with Errors are identical to the Save and Update
+services Warning and Error Responses
+
 ## Sequence of Steps
 
 1.  [Security Token Validation](../authentication.md#security-token-validation).
@@ -114,34 +143,3 @@ See {{#include ../../components/manifest-json-link.md}}.
 
     - Generate an Error/Warning Report with all errors and warnings found during validation process.
     - Return Error/Warning report to the requester.
-
-## Response JSON Schema
-
-[crud-emanifest-return.json](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/crud-emanifest-return.json)
-
-## Completed Response Examples
-
-Correction created response without warnings
-
-```json
-{
-  "manifestTrackingNumber": "100001380ELC",
-  "reportId": "43f52e98-4b01-4b61-8c42-3d6ab42c5bf3",
-  "date": "2018-10-09T15:18:56.145+0000",
-  "operationStatus": "CorrectionCreated"
-}
-```
-
-correction updated response without warning
-
-```json
-{
-  "manifestTrackingNumber": "100001380ELC",
-  "reportId": "33f561fc-2142-48b5-97eb-c6de0899814f",
-  "date": "2018-10-09T15:21:09.306+0000",
-  "operationStatus": "CorrectionUpdated"
-}
-```
-
-Response with Warnings and Response with Errors are identical to the Save and Update
-services Warning and Error Responses
