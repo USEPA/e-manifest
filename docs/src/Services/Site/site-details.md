@@ -12,10 +12,10 @@ Returns Site Information by the Site ID. The following site information will be 
 - Contact email
 - If at least one user at the site can electronically sign a manifest
 - Site type: one of the following values will be returned
-  - `"Tsdf"`
-  - `"Generator"`
-  - `"Transporter"`
-  - `"Broker"`
+  - `Tsdf`
+  - `Generator`
+  - `Transporter`
+  - `Broker`
   - If the site is registered for multiple types of activities, see details for the return in
     the [Sequence of Steps](#sequence-of-steps)
     section
@@ -102,11 +102,11 @@ characters.`
    - 4.1. If the site was found, the system returns generated JSON containing the following information:
      - Site type: "Generator"/"Tsdf"/"Transporter"/"Broker". For cases
        where the site is registered for multiple types (e.g., Tsdf and Broker), the following applies:
-       - If the site is registered as a Broker and as a Generator, then `"Broker"` will be returned.
-       - If the site is registered as a Broker and as a Tsdf, then `"Tsdf"` will be returned.
-       - If the site is registered as a Broker and as a Transporter, then `"Transporter"` will be returned.
-       - If the site is registered as a Generator and as a Tsdf, then `"Tsdf"` will be returned.
-       - If the site is registered as a Generator and as a Transporter, then `"Transporter"` will be returned.
+       - If the site is registered as a Broker and as a Generator, then `Broker` will be returned.
+       - If the site is registered as a Broker and as a Tsdf, then `Tsdf` will be returned.
+       - If the site is registered as a Broker and as a Transporter, then `Transporter` will be returned.
+       - If the site is registered as a Generator and as a Tsdf, then `Tsdf` will be returned.
+       - If the site is registered as a Generator and as a Transporter, then `Transporter` will be returned.
      - e-Sign status: If the site has at least one active Certifier user.
      - Site information: containing site name, location address, mailing address, contact first name, middle initial,
        last name, phone number, phone extension, email (see

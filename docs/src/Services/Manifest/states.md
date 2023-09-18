@@ -24,7 +24,7 @@ This category contains one endpoint that is used to get the details of a hazardo
 It takes 2 parameters, supplied in the URL path:
 
 1. The handler ID: the unique EPA ID of the handler
-2. details requested: a boolean, cast as a string (e.g., `"true"` or `"false"`), that indicates whether to return
+2. details requested: a boolean, cast as a string (e.g., `true` or `false`), that indicates whether to return
    greater amounts of the handler's details
 
 ## User Services

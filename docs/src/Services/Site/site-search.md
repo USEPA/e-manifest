@@ -2,15 +2,15 @@
 
 Returns a list of sites that match the search criteria.
 
-- `"epaSiteId"`: valid activity location, at least 2 characters
-- `"name"`: site name, any number of characters not exceeding 80 characters
-- `"streetNumber"`: optional parameter, any number of characters not exceeding 12 characters
-- `"address1"`: optional parameter, cannot exceed 50 characters
-- `"city"`: cannot exceed 25 characters
-- `"state"`: 2 character state code
-- `"zip"`: valid zip code
-- `"siteType"`: optional, one of enum values `["Generator", "Transporter", "TSDF", "Broker"]`
-- `"pageNumber"`: optional, defaults to 1,
+- `epaSiteId`: valid activity location, at least 2 characters
+- `name`: site name, any number of characters not exceeding 80 characters
+- `streetNumber`: optional parameter, any number of characters not exceeding 12 characters
+- `address1`: optional parameter, cannot exceed 50 characters
+- `city`: cannot exceed 25 characters
+- `state`: 2 character state code
+- `zip`: valid zip code
+- `siteType`: optional, one of enum values `["Generator", "Transporter", "TSDF", "Broker"]`
+- `pageNumber`: optional, defaults to 1,
 
 ## Notes
 
@@ -19,15 +19,15 @@ Returns a list of sites that match the search criteria.
 - If at least one of the following parameters is valid, the service will perform non-exact search by individual
   parameters or any combination of them (any optional parameters can be added). Response will contain warnings for any
   invalid parameters.
-  - `"epaSiteId"`: if less than 12 characters
-  - `"name"`
-  - `"streetNumber"`: if streetNumber is provided and address1 is not provided the service will not use streetNumber
+  - `epaSiteId`: if less than 12 characters
+  - `name`
+  - `streetNumber`: if streetNumber is provided and address1 is not provided the service will not use streetNumber
     for the search, the service will return an error
-  - `"address1"`: if address1 is provided and neither valid city nor valid zip are provided the service will not use
+  - `address1`: if address1 is provided and neither valid city nor valid zip are provided the service will not use
     address1 for the search, the service will return an error
-  - `"city"`
-  - `"state"`
-  - `"zip"`
+  - `city`
+  - `state`
+  - `zip`
 
 ## Parameters
 
@@ -73,7 +73,7 @@ Content-Type: application/json
 }
 ```
 
-note, `"pageNumber"` is optional and defaults to 1
+note, `pageNumber"` is optional and defaults to 1
 
 ### Valid state code and name
 
@@ -111,7 +111,7 @@ note, `"pageNumber"` is optional and defaults to 1
 }
 ```
 
-If `"epaSiteId"` is less than 12 characters, additional parameters are required or the service will return an error.
+If `epaSiteId"` is less than 12 characters, additional parameters are required or the service will return an error.
 
 ## Sequence of Steps
 
@@ -122,13 +122,13 @@ If `"epaSiteId"` is less than 12 characters, additional parameters are required 
    - 3.1 The service checks if required parameters were provided
    - 3.2 If none of following required parameters are provided:
 
-     - `"epaSiteId"`
-     - `"name"`
-     - `"streetNumber"`
-     - `"address1"`
-     - `"city"`
-     - `"state"`
-     - `"zip"`
+     - `epaSiteId"`
+     - `name"`
+     - `streetNumber"`
+     - `address1"`
+     - `city"`
+     - `state"`
+     - `zip"`
        the process will stop and the service will return the following error:
      - `E_SearchParameterRequired: Missing required search parameters: epaSiteId, name,
 streetNumber , address1, city, state, zip`

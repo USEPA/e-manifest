@@ -17,8 +17,7 @@ For manifests submitted by mail (`Image` no longer accepted since 2021) the Corr
 only after the manifest was processed by PPC. The service will not create new version if the manifest was not processed
 by PPC or is currently being processed by PPC.
 
-The service accepts Manifest data in JSON format compliant with
-[e-Manifest JSON Schema](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/emanifest.json).
+The service accepts Manifest data in JSON format compliant with the {{#include ../../components/manifest-json-link.md}}.
 All submission types are supported by this service. For the `"DataImage5Copy"` and `"Image"` submission types, the
 service supports (but does not mandate) receiving the scanned compressed document attachment (Printed/Paper, Signed,
 Scanned Manifest form-2050). If a user wishes to send a manifest attachment, it shall be passed as a multipart binary
@@ -55,7 +54,7 @@ validation for Create Correction service") and if:
 
 ## Parameters
 
-- manifest JSON ([schema](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/emanifest.json))
+- {{#include ../../components/manifest-json-link.md}}
 - [attachment](./manifest-attachments.md) (optional)
 - [Security Token](../authentication.md#security-tokens)
 
@@ -79,6 +78,8 @@ Content-Type: application/json
     },
 }
 ```
+
+See {{#include ../../components/manifest-json-link.md}}.
 
 ## Sequence of Steps
 

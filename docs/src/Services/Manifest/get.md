@@ -96,6 +96,8 @@ Accept: multipart/mixed
 
 ```
 
+See {{#include ../../components/manifest-json-link.md}}
+
 ## Sequence of Steps
 
 1. [Security Token Validation](../authentication.md#security-token-validation).
