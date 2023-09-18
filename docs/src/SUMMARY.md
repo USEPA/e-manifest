@@ -8,6 +8,7 @@
   - [Authentication and Authorization](Services/authentication.md)
   - [Manifest](Services/Manifest/index.md)
     - [Save](Services/Manifest/save.md)
+    - [Get](Services/Manifest/get.md)
     - [Update](Services/Manifest/update.md)
     - [Delete](Services/Manifest/delete.md)
     - [Sign](Services/Manifest/sign.md)
