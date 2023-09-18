@@ -4,7 +4,7 @@
 
 The Manifest signature service exposes the ability to create electronic signatures through the RCRAInfo APIs.
 The service performs a "quicker sign" signature for the specified handler, by `siteId` and `siteType`, that is party to
-the manifest(s). Quicker signatures are only available for electronic manifests. If `siteType` is `"Transporter"`, the
+the manifest(s). Quicker signatures are only available for electronic manifests. If `siteType` is `Transporter`, the
 transporter order must be specified to indicate which transporter performs the signature.
 
 ## Parameters
@@ -14,10 +14,10 @@ transporter order must be specified to indicate which transporter performs the s
   passed in the body of the request, JSON encoded.
   - `siteId`: required, the RCRAInfo site ID of the handler to sign the manifest
   - `siteType`: required, the RCRAInfo site type of the handler to sign the manifest
-    - `"Generator"`
-    - `"Transporter"`
-    - `"TSDF"`
-    - `"RejectionInfo_AlternateTsdf"`
+    - `Generator`
+    - `Transporter`
+    - `TSDF`
+    - `RejectionInfo_AlternateTsdf`
   - `transporterOrder`: required only if `siteType` is `Transporter`, the order of the transporter signing the
     manifest
   - `printedSignatureName`: required, the name of the person signing the manifest
@@ -85,7 +85,7 @@ A successful signature will return a report including information like the follo
    - 3.1. The system will check for valid Site Type Enumerated values. If the value provided does not
      match the values in the quicker sign schema, then the service generates the following error:
 
-     - `E_SystemError: Instance value (\"TSDF\") not found in enum (possible values:[\"Generator\",\"Transporter\",\"Tsdf\",\"RejectionInfo_AlternateTsdf\"]): TSDF"`
+     - `E_SystemError: Instance value (\"TSDF\") not found in enum (possible values:[\"Generator\",\"Transporter\",\"Tsdf\",\"RejectionInfo_AlternateTsdf\"]): TSDF`
 
    - 3.2 If the site type is set to Transporter, the system will check for a value in the `transporterOrder` field. If
      the field is null, the service will generate the following error:
@@ -123,7 +123,7 @@ A successful signature will return a report including information like the follo
      - 3.4.1. If the provided Manifest Tracking Number is not ready for signature, has been signed by the site, or
        has a different site type than what was submitted, the processing will be stopped and system generates the
        following error:
-       - `E_SystemError: "Manifest is not ready to be quick signed by handler Site ID"`
+       - `E_SystemError: "Manifest is not ready to be quick signed by handler Site ID`
    - 3.5. The system will check if the Printed Signature Name field has data in it, if the field is null the system
      generates the following error in the Signer Report object in the response:
      - `Printed Signature Name is required`
@@ -133,7 +133,7 @@ A successful signature will return a report including information like the follo
    - 3.7. The system will check for a valid Printed Signature Date field format. If the value provided does not match
      the date format in the quicker sign schema, the system will stop the processing and the service generates the
      following error:
-     - `E_SystemError: "String \"202-02-06T19:55:58.971+0000\" is invalid against requested date format(s) [yyyy-MM-dd'T'HH:mm:ssZ, yyyy-MM-dd'T'HH:mm:ss.SSSZ]: 202-02- 06T19:55:58.971+0000"`
+     - `E_SystemError: "String \"202-02-06T19:55:58.971+0000\" is invalid against requested date format(s) [yyyy-MM-dd'T'HH:mm:ssZ, yyyy-MM-dd'T'HH:mm:ss.SSSZ]: 202-02- 06T19:55:58.971+0000`
    - 3.8. The system will check the time stamp of the Printed Signature Date field, if the field is not set to noon UTC
      the system will set the field to noon UTC and generates the following warning in the Signer Report object in the
      response:

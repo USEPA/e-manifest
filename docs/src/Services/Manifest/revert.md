@@ -2,7 +2,7 @@
 
 ## Description
 
-The Revert Manifest service deletes the manifest version in the `"UnderCorrection"` status by provided Manifest Tracking
+The Revert Manifest service deletes the manifest version in the `UnderCorrection` status by provided Manifest Tracking
 Number. Service will check if the manifest is locked. The manifest is locked for revert when Manifest is in a queue for
 signing.
 
@@ -29,17 +29,17 @@ signing.
 
    4.1 {{#include ../../components/mtn-validation-steps.md}}
 
-   4.2 The system will check if the manifest ca be reverted. if no `"UnderCorrection"` version of the manifest exists,
+   4.2 The system will check if the manifest ca be reverted. if no `UnderCorrection` version of the manifest exists,
    the system will stop processing and generate the following error:
 
    - `E_NoVersionForUnderCorrectionStatus: Manifest does not contain the Version in 'UnderCorrection' status`
 
-   4.4 The system reverts the manifest (Deletes Manifest version in `"UnderCorrection"` status)
+   4.4 The system reverts the manifest (Deletes Manifest version in `UnderCorrection` status)
 
 5. On success the system returns JSON containing the following information:
 
    - Manifest Tracking Number
-   - Operation Status: `"Reverted"`
+   - Operation Status: `Reverted`
    - Date: Date/Time of the operation
    - Current Version Number
 

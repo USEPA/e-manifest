@@ -379,7 +379,7 @@ manifest can be supplemented with much of this material when it is submitted to 
 As e-Manifest continues to be developed, additional fields that benefit the e-Manifest stakeholders and EPA may be
 added.
 
-1. **Biennial Report**: the `"BrInfo"` field contains data related to
+1. **Biennial Report**: the `"BrInfo` field contains data related to
    the [Biennial Report](https://www.epa.gov/hwgenerators/biennial-hazardous-waste-report). Users can elect to provide
    this information on the manifest, RCRAInfo can make use of this data in the BR module to make reporting easier for
    users who elect to provide this information.
