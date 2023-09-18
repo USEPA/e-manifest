@@ -4,6 +4,7 @@ The following pages document the available manifest services, for use with paper
 some auxiliary information on things such as handling attachments, manifest schema validation performed by RCRAInfo.
 
 - [Save](./save.md)
+- [Get](./get.md)
 - [Update](./update.md)
 - [Delete](./delete.md)
 - [Correct](./correct.md)
