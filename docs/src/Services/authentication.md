@@ -33,7 +33,7 @@ GET /rcrainfo/rest/api/v1/lookup/federal-waste-codes HTTP/1.1
 Host: rcrainfopreprod.epa.gov
 Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 Accept: application/json
-...
+
 ```
 
 ### Token Expirations and Refreshing
@@ -63,7 +63,7 @@ submitted in the HTTP header using the Authorization in the Key with a value of 
 Pre-Production
 
 ```http
-GET https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/myApiID/myApiKey HTTP/1.1
+GET /rcrainfo/rest/api/v1/auth/myApiID/myApiKey HTTP/1.1
 Host: rcrainfopreprod.epa.gov
 Accept: application/json
 
@@ -74,8 +74,8 @@ See also [Pre-production Open API (swagger) page](https://rcrainfopreprod.epa.go
 Production
 
 ```http
-GET https://rcrainfo.epa.gov/rcrainfoprod/rest/api/v1/auth/myApiID/myApiKey HTTP/1.1
-Host: rcrainfopreprod.epa.gov
+GET /rcrainfoprod/rest/api/v1/auth/myApiID/myApiKey HTTP/1.1
+Host: rcrainfo.epa.gov
 Accept: application/json
 
 ```
