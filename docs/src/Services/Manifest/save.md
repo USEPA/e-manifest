@@ -91,22 +91,22 @@ See {{#include ../../components/manifest-json-link.md}}.
    in "[Manifest entities and fields validation for Save service]()". If no errors or warnings were generated during the
    validation process, the service perform the following steps:
 
-   - Generate a Manifest Tracking Number (MTN) for the provided manifest data
-   - Store the provided manifest information and attachment document (if applicable) in the e-
+   - 4.1 Generate a Manifest Tracking Number (MTN) for the provided manifest data
+   - 4.2 Store the provided manifest information and attachment document (if applicable) in the e-
      Manifest database
-   - Return the MTN to the requestor
+   - 4.3 Return the MTN to the requestor
 
 5. If a warning is generated during the validation process, the service performs the following steps:
 
-   - Generate an MTN for the provided manifest data
-   - Store the provided manifest information and an attachment document in the e-Manifest
+   - 5.1 Generate an MTN for the provided manifest data
+   - 5.2 Store the provided manifest information and an attachment document in the e-Manifest
      database
-   - Return the MTN and Warning(s) report to the requestor
+   - 5.3 Return the MTN and Warning(s) report to the requestor
 
 6. If an error is generated during the validation process, the service performs following steps:
 
-   - Generate Error Report with all errors found during validation process
-   - Return Error Report to the requestor
+   - 6.1 Generate Error Report with all errors found during validation process
+   - 6.2 Return Error Report to the requestor
 
 7. If any errors and warnings were generated during validation process, the service performs the
    following steps:

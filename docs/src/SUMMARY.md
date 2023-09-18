@@ -16,6 +16,7 @@
     - [Revert](Services/Manifest/revert.md)
     - [Search](Services/Manifest/search.md)
     - [UI link](Services/Manifest/ui-link.md)
+    - [Billing](Services/Manifest/billing.md)
     - [e-Manifest Services for states](Services/Manifest/states.md)
     - [Manifest Attachments](Services/Manifest/manifest-attachments.md)
     - [Manifest Section Validations](Services/Manifest/validation.md)
