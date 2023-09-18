@@ -34,7 +34,7 @@ see [RFC 2046](https://tools.ietf.org/html/rfc2046) (particularly section 5.1).
 
 As a simplified example, An HTTP response with a manifest attachment response will look like the following:
 
-```text
+```http
 HTTP/1.1 200 OK
 Content-Type: multipart/mixed; boundary=Boundary_example_12345
 
@@ -44,7 +44,7 @@ Content-Type: multipart/mixed; boundary=Boundary_example_12345
  {
     "manifestTrackingNumber": "123456789ELC",
     "createdDate": "2018-01-01T00:00:00Z",
-    ...
+    "...": "..."
  }
  --Boundary_example_12345
  Content-Type: application/octet-stream

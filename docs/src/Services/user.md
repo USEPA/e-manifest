@@ -84,9 +84,7 @@ information, such as what site's they have access to and the permissions in RCRA
         {
           "siteId": "VATESTGEN001",
           "siteName": "VA TEST GEN 2021",
-          "permissions": [
-            ...
-          ]
+          "permissions": ["..."]
         }
       ]
     }
@@ -125,11 +123,8 @@ number (e.g., `VATESTGEN001`).
       },
       "esaStatus": "Received",
       "lastLoginDate": "2023-08-09T18:15:30.849+00:00",
-      "sites": [
-        ...
-      ]
+      "sites": ["..."]
     }
-    ...
   ]
 }
 ```
