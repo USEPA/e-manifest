@@ -72,8 +72,8 @@ Content-Type: application/json
 
 ### Valid JSON Bodies
 
-The following example searched for all manifests where the Generator site address state code is equal to “MD” and have
-“Scheduled” status:
+The following example searched for all manifests where the Generator site address state code is equal to "MD" and have
+"Scheduled" status:
 
 ```json
 {
@@ -84,7 +84,7 @@ The following example searched for all manifests where the Generator site addres
 ```
 
 The following example searches for all manifests where either the Generator or Transporter(s) or TSDF site address state
-code is equal to “TX” and have been shipped in the Date range between March 6, 2018 9:57:33pm and March 15, 2018 9:14:
+code is equal to "TX" and have been shipped in the Date range between March 6, 2018 9:57:33pm and March 15, 2018 9:14:
 44pm:
 
 ```json

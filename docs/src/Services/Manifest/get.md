@@ -1,7 +1,7 @@
 # Manifest Retrieve Service
 
 Returns the Manifest’s latest version data associated with the provided Manifest Tracking Number. The service always
-returns Manifest data and optionally returns Manifest attachments. For the “Image” manifests submitted via mail the
+returns Manifest data and optionally returns Manifest attachments. For the "Image" manifests submitted via mail the
 service will return the manifest version according to the following rules:
 
 - If PPC status of the latest manifest version is either `PendingDataEntry` or `DataQaCompleted` this version will be
