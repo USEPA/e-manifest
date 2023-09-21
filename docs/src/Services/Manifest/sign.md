@@ -42,6 +42,8 @@ An example of the JSON body of a site signing 2 manifest as the transporter.
 }
 ```
 
+### Completed Response Example
+
 A successful signature will return a report including information like the following
 
 ```json

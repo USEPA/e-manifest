@@ -114,7 +114,7 @@ on [USEPA/e-manifest](https://github.com/USEPA/e-manifest) repo).
 For a TypeScript example, check out the [emanifest package](https://www.npmjs.com/package/emanifest) on NPM (source
 hosted in [USEPA/e-manifest](https://github.com/USEPA/e-manifest) repo)
 
-### Response Body Example
+### Completed Response Example
 
 ```json
 {

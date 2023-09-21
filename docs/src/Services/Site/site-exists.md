@@ -20,7 +20,7 @@ Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 
 ```
 
-### Success Response Body
+### Completed Response Example
 
 ```json
 {

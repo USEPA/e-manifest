@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 ```
 
-### Example Valid JSON
+### Completed Response Example
 
 1. Supplying both `billingAccount` and the `billId`
 
@@ -483,7 +483,7 @@ Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
      in the return JSON:
 
      ```
-     - message "Provided EndDate is earlier than emanifest start date”
+     - message "Provided EndDate is earlier than emanifest start date"
      - field: endDate
      - value: [value of endDate]
      ```
@@ -492,7 +492,7 @@ Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
      return JSON:
 
      ```
-     - message "Provided EndDate is later than Current date”
+     - message "Provided EndDate is later than Current date"
      - field: endDate
      - value: [value of endDate]
      ```
@@ -566,12 +566,12 @@ Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
        marked as inactive
    - `revisions`: (when applicable) containing the following information:
      - `amount`: Amount of adjustment on the invoice
-     - `amountType`: "Current", “LateFee”
-     - `adjustmentType`: "Increase", “Decrease”, “FullPayment”
+     - `amountType`: "Current", "LateFee"
+     - `adjustmentType`: "Increase", "Decrease", "FullPayment"
      - `publicComments`:
      - `createdDate`
    - `RecalculationInfo`: (when applicable) containing the following information:
-     - `recalculationReason`: “OriginalSiteBill”, “NewSiteBill”, “SoftDelete”
+     - `recalculationReason`: "OriginalSiteBill", "NewSiteBill", "SoftDelete"
 
 7. On success, the system returns JSON generated in section 4
 8. If any system errors were encountered during processing, the system will return:

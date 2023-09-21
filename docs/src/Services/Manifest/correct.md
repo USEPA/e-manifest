@@ -83,7 +83,7 @@ See {{#include ../../components/manifest-json-link.md}}.
 
 and [crud-emanifest-return.json](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/crud-emanifest-return.json)
 
-### Response Examples
+### Completed Response Examples
 
 Correction created response without warnings
 
