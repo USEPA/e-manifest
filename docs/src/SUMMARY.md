@@ -17,6 +17,7 @@
     - [Search](Services/Manifest/search.md)
     - [UI link](Services/Manifest/ui-link.md)
     - [Billing](Services/Manifest/billing.md)
+    - [Other Data Services](Services/Manifest/other.md)
     - [e-Manifest Services for states](Services/Manifest/states.md)
     - [Manifest Attachments](Services/Manifest/manifest-attachments.md)
     - [Manifest Section Validations](Services/Manifest/validation.md)
