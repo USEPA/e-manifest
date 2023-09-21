@@ -70,7 +70,7 @@ Content-Type: application/json
 }
 ```
 
-### Valid JSON Bodies
+### Completed Response Examples
 
 The following example searched for all manifests where the Generator site address state code is equal to "MD" and have
 "Scheduled" status:
@@ -106,7 +106,7 @@ provided and the manifest status is `Signed`
 }
 ```
 
-### Example Response body
+### Completed Response Example
 
 ```json
 ["100035794ELC", "100035671ELC", "100035735ELC", "100035569ELC", "100035664ELC"]

@@ -55,7 +55,9 @@ Content-Type: application/json
 }
 ```
 
-### Valid site ID 12 character - exact search
+### Completed Response Example
+
+#### Valid site ID 12 character - exact search
 
 ```json
 {
@@ -63,7 +65,7 @@ Content-Type: application/json
 }
 ```
 
-### Valid site ID, siteType, and pageNumber
+#### Valid site ID, siteType, and pageNumber
 
 ```json
 {
@@ -75,7 +77,7 @@ Content-Type: application/json
 
 note, `pageNumber"` is optional and defaults to 1
 
-### Valid state code and name
+#### Valid state code and name
 
 ```json
 {
@@ -84,7 +86,7 @@ note, `pageNumber"` is optional and defaults to 1
 }
 ```
 
-### Valid zip and name
+#### Valid zip and name
 
 ```json
 {
@@ -93,7 +95,7 @@ note, `pageNumber"` is optional and defaults to 1
 }
 ```
 
-### Valid site ID, zip, and name
+#### Valid site ID, zip, and name
 
 ```json
 {
@@ -103,7 +105,7 @@ note, `pageNumber"` is optional and defaults to 1
 }
 ```
 
-### Invalid site ID
+#### Invalid site ID
 
 ```json
 {

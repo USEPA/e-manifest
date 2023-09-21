@@ -47,11 +47,9 @@ signing.
 6. If an error is generated during the validation process, the system will return the following information:
    - Error: containing error code, error message, and error id and date
 
-## Response JSON Example
+## Completed Response Example
 
 [crud-manifest-success.json](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Schema/crud-emanifest-success.json)
-
-Completed Response Example
 
 ```json
 {
