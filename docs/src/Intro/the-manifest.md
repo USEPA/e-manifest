@@ -356,23 +356,21 @@ Arguably the easiest way to visualize an electronic manifest is [JSON](https://w
 
 ### Electronic vs Paper Manifest Content
 
-Electronic manifests generally contain the same information as their paper counterparts, however electronic manifests
-are not constrained by the physical space available on a piece of paper. This allows for additional information to be
-included on the electronic manifest that is not available on the paper manifest during shipment. However, the paper
-manifest can be supplemented with much of this material when it is submitted to the e-Manifest system.
+Electronic manifests generally contain the same information as their paper counterparts, however there are a few
+noteable differences.
+
+Also see
+EPA's [Instructions for completing the hazardous waste manifest](https://www.epa.gov/hwgenerators/uniform-hazardous-waste-manifest-instructions-sample-form-and-continuation-sheet
 
 #### one-to-many relationships
 
-1. **Waste Codes**: A waste stream can have many applicable waste codes. On paper manifests, generators are
-   required to enter up to six (6) waste codes to describe each waste stream (
-   see [Instructions for completing the hazardous waste manifest](https://www.epa.gov/hwgenerators/uniform-hazardous-waste-manifest-instructions-sample-form-and-continuation-sheet)).
-   Electronic manifest are not constrained by space, all applicable waste codes can be entered for the applicable waste
-   line.
+1. **Waste Codes**: A waste stream can have many applicable waste codes. On paper manifests, generators are required to
+   enter up to six (6) waste codes on a waste line. Electronic manifest are not constrained by space,
+   all applicable waste codes can be appended to the applicable waste line.
 
-2. **Transporters**: A manifest can have one or more transporters. Paper manifests have space for up to three (3)
-   transporters before a continuation sheet must be used. When more than three transporters are listed on an electronic
-   manifest, the e-Manifest system will automatically generate a continuation sheet if the electronic manifest needs to
-   be printed.
+2. **Transporters**: Paper manifests have space for up to three (3) transporters before a continuation sheet must be
+   used. When more than three transporters are listed on an electronic manifest, the e-Manifest system will
+   automatically generate a continuation sheet for printing purposes.
 
 #### Additional Fields
 
@@ -381,23 +379,25 @@ added.
 
 1. **Biennial Report**: the `"BrInfo` field contains data related to
    the [Biennial Report](https://www.epa.gov/hwgenerators/biennial-hazardous-waste-report). Users can elect to provide
-   this information on the manifest, RCRAInfo can make use of this data in the BR module to make reporting easier for
-   users who elect to provide this information.
+   this information on the manifest and use of this data in the BR module to make reporting easier.
 
-#### Field Values
+#### Values
 
-1. **status**: The status field of electronic manifests is managed by the e-Manifest system. Since paper
-   manifests are completed outside the e-Manifest system and uploaded after the TSDF receives the shipment, paper
-   manifests can only be assigned a subsection of the available statuses.
+Since electronic manifests are not constrained by the physical space available on a piece of paper, the values of many
+fields have a more rich (i.e., useful) representation than their paper counterparts. Some values are also confined to
+certain manifest submission types (e.g, electronic manifests vs Data + Image).
+
+1. **status**: The status field is managed by the e-Manifest system. Since paper manifests are completed outside the
+   e-Manifest system and uploaded after the TSDF receives the shipment, paper manifests can only be assigned a
+   subsection of the available statuses.
 
    ![manifest status](../assets/manifest_statuses.jpg)
    _Green boxes are shared by electronic/hybrid and paper manifests._
 
-2. **Codes**: Items such as waste codes, management method codes, units of measurements and others have a different
-   representation on electronic manifests than on paper manifests. For example, a federal waste codes
-   paper manifests are usually represented by a single string containing a single letter and three
-   numbers, such as `'D001'`. The same federal waste code on an electronic manifest, would be represented by an object
-   containing the code and a description.
+2. **Codes**: Items such as waste codes, management method codes, and units of measurements can contain additional
+   information on the electronic representation. For example, federal waste codes on a paper
+   manifests are listed as a letter and three numbers (e.g., `'D001'`) waste code on an electronic manifest, are
+   represented by an object containing the code and a description.
 
    ```json
    {
