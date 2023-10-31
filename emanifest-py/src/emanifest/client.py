@@ -855,6 +855,34 @@ class RcrainfoClient(Session):
         endpoint = f"{self.base_url}v1/emanifest/manifest/revert/{mtn}"
         return self.__rcra_request("GET", endpoint)
 
+    def patch_update_manifest(self, mtn: str, body: dict) -> RcrainfoResponse:
+        """
+        Update a portion of a manifest via the patch process
+
+        Args:
+            mtn (str): Manifest tracking number
+            body (dict): Dictionary containing manifest portion details
+
+        Returns:
+            dict: message of success or failure
+        """
+        endpoint = f"{self.base_url}v1/emanifest/manifest/patch-update/{mtn}"
+        return self.__rcra_request("PATCH", endpoint)
+
+    def patch_correct_manifest(self, mtn: str, body: dict) -> RcrainfoResponse:
+        """
+        Update a portion of a manifest via the patch process
+
+        Args:
+            mtn (str): Manifest tracking number
+            body (dict): Dictionary containing manifest portion details
+
+        Returns:
+            dict: message of success or failure
+        """
+        endpoint = f"{self.base_url}v1/emanifest/manifest/patch-correct/{mtn}"
+        return self.__rcra_request("PATCH", endpoint)
+
     def update_manifest(
         self, manifest_json: dict, zip_file: bytes = None
     ) -> RcrainfoResponse:
