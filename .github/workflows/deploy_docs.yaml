@@ -39,7 +39,7 @@ jobs:
         working-directory: ${{ env.BOOK_DIRECTORY }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup mdBook
         run: |
@@ -55,9 +55,7 @@ jobs:
           path: "${{ env.BOOK_DIRECTORY }}/book"
 
   deploy_pages:
-    if: |
-      github.repository == 'USEPA/e-manifest'  &&
-      (github.event_name == 'push' && github.head_ref == 'master')
+    if: github.repository == 'USEPA/e-manifest' && github.event_name == 'push' 
     needs: build_docs
     environment:
       name: github-pages
