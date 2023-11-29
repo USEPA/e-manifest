@@ -1,0 +1,51 @@
+{
+  "name": "emanifest",
+  "version": "0.3.0",
+  "description": "API client library, written in TypeScript, for using the EPA e-Manifest/RCRAInfo web services.",
+  "type": "module",
+  "main": "./dist/emanifest-lib.umd.cjs",
+  "module": "./dist/emanifest-lib.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/emanifest-lib.js",
+      "require": "./dist/emanifest-lib.umd.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsc && vite build",
+    "test": "vitest --run",
+    "test:watch": "vitest --watch"
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20.4.8",
+    "jest": "^29.6.2",
+    "msw": "^1.2.3",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.9",
+    "vite-plugin-dts": "^3.5.1",
+    "vitest": "^0.34.1"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "TypeScript",
+    "API",
+    "e-Manifest",
+    "hazardous",
+    "waste",
+    "EPA"
+  ],
+  "author": "David Graham",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/USEPA/emanifest/issues"
+  },
+  "homepage": "https://github.com/USEPA/emainfest"
+}

@@ -1,26 +1,27 @@
 [project]
 name = "emanifest"
-version = "2.0.7"
-description = "An API utility wrapper for accessing the e-Manifest hazardous waste tracking system maintainedby the US Environmental Protection Agency"
+version = "4.0.0"
+description = "An API utility wrapper for accessing the e-Manifest hazardous waste tracking system maintained by the US Environmental Protection Agency"
 readme = "README.md"
 authors = [
-    {name = "William Nicholas ", email = "nicholas.william@epa.gov"},
+    { name = "William Nicholas ", email = "nicholas.william@epa.gov" },
+    { name = "David Graham", email = "graham.david@epa.gov" },
 ]
 maintainers = [
-    {name = "William Nicholas", email = "nicholas.william@epa.gov"},
-    {name = "David Graham", email = "graham.david@epa.gov"},
-    {name = "Scott Christian", email = "christian.scott@epa.gov"},
+    { name = "William Nicholas", email = "nicholas.william@epa.gov" },
+    { name = "David Graham", email = "graham.david@epa.gov" },
+    { name = "Scott Christian", email = "christian.scott@epa.gov" },
 ]
 
-license = {text = "CCO 1.0"}
+license = { text = "CCO 1.0" }
 requires-python = ">=3.7"
 dependencies = [
-    "requests==2.28.1",
-    "certifi==2022.12.7",
-    "requests-toolbelt==0.10.1",
-    "charset-normalizer==2.1.1",
+    "requests==2.31.0",
+    "certifi==2023.5.7",
+    "requests-toolbelt==1.0.0",
+    "charset-normalizer==3.1.0",
     "idna==3.4",
-    "urllib3==1.26.13"
+    "urllib3==2.0.2"
 ]
 
 [project.urls]
@@ -35,3 +36,11 @@ requires = [
     "wheel",
 ]
 build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 99
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 99
+select = ["F", "E", "W", "Q", "I001"]

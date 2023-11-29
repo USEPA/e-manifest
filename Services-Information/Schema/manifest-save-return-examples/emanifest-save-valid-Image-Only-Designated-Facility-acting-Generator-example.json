@@ -4,7 +4,8 @@
   "submissionType": "Image",
   "status": "ReadyForSignature",
   "generator": {
-    "epaSiteId": "VATEST000003"
+    "epaSiteId": "VATEST000003",
+    "paperSignatureInfo": {"signatureDate": "2023-11-15T02:00:00.000Z"}
   },
   "printedDocument": {
 	"name": "manifest.pdf", 

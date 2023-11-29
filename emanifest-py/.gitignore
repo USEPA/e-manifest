@@ -5,6 +5,7 @@
 **/dist
 **/sdist
 **/*venv
+**/*.env
 **/.pytest_cache
 .coverage.*
 **/*.bak
