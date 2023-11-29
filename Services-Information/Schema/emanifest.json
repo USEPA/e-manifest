@@ -561,7 +561,7 @@
           "$ref": "#/definitions/CodeDescription"
         },
         "mixedRadioactiveWaste": {
-          "description": "Specifies if the substance is Radioactive",
+          "description": "Specifies if this is mixed radioactive waste",
           "type": "boolean"
         }
       },
@@ -682,6 +682,9 @@
         "handlingInstructions": {
           "description": "Special Handling Instructions. Max length 4000",
           "type": "string"
+        },
+        "pcbAlternateDesignatedFacility": {
+          "$ref": "#/definitions/ManifestHandlerSite"
         }
       },
       "additionalProperties": false
@@ -730,7 +733,7 @@
           "type": "boolean"
         },
         "modified": {
-          "description": "Indicates if the site information was modified from what was on the handler’s notification form. Shall not be provided for Save and update services.  Will be returned by Get Manifest Service",
+          "description": "Indicates if the site information was modified from what was on the handlerâ€™s notification form. Shall not be provided for Save and update services.  Will be returned by Get Manifest Service",
           "type": "boolean"
         },
         "limitedEsign": {
@@ -798,6 +801,14 @@
             "State",
             "Ppc",
             "Epa"
+          ]
+        },
+        "signatureMethod": {
+          "description": "Indicates which method was used to sign the manifest: QuickerSign,QuickSign",
+          "type": "string",
+          "enum": [
+            "QuickerSign",
+            "QuickSign"
           ]
         },
         "onBehalf": {
@@ -1076,7 +1087,7 @@
         "epaSiteId": {
           "$ref": "#/definitions/EpaSiteId"
         },
-        "initiatorRole": {
+        "initiatorRole ": {
           "description": "Indicates if the manifest is under correction by the Industry, State, Ppc, Epa. Will be returned by Correction Details, Correction Version, Get Manifest. Shall not be provided for Save and Update Manifest.",
           "type": "string",
           "enum": [
@@ -1116,7 +1127,7 @@
           "format": "date-time"
         },
         "initiatorState": {
-          "$ref": "#/definitions/Locality"
+          "$ref": "#/definitions/Code"
         },
         "active": {
           "type": "boolean"
@@ -1137,7 +1148,7 @@
       "type": "object",
       "properties": {
         "sectionNumber": {
-          "$ref": "#/definitions/CodeDescription"
+          "type": "string"
         },
         "comments": {
           "type": "string"
