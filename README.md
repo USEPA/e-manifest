@@ -12,14 +12,12 @@ technology to track hazardous waste shipments.
 
 ## Frequently Asked Questions
 
-The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)
-**.
+The e-Manifest team has uploaded an **[Updated FAQ](https://www.epa.gov/e-manifest/frequent-questions-about-e-manifest)**.
 
 ## What is going on
 
 The release calendar can be found
-here: \* \*[Release Calendar](https://calendar.google.com/calendar/u/0/htmlembed?src=cbg29nj98u94np3c4pp5vjdph8@group.calendar.google.com&ctz=America/New_York)
-\*\*
+here: **[Release Calendar](https://calendar.google.com/calendar/u/0/htmlembed?src=cbg29nj98u94np3c4pp5vjdph8@group.calendar.google.com&ctz=America/New_York)**
 
 For more details on current issues see our [Issues page](https://github.com/USEPA/e-manifest/issues)
 
