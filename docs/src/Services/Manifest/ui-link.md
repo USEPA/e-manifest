@@ -124,7 +124,8 @@ Content-Type: application/json
    }
    ```
 
-   - 3.6. If provided `page` == "View" or "Sign" or "Edit" and `manifestTrackingNumber` is not provided then the
+   - 3.6. If provided `page` is equal to "View" or "Sign" or "Edit" and `manifestTrackingNumber` is not provided then
+     the
      service
      generates following error:
 
@@ -139,7 +140,8 @@ Content-Type: application/json
    }
    ```
 
-   - 3.7. If provided page == "View" or "Sign" or "Edit" and the `manifestTrackingNumber` provided has an invalid
+   - 3.7. If provided `page` is equal to "View" or "Sign" or "Edit" and the `manifestTrackingNumber` provided has an
+     invalid
      format
      then the service generates following error:
 
@@ -158,7 +160,8 @@ Content-Type: application/json
    }
    ```
 
-   - 3.8. If provided page == "View" or "Sign" or "Edit" and the `manifestTrackingNumber` is not found then the service
+   - 3.8. If provided `page` is equal to "View" or "Sign" or "Edit" and the `manifestTrackingNumber` is not found then
+     the service
      generates following error:
 
    ```json
@@ -172,7 +175,8 @@ Content-Type: application/json
    }
    ```
 
-   - 3.9. If provided page == "View" or "Sign" and manifest with provided epa site id and `manifestTrackingNumber` is
+   - 3.9. If provided `page` is equal to "View" or "Sign" and manifest with provided epa site id
+     and `manifestTrackingNumber` is
      not
      found then the service generates following error:
 
@@ -187,7 +191,8 @@ Content-Type: application/json
    }
    ```
 
-   - 3.10. If provided page == "Sign" and manifest is in "Pending" status then the service generates following error:
+   - 3.10. If provided `page` is equal to "Sign" and manifest is in "Pending" status then the service generates
+     following error:
 
    ```json
    {
@@ -200,7 +205,8 @@ Content-Type: application/json
    }
    ```
 
-   - 3.11. If provided page == "Dashboard" or "BulkSign" and provided filter elements has invalid format then the
+   - 3.11. If provided `page` is equal to "Dashboard" or "BulkSign" and provided filter elements has invalid format
+     then the
      service generates following error:
 
    ```json

@@ -16,7 +16,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    1.1. The save and update services will store this data as a part of the manifest
 
-   1.2. The services will set Emanifest.provideImageGeneratorInfo = true
+   1.2. The services will set `Emanifest.provideImageGeneratorInfo = true`
 
    1.3. The manifest fee will be determined based on the Generator printed signature date upon electronic signature from
    the receiving facility
@@ -36,7 +36,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    2.3. The services will not store Generator information as a part of the manifest data
 
-   2.4. The services will set Emanifest.provideImageGeneratorInfo = false
+   2.4. The services will set `Emanifest.provideImageGeneratorInfo` = false
 
    2.5. The manifest fee will be determined based on the receiving facility electronic signature date
 
@@ -54,12 +54,12 @@ The manifest fee will be determined based on the Generator signature date (if pr
      contain the Original Designated Facility Site ID.
    - New Manifest shipping rejected waste to another Designated Facility: Designated Facility EPA site ID shall be
      provided.
-3. If one of the following IDs: Emanifest.designatedFacility.epaSiteID and Emanifest.generator.epaSiteId and
-   Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is not provided then the service will return an
+3. If one of the following IDs: `Emanifest.designatedFacility.epaSiteID` and `Emanifest.generator.epaSiteId` and
+   `Emanifest.rejectionInfo.alternateDesignatedFacility.siteId` is not provided then the service will return an
    authorization error.
 4. If the provided EPA SiteIDis not registered, then the service will return an authorization error.
-5. If Emanifest.designatedFacility.epaSiteId or Emanifest.generator.epaSiteId or
-   Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is provided, the following applies
+5. If `Emanifest.designatedFacility.epaSiteId` or `Emanifest.generator.epaSiteId` or
+   `Emanifest.rejectionInfo.alternateDesignatedFacility.siteId` is provided, the following applies
 
    5.1. If any of the following Site information is provided then the service generates the following warning:
 
@@ -79,7 +79,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    5.3. Designated Facility (TSDF)/Generator Site ID and Site Information Validation
 
-   5.4. If Emanifest.wastes are provided then the service generates the following warning:
+   5.4. If `Emanifest.wastes` are provided then the service generates the following warning:
 
    ```json
    {
@@ -88,7 +88,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   5.5. If Emanifest.residue == true then the service generates the following warning:
+   5.5. If `Emanifest.residue == true` then the service generates the following warning:
 
    ```json
    {
@@ -98,7 +98,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   5.6. If Emanifest.import == true then the service generates the following warning:
+   5.6. If `Emanifest.import == true` then the service generates the following warning:
 
    ```json
    {
@@ -110,13 +110,13 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    5.7. The service stores following information as a part of the manifest data:
 
-   - Emanifest.residue = false
-   - Emanifest.import = false
+   - `Emanifest.residue = false`
+   - `Emanifest.import = false`
 
-6. If Emanifest.designatedFacility.epaSiteId or Emanifest.generator.epaSiteId is provided then the
+6. If `Emanifest.designatedFacility.epaSiteId` or `Emanifest.generator.epaSiteId` is provided then the
    following applies
 
-   6.1. If Emanifest.rejection == true, the service generates the following warning:
+   6.1. If `Emanifest.rejection == true`, the service generates the following warning:
 
    ```json
    {
@@ -126,7 +126,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   6.2. If any of the Emanifest.rejectionInfo fields are provided, the service generates the following warning:
+   6.2. If any of the `Emanifest.rejectionInfo` fields are provided, the service generates the following warning:
 
    ```json
    {
@@ -136,10 +136,11 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-7. If Emanifest.designatedFacility.epaSiteId or Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is provided,
+7. If `Emanifest.designatedFacility.epaSiteId` or `Emanifest.rejectionInfo.alternateDesignatedFacility.siteId` is
+   provided,
    the following applies
 
-   7.1. If Emanifest.containsPreviousRejectOrResidue == true, the service generates the following
+   7.1. If `Emanifest.containsPreviousRejectOrResidue == true`, the service generates the following
    warning:
 
    ```json
@@ -150,9 +151,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-8. If Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is provided, the following applies
+8. If `Emanifest.rejectionInfo.alternateDesignatedFacility.siteId` is provided, the following applies
 
-   8.1. If Emanifest.rejection == false, the service generates the following warning:
+   8.1. If `Emanifest.rejection == false`, the service generates the following warning:
 
    ```json
    {
@@ -162,7 +163,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   8.2. If Emanifest.rejectionInfo.transporterOnSite ==false, the service generates the following warning:
+   8.2. If `Emanifest.rejectionInfo.transporterOnSite == false`, the service generates the following warning:
 
    ```json
    {
@@ -182,7 +183,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   8.4. If Emanifest.rejectionInfo.alternateDesignatedFacilityType =="Generator" the service generates the following
+   8.4. If `Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Generator"` the service generates the following
    warning:
 
    ```json
@@ -205,10 +206,10 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    8.6. The service stores following information as a part of the manifest data:
 
-   - Emanifest.rejection = true
-   - Emanifest.rejectionInfo.transporterOnSite = true
-   - Emanifest.rejectionInfo.rejectionType = "FullReject"
-   - Emanifest.rejectionInfo.alternateDesignatedFacilityType = "Tsdf"
+   - `Emanifest.rejection = true`
+   - `Emanifest.rejectionInfo.transporterOnSite = true`
+   - `Emanifest.rejectionInfo.rejectionType = "FullReject"`
+   - `Emanifest.rejectionInfo.alternateDesignatedFacilityType = "Tsdf"`
 
 ### Transporter Information Validation
 
@@ -360,7 +361,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
          }
          ```
 
-   - 2.7. If Emanifest.submissionType is "Hybrid" or "FullElectronic" and Emanifest.status > Scheduled and provided
+   - 2.7. If `Emanifest.submissionType` is `Hybrid` or `FullElectronic` and `Emanifest.status` > Scheduled and provided
      transporter information is different from currently stored, the service generates the following warning:
 
      ```json
@@ -373,7 +374,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 ### Designated Facility (TSDF)/Generator Site Information Validation
 
 1. If submissionType is "FullElectronic" and status >= Scheduled then the following applies
-   1.1. If Emanifest.generator.epaSiteId is not provided then the service generates the following error:
+   1.1. If `Emanifest.generator.epaSiteId` is not provided then the service generates the following error:
 
    ```json
    {
@@ -382,7 +383,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   - 1.2. If Emanifest. generator.epaSiteId has an incorrect format then the service generates the following error:
+   - 1.2. If Emanifest.generator.epaSiteId has an incorrect format then the service generates the following error:
 
    ```json
    {
@@ -392,7 +393,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   - 1.3. If Emanifest.generator.epaSiteId is not registered in RCRAInfo then the service generates the following
+   - 1.3. If `Emanifest.generator.epaSiteId` is not registered in RCRAInfo then the service generates the following
      error:
 
    ```json
@@ -406,7 +407,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 2. If submissionType is "FullElectronic" or "Hybrid" and status >= Scheduled, or submissionType is "DataImage5Copy" then
    the following applies
 
-   - 2.1. If Emanifest.designatedFacility.epaSiteId is not provided then the service generates the following error:
+   - 2.1. If `Emanifest.designatedFacility.epaSiteId` is not provided then the service generates the following error:
 
    ```json
    {
@@ -415,7 +416,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   - 2.2. If Emanifest.designatedFacility.epaSiteId has an incorrect format then service generates the following error:
+   - 2.2. If `Emanifest.designatedFacility.epaSiteId` has an incorrect format then service generates the following
+     error:
 
    ```json
    {
@@ -425,7 +427,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   - 2.3. If Emanifest.designatedFacility.epaSiteId is not registered in RCRAInfo then service generates the following
+   - 2.3. If `Emanifest.designatedFacility.epaSiteId` is not registered in RCRAInfo then service generates the
+     following
      error:
 
    ```json
@@ -604,7 +607,8 @@ json
 
 1. If the New Manifest is created for shipping the waste to another TSDF or back to the Generator
 
-   - If Emanifest.status >= "ReadyForSignature" and Emanifest.containsPreviousRejectOrResidue is not provided then the
+   - If `Emanifest.status >= "ReadyForSignature"` and `Emanifest.containsPreviousRejectOrResidue` is not provided then
+     the
      service generates the following error:
      ```json
      {
@@ -612,8 +616,8 @@ json
        "field": "Emanifest.containsPreviousRejectOrResidue"
      }
      ```
-   - If Emanifest.containsPreviousRejectOrResidue == true and
-     Emanifest.additionalInfo.newManifestDestination is not provided then the service
+   - If `Emanifest.containsPreviousRejectOrResidue == true` and
+     `Emanifest.additionalInfo.newManifestDestination` is not provided then the service
      generates the following error:
      ```json
      {
@@ -621,8 +625,8 @@ json
        "field": "Emanifest.additionalInfo.newManifestDestination"
      }
      ```
-   - If Emanifest.containsPreviousRejectOrResidue == true and
-     Emanifest.additionalInfo.originalManifestTrackingNumbers are not valid the service
+   - If `Emanifest.containsPreviousRejectOrResidue == true` and
+     `Emanifest.additionalInfo.originalManifestTrackingNumbers` are not valid the service
      generates the following warning:
      ```json
      {
@@ -631,8 +635,8 @@ json
        "value": "provided value"
      }
      ```
-   - If Emanifest.additionalInfo.newManifestDestination == "OriginalGenerator" and
-     Emanifest.rejection == true the service generates the following errors:
+   - If `Emanifest.additionalInfo.newManifestDestination == "OriginalGenerator"` and
+     `Emanifest.rejection == true` the service generates the following errors:
      ```json
      {
        "message": "New Manifest cannot be rejected if shipped back to the original Generator",
@@ -844,7 +848,7 @@ json
    }
    ```
 
-   - If the provided country == US then Following address fields must be provided:
+   - If the provided `country == US` then Following address fields must be provided:
 
    - address1 (50 Character maximum)
    - city (25 Character Maximum)
@@ -862,7 +866,7 @@ json
    }
    ```
 
-   - If provided country == Canada or Mexico then following applies address fields must be provided:
+   - If provided `country == Canada` or Mexico then following applies address fields must be provided:
 
      - address1 (50 Character maximum)
      - city (25 Character Maximum)
@@ -954,7 +958,8 @@ json
    }
    ```
 
-2. If submissionType is "Hybrid" and Emanifest.status > Scheduled and generator.PaperSignature is provided, the service
+2. If submissionType is "Hybrid" and `Emanifest.status > Scheduled` and `generator.PaperSignature` is provided, the
+   service
    generates the following warning:
 
    ```json
@@ -1007,7 +1012,7 @@ json
    }
    ```
 
-   3.5. If provided Generator Signature Date is later than Emanifest.createdDate the service generates the following
+   3.5. If provided Generator Signature Date is later than `Emanifest.createdDate` the service generates the following
    warning:
 
    ```json
@@ -1119,11 +1124,12 @@ json
    }
    ```
 
-   5.2. If Emanifest.rejectionInfo.rejectionType = "FullReject" and Emanifest.rejectionInfo.transporterOnsite == true
+   5.2. If `Emanifest.rejectionInfo.rejectionType = "FullReject"`
+   and `Emanifest.rejectionInfo.transporterOnsite == true`
    the following applies
 
-   - If Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Tsdf" the following applies
-   - If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate is not provided, the
+   - If `Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Tsdf"` the following applies
+   - If `Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate` is not provided, the
      service generates the following error:
 
    ```json
@@ -1133,7 +1139,7 @@ json
    }
    ```
 
-   - If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.printed Name is not provided, the
+   - If `Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.printed` Name is not provided, the
      service generates the following error:
 
    ```json
@@ -1143,7 +1149,7 @@ json
    }
    ```
 
-   - If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate is invalid the service
+   - If `Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate` is invalid the service
      generates the following error:
 
    ```json
@@ -1154,8 +1160,8 @@ json
    }
    ```
 
-   - If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate <
-     Emanifest.designatedFacility.paperSignatureInfo.signatureDate then the service generates the following error:
+   - If `Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate <
+Emanifest.designatedFacility.paperSignatureInfo.signatureDate` then the service generates the following error:
 
    ```json
    {
@@ -1165,7 +1171,7 @@ json
    }
    ```
 
-   - If Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Generator" the following applies
+   - If `Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Generator"` the following applies
 
    - If Emanifest.rejectionInfo.generator.paperSignatureInfo.signatureDate is not provided, the service generates the
      following error:
@@ -1755,7 +1761,7 @@ The system will perform the following steps on the DOT Information fields:
      ```json
      {
        "message": "Provided Field will be ignored. Rejection information shall be provided at ReadyForSignature status",
-       "field": "Emanifest.rejection/Emanifest.rejectionInfo",
+       "field": "Emanifest.rejection",
        "value": "provided value"
      }
      ```
@@ -1779,9 +1785,9 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-5. If Emanifest.rejection == true then the following applies
+5. If `Emanifest.rejection == true` then the following applies
 
-   - 5.1. If RejectionInfo.rejectionComments is not provided then the service generates the following error:
+   - 5.1. If `RejectionInfo.rejectionComments` is not provided then the service generates the following error:
 
      ```json
      {
@@ -1819,15 +1825,15 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - 5.4. If Emanifest.submissionType == "DataImage5Copy" and RejectionInfo.transporterOnSite == true the following
+   - 5.4. If `Emanifest.submissionType == "DataImage5Copy"` and `RejectionInfo.transporterOnSite == true` the following
      applies
 
-   - 5.4.1. If RejectionInfo.rejectionType == "PartialReject" then the service sets RejectionInfo.rejectionType =
-     "FullReject" and generates the following warning:
+   - 5.4.1. If `RejectionInfo.rejectionType == "PartialReject"` then the service
+     sets `RejectionInfo.rejectionType = "FullReject"` and generates the following warning:
 
      ```json
      {
-       "message": "Provided value will be Ignored. If Transporter is On Site rejection type must be "FullReject",
+       "message": "Provided value will be Ignored. If Transporter is On Site rejection type must be 'FullReject'",
        "field": "Emanifest.RejectionInfo.rejectionType",
        "value": "rejectionType value"
      }
@@ -1854,9 +1860,9 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - 5.4.5. If RejectionInfo.alternateDesignatedFacilityType == "Generator then the following applies
+   - 5.4.5. If `RejectionInfo.alternateDesignatedFacilityType == "Generator` then the following applies
 
-     - 5.4.5.1. If generatorPaperSignatureInfo.printedName is not provided then the service generates the following
+     - 5.4.5.1. If `generatorPaperSignatureInfo.printedName` is not provided then the service generates the following
        warning:
 
        ```json
@@ -1909,9 +1915,10 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-   - 5.4.6. If RejectionInfo.alternateDesignatedFacilityType == "Tsdf" the following applies
+   - 5.4.6. If `RejectionInfo.alternateDesignatedFacilityType == "Tsdf"` the following applies
 
-     - 5.4.6.1. If RejectionInfo.alternateDesignatedFacility.epaSiteId is not provided then the service generates the
+     - 5.4.6.1. If `RejectionInfo.alternateDesignatedFacility.epaSiteId` is not provided then the service generates
+       the
        following error:
 
        ```json
@@ -1946,8 +1953,8 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-     - 5.5. If Emanifest.submissionType == "FullElectronic" or "Hybrid" and provided
-       RejectionInfo.transporterOnSite == true
+     - 5.5. If `Emanifest.submissionType` is `FullElectronic` or `Hybrid` and provided
+       `RejectionInfo.transporterOnSite == true`
        then the service generates the following warning:
 
      ```json
@@ -1958,9 +1965,9 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - 5.6. If RejectionInfo.transporterOnSite == false the following applies
+   - 5.6. If `RejectionInfo.transporterOnSite == false` the following applies
 
-     - 5.6.1. If RejectionInfo.rejectionType is not provided then the service generates the following error:
+     - 5.6.1. If `RejectionInfo.rejectionType` is not provided then the service generates the following error:
 
        ```json
        {
@@ -2006,7 +2013,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-6. If Emanifest.rejection == false and If any of the following RejectionInfo fields are provided:
+6. If `Emanifest.rejection == false` and If any of the following `RejectionInfo` fields are provided:
 
    - RejectionInfo.rejectionType
    - RejectionInfo.transporterOnSite
@@ -2045,8 +2052,8 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-3. If DiscrepancyResidueInfo.wasteQuantity == true or DiscrepancyResidueInfo.wasteType == true and
-   DiscrepancyResidueInfo.discrepancyComments is not provided then the service generates the following error:
+3. If `DiscrepancyResidueInfo.wasteQuantity == true` or `DiscrepancyResidueInfo.wasteType == true` and
+   `DiscrepancyResidueInfo.discrepancyComments` is not provided then the service generates the following error:
 
    ```json
    {
@@ -2065,8 +2072,8 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-5. If DiscrepancyResidueInfo.wasteQuantity == false and DiscrepancyResidueInfo.wasteType == false and
-   DiscrepancyResidueInfo.discrepancyComments is provided then the service generates the following warning:
+5. If `DiscrepancyResidueInfo.wasteQuantity == false` and `DiscrepancyResidueInfo.wasteType == false` and
+   `DiscrepancyResidueInfo.discrepancyComments` is provided then the service generates the following warning:
 
    ```json
    {
@@ -2076,11 +2083,11 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-6. If DiscrepancyResidueInfo.wasteQuantity == true or DiscrepancyResidueInfo.wasteType == true then the service sets
-   Emanifest.discrepancy = true
+6. If `DiscrepancyResidueInfo.wasteQuantity == true` or `DiscrepancyResidueInfo.wasteType == true` then the service sets
+   `Emanifest.discrepancy = true`
 
-7. If DiscrepancyResidueInfo.wasteQuantity == false and DiscrepancyResidueInfo.wasteType == false then the service sets
-   Emanifest.discrepancy
+7. If `DiscrepancyResidueInfo.wasteQuantity == false` and `DiscrepancyResidueInfo.wasteType == false` then the service
+   sets `Emanifest.discrepancy`
 
 ### Residue Information Validation
 
@@ -2094,8 +2101,9 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-2. If DiscrepancyResidueInfo.residue == true and DiscrepancyResidueInfo.residueComments is provided, the service
-   validates if DiscrepancyResidueInfo.residueComments has valid format. If DiscrepancyResidueInfo.residueComments has
+2. If `DiscrepancyResidueInfo.residue == true` and `DiscrepancyResidueInfo.residueComments` is provided, the service
+   validates if `DiscrepancyResidueInfo.residueComments` has valid format. If `DiscrepancyResidueInfo.residueComments`
+   has
    invalid format, the service generates the following error:
 
    ```json
@@ -2106,7 +2114,8 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-3. If DiscrepancyResidueInfo.residue == false and DiscrepancyResidueInfo.residueComments is provided, then the service
+3. If `DiscrepancyResidueInfo.residue == false` and `DiscrepancyResidueInfo.residueComments` is provided, then the
+   service
    generates the following warning:
 
    ```json
@@ -2117,10 +2126,11 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-4. If DiscrepancyResidueInfo.residue == true then the service sets Emanifest.residue = true
-5. If DiscrepancyResidueInfo.residue == true then the Emanifest. residueNewManifestTrackingNumber(s) can be provided.
+4. If `DiscrepancyResidueInfo.residue == true` then the service sets `Emanifest.residue = true`
+5. If `DiscrepancyResidueInfo.residue == true` then the `Emanifest.residueNewManifestTrackingNumber(s)` can be provided.
 
-   - 5.1. If no Emanifest.residueNewManifestTrackingNumber(s) is provided, the service generates the following warning:
+   - 5.1. If no `Emanifest.residueNewManifestTrackingNumber(s)` is provided, the service generates the following
+     warning:
 
      ```json
      {
@@ -2156,7 +2166,7 @@ The system will perform the following steps on the DOT Information fields:
 
 # JSON
 
-1. If the Waste.br == true and the Waste.brInfo is not provided or empty, then the following applies
+1. If the `Waste.br == true` and the Waste.brInfo is not provided or empty, then the following applies
 
    - 1.1. The system generates the following warning:
      ```json
@@ -2166,9 +2176,9 @@ The system will perform the following steps on the DOT Information fields:
        "value": "Emanifest.waste.br value"
      }
      ```
-   - 1.2. The system sets Waste.br = false and stores it as a part of the manifest
+   - 1.2. The system sets `Waste.br = false` and stores it as a part of the manifest
 
-2. If the Waste.br == true and none of the provided Waste.brInfo fields are valid, then the following applies
+2. If the `Waste.br == true` and none of the provided `Waste.brInfo` fields are valid, then the following applies
 
    - 2.1. The system generates the following warning:
      ```json
@@ -2180,7 +2190,7 @@ The system will perform the following steps on the DOT Information fields:
      ```
    - 2.2. The system sets Waste.br = false and stores it as a part of the manifest
 
-3. If Waste.br == false or not provided and at least one of the provided Waste.brInfo fields is valid, then the
+3. If `Waste.br == false` or not provided and at least one of the provided Waste.brInfo fields is valid, then the
    following applies:
 
    - 3.1. The system generates the following warning:
@@ -2193,7 +2203,7 @@ The system will perform the following steps on the DOT Information fields:
      ```
    - 3.2. The system sets Waste.br = true and stores it as a part of the manifest
 
-4. If Waste.br == true and Waste.brInfo fields are provided, then the following applies:
+4. If `Waste.br == true` and Waste.brInfo fields are provided, then the following applies:
 
 5. Source Codes
 
@@ -2274,7 +2284,7 @@ The system will perform the following steps on the DOT Information fields:
 
          ```json
          {
-           "message": "Density/densityUnitOfMeasurement.code is not provided. Both fields – Density and densityUnitOfMeasurement.code fields shall be provided",
+           "message": "Density.densityUnitOfMeasurement.code is not provided. Both fields – Density and densityUnitOfMeasurement.code fields shall be provided",
            "field": "Emanifest.waste.brInfo.density"
          }
          ```
