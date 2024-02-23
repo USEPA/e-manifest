@@ -5,11 +5,12 @@ name: "e-Manifest Services Docs"
 
 on:
   push:
-  #    branches:
-  #      - 'master'
-  #    paths:
-  #      - '.github/workflows/*'
-  #      - 'docs/*'
+    branches:
+      - 'master'
+      - 'main'
+    paths:
+      - '.github/workflows/*'
+      - 'docs/*'
   workflow_dispatch:
 
 permissions:
@@ -49,7 +50,7 @@ jobs:
           path: "${{ env.BOOK_DIRECTORY }}/book"
 
   deploy_pages:
-    #    if: github.repository == 'USEPA/e-manifest'
+    if: github.repository == 'USEPA/e-manifest'
     needs: build_docs
     environment:
       name: github-pages
