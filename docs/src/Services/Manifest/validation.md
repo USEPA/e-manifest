@@ -2,9 +2,7 @@
 
 The following validations are performed on the manifest fields:
 
-## Section Validations
-
-### Generator information validation for the Image submission type manifests
+## Generator information validation for the Image submission type manifests
 
 The manifest fee will be determined based on the Generator signature date (if provided).
 
@@ -14,16 +12,18 @@ The manifest fee will be determined based on the Generator signature date (if pr
    Validation and Paper Signature Info Validation. If Generator information and Generator printed
    signature date is provided and data is valid, the following applies
 
-   1.1. The save and update services will store this data as a part of the manifest
+   - 1.1. The save and update services will store this data as a part of the manifest
 
-   1.2. The services will set `Emanifest.provideImageGeneratorInfo = true`
+   - 1.2. The services will set `Emanifest.provideImageGeneratorInfo = true`
 
-   1.3. The manifest fee will be determined based on the Generator printed signature date upon electronic signature from
-   the receiving facility
+   - 1.3. The manifest fee will be determined based on the Generator printed signature date upon electronic signature
+     from
+     the receiving facility
 
 2. If Generator information and Generator printed signature date is not provided or some of the
    provided data is invalid, the following applies
-   2.1. The save and update services will generate the following warning:
+
+   - 2.1. The save and update services will generate the following warning:
 
    ```json
    {
@@ -32,15 +32,15 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   2.2. The save and update services will also generate warning(s)
+   - 2.2. The save and update services will also generate warning(s)
 
-   2.3. The services will not store Generator information as a part of the manifest data
+   - 2.3. The services will not store Generator information as a part of the manifest data
 
-   2.4. The services will set `Emanifest.provideImageGeneratorInfo` = false
+   - 2.4. The services will set `Emanifest.provideImageGeneratorInfo` = false
 
-   2.5. The manifest fee will be determined based on the receiving facility electronic signature date
+   - 2.5. The manifest fee will be determined based on the receiving facility electronic signature date
 
-### Facility Information Validation for "Image" submission type
+## Facility Information Validation for "Image" submission type
 
 1. For the Image submission type, one of the following facility EPA Site IDs must be provided: Designated Facility EPA
    Site ID, Generator EPA Site ID, or Alternate Designated Facility Site ID
@@ -61,7 +61,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 5. If `Emanifest.designatedFacility.epaSiteId` or `Emanifest.generator.epaSiteId` or
    `Emanifest.rejectionInfo.alternateDesignatedFacility.siteId` is provided, the following applies
 
-   5.1. If any of the following Site information is provided then the service generates the following warning:
+   - 5.1. If any of the following Site information is provided then the service generates the following warning:
 
    - Site Name
    - Site Address
@@ -75,11 +75,11 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   5.2. Validation of the Contact information is identical to #2 in section
+   - 5.2. Validation of the Contact information is identical to #2 in section
 
-   5.3. Designated Facility (TSDF)/Generator Site ID and Site Information Validation
+   - 5.3. Designated Facility (TSDF)/Generator Site ID and Site Information Validation
 
-   5.4. If `Emanifest.wastes` are provided then the service generates the following warning:
+   - 5.4. If `Emanifest.wastes` are provided then the service generates the following warning:
 
    ```json
    {
@@ -88,7 +88,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   5.5. If `Emanifest.residue == true` then the service generates the following warning:
+   - 5.5. If `Emanifest.residue == true` then the service generates the following warning:
 
    ```json
    {
@@ -98,7 +98,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   5.6. If `Emanifest.import == true` then the service generates the following warning:
+   - 5.6. If `Emanifest.import == true` then the service generates the following warning:
 
    ```json
    {
@@ -108,7 +108,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   5.7. The service stores following information as a part of the manifest data:
+   - 5.7. The service stores following information as a part of the manifest data:
 
    - `Emanifest.residue = false`
    - `Emanifest.import = false`
@@ -116,7 +116,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 6. If `Emanifest.designatedFacility.epaSiteId` or `Emanifest.generator.epaSiteId` is provided then the
    following applies
 
-   6.1. If `Emanifest.rejection == true`, the service generates the following warning:
+   - 6.1. If `Emanifest.rejection == true`, the service generates the following warning:
 
    ```json
    {
@@ -126,7 +126,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   6.2. If any of the `Emanifest.rejectionInfo` fields are provided, the service generates the following warning:
+   - 6.2. If any of the `Emanifest.rejectionInfo` fields are provided, the service generates the following warning:
 
    ```json
    {
@@ -139,7 +139,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 7. If `Emanifest.designatedFacility.epaSiteId` or `Emanifest.rejectionInfo.alternateDesignatedFacility.siteId` is
    provided, the following applies
 
-   7.1. If `Emanifest.containsPreviousRejectOrResidue == true`, the service generates the following warning:
+   - 7.1. If `Emanifest.containsPreviousRejectOrResidue == true`, the service generates the following warning:
 
    ```json
    {
@@ -151,7 +151,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 8. If `Emanifest.rejectionInfo.alternateDesignatedFacility.siteId` is provided, the following applies
 
-   8.1. If `Emanifest.rejection == false`, the service generates the following warning:
+   - 8.1. If `Emanifest.rejection == false`, the service generates the following warning:
 
    ```json
    {
@@ -161,7 +161,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   8.2. If `Emanifest.rejectionInfo.transporterOnSite == false`, the service generates the following warning:
+   - 8.2. If `Emanifest.rejectionInfo.transporterOnSite == false`, the service generates the following warning:
 
    ```json
    {
@@ -171,7 +171,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   8.3. If `Emanifest.rejectionInfo.rejectionType == "PartiaReject"`, the service generates the following warning:
+   - 8.3. If `Emanifest.rejectionInfo.rejectionType == "PartiaReject"`, the service generates the following warning:
 
    ```json
    {
@@ -181,8 +181,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   8.4. If `Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Generator"` the service generates the following
-   warning:
+   - 8.4. If `Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Generator"` the service generates the
+     following
+     warning:
 
    ```json
    {
@@ -192,7 +193,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   8.5. If rejectionInfo.newManifestTrackingNumbers are provided, the service generates the following warning:
+   - 8.5. If rejectionInfo.newManifestTrackingNumbers are provided, the service generates the following warning:
 
    ```json
    {
@@ -202,14 +203,14 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   8.6. The service stores following information as a part of the manifest data:
+   - 8.6. The service stores following information as a part of the manifest data:
 
-   - `Emanifest.rejection = true`
-   - `Emanifest.rejectionInfo.transporterOnSite = true`
-   - `Emanifest.rejectionInfo.rejectionType = "FullReject"`
-   - `Emanifest.rejectionInfo.alternateDesignatedFacilityType = "Tsdf"`
+     - `Emanifest.rejection = true`
+     - `Emanifest.rejectionInfo.transporterOnSite = true`
+     - `Emanifest.rejectionInfo.rejectionType = "FullReject"`
+     - `Emanifest.rejectionInfo.alternateDesignatedFacilityType = "Tsdf"`
 
-### Transporter Information Validation
+## Transporter Information Validation
 
 1. If `submissionType` is `FullElectronic` or `Hybrid`, then the Transporter is valid if the Transporter is registered
    in RCRAInfo and the Transporter has at least one User with the e-Manifest Certifier Role and this user has a Received
@@ -346,19 +347,19 @@ The manifest fee will be determined based on the Generator signature date (if pr
        }
        ```
 
-       - 2.6.4. Validate the mandatory site address fields: - address1 (50 Character maximum) - city (25
-         Character
-         maximum) - state.code (2 Character State Abbreviation) - zip (14 Character maximum)
-       - 2.6.5. If any of the mandatory location address fields are not provided or invalid, the service generates
-         the following error:
+     - 2.6.4. Validate the mandatory site address fields: - address1 (50 Character maximum) - city (25
+       Character
+       maximum) - state.code (2 Character State Abbreviation) - zip (14 Character maximum)
+     - 2.6.5. If any of the mandatory location address fields are not provided or invalid, the service generates
+       the following error:
 
-         ```json
-         {
-           "message": "Value is not Provided/Provided Value is not Valid",
-           "field": "Emanifest.transporter.siteAddress.address1/city/state/zip",
-           "value": "address1/city/state/zip value"
-         }
-         ```
+       ```json
+       {
+         "message": "Value is not Provided/Provided Value is not Valid",
+         "field": "Emanifest.transporter.siteAddress.address1/city/state/zip",
+         "value": "address1/city/state/zip value"
+       }
+       ```
 
    - 2.7. If `Emanifest.submissionType` is `Hybrid` or `FullElectronic` and `Emanifest.status > Scheduled` and provided
      transporter information is different from currently stored, the service generates the following warning:
@@ -370,10 +371,11 @@ The manifest fee will be determined based on the Generator signature date (if pr
      }
      ```
 
-### Designated Facility (TSDF)/Generator Site Information Validation
+## Designated Facility (TSDF)/Generator Site Information Validation
 
 1. If `submissionType` is `FullElectronic` and `status >= Scheduled` then the following applies
-   1.1. If `Emanifest.generator.epaSiteId` is not provided then the service generates the following error:
+
+   - 1.1. If `Emanifest.generator.epaSiteId` is not provided then the service generates the following error:
 
    ```json
    {
@@ -598,7 +600,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
      }
      ```
 
-### New Manifest Information Validation
+## New Manifest Information Validation
 
 1. If the New Manifest is created for shipping the waste to another TSDF or back to the Generator
 
@@ -645,13 +647,13 @@ The manifest fee will be determined based on the Generator signature date (if pr
      }
      ```
 
-### Generator Site Information Validation
+## Generator Site Information Validation
 
 1. If `submissionType` is `FullElectronic` then the Generator is valid if the Generator SiteIDis registered in RCRAInfo
    and the Generator has at least one User with the e-Manifest Certifier Role and this user has a Received ESA.
 2. If `submissionType` is `FullElectronic` the following applies
 
-   2.1. If the Generator SiteIDis not provided, the service generates the following error:
+   - 2.1. If the Generator SiteIDis not provided, the service generates the following error:
 
    ```json
    {
@@ -660,7 +662,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   2.2. If the Generator SiteID has an invalid format the service generates the following error:
+   - 2.2. If the Generator SiteID has an invalid format the service generates the following error:
 
    ```json
    {
@@ -670,7 +672,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   2.3. If the Generator SiteIDis not registered in RCRAInfo the service generates the following error:
+   - 2.3. If the Generator SiteIDis not registered in RCRAInfo the service generates the following error:
 
    ```json
    {
@@ -680,8 +682,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   2.4. If the Generator SiteIDis registered in RCRAInfo and there are no users with the e-Manifest Certifier role for
-   the provided Generator the service generates the following error:
+   - 2.4. If the Generator SiteIDis registered in RCRAInfo and there are no users with the e-Manifest Certifier role
+     for
+     the provided Generator the service generates the following error:
 
    ```json
    {
@@ -691,8 +694,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   2.5. If the Generator with the provided SiteIDis registered and there are no users with a received ESA, the service
-   generates the following error:
+   - 2.5. If the Generator with the provided SiteIDis registered and there are no users with a received ESA, the
+     service
+     generates the following error:
 
    ```json
    {
@@ -705,12 +709,14 @@ The manifest fee will be determined based on the Generator signature date (if pr
 3. If `submissionType` is `DataImage5Copy` or `Hybrid`, then registered and non-registered Generators are valid and the
    following cases are possible for the Generator SiteID and Generator Information:
 
-   3.1. If the Generator is registered in RCRAInfo and service requester does not intend to provide different (than
-   registered) Site Information, then only the epaSiteId shall be provided. All site information will be obtained from
-   RCRAInfo.
+   - 3.1. If the Generator is registered in RCRAInfo and service requester does not intend to provide different (than
+     registered) Site Information, then only the epaSiteId shall be provided. All site information will be obtained
+     from
+     RCRAInfo.
 
-   3.2. If the Generator is registered in RCRAInfo and service requester intends to provide different (than registered)
-   Site Information, then the following site information entities must be provided:
+   - 3.2. If the Generator is registered in RCRAInfo and service requester intends to provide different (than
+     registered)
+     Site Information, then the following site information entities must be provided:
 
    - Site ID
    - Site Name
@@ -719,7 +725,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    - Contact Phone
    - Provided Site Information will be validated and if valid will be stored in e-Manifest.
 
-     3.3. If Generator is not registered in RCRAInfo, then following site information must be provided:
+     - 3.3. If Generator is not registered in RCRAInfo, then following site information must be provided:
 
    - Site Name
    - Site Address (all fields)
@@ -729,12 +735,12 @@ The manifest fee will be determined based on the Generator signature date (if pr
      Requester also can provide SiteID which is an optional field for this case. If Site ID is provided,
      the system will check if there is a registered Generator for the provided Site ID
 
-     3.4. For all above cases Emergency Phone Number must be provided
+     - 3.4. For all above cases Emergency Phone Number must be provided
 
-     3.5. If the manifest status is InTransit or thereafter then Generator information cannot be updated.
+     - 3.5. If the manifest status is InTransit or thereafter then Generator information cannot be updated.
 
-     3.6. If different from currently stored Generator information is provided, the service generates the following
-     warning:
+     - 3.6. If different from currently stored Generator information is provided, the service generates the following
+       warning:
 
    ```json
    {
@@ -743,8 +749,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   3.7. If the Site ID is not provided AND any of the mandatory Site information entities are not provided, the service
-   generates the following error(s):
+   - 3.7. If the Site ID is not provided AND any of the mandatory Site information entities are not provided, the
+     service
+     generates the following error(s):
 
    ```json
    {
@@ -767,8 +774,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   3.8. If the Site ID is provided AND Site Address information is not provided, the system performs the following
-   steps:
+   - 3.8. If the Site ID is provided AND Site Address information is not provided, the system performs the following
+     steps:
 
    - If Site ID is not valid the service generates the following error:
 
@@ -792,8 +799,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   3.9. If the Site ID is provided and the Site Information entities are provided, the system performs the following
-   steps:
+   - 3.9. If the Site ID is provided and the Site Information entities are provided, the system performs the following
+     steps:
 
    - If the site name is not provided, the service generates the following error:
 
@@ -938,7 +945,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    - Store provided Site Information (if no other manifest errors were found)
 
-### Paper Signature Info Validation
+## Paper Signature Info Validation
 
 1. If `submissionType` is `FullElectronic` and any (Transporter(s), designatedFacility) of the paperSignature
    Information (printedName or signatureDate) is provided, the service generates a warning:
@@ -965,7 +972,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 3. If `submissionType` is `Image`, the following applies:
 
-   3.1. If Generator Printed Name is not provided, the service generates a warning:
+   - 3.1. If Generator Printed Name is not provided, the service generates a warning:
 
    ```json
    {
@@ -974,8 +981,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   3.2. If the Generator Printed Name is provided, validate the format. If an invalid format is provided, the service
-   generates the following warning:
+   - 3.2. If the Generator Printed Name is provided, validate the format. If an invalid format is provided, the service
+     generates the following warning:
 
    ```json
    {
@@ -985,7 +992,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   3.3. If the Generator Signature Date is not provided, the service generates the following warning:
+   - 3.3. If the Generator Signature Date is not provided, the service generates the following warning:
 
    ```json
    {
@@ -994,8 +1001,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   3.4. If Generator Signature Date is provided, validate format. If format is invalid the service generates the
-   following warning:
+   - 3.4. If Generator Signature Date is provided, validate format. If format is invalid the service generates the
+     following warning:
 
    ```json
    {
@@ -1005,8 +1012,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   3.5. If provided Generator Signature Date is later than `Emanifest.createdDate` the service generates the following
-   warning:
+   - 3.5. If provided Generator Signature Date is later than `Emanifest.createdDate` the service generates the
+     following
+     warning:
 
    ```json
    {
@@ -1018,7 +1026,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 4. If `submissionType` is "`DataImage5Copy`", the following applies:
 
-   4.1. If Generator/Transporter/designatedFacility Printed Names are not provided, the service generates a warning:
+   - 4.1. If Generator/Transporter/designatedFacility Printed Names are not provided, the service generates a warning:
 
    ```json
    {
@@ -1027,8 +1035,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   4.2. If the Generator/Transporter/designatedFacility Printed Names are provided, validate the format. If an invalid
-   format is provided, the service generates the following error:
+   - 4.2. If the Generator/Transporter/designatedFacility Printed Names are provided, validate the format. If an
+     invalid
+     format is provided, the service generates the following error:
 
    ```json
    {
@@ -1038,8 +1047,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   4.3. If the Generator/Transporter/designatedFacility Signature Dates are not provided, the service generates the
-   following error
+   - 4.3. If the Generator/Transporter/designatedFacility Signature Dates are not provided, the service generates the
+     following error
 
    ```json
    {
@@ -1048,8 +1057,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   4.4. If Generator/Transporter/TSDF Signature Dates are provided, validate format. If format is invalid the service
-   generates the following error (for this example: TSDF is used)
+   - 4.4. If Generator/Transporter/TSDF Signature Dates are provided, validate format. If format is invalid the service
+     generates the following error (for this example: TSDF is used)
 
    ```json
    {
@@ -1061,8 +1070,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 5. The system will perform the following validation for consecutive of Signature Dates for `DataImage5Copy`:
 
-   5.1. If the signature dates for Generator, all Transporters, and designated Facility are provided and have a valid
-   format, and more than one transporter is provided, the system performs the following steps:
+   - 5.1. If the signature dates for Generator, all Transporters, and designated Facility are provided and have a valid
+     format, and more than one transporter is provided, the system performs the following steps:
 
    - Check if Generator signatureDate <= First Transporter signature date (Transporter.order will be used to determine
      consecutive of transporters). If not, the service generates the following error:
@@ -1096,8 +1105,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   5.1.3. Check if the Designated Facility signature date >= Last Transporter signature date. If not, the service
-   generates the following error:
+   - 5.1.3. Check if the Designated Facility signature date >= Last Transporter signature date. If not, the service
+     generates the following error:
 
    ```json
    {
@@ -1107,7 +1116,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   5.1.4. If any of the Signature Dates > current date the service generates the following error:
+   - 5.1.4. If any of the Signature Dates > current date the service generates the following error:
 
    ```json
    {
@@ -1117,9 +1126,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   5.2. If `Emanifest.rejectionInfo.rejectionType = "FullReject"`
-   and `Emanifest.rejectionInfo.transporterOnsite == true`
-   the following applies
+   - 5.2. If `Emanifest.rejectionInfo.rejectionType = "FullReject"`
+     and `Emanifest.rejectionInfo.transporterOnsite == true`
+     the following applies
 
    - If `Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Tsdf"` the following applies
    - If `Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate` is not provided, the
@@ -1208,7 +1217,7 @@ Emanifest.designatedFacility.paperSignatureInfo.signatureDate` then the service 
    }
    ```
 
-### Waste Validation
+## Waste Validation
 
 1. If the waste field is not provided for a manifest with status >= `Scheduled`. The service generates the following
    error:
@@ -1315,7 +1324,7 @@ Emanifest.designatedFacility.paperSignatureInfo.signatureDate` then the service 
    - 2.13Validate Instructions and Additional Information. See that section for further details
    - 2.14 Validate Biennial Report Information. See that section for further details
 
-### DOT Information Fields Validation
+## DOT Information Fields Validation
 
 The system will perform the following steps on the DOT Information fields:
 
@@ -1356,7 +1365,7 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-### Containers and quantity fields validation
+## Containers and quantity fields validation
 
 1. Containers and Quantity fields are mandatory
 2. If the quantity entity is not provided, the system generates the following error:
@@ -1411,7 +1420,7 @@ The system will perform the following steps on the DOT Information fields:
 }
 ```
 
-### Waste Additional Information Validation
+## Waste Additional Information Validation
 
 1. All Additional Information fields are optional. If any of the fields are invalid, they will be ignored with a
    warning.
@@ -1515,7 +1524,7 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-### PCB Information Validation
+## PCB Information Validation
 
 1. If `pcb` is `false` and any of the `pcbInfos` entities or fields are provided, the service generates the following
    warning:
@@ -1686,7 +1695,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-### Management Method Code Validation
+## Management Method Code Validation
 
 1. If `submissionType` is `DataImage5Copy` the following applies
 
@@ -1742,7 +1751,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-### Rejection Information Validation
+## Rejection Information Validation
 
 1. If an Original Manifest is rejected then Emanifest.rejection shall be specified as "true".
 
@@ -2023,7 +2032,7 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-### Discrepancy Information Validation
+## Discrepancy Information Validation
 
 1. If status >= ReadyForSignature and DiscrepancyResidueInfo.wasteQuantity is not provided then the service generates
    the following error:
@@ -2082,7 +2091,7 @@ The system will perform the following steps on the DOT Information fields:
 7. If `DiscrepancyResidueInfo.wasteQuantity == false` and `DiscrepancyResidueInfo.wasteType == false` then the service
    sets `Emanifest.discrepancy`
 
-### Residue Information Validation
+## Residue Information Validation
 
 1. If status >= ReadyForSignature and DiscrepancyResidueInfo.residue is not provided, then the service generates the
    following error:
@@ -2155,7 +2164,7 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-### Biennial Report Validation
+## Biennial Report Validation
 
 # JSON
 
