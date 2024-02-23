@@ -10,7 +10,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 1. Generator information and Generator signature date can be provided for Image submission type
    manifests for the save and update services. See modification details in sections Facility
-   Information Validation for "Image" submission type, Generator Site ID and Site Information
+   Information Validation for `Image` submission type, Generator Site ID and Site Information
    Validation and Paper Signature Info Validation. If Generator information and Generator printed
    signature date is provided and data is valid, the following applies
 
@@ -137,11 +137,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
    ```
 
 7. If `Emanifest.designatedFacility.epaSiteId` or `Emanifest.rejectionInfo.alternateDesignatedFacility.siteId` is
-   provided,
-   the following applies
+   provided, the following applies
 
-   7.1. If `Emanifest.containsPreviousRejectOrResidue == true`, the service generates the following
-   warning:
+   7.1. If `Emanifest.containsPreviousRejectOrResidue == true`, the service generates the following warning:
 
    ```json
    {
@@ -213,7 +211,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 ### Transporter Information Validation
 
-1. If `submissionType` is "FullElectronic" or "Hybrid", then the Transporter is valid if the Transporter is registered
+1. If `submissionType` is `FullElectronic` or `Hybrid`, then the Transporter is valid if the Transporter is registered
    in RCRAInfo and the Transporter has at least one User with the e-Manifest Certifier Role and this user has a Received
    ESA.
 
@@ -246,9 +244,10 @@ The manifest fee will be determined based on the Generator signature date (if pr
      }
      ```
 
-2. If `submissionType` is "DataImage5Copy", then registered and non-registered Transporters are valid.
+2. If `submissionType` is `DataImage5Copy`, then registered and non-registered Transporters are valid.
 
-   - 2.1. If the Transporter is registered in RCRAInfo as a Transporter, then only the epaSiteId must be provided. All
+   - 2.1. If the Transporter is registered in RCRAInfo as a Transporter, then only the `epaSiteId` must be provided.
+     All
      the site information will be obtained from RCRAInfo. If other site information is provided it will be ignored with
      warnings.
    - 2.2. If the Transporter is not registered in RCRAInfo, then the following site information must be provided:
@@ -285,8 +284,10 @@ The manifest fee will be determined based on the Generator signature date (if pr
      }
      ```
 
-   - 2.4. If Site ID is provided AND Site Information is not provided, the system performs the following steps: -
-     2.4.1. Validate Site ID format. - 2.4.2. If Site ID is not valid, the service generates the following error:
+   - 2.4. If Site ID is provided AND Site Information is not provided, the system performs the following steps:
+
+     - 2.4.1. Validate Site ID format.
+     - 2.4.2. If Site ID is not valid, the service generates the following error:
 
      ```json
      {
@@ -331,11 +332,11 @@ The manifest fee will be determined based on the Generator signature date (if pr
        ```
 
    - 2.6. If Site ID is not provided AND Site Information is provided, the system will perform the following
-     steps: -
+     steps:
 
-     - 2.6.1. Validate the provided Site Information. - 2.6.2. Validate the Site Name. - 2.6.3. If the Site Name
-       is not
-       valid, the service generates the following error:
+     - 2.6.1. Validate the provided Site Information.
+     - 2.6.2. Validate the Site Name.
+     - 2.6.3. If the Site Name is not valid, the service generates the following error:
 
        ```json
        {
@@ -347,11 +348,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
        - 2.6.4. Validate the mandatory site address fields: - address1 (50 Character maximum) - city (25
          Character
-         maximum) - state.code (2 Character State Abbreviation) - zip (14 Character maximum) - 2.6.5. If any of
-         the
-         mandatory
-         location address fields are not provided or invalid, the service generates the
-         following error:
+         maximum) - state.code (2 Character State Abbreviation) - zip (14 Character maximum)
+       - 2.6.5. If any of the mandatory location address fields are not provided or invalid, the service generates
+         the following error:
 
          ```json
          {
@@ -361,7 +360,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
          }
          ```
 
-   - 2.7. If `Emanifest.submissionType` is `Hybrid` or `FullElectronic` and `Emanifest.status` > Scheduled and provided
+   - 2.7. If `Emanifest.submissionType` is `Hybrid` or `FullElectronic` and `Emanifest.status > Scheduled` and provided
      transporter information is different from currently stored, the service generates the following warning:
 
      ```json
@@ -373,7 +372,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 ### Designated Facility (TSDF)/Generator Site Information Validation
 
-1. If submissionType is "FullElectronic" and status >= Scheduled then the following applies
+1. If `submissionType` is `FullElectronic` and `status >= Scheduled` then the following applies
    1.1. If `Emanifest.generator.epaSiteId` is not provided then the service generates the following error:
 
    ```json
@@ -383,7 +382,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   - 1.2. If Emanifest.generator.epaSiteId has an incorrect format then the service generates the following error:
+   - 1.2. If `Emanifest.generator.epaSiteId` has an incorrect format then the service generates the following error:
 
    ```json
    {
@@ -404,7 +403,9 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-2. If submissionType is "FullElectronic" or "Hybrid" and status >= Scheduled, or submissionType is "DataImage5Copy" then
+2. If `submissionType` is `FullElectronic` or `Hybrid` and `status >= Scheduled`, or `submissionType`
+   is `DataImage5Copy`
+   then
    the following applies
 
    - 2.1. If `Emanifest.designatedFacility.epaSiteId` is not provided then the service generates the following error:
@@ -428,8 +429,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    ```
 
    - 2.3. If `Emanifest.designatedFacility.epaSiteId` is not registered in RCRAInfo then service generates the
-     following
-     error:
+     following error:
 
    ```json
    {
@@ -451,9 +451,10 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    - 2.5. If the Site Contact Phone number is provided, the system will check the format.
 
-   - If the provided phone number has a valid format the system will store site contact phone number into e-Manifest
-     database
-   - If the provided phone number has an incorrect format the system generates the following warning:
+     - If the provided phone number has a valid format the system will store site contact phone number into
+       e-Manifest
+       database
+     - If the provided phone number has an incorrect format the system generates the following warning:
 
    ```json
    {
@@ -465,9 +466,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    - 2.6. If the Site Contact Phone Extension is provided, the system will check the format.
 
-     - 2.6.1If provided phone extension has a valid format, the system will store the site contact phone extension
-       into
-       e-Manifest database
+     - 2.6.1 If provided phone extension has a valid format, the system will store the site contact phone extension
+       into e-Manifest database
      - 2.6.2 If the provided phone has an incorrect format, the system generates the following warning:
 
        ```json
@@ -499,10 +499,8 @@ The manifest fee will be determined based on the Generator signature date (if pr
      perform following steps:
 
    - 2.9. If the Site Contact Phone number is not provided in the JSON and site the is registered in RCRAInfo, the
-     system
-     checks if the site has a Contact Phone value registered for the site. If the Contact Phone is not registered in
-     the
-     system for that site, the system generates the following error:
+     system checks if the site has a Contact Phone value registered for the site. If the Contact Phone is not
+     registered in the system for that site, the system generates the following error:
 
    ```json
    {
@@ -512,8 +510,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    ```
 
    - 2.10. If the Site Contact Phone number is provided and registered in RCRAinfo the system checks that the phone
-     number
-     is in the correct format.
+     number is in the correct format.
 
      - 2.10.1. If the provided phone number has a valid format, the system will store site contact phone number into
        the e-Manifest database
@@ -603,31 +600,27 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 ### New Manifest Information Validation
 
-json
-
 1. If the New Manifest is created for shipping the waste to another TSDF or back to the Generator
 
    - If `Emanifest.status >= "ReadyForSignature"` and `Emanifest.containsPreviousRejectOrResidue` is not provided then
-     the
-     service generates the following error:
+     the service generates the following error:
      ```json
      {
        "message": "Mandatory Field is not Provided.",
        "field": "Emanifest.containsPreviousRejectOrResidue"
      }
      ```
-   - If `Emanifest.containsPreviousRejectOrResidue == true` and
-     `Emanifest.additionalInfo.newManifestDestination` is not provided then the service
-     generates the following error:
+   - If `Emanifest.containsPreviousRejectOrResidue == true` and `Emanifest.additionalInfo.newManifestDestination` is
+     not provided then the service generates the following error:
      ```json
      {
        "message": "Mandatory Field is not Provided.",
        "field": "Emanifest.additionalInfo.newManifestDestination"
      }
      ```
-   - If `Emanifest.containsPreviousRejectOrResidue == true` and
-     `Emanifest.additionalInfo.originalManifestTrackingNumbers` are not valid the service
-     generates the following warning:
+   - If `Emanifest.containsPreviousRejectOrResidue == true`
+     and`Emanifest.additionalInfo.originalManifestTrackingNumbers` are not valid the service generates the following
+     warning:
      ```json
      {
        "message": "Invalid value provided. Provided Field will be ignored.",
@@ -654,9 +647,9 @@ json
 
 ### Generator Site Information Validation
 
-1. If submissionType is "FullElectronic" then the Generator is valid if the Generator SiteIDis registered in RCRAInfo
+1. If `submissionType` is `FullElectronic` then the Generator is valid if the Generator SiteIDis registered in RCRAInfo
    and the Generator has at least one User with the e-Manifest Certifier Role and this user has a Received ESA.
-2. If submissionType is "FullElectronic" the following applies
+2. If `submissionType` is `FullElectronic` the following applies
 
    2.1. If the Generator SiteIDis not provided, the service generates the following error:
 
@@ -667,7 +660,7 @@ json
    }
    ```
 
-   2.2. If the Generator SiteIDhas an invalid format the service generates the following error:
+   2.2. If the Generator SiteID has an invalid format the service generates the following error:
 
    ```json
    {
@@ -709,8 +702,8 @@ json
    }
    ```
 
-3. If submissionType is "DataImage5Copy" or "Hybrid", then registered and non-registered Generators are valid and the
-   following cases are possible for the Generator SiteIDand Generator Information:
+3. If `submissionType` is `DataImage5Copy` or `Hybrid`, then registered and non-registered Generators are valid and the
+   following cases are possible for the Generator SiteID and Generator Information:
 
    3.1. If the Generator is registered in RCRAInfo and service requester does not intend to provide different (than
    registered) Site Information, then only the epaSiteId shall be provided. All site information will be obtained from
@@ -947,7 +940,7 @@ json
 
 ### Paper Signature Info Validation
 
-1. If submissionType is "FullElectronic" and any (Transporter(s), designatedFacility) of the paperSignature
+1. If `submissionType` is `FullElectronic` and any (Transporter(s), designatedFacility) of the paperSignature
    Information (printedName or signatureDate) is provided, the service generates a warning:
 
    ```json
@@ -958,7 +951,7 @@ json
    }
    ```
 
-2. If submissionType is "Hybrid" and `Emanifest.status > Scheduled` and `generator.PaperSignature` is provided, the
+2. If `submissionType` is `Hybrid` and `Emanifest.status > Scheduled` and `generator.PaperSignature` is provided, the
    service
    generates the following warning:
 
@@ -970,7 +963,7 @@ json
    }
    ```
 
-3. If submissionType is "Image", the following applies:
+3. If `submissionType` is `Image`, the following applies:
 
    3.1. If Generator Printed Name is not provided, the service generates a warning:
 
@@ -1023,7 +1016,7 @@ json
    }
    ```
 
-4. If submissionType is "DataImage5Copy", the following applies:
+4. If `submissionType` is "`DataImage5Copy`", the following applies:
 
    4.1. If Generator/Transporter/designatedFacility Printed Names are not provided, the service generates a warning:
 
@@ -1066,7 +1059,7 @@ json
    }
    ```
 
-5. The system will perform the following validation for consecutive of Signature Dates for DataImage5Copy:
+5. The system will perform the following validation for consecutive of Signature Dates for `DataImage5Copy`:
 
    5.1. If the signature dates for Generator, all Transporters, and designated Facility are provided and have a valid
    format, and more than one transporter is provided, the system performs the following steps:
@@ -1695,7 +1688,7 @@ The system will perform the following steps on the DOT Information fields:
 
 ### Management Method Code Validation
 
-1. If `submissionType` is "DataImage5Copy" the following applies
+1. If `submissionType` is `DataImage5Copy` the following applies
 
    - 1.1. If `epaWaste` is `true` and `Waste.managementMethod.code` is not provided, the service generates the
      following error:
@@ -1715,7 +1708,7 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-2. If `submissionType` is "FullElectronic" or "Hybrid" the following applies
+2. If `submissionType` is `FullElectronic` or `Hybrid` the following applies
 
    - 2.1. If `Emanifest.status` is "Scheduled," "InTransit," or "ReadyForSignature," the following applies
 
