@@ -22,20 +22,20 @@ It can be used for the following use cases:
     - `Sign`
     - `View`
     - `Edit`
-    - `"Dashboard"`
-    - `"BulkSign"`
-  - `"epaSiteId"`: the epa site ID of either the generator, transporter(s) or TSDF participating in the manifest. This
+    - `Dashboard`
+    - `BulkSign`
+  - `epaSiteId`: the epa site ID of either the generator, transporter(s) or TSDF participating in the manifest. This
     is
     a required parameter.
-  - `"manifestTrackingNumber"`: the tracking number of the manifest. This is a required parameter if the
-    provided `"page"`
-    value is either `"View"`, `"Edit"`, or `"Sign"`. This parameter may not be provided is the `"page"` value is equal
-    to `"Dashboard"` or `"BulkSign"`.
-  - `"filter"`: An array of manifest tracking number(s) which should be displayed on the manifest Dashboard or bulk
+  - `manifestTrackingNumber`: the tracking number of the manifest. This is a required parameter if the
+    provided `page`
+    value is either `View`, `Edit`, or `Sign`. This parameter may not be provided is the `page` value is equal
+    to `Dashboard` or `BulkSign`.
+  - `filter`: An array of manifest tracking number(s) which should be displayed on the manifest Dashboard or bulk
     sign
-    page. This is a required parameter if the provided `page` value is either `"Dashboard"` or `"BulkSign"`. This
+    page. This is a required parameter if the provided `page` value is either `Dashboard` or `BulkSign`. This
     parameter
-    may not be provided is the `"page"` value is equal to `"View"`, `"Edit"`, or `"Sign"`.
+    may not be provided is the `page` value is equal to `View`, `Edit`, or `Sign`.
 
 ## Examples
 
@@ -124,7 +124,8 @@ Content-Type: application/json
    }
    ```
 
-   - 3.6. If provided `page` == "View" or "Sign" or "Edit" and `manifestTrackingNumber` is not provided then the service
+   - 3.6. If provided `page` == "View" or "Sign" or "Edit" and `manifestTrackingNumber` is not provided then the
+     service
      generates following error:
 
    ```json
@@ -138,7 +139,8 @@ Content-Type: application/json
    }
    ```
 
-   - 3.7. If provided page == "View" or "Sign" or "Edit" and the `manifestTrackingNumber` provided has an invalid format
+   - 3.7. If provided page == "View" or "Sign" or "Edit" and the `manifestTrackingNumber` provided has an invalid
+     format
      then the service generates following error:
 
    ```json
@@ -170,7 +172,8 @@ Content-Type: application/json
    }
    ```
 
-   - 3.9. If provided page == "View" or "Sign" and manifest with provided epa site id and `manifestTrackingNumber` is not
+   - 3.9. If provided page == "View" or "Sign" and manifest with provided epa site id and `manifestTrackingNumber` is
+     not
      found then the service generates following error:
 
    ```json

@@ -3,10 +3,10 @@
 ## Introduction
 
 The Correct Manifest Service creates and updates a Manifest Correction (a new version of the manifest will be either
-created or updated by the service). If the current manifest status is either `"Signed"` or `"Corrected"` then a new
-version of the Manifest Correction will be created and automatically receives the status of `"UnderCorrection"`. If the
-current manifest status is `"UnderCorrection"` then the current Manifest Correction version can be updated with the same
-service. Note, there is only one version with the `"UnderCorrection"` status at any given time and this version is
+created or updated by the service). If the current manifest status is either `Signed` or `Corrected` then a new
+version of the Manifest Correction will be created and automatically receives the status of `UnderCorrection`. If the
+current manifest status is `UnderCorrection` then the current Manifest Correction version can be updated with the same
+service. Note, there is only one version with the `UnderCorrection` status at any given time and this version is
 viewable and editable by all registered handlers on the manifest.
 
 For the Image manifests submitted via the Industry application or save service, the Correct service will create a new
@@ -18,13 +18,13 @@ only after the manifest was processed by PPC. The service will not create new ve
 by PPC or is currently being processed by PPC.
 
 The service accepts Manifest data in JSON format compliant with the {{#include ../../components/manifest-json-link.md}}.
-All submission types are supported by this service. For the `"DataImage5Copy"` and `"Image"` submission types, the
+All submission types are supported by this service. For the `"DataImage5Copy"` and `Image` submission types, the
 service supports (but does not mandate) receiving the scanned compressed document attachment (Printed/Paper, Signed,
 Scanned Manifest form-2050). If a user wishes to send a manifest attachment, it shall be passed as a multipart binary
 content. (See sample client implementation for details at:
 
 https://github.com/USEPA/e-manifest/tree/master/Services-Information/sample-client For the `"DataImage5Copy"`
-and `"Image"` submission types, if the Manifest contains an attachment the following metadata JSON elements shall be
+and `Image` submission types, if the Manifest contains an attachment the following metadata JSON elements shall be
 presented in the Manifest JSON:
 
 ```json
@@ -132,10 +132,10 @@ services Warning and Error Responses
     4.2 If no errors or warnings were generated during the validation process, the service will perform the following
     steps:
 
-    - If the current manifest status is either `"Signed"` or `"Corrected"`, then the service creates a new manifest
-      version with the provided Manifest information. The service assigns the `"UnderCorrection"` status to the new
+    - If the current manifest status is either `Signed` or `Corrected`, then the service creates a new manifest
+      version with the provided Manifest information. The service assigns the `UnderCorrection` status to the new
       manifest version.
-    - If the current manifest status is `"UnderCorrection"`, then the service updates the existing Manifest with the
+    - If the current manifest status is `UnderCorrection`, then the service updates the existing Manifest with the
       provided Manifest information.
     - Returns manifest Tracking Number, operation status, and operation date and warning(s) report to the requester.
 
