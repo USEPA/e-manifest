@@ -1,19 +1,19 @@
 # The Manifest
 
 The Uniform Hazardous Waste Manifest (AKA "manifest" or EPA form 8700-22) is a form required by EPA for all hazardous
-waste [generators](terminology.md#generator) who [transport](terminology.md#transporter) hazardous waste for
+waste [generators](terminology.md#generator) who transport hazardous waste for
 off-site [treatment, recycling, storage or disposal (TSD)](terminology.md#treatment-storage-or-disposal-facility-tsdf--receiving-facility--designated-facility).
-It is also commonly used to satisfy and U.S. Department of Transportation (DOT) requirements. When completed, the form
+When completed, the form
 contains information on the type and quantity of the waste being transported, instructions for handling the waste, and
-signature lines
+signature lines of all parties involved in the shipment.
 
 ## Paper Manifests
 
-Historically, the manifesting process was completed
-on [NCR paper](https://www.google.com/search?client=firefox-b-1-d&q=NCR+paper#ip=1) often referred to
-as carbon-copy paper. When the waste reaches its destination, the designated receiving facility submits the paper
-manifest to the e-Manifest system using one of
-[the available submission methods](https://www.epa.gov/e-manifest/how-submit-hazardous-waste-manifest)
+The paper manifesting process is completed
+on [NCR paper](https://www.google.com/search?client=firefox-b-1-d&q=NCR+paper#ip=1) often referred to as carbon-copy
+paper. When the waste reaches its destination, the designated receiving facility submits the paper manifest to the
+e-Manifest system using one
+of [the available submission methods](https://www.epa.gov/e-manifest/how-submit-hazardous-waste-manifest).
 
 ![sample paper manifest](../assets/sample_uniform_hazardous_waste_manifest.png)
 
@@ -25,10 +25,11 @@ unique identifying string called the Manifest Tracking Number (MTN) in box 4.
 ## Electronic Manifests
 
 An Electronic manifest is the electronic format of the uniform hazardous waste manifest obtained and completed through
-the e-Manifest system. It is the legal equivalent. At the time of writing, all electronic manifest use the letters "ELC"
+the e-Manifest system. It is the legal equivalent. All electronic manifest use the letters "ELC"
 as the suffix to their manifest tracking number.
 
-Arguably the easiest way to visualize an electronic manifest is [JSON](https://www.json.org/json-en.html) encoded.
+Electronic manifests can be JSON encoded, contain all the information of a paper manifest, and have the added benefit of
+being able to contain additional information that is not possible on a paper manifest.
 
 <details>
 
@@ -389,7 +390,7 @@ certain manifest submission types (e.g, electronic manifests vs Data + Image).
 
 1. **status**: The status field is managed by the e-Manifest system. Since paper manifests are completed outside the
    e-Manifest system and uploaded after the TSDF receives the shipment, paper manifests can only be assigned a
-   subsection of the available statuses.
+   subset of the available statuses.
 
    ![manifest status](../assets/manifest_statuses.jpg)
    _Green boxes are shared by electronic/hybrid and paper manifests._

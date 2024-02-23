@@ -7,7 +7,7 @@
         Please check back often for updates.
     </p>
     <p>
-        If you see any errors or have any questions, use the "suggest an edit" button in the top left. 
+        If you see any errors or have any questions, use the "suggest an edit" button. 
     </p>
 </div>
 
