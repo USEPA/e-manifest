@@ -29,5 +29,4 @@
     - [Lookups](Services/Lookup/lookup.md)
     - [e-Manifest Lookups](Services/Lookup/e-manifest-lookup.md)
   - [User](Services/user.md)
-  - [Use Cases](Services/use-cases.md)
 - [Reference Materials](references.md)

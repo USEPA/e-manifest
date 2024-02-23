@@ -20,9 +20,9 @@ Content-Type: application/json
 }
 ```
 
-Both fields, `userId` and `siteIds` are optional. If you know the user ID, you can use this service to return the
-user's
-information, such as what site's they have access to and the permissions in RCRAInfo they have for each site.
+Both fields, `userId` and `siteIds` are optional. If you know the user ID, this service can essentially be used as a GET
+request to retrieve the user's information, such as what site's they have access to and the permissions in RCRAInfo they
+have for each site.
 
 <details>
     <summary>Example HTTP Response</summary>
@@ -94,8 +94,8 @@ information, such as what site's they have access to and the permissions in RCRA
 
 </details>
 
-Conversely, the user search service can be used to find all users that have access to a site by the site's EPA ID
-number (e.g., `VATESTGEN001`).
+If, a value for `siteIds` is provided, and `userId` list blank, the user search service will find all users that have
+access to a site.
 
 <details>
     <summary>Example HTTP Response</summary>

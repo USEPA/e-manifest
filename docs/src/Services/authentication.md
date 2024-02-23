@@ -218,7 +218,7 @@ the following checks are performed for all protected resources:
 
 ### Manifest Services User Authorization
 
-1. For requests include an `"Image"` or `"DataImage5Copy"` submission type, the user must be authorized for the site
+1. For requests include an `Image` or `"DataImage5Copy"` submission type, the user must be authorized for the site
    that is required to submit the manifest to EPA.
 
    2.1. If rejection = false and user is not authorized for the designatedFacility.epaSiteId, the following error is
@@ -232,7 +232,7 @@ the following checks are performed for all protected resources:
 
    - `E_AltFacilityAuthorizationSave: User is not authorized for the Alternate Designated Facility. Cannot create Image or DataImage5Copy manifests.`
 
-   2.3. If `containsPreviousRejectOrResidue` is true, `additionalInfo.newManifestDestination` is `"OriginalGenerator"`
+   2.3. If `containsPreviousRejectOrResidue` is true, `additionalInfo.newManifestDestination` is `OriginalGenerator`
    and user is not authorized for `generator.epaSiteId`, the following error is generated:
 
    - `E_GeneratorAuthorizationSave: User is not authorized for the Generator. Cannot create Image or DataImage5Copy manifests`

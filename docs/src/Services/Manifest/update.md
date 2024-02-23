@@ -82,9 +82,9 @@ See {{#include ../../components/manifest-json-link.md}}.
      generated:
      - `E_ManifestLockedAsyncSign`: Manifest is locked because it is in the queue for signing.
        Manifest cannot be updated.
-   - 3.2. If the manifest is in the Change Biller process by EPA, it is locked for update. The following
+   - 3.2. If the manifest is in the change biller process by EPA, it is locked for update. The following
      error will be generated:
-     - `E_ManifestLockedEpaChangeBiller`: Manifest is locked because EPA is Changing Biller.
+     - `E_ManifestLockedEpaChangeBiller`: Manifest is locked because EPA is changing the biller.
        Manifest cannot be updated.
 
 4. The system will process the request

@@ -20,9 +20,8 @@ of the billing account and month and the year of the bill.
     or
   - Billing Account AND Month/Year
 
-If billId and monthYear is provided the service validates provided billId. If the billId is valid the service returns
-data based on billId. If billId is not valid the service validates provided monthYear. If the monthYear is valid the
-service returns data based on monthYear
+If `billId` and `monthYear` is provided the service validates provided `billId` and returns data based on `billId`.
+If `billId` is not valid the service validates the request by the provided `monthYear`.
 
 ### Examples
 
@@ -82,7 +81,8 @@ schema.
    - 3.1. If Billing account of the facility (EPA Site ID) is not provided the schema validation exception will be
      returned:
      - `Object has missing required properties (["billingAccount"]): null`
-   - 3.2. If no additional parameters provided (either billId or monthYear) the processing will be stopped and system
+   - 3.2. If no additional parameters provided (either `billId` or `monthYear`) the processing will be stopped and
+     system
      will generate the following error:
      - `E_NoAdditionalParametersProvided: No additional parameters are provided`
    - 3.3. If the provided `billingAccount` (EPA Site ID) is invalid the processing will be stopped and system will
@@ -115,12 +115,12 @@ schema.
      - The service returning bill by `monthYear`. Valid `monthYear` is provided, bill id is not provided
      - The service returning bill by bill id. Valid bill id is provided, valid `monthYear` is provided
      - The service returning bill by `monthYear`. Invalid bill id is provided, valid monthYear is provided
-     - The service returning bill by monthYear. provided bill id is not found, valid `monthYear` is provided
+     - The service returning bill by `monthYear`. provided bill id is not found, valid `monthYear` is provided
      - The service returning bill by bill id. Valid bill id is provided, invalid `monthYear` is provided
      - The service returning bill by bill id. Valid bill id is provided, provided `monthYear` is out of date range
      - `billStatus`: Following values can be returned: "Active", "Unpaid", "InProgress",
        "ReadyForPayment", "Paid", "SentToCollections", "Credit", "ZeroBalance"
-     - `totalAmount`: if the billStatus is Credit then a negative value will be returned. If the billStatus
+     - `totalAmount`: if the `billStatus` is Credit then a negative value will be returned. If the `billStatus`
        is ZeroBalance then 0 value will be returned
      - `currentAmount`: The amount for manifests invoiced for the current billing period
      - `previousAmount`: The total for all manifests not paid or sent to collections from billing
@@ -147,10 +147,10 @@ schema.
        - `generatorSiteId`: The site ID of the generator on the manifest
      - late fees (when applicable) containing the following information:
        - `lateFeeBillId`: Bill ID which Late Fee is calculated for
-       - `interestAmount`: the total interest amount for this lateFeeBillId
-       - `penaltyAmount`: the total penalty amount for this lateFeeBillId
-       - `lateFeeAmount`: the total interest, penalty, and flat fee amounts for this lateFeeBillId
-       - `flatFeeAmount`: the total flat fee amount for this lateFeeBillId
+       - `interestAmount`: the total interest amount for this `lateFeeBillId`
+       - `penaltyAmount`: the total penalty amount for this `lateFeeBillId`
+       - `lateFeeAmount`: the total interest, penalty, and flat fee amounts for this `lateFeeBillId`
+       - `flatFeeAmount`: the total flat fee amount for this `lateFeeBillId`
        - `status`: the status of the invoice; please note that invoices sent to collection will be
          marked as inactive
      - revisions (when applicable) containing the following information:
@@ -262,7 +262,7 @@ for the response schema.
 
 5. The service will generate JSON containing:
 
-   - billingAccount: EPA Site Id
+   - billingAccount: EPA site ID
    - billId: unique bill id
    - If invalid dates are provided, the service will specify the invalid dates
    - billStatus: Following values can be returned: "Active", "Unpaid", "InProgress", "ReadyForPayment",
@@ -532,7 +532,7 @@ Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 
    Each bill will contain the following information:
 
-   - `billingAccount`: EPA Site Id
+   - `billingAccount`: EPA site ID
    - `billId`: bill id
    - `billStatus`: Following values can be returned: "Unpaid", "InProgress", "ReadyForPayment",
      "Paid", "SentToCollections", "Credit", "ZeroBalance"

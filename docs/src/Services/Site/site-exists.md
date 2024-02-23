@@ -1,8 +1,8 @@
 # Site Exists Service
 
-The service returns provided EPA Site ID and result == true if the site with provided EPA Site Id is
-registered in the e-Manifest system. The service returns provided EPA Site ID and return == false
-if site with provided EPA Site ID is not registered in the e-Manifest system or provided EPA Site ID
+This service checks for the existence of the provided EPA Site ID and, if `"result": true`, if the site has a registered
+user in the e-Manifest system. The service returns the provided EPA Site ID and `"return": false`
+if the provided EPA Site ID does not have a registered user in the e-Manifest system or provided EPA Site ID
 is invalid. It is recommended to invoke the service before invoking search manifest services.
 
 ## Parameters

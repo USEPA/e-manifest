@@ -5,7 +5,7 @@ the manifest form and additional information.
 
 ## Site IDs Service
 
-Returns the list of all Site Ids for the provided State Code and Site Type (Generator, Transporter,
+Returns the list of all site IDs for the provided State Code and Site Type (Generator, Transporter,
 TSDF, Broker).
 
 ### Parameters
@@ -20,7 +20,7 @@ TSDF, Broker).
 
 ### Example
 
-The following HTTP request will return the list of all Site Ids for the state of California and Transporter Site Type:
+The following HTTP request will return the list of all site IDs for the state of California and Transporter Site Type:
 
 ```http
 GET /rcrainfo/rest/api/v1/emanifest/site-ids/CA/Transporter HTTP/1.1
@@ -39,16 +39,16 @@ Accept: application/json
 ## Site Manifest Tracking Numbers Service
 
 Returns the list of Manifest Tracking Numbers for all Manifests stored in the system for the
-provided Site Id. The service won’t return Manifests which are in Draft status.
+provided site ID. The service won’t return Manifests which are in Draft status.
 
 ### Parameters
 
 - [Security Token](../authentication.md#security-tokens)
-- Site Id to pull manifest tracking numbers for
+- Site ID to pull manifest tracking numbers for
 
 ### Example
 
-The following example will return the list of all Manifest Tracking Numbers for the site with Site Id `VATESTGEN001`
+The following example will return the list of all Manifest Tracking Numbers for the site with site ID `VATESTGEN001`
 
 ```http
 GET /rcrainfo/rest/api/v1/emanifest/manifest-tracking-numbers/VATESTGEN001 HTTP/1.1
