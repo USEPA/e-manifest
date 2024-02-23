@@ -10,7 +10,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 1. Generator information and Generator signature date can be provided for Image submission type
    manifests for the save and update services. See modification details in sections Facility
-   Information Validation for "Image" submission type, Generator Site IDand Site Information
+   Information Validation for "Image" submission type, Generator Site ID and Site Information
    Validation and Paper Signature Info Validation. If Generator information and Generator printed
    signature date is provided and data is valid, the following applies
 
@@ -77,7 +77,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    5.2. Validation of the Contact information is identical to #2 in section
 
-   5.3. Designated Facility (TSDF)/Generator SiteIDand Site Information Validation
+   5.3. Designated Facility (TSDF)/Generator Site ID and Site Information Validation
 
    5.4. If Emanifest.wastes are provided then the service generates the following warning:
 
@@ -172,7 +172,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   8.3. If Emanifest.rejectionInfo.rejectionType =="PartiaReject", the service generates the following warning:
+   8.3. If `Emanifest.rejectionInfo.rejectionType == "PartiaReject"`, the service generates the following warning:
 
    ```json
    {
