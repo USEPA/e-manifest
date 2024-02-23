@@ -4,19 +4,13 @@ name: "e-Manifest Services Docs"
 # It will only deploy to GitHub if the repo is 'USEPA/e-manifest'
 
 on:
-  workflow_dispatch:
   push:
-    branches: 
+    branches:
       - 'master'
     paths:
       - '.github/workflows/*'
       - 'docs/*'
-  pull_request:
-    branches: 
-      - 'master'
-    paths:
-      - '.github/workflows/*'
-      - 'docs/*'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -29,7 +23,7 @@ concurrency:
 
 env:
   BOOK_DIRECTORY: ./docs
-  MDBOOK_VERSION: v0.4.35
+  MDBOOK_VERSION: v0.4.37
 
 jobs:
   build_docs:
@@ -55,7 +49,7 @@ jobs:
           path: "${{ env.BOOK_DIRECTORY }}/book"
 
   deploy_pages:
-    if: github.repository == 'USEPA/e-manifest' && github.event_name == 'push' 
+    if: github.repository == 'USEPA/e-manifest'
     needs: build_docs
     environment:
       name: github-pages
