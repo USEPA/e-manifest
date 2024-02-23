@@ -42,17 +42,17 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 ### Facility Information Validation for "Image" submission type
 
-1. For the Image submission type one of the following facility EPA Site IDs must be provided: Designated Facility EPA
-   Site ID, Generator EPA Site IDor Alternate Designated Facility Site ID
+1. For the Image submission type, one of the following facility EPA Site IDs must be provided: Designated Facility EPA
+   Site ID, Generator EPA Site ID, or Alternate Designated Facility Site ID
 2. The following Facility EPA site IDs shall be provided for the following scenarios:
-   - Original Manifest, no Full Rejection: Designated Facility EPA SiteID shall be provided.
+   - Original Manifest, no Full Rejection: Designated Facility EPA Site ID shall be provided.
    - Original Manifest, Full Rejection to Alternate Designated Facility: Alternate Designated Facility EPA Site ID
      shall be provided.
-   - Original Manifest, Full Rejection to the Generator: Designated Facility EPA siteID shall be provided.
+   - Original Manifest, Full Rejection to the Generator: Designated Facility EPA site ID shall be provided.
    - New Manifest shipping waste back to original Generator (New Manifest is the manifest created as a "result" of the
-     Original manifest rejection or residue): Generator Facility EPA SiteID shall be provided. This EPA SiteID shall
+     Original manifest rejection or residue): Generator Facility EPA site ID shall be provided. This EPA site ID shall
      contain the Original Designated Facility Site ID.
-   - New Manifest shipping rejected waste to another Designated Facility: Designated Facility EPA SiteID shall be
+   - New Manifest shipping rejected waste to another Designated Facility: Designated Facility EPA site ID shall be
      provided.
 3. If one of the following IDs: Emanifest.designatedFacility.epaSiteID and Emanifest.generator.epaSiteId and
    Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is not provided then the service will return an

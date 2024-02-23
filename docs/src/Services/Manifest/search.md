@@ -45,7 +45,7 @@ Returns a list of manifests matching the search criteria. The service can be use
     - `CertifiedDate`
     - `UpdatedDate`
 
-    The service will perform a date range search when the date type, startDate and endDate parameters are
+    The service will perform a date range search when the date type, `startDate` and `endDate` parameters are
     provided. This is an optional parameter.
 
   - `startDate`: Starting date/time of the date range search. YYYY-MM-DDThh:mm:ss.sTZD date/time format shall be
@@ -96,7 +96,7 @@ code is equal to "TX" and have been shipped in the Date range between March 6, 2
 }
 ```
 
-The following example to search for all manifests where siteId is
+The following example to search for all manifests where `siteId` is
 provided and the manifest status is `Signed`
 
 ```json
@@ -130,9 +130,9 @@ provided and the manifest status is `Signed`
      following error:
      - `E_SiteIsNotFound: Site with Provided Site ID is not Found`
    - 4.2. If the provided status is invalid, the system will stop processing and generate a schema error.
-   - 4.3. If the provided dateType is invalid, the system will stop processing and generate a schema error.
-   - 4.4. If the provided startDate is invalid, the system will stop processing and generate a schema error.
-   - 4.5. If the provided endDate is invalid, the system will stop processing and generate a schema error.
+   - 4.3. If the provided `dateType` is invalid, the system will stop processing and generate a schema error.
+   - 4.4. If the provided `startDate` is invalid, the system will stop processing and generate a schema error.
+   - 4.5. If the provided `endDate` is invalid, the system will stop processing and generate a schema error.
 
 4. System returns the response
 

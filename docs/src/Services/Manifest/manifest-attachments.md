@@ -84,7 +84,7 @@ submitted as `DataImage5Copy` or `Image` using the [Save](./save.md) or [update]
    errors or warnings.
 4. If the document is not stored and the status is ReadyForSignature, the document is mandatory.
 5. If an attachment is provided, the service checks if the attachment is a zip file (The services only accept one PDF
-   file within the zip file for the printedDocument element). If a non-zipped attachment is provided, the service
+   file within the zip file for the `printedDocument` element). If a non-zipped attachment is provided, the service
    generates the following error:
    ```json
    {

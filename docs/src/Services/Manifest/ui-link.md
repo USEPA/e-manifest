@@ -17,11 +17,11 @@ It can be used for the following use cases:
 - [Security Token](../authentication.md#security-tokens)
 - The following parameters can be passes in JSON format in the body of the request:
 
-  - `"page"` specifies the type of the page the link should direct users to. This is a required parameter the options
+  - `page` specifies the type of the page the link should direct users to. This is a required parameter the options
     include:
-    - `"Sign"`
-    - `"View"`
-    - `"Edit"`
+    - `Sign`
+    - `View`
+    - `Edit`
     - `"Dashboard"`
     - `"BulkSign"`
   - `"epaSiteId"`: the epa site ID of either the generator, transporter(s) or TSDF participating in the manifest. This
@@ -85,7 +85,7 @@ Content-Type: application/json
    }
    ```
 
-   - 3.3. If epaSiteId is not provided then the service generates following error:
+   - 3.3. If `epaSiteId` is not provided then the service generates following error:
 
    ```json
    {
@@ -98,7 +98,7 @@ Content-Type: application/json
    }
    ```
 
-   - 3.4. If provided epaSiteId has invalid format then the service generates following error:
+   - 3.4. If provided `epaSiteId` has invalid format then the service generates following error:
 
    ```json
    {
@@ -111,7 +111,7 @@ Content-Type: application/json
    }
    ```
 
-   - 3.5. If provided epaSiteId is not registered then the service generates following error:
+   - 3.5. If provided `epaSiteId` is not registered then the service generates following error:
 
    ```json
    {
@@ -124,7 +124,7 @@ Content-Type: application/json
    }
    ```
 
-   - 3.6. If provided page == "View" or "Sign" or "Edit" and manifestTrackingNumber is not provided then the service
+   - 3.6. If provided `page` == "View" or "Sign" or "Edit" and `manifestTrackingNumber` is not provided then the service
      generates following error:
 
    ```json
@@ -138,7 +138,7 @@ Content-Type: application/json
    }
    ```
 
-   - 3.7. If provided page == "View" or "Sign" or "Edit" and the manifestTrackingNumber provided has an invalid format
+   - 3.7. If provided page == "View" or "Sign" or "Edit" and the `manifestTrackingNumber` provided has an invalid format
      then the service generates following error:
 
    ```json
@@ -156,7 +156,7 @@ Content-Type: application/json
    }
    ```
 
-   - 3.8. If provided page == "View" or "Sign" or "Edit" and the manifestTrackingNumber is not found then the service
+   - 3.8. If provided page == "View" or "Sign" or "Edit" and the `manifestTrackingNumber` is not found then the service
      generates following error:
 
    ```json
@@ -170,7 +170,7 @@ Content-Type: application/json
    }
    ```
 
-   - 3.9. If provided page == "View" or "Sign" and manifest with provided epa site id and manifestTrackingNumber is not
+   - 3.9. If provided page == "View" or "Sign" and manifest with provided epa site id and `manifestTrackingNumber` is not
      found then the service generates following error:
 
    ```json
