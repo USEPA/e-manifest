@@ -262,7 +262,7 @@ for the response schema.
 
 5. The service will generate JSON containing:
 
-   - billingAccount: EPA Site Id
+   - billingAccount: EPA site ID
    - billId: unique bill id
    - If invalid dates are provided, the service will specify the invalid dates
    - billStatus: Following values can be returned: "Active", "Unpaid", "InProgress", "ReadyForPayment",
@@ -532,7 +532,7 @@ Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
 
    Each bill will contain the following information:
 
-   - `billingAccount`: EPA Site Id
+   - `billingAccount`: EPA site ID
    - `billId`: bill id
    - `billStatus`: Following values can be returned: "Unpaid", "InProgress", "ReadyForPayment",
      "Paid", "SentToCollections", "Credit", "ZeroBalance"
