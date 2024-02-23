@@ -8,7 +8,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
 1. Generator information and Generator signature date can be provided for Image submission type
    manifests for the save and update services. See modification details in sections Facility
-   Information Validation for `Image` submission type, Generator Site ID and Site Information
+   Information Validation for `Image` submission type, Generator site ID and Site Information
    Validation and Paper Signature Info Validation. If Generator information and Generator printed
    signature date is provided and data is valid, the following applies
 
@@ -36,22 +36,22 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    - 2.3. The services will not store Generator information as a part of the manifest data
 
-   - 2.4. The services will set `Emanifest.provideImageGeneratorInfo` = false
+   - 2.4. The services will set `Emanifest.provideImageGeneratorInfo = false`
 
    - 2.5. The manifest fee will be determined based on the receiving facility electronic signature date
 
 ## Facility Information Validation for "Image" submission type
 
-1. For the Image submission type, one of the following facility EPA Site IDs must be provided: Designated Facility EPA
-   Site ID, Generator EPA Site ID, or Alternate Designated Facility Site ID
+1. For the Image submission type, one of the following facility EPA site IDs must be provided: Designated Facility EPA
+   site ID, Generator EPA site ID, or Alternate Designated Facility site ID
 2. The following Facility EPA site IDs shall be provided for the following scenarios:
-   - Original Manifest, no Full Rejection: Designated Facility EPA Site ID shall be provided.
-   - Original Manifest, Full Rejection to Alternate Designated Facility: Alternate Designated Facility EPA Site ID
+   - Original Manifest, no Full Rejection: Designated Facility EPA site ID shall be provided.
+   - Original Manifest, Full Rejection to Alternate Designated Facility: Alternate Designated Facility EPA site ID
      shall be provided.
    - Original Manifest, Full Rejection to the Generator: Designated Facility EPA site ID shall be provided.
    - New Manifest shipping waste back to original Generator (New Manifest is the manifest created as a "result" of the
      Original manifest rejection or residue): Generator Facility EPA site ID shall be provided. This EPA site ID shall
-     contain the Original Designated Facility Site ID.
+     contain the Original Designated Facility site ID.
    - New Manifest shipping rejected waste to another Designated Facility: Designated Facility EPA site ID shall be
      provided.
 3. If one of the following IDs: `Emanifest.designatedFacility.epaSiteID` and `Emanifest.generator.epaSiteId` and
@@ -77,7 +77,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    - 5.2. Validation of the Contact information is identical to #2 in section
 
-   - 5.3. Designated Facility (TSDF)/Generator Site ID and Site Information Validation
+   - 5.3. Designated Facility (TSDF)/Generator site ID and Site Information Validation
 
    - 5.4. If `Emanifest.wastes` are provided then the service generates the following warning:
 
@@ -157,7 +157,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    {
      "message": "Provided Value will be Ignored. Emanifest.rejection = true will be assigned",
      "field": "Emanifest.rejection",
-     "value": " rejection value"
+     "value": "rejection value"
    }
    ```
 
@@ -216,32 +216,32 @@ The manifest fee will be determined based on the Generator signature date (if pr
    in RCRAInfo and the Transporter has at least one User with the e-Manifest Certifier Role and this user has a Received
    ESA.
 
-   - 1.1. If the Transporter Site ID is not provided, the service generates schema validation error.
-   - 1.2. If the Transporter Site ID has an invalid format, the service generates schema validation error.
-   - 1.3. If the Transporter Site ID is not registered, the service generates the following error:
+   - 1.1. If the Transporter site ID is not provided, the service generates schema validation error.
+   - 1.2. If the Transporter site ID has an invalid format, the service generates schema validation error.
+   - 1.3. If the Transporter site ID is not registered, the service generates the following error:
      ```json
      {
        "message": "For FullElectronic submission type registered Transporter Site Id must be provided",
        "field": "Emanifest.transporter.epaSiteId",
-       "value": "Site ID value"
+       "value": "SiteIDvalue"
      }
      ```
-   - 1.4. If the Transporter Site ID is registered and there are no users with the e-Manifest Certifier role for the
+   - 1.4. If the Transporter site ID is registered and there are no users with the e-Manifest Certifier role for the
      provided Transporter, the service generates the following error:
      ```json
      {
        "message": "Site doesn't have any users with Certifier role or with ESA status 'Received",
        "field": "Emanifest.transporter.epaSiteId",
-       "value": "Site ID value"
+       "value": "SiteIDvalue"
      }
      ```
-   - 1.5. If the Transporter Site ID is registered and there are no users with a received ESA, the service generates
+   - 1.5. If the Transporter site ID is registered and there are no users with a received ESA, the service generates
      the following error:
      ```json
      {
        "message": "Site doesn't have any users with Certifier role or with ESA status 'Received",
        "field": "Emanifest.transporter.epaSiteId",
-       "value": "Site ID value"
+       "value": "SiteIDvalue"
      }
      ```
 
@@ -255,7 +255,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
      - Site Address
      - Site Name
      - Contact phone
-   - 2.3. If Site ID AND Site Information are not provided, the system generates errors.
+   - 2.3. If site ID AND Site Information are not provided, the system generates errors.
 
      ```json
      {
@@ -285,10 +285,10 @@ The manifest fee will be determined based on the Generator signature date (if pr
      }
      ```
 
-   - 2.4. If Site ID is provided AND Site Information is not provided, the system performs the following steps:
+   - 2.4. If site ID is provided AND Site Information is not provided, the system performs the following steps:
 
-     - Validate Site ID format.
-     - If Site ID is not valid, the service generates the following error:
+     - Validate site ID format.
+     - If site ID is not valid, the service generates the following error:
 
      ```json
      {
@@ -297,7 +297,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
      }
      ```
 
-     - If the Site ID is valid, the system will search in RCRAInfo by Site ID.
+     - If the site ID is valid, the system will search in RCRAInfo by site ID.
      - If the site is found, the system obtains Site Information from RCRAInfo and stores it into the Manifest.
      - If the site is not found, the service generates the following error:
 
@@ -308,31 +308,31 @@ The manifest fee will be determined based on the Generator signature date (if pr
      }
      ```
 
-   - 2.5. If the Site ID is provided AND Site Information is provided, the site information will be ignored with
+   - 2.5. If the site ID is provided AND Site Information is provided, the site information will be ignored with
      warnings,
      and the system will perform the following steps:
 
-     - Validate provided Site ID.
-     - If Site ID is not valid, the service generates an error:
+     - Validate provided site ID.
+     - If site ID is not valid, the service generates an error:
        ```json
        {
          "message": "Provided value is not valid. Does not match format of: Two Letter Activity Location Code + Up to 10 alphanumeric characters",
          "field": "Emanifest.transporter.epaSiteId",
-         "value": "EPA Site ID value"
+         "value": "SiteIDvalue"
        }
        ```
-     - If Site ID is valid, check if the site is registered.
+     - If site ID is valid, check if the site is registered.
      - If the site is not registered, the service generates a warning:
 
        ```json
        {
          "message": "Site with provided EPA Site ID is not registered",
          "field": "Emanifest.transporter.epaSiteId",
-         "value": "Site ID value"
+         "value": "SiteIDvalue"
        }
        ```
 
-   - 2.6. If Site ID is not provided AND Site Information is provided, the system will perform the following
+   - 2.6. If site ID is not provided AND Site Information is provided, the system will perform the following
      steps:
 
      - Validate the provided Site Information.
@@ -656,7 +656,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    ```json
    {
-     "message": "Mandatory Field is not Provided. For FullElectronic submission type registered Generator SiteIDmust be provided",
+     "message": "Mandatory Field is not Provided. For FullElectronic submission type registered Generator SiteID must be provided",
      "field": "Emanifest.designatedFacility.epaSiteId"
    }
    ```
@@ -665,7 +665,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    ```json
    {
-     "message": "Invalid Field Format. For FullElectronic submission type registered Generator SiteIDmust be provided",
+     "message": "Invalid Field Format. For FullElectronic submission type registered Generator SiteID must be provided",
      "field": "Emanifest.generator.epaSiteId",
      "value": "SiteIDvalue"
    }
@@ -710,36 +710,34 @@ The manifest fee will be determined based on the Generator signature date (if pr
 
    - 3.1. If the Generator is registered in RCRAInfo and service requester does not intend to provide different (than
      registered) Site Information, then only the epaSiteId shall be provided. All site information will be obtained
-     from
-     RCRAInfo.
+     from RCRAInfo.
 
    - 3.2. If the Generator is registered in RCRAInfo and service requester intends to provide different (than
-     registered)
-     Site Information, then the following site information entities must be provided:
+     registered) Site Information, then the following site information entities must be provided:
 
-   - Site ID
-   - Site Name
-   - Site Address (all fields)
-   - Mailing Address (all fields)
-   - Contact Phone
-   - Provided Site Information will be validated and if valid will be stored in e-Manifest.
+     - Site ID
+     - Site Name
+     - Site Address (all fields)
+     - Mailing Address (all fields)
+     - Contact Phone
+     - Provided Site Information will be validated and if valid will be stored in e-Manifest.
 
-     - 3.3. If Generator is not registered in RCRAInfo, then following site information must be provided:
+   - 3.3. If Generator is not registered in RCRAInfo, then following site information must be provided:
 
-   - Site Name
-   - Site Address (all fields)
-   - Mailing Address (all fields)
-   - Contact phone
+     - Site Name
+     - Site Address (all fields)
+     - Mailing Address (all fields)
+     - Contact phone
 
-     Requester also can provide SiteID which is an optional field for this case. If Site ID is provided,
-     the system will check if there is a registered Generator for the provided Site ID
+   Requester also can provide SiteID which is an optional field for this case. If site ID is provided,
+   the system will check if there is a registered Generator for the provided site ID
 
-     - 3.4. For all above cases Emergency Phone Number must be provided
+   - 3.4. For all above cases Emergency Phone Number must be provided
 
-     - 3.5. If the manifest status is InTransit or thereafter then Generator information cannot be updated.
+   - 3.5. If the manifest status is InTransit or thereafter then Generator information cannot be updated.
 
-     - 3.6. If different from currently stored Generator information is provided, the service generates the following
-       warning:
+   - 3.6. If different from currently stored Generator information is provided, the service generates the following
+     warning:
 
    ```json
    {
@@ -748,7 +746,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   - 3.7. If the Site ID is not provided AND any of the mandatory Site information entities are not provided, the
+   - 3.7. If the site ID is not provided AND any of the mandatory Site information entities are not provided, the
      service
      generates the following error(s):
 
@@ -773,10 +771,10 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   - 3.8. If the Site ID is provided AND Site Address information is not provided, the system performs the following
+   - 3.8. If the site ID is provided AND site address information is not provided, the system performs the following
      steps:
 
-   - If Site ID is not valid the service generates the following error:
+     - If site ID is not valid the service generates the following error:
 
    ```json
    {
@@ -786,22 +784,22 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   - If Site ID is valid and found in RCRAInfo, the system will obtain the Site information from RCRAInfo and store it
-     into the Manifest. System sets modified= false, registered = true
-   - If the Site ID is not found, the service generates the following error:
+   - If site ID is valid and found in RCRAInfo, the system will obtain the Site information from RCRAInfo and store it
+     into the Manifest. System sets modified= false, `registered = true`
+   - If the site ID is not found, the service generates the following error:
 
    ```json
    {
      "message": "Provided Value is not Found",
      "field": "Emanifest.generator.epaSiteId",
-     "value": "EPA Site ID value"
+     "value": "SiteIDvalue"
    }
    ```
 
-   - 3.9. If the Site ID is provided and the Site Information entities are provided, the system performs the following
+   - 3.9. If the site ID is provided and the Site Information entities are provided, the system performs the following
      steps:
 
-   - If the site name is not provided, the service generates the following error:
+     - If the site name is not provided, the service generates the following error:
 
    ```json
    {
@@ -908,23 +906,23 @@ The manifest fee will be determined based on the Generator signature date (if pr
    }
    ```
 
-   3.10. Validate provided Site ID
+   3.10. Validate provided site ID
 
-   - If Site ID is not valid, the service generates the following warning:
+   - If site ID is not valid, the service generates the following warning:
 
    ```json
    {
      "message": "Provided value is not valid. Two Letter Activity Location Code + Up to 10 alphanumeric characters",
      "field": "Emanifest.generator.epaSiteId",
-     "value": "EPA Site ID value"
+     "value": "SiteIDvalue"
    }
    ```
 
-   - If the Site ID is valid the system checks if the site is registered
-   - If the site is registered, the system validates if the provided site address state code matches Site ID activity
+   - If the site ID is valid the system checks if the site is registered
+   - If the site is registered, the system validates if the provided site address state code matches site ID activity
      location.
 
-   - If the state code does not match the Site ID activity location, the service generates the following error:
+   - If the state code does not match the site ID activity location, the service generates the following error:
      ```json
      {
        "message": "Location State Code is different than Site Id Activity Location",
@@ -938,7 +936,7 @@ The manifest fee will be determined based on the Generator signature date (if pr
    {
      "message": "Site with provided EPA Site ID is not registered",
      "field": "Emanifest.generator.epaSiteId",
-     "value": "Site ID value"
+     "value": "SiteIDvalue"
    }
    ```
 
@@ -1454,7 +1452,7 @@ The system will perform the following steps on the DOT Information fields:
          "value": "Handler ID value"
        }
        ```
-     - If the provided handlerId does not match the Generator or TSDF or any of Transporter Site IDs in the
+     - If the provided handlerId does not match the Generator or TSDF or any of Transporter site IDs in the
        manifest, the comment will be ignored and generate the following warning:
        ```json
        {
@@ -1525,7 +1523,7 @@ The system will perform the following steps on the DOT Information fields:
 
 ## PCB Information Validation
 
-1. If `pcb` is `false` and any of the `pcbInfos` entities or fields are provided, the service generates the following
+1. If `pcb == false` and any of the `pcbInfos` entities or fields are provided, the service generates the following
    warning:
 
    ```json
@@ -1536,7 +1534,7 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-2. If `pcb` is `true` and `pcbInfos` are not provided, the service generates the following error:
+2. If `pcb == true` and `pcbInfos` are not provided, the service generates the following error:
 
    ```json
    {
@@ -1568,7 +1566,7 @@ The system will perform the following steps on the DOT Information fields:
 
    - 3.2. Validate `pcbInfos.articleContainerId`
 
-     - If `pcbInfos.loadType.code` is "Container", "ArticleInContainer", or "ArticleNotInContainer"
+     - If `pcbInfos.loadType.code` is `Container`, `ArticleInContainer`, or `ArticleNotInContainer`
        and `PcbInfos.articleContainerId` is not provided, the service generates the following error:
        ```json
        {
@@ -1624,8 +1622,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
      - If `PcbInfos.weight` is provided, the service validates field format. If the field format is invalid,
-       the
-       service generates the following error:
+       the service generates the following error:
        ```json
        {
          "message": "Invalid Field Format. Value containing no more than 11 whole digit(s) and 6 decimal digit(s) is expected",
@@ -1637,8 +1634,7 @@ The system will perform the following steps on the DOT Information fields:
    - 3.5. Validate `PcbInfos.wasteType`
 
      - If `pcbInfos.loadType` is "Container" or "ArticleInContainer" and `wasteType` is not provided, the
-       service
-       generates the following error:
+       service generates the following error:
        ```json
        {
          "message": "Mandatory Field is not Provided.",
@@ -1674,8 +1670,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
      - If `PcbInfos.loadType` is "Container" or "ArticleInContainer" and `bulkIdentity` is provided, the
-       service
-       generates the following warning:
+       service generates the following warning:
        ```json
        {
          "message": "Field will be ignored",
@@ -1684,8 +1679,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
      - If `PcbInfos.bulkIdentity` is provided, the service checks the field length. If the field is invalid,
-       the
-       service generates the following error:
+       the service generates the following error:
        ```json
        {
          "message": "Invalid Field Format. Text no longer than 255 characters is expected",
@@ -1718,7 +1712,7 @@ The system will perform the following steps on the DOT Information fields:
 
 2. If `submissionType` is `FullElectronic` or `Hybrid` the following applies
 
-   - 2.1. If `Emanifest.status` is "Scheduled," "InTransit," or "ReadyForSignature," the following applies
+   - 2.1. If `Emanifest.status` is `Scheduled,` `InTransit,` or `ReadyForSignature,` the following applies
 
      - If the `Waste.managementMethod.code` is provided, validate if the code is in the lookup. If the
        provided code is not found, the service generates a warning:
@@ -1752,12 +1746,14 @@ The system will perform the following steps on the DOT Information fields:
 
 ## Rejection Information Validation
 
-1. If an Original Manifest is rejected then Emanifest.rejection shall be specified as "true".
+1. If an Original Manifest is rejected then `Emanifest.rejection` shall be specified as `true`.
 
-2. Emanifest.rejection and RejectionInfo shall be provided at the "ReadyForSignature" status. If provided for earlier
+2. `Emanifest.rejection` and `RejectionInfo` shall be provided at the `ReadyForSignature` status. If provided for
+   earlier
    statuses these fields will be ignored.
 
-   - 2.1 If Emanifest.status < "ReadyForSignature" and either Emanifest.rejection or RejectionInfo fields are provided
+   - 2.1 If `Emanifest.status < "ReadyForSignature"` and either `Emanifest.rejection` or `RejectionInfo` fields are
+     provided
      then the service generates the following warning:
      ```json
      {
@@ -1767,7 +1763,7 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-3. If submissionStatus >= "ReadyForSignature" and Emanifest.rejection is not provided then the service generates the
+3. If `submissionStatus >= "ReadyForSignature"` and `Emanifest.rejection` is not provided then the service generates the
    following error:
 
    ```json
@@ -1777,7 +1773,7 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-4. Emanifest.containsPreviousRejectOrResidue is not provided then the service generates the following error:
+4. `Emanifest.containsPreviousRejectOrResidue` is not provided then the service generates the following error:
 
    ```json
    {
@@ -1797,7 +1793,7 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - 5.2. If RejectionInfo.rejectionComments are not valid then the service generates the following error:
+   - 5.2. If `RejectionInfo.rejectionComments` are not valid then the service generates the following error:
 
      ```json
      {
@@ -1807,7 +1803,7 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - 5.3. If RejectionInfo.transporterOnSite is not provided then the service generates the following error:
+   - 5.3. If `RejectionInfo.transporterOnSite` is not provided then the service generates the following error:
 
      ```json
      {
@@ -1816,7 +1812,8 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - 5.4. If RejectionInfo.transporterOnSite is provided and not valid then the service generates the following error:
+   - 5.4. If `RejectionInfo.transporterOnSite` is provided and not valid then the service generates the following
+     error:
 
      ```json
      {
@@ -1840,9 +1837,9 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - e-Manifest sets rejectionInfo.rejectionType as "FullReject" in the e-Manifest database
+   - e-Manifest sets `rejectionInfo.rejectionType = "FullReject"` in the e-Manifest database
 
-   - If RejectionInfo.newManifestTrackingNumbers is provided then the service generates the following warning:
+   - If `RejectionInfo.newManifestTrackingNumbers` is provided then the service generates the following warning:
 
      ```json
      {
@@ -1851,7 +1848,7 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - If RejectionInfo.alternateDesignatedFacilityType is not provided then the service generates the following
+   - If `RejectionInfo.alternateDesignatedFacilityType` is not provided then the service generates the following
      error:
 
      ```json
@@ -1873,7 +1870,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-     - If generatorPaperSignature.printedName has an invalid format then the service generates the following
+     - If `generatorPaperSignature.printedName` has an invalid format then the service generates the following
        warning:
 
        ```json
@@ -1884,7 +1881,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-     - If generatorPaperSignature.signatureDate is not provided then the service generates the following
+     - If `generatorPaperSignature.signatureDate` is not provided then the service generates the following
        error:
 
        ```json
@@ -1894,7 +1891,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-     - If generatorPaperSignature.signatureDate < Emanifest.designatedFacility.paperSignature.signatureDate
+     - If `generatorPaperSignature.signatureDate < Emanifest.designatedFacility.paperSignature.signatureDate`
        then the service generates the following error:
 
        ```json
@@ -1905,7 +1902,8 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-     - If generatorPaperSignature.signatureDate > current Date then the service generates the following
+     - If `generatorPaperSignature.signatureDate` is greater than current Date then the service generates the
+       following
        error:
 
        ```json
@@ -1929,9 +1927,8 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-     - If RejectionInfo.alternateDesignatedFacility.epaSiteId has an invalid format then the service
-       generates
-       the following error:
+     - If `RejectionInfo.alternateDesignatedFacility.epaSiteId` has an invalid format then the service
+       generates the following error:
 
        ```json
        {
@@ -1941,10 +1938,10 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-     - If epaSiteId is valid, the system will search RCRAInfo by Site ID. If the Site ID is found the system
+     - If `epaSiteId` is valid, the system will search RCRAInfo by site ID. If the site ID is found the system
        will obtain the Site information from RCRAInfo and store it into the Manifest.
 
-     - If the epaSiteId is not found, the service generates the following error:
+     - If the `epaSiteId` is not found, the service generates the following error:
 
        ```json
        {
@@ -1955,8 +1952,7 @@ The system will perform the following steps on the DOT Information fields:
        ```
 
      - 5.5. If `Emanifest.submissionType` is `FullElectronic` or `Hybrid` and provided
-       `RejectionInfo.transporterOnSite == true`
-       then the service generates the following warning:
+       `RejectionInfo.transporterOnSite == true` then the service generates the following warning:
 
      ```json
      {
@@ -1977,7 +1973,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-     - If RejectionInfo.newManifestTrackingNumber(s) is provided and not valid, the service generates the
+     - If `RejectionInfo.newManifestTrackingNumber(s)` is provided and not valid, the service generates the
        following error:
 
        ```json
@@ -1988,7 +1984,7 @@ The system will perform the following steps on the DOT Information fields:
        }
        ```
 
-     - If manifestTrackingNumber has a valid format, the service checks if the provided manifestTrackingNumber
+     - If `manifestTrackingNumber` has a valid format, the service checks if the provided `manifestTrackingNumber`
        suffix is valid. If the suffix is invalid, the service generates the following error:
 
        ```json
@@ -2001,10 +1997,11 @@ The system will perform the following steps on the DOT Information fields:
 
      - If any of the following fields are provided:
 
-       - RejectionInfo.alternateDesignatedFacilityType
-       - RejectionInfo.generatorPaperSignature
-       - RejectionInfo.alternateDesignatedFacility
-         the service generates the following warning:
+       - `RejectionInfo.alternateDesignatedFacilityType`
+       - `RejectionInfo.generatorPaperSignature`
+       - `RejectionInfo.alternateDesignatedFacility`
+
+       the service generates the following warning:
 
        ```json
        {
@@ -2033,7 +2030,8 @@ The system will perform the following steps on the DOT Information fields:
 
 ## Discrepancy Information Validation
 
-1. If status >= ReadyForSignature and DiscrepancyResidueInfo.wasteQuantity is not provided then the service generates
+1. If `status >= ReadyForSignature` and `DiscrepancyResidueInfo.wasteQuantity` is not provided then the service
+   generates
    the following error:
 
    ```json
@@ -2043,7 +2041,8 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-2. If status >= ReadyForSignature and DiscrepancyResidueInfo.wasteType is not provided then the service generates the
+2. If `status >= ReadyForSignature` and `DiscrepancyResidueInfo.wasteType` is not provided then the service generates
+   the
    following error:
 
    ```json
@@ -2063,7 +2062,7 @@ The system will perform the following steps on the DOT Information fields:
    }
    ```
 
-4. If DiscrepancyResidueInfo.discrepancyComments has an invalid format then the service generates the following error:
+4. If `DiscrepancyResidueInfo.discrepancyComments` has an invalid format then the service generates the following error:
 
    ```json
    {
@@ -2092,7 +2091,7 @@ The system will perform the following steps on the DOT Information fields:
 
 ## Residue Information Validation
 
-1. If status >= ReadyForSignature and DiscrepancyResidueInfo.residue is not provided, then the service generates the
+1. If `status >= ReadyForSignature` and `DiscrepancyResidueInfo.residue` is not provided, then the service generates the
    following error:
 
    ```json
@@ -2104,8 +2103,7 @@ The system will perform the following steps on the DOT Information fields:
 
 2. If `DiscrepancyResidueInfo.residue == true` and `DiscrepancyResidueInfo.residueComments` is provided, the service
    validates if `DiscrepancyResidueInfo.residueComments` has valid format. If `DiscrepancyResidueInfo.residueComments`
-   has
-   invalid format, the service generates the following error:
+   has invalid format, the service generates the following error:
 
    ```json
    {
@@ -2116,8 +2114,7 @@ The system will perform the following steps on the DOT Information fields:
    ```
 
 3. If `DiscrepancyResidueInfo.residue == false` and `DiscrepancyResidueInfo.residueComments` is provided, then the
-   service
-   generates the following warning:
+   service generates the following warning:
 
    ```json
    {
@@ -2141,8 +2138,8 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - 5.2. If Emanifest.residueNewManifestTrackingNumber(s) are provided then the service validates the format of
-     residueNewManifestTrackingNumber(s). If it has an invalid format, the service generates the following warning:
+   - 5.2. If `Emanifest.residueNewManifestTrackingNumber(s)` are provided then the service validates the format of
+     `residueNewManifestTrackingNumber(s)`. If it has an invalid format, the service generates the following warning:
 
      ```json
      {
@@ -2152,8 +2149,8 @@ The system will perform the following steps on the DOT Information fields:
      }
      ```
 
-   - 5.3. If the residueNewManifestTrackingNumber has a valid format, the service checks if the provided
-     residueNewManifestTrackingNumber suffix is valid. If the suffix is invalid, the service generates the following
+   - 5.3. If the `residueNewManifestTrackingNumber` has a valid format, the service checks if the provided
+     `residueNewManifestTrackingNumber` suffix is valid. If the suffix is invalid, the service generates the following
      warning:
      ```json
      {
@@ -2189,7 +2186,7 @@ The system will perform the following steps on the DOT Information fields:
        "value": "Emanifest.waste.br value"
      }
      ```
-   - 2.2. The system sets Waste.br = false and stores it as a part of the manifest
+   - 2.2. The system sets `Waste.br = false` and stores it as a part of the manifest
 
 3. If `Waste.br == false` or not provided and at least one of the provided Waste.brInfo fields is valid, then the
    following applies:
@@ -2202,7 +2199,7 @@ The system will perform the following steps on the DOT Information fields:
        "value": "Emanifest.waste.br value"
      }
      ```
-   - 3.2. The system sets Waste.br = true and stores it as a part of the manifest
+   - 3.2. The system sets `Waste.br = true` and stores it as a part of the manifest
 
 4. If `Waste.br == true` and Waste.brInfo fields are provided, then the following applies:
 
@@ -2240,7 +2237,7 @@ The system will perform the following steps on the DOT Information fields:
 
    - 5.4. Validate Density and Density Units Of Measurement
 
-     - If Waste.UnitOfMeasurement.code is not G, L, Y, or N (volumes), then the following applies:
+     - If `Waste.UnitOfMeasurement.code` is not `G`, `L`, `Y`, or `N` (volumes), then the following applies:
 
        - If Density is provided, the service generates the following warning:
          ```json
@@ -2260,17 +2257,15 @@ The system will perform the following steps on the DOT Information fields:
          }
          ```
 
-       - If Waste.UnitOfMeasurement.code is G, L, Y, or N (volumes), then the following applies:
+       - If `Waste.UnitOfMeasurement.code` is `G`, `L`, `Y`, or `N` (volumes), then the following applies:
 
-         - The service will store the provided density and the densityUnitOfMeasurement.code if both are
+         - The service will store the provided density and the `densityUnitOfMeasurement.code` if both are
            valid.
-         - The service will not store the valid density if densityUnitOfMeasurement.code is not provided
-           or
-           provided densityUnitOfMeasurement.code is not valid.
-         - The service will not store the valid densityUnitOfMeasurement.code if density is not provided
-           or
-           provided density is not valid.
-         - If Density and densityUnitOfMeasurement.code are not provided, the system will generate a
+         - The service will not store the valid density if `densityUnitOfMeasurement.code` is not provided
+           or provided `densityUnitOfMeasurement.code` is not valid.
+         - The service will not store the valid `densityUnitOfMeasurement.code` if density is not provided
+           or provided density is not valid.
+         - If Density and `densityUnitOfMeasurement.code` are not provided, the system will generate a
            warning:
 
            ```json
@@ -2280,7 +2275,7 @@ The system will perform the following steps on the DOT Information fields:
            }
            ```
 
-       - If either Density or densityUnitOfMeasurement.code is not provided, the system will generate a
+       - If either Density or `densityUnitOfMeasurement.code` is not provided, the system will generate a
          warning:
 
          ```json
@@ -2300,7 +2295,7 @@ The system will perform the following steps on the DOT Information fields:
          }
          ```
 
-       - If provided densityUnitOfMeasurement.code is not valid, the service generates the following
+       - If provided `densityUnitOfMeasurement.code` is not valid, the service generates the following
          warning:
 
          ```json
