@@ -1061,7 +1061,7 @@ class RcrainfoClient(Session):
         Returns:
             dict: object containing handler source records (and optional details)
         """
-        endpoint = f"v1/state/handler/sources/{handler_id}/{str(details)}"
+        endpoint = f"{self.base_url}v1/state/handler/sources/{handler_id}/{str(details)}"
         return self.__rcra_request("GET", endpoint)
 
 
