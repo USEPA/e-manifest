@@ -8,10 +8,10 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration(proxyBeanMethods = false)
-public class TestManifestClientApp {
+public class TestRcraClientApp {
 
     public static void main(String[] args) {
-        SpringApplication.from(ManifestClientApp::main).with(TestManifestClientApp.class).run(args);
+        SpringApplication.from(RcraClientApp::main).with(TestRcraClientApp.class).run(args);
     }
 
     @Bean
