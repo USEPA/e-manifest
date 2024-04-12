@@ -17,4 +17,7 @@ an account in the Pre-Production environment with an API ID and Key.
     ```shell
     ./mvnw spring-boot:run
     ```
-3. Open your browser and navigate to `http://localhost:8080` to view the Swagger UI documentation.
+3. Make a curl request or use a browser to access the application
+    ```shell
+    curl http://localhost:8080/api/lookup/container-types
+    ```

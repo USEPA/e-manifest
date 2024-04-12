@@ -1,4 +1,4 @@
-package gov.epa.rcra.rest.client;
+package gov.epa.rcra.rest.auth;
 
 import java.time.ZonedDateTime;
 
