@@ -3,7 +3,7 @@
 ## Overview
 
 This small sample java application demonstrates using the e-Manifest RESTful web services.
-it was bootstrapped with Spring Boot version 3.2.
+it was bootstrapped with the Spring framework and JDK 21 (LTS version supported until 2031).
 
 ## Getting Started
 
