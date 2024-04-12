@@ -1,6 +1,6 @@
 package gov.epa.rcra.rest.auth;
 
-import gov.epa.rcra.rest.client.RcraClient;
+import gov.epa.rcra.rest.client.RcraClientConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
@@ -17,8 +17,8 @@ public class AuthClient {
     @Value("${rcrainfo.api-id}")
     private String apiId;
 
-    AuthClient(RcraClient rcraClient) {
-        this.client = rcraClient.getClient();
+    AuthClient(RcraClientConfiguration rcraClientConfiguration) {
+        this.client = rcraClientConfiguration.getClient();
     }
 
     public RestClient authenticate() {
@@ -30,7 +30,6 @@ public class AuthClient {
         if (data == null) {
             throw new RuntimeException("Failed to authenticate");
         }
-        System.out.println("token: " + data.token());
         return client.mutate()
                 .defaultHeader("Authorization", "Bearer " + data.token()).build();
     }
