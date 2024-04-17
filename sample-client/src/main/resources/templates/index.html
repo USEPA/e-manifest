@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>e-Manifest Sample Client</title>
+</head>
+<body>
+<h1>e-Manifest Sample Client</h1>
+<div>
+    <h2>Lookup Services</h2>
+    <label for="endpoints">Select Lookup</label>
+    <select id="endpoints">
+        <option value="container-types">Container Types</option>
+        <option value="waste-minimization-codes">Waste Minimization Codes</option>
+        <option value="source-codes">Source Codes</option>
+        <option value="management-method-codes">Management Method Codes</option>
+        <option value="density-codes">Density Codes</option>
+        <option value="form-codes">Form Codes</option>
+        <option value="federal-waste-codes">Federal Waste Codes</option>
+        <option value="state-waste-codes">State Waste Codes</option>
+    </select>
+    <button onclick="fetchData()">Fetch Data</button>
+    <textarea id="jsonOutput" style="width: 100%; height: 500px;"></textarea>
+</div>
+
+
+<div>
+    <h2>Site Services</h2>
+    <label for="siteServiceSelection">Select Site Service</label>
+    <select id="siteServiceSelection">
+        <option value="getSite">Get Site</option>
+        <option value="getSiteExists">Get Site Exists</option>
+    </select>
+    <label for="siteEpaId">Enter Site EPA ID</label>
+    <input id="siteEpaId" type="text"/>
+    <button onclick="fetchSiteData()">Fetch Site Data</button>
+    <textarea id="siteJsonOutput" style="width: 100%; height: 500px;"></textarea>
+</div>
+<script>
+    async function fetchSiteData() {
+        const endpoint = document.getElementById('siteServiceSelection').value;
+        const epaId = document.getElementById('siteEpaId').value;
+        let url = `http://localhost:8080/api/site/${epaId}`;
+        if (endpoint === 'getSiteExists') {
+            url = `${url}/exists`;
+        }
+        const response = await fetch(url);
+        const data = await response.json();
+        document.getElementById('siteJsonOutput').value = JSON.stringify(data, null, 2);
+    }
+</script>
+
+
+</body>
+</html>
+<script>
+    async function fetchData() {
+        const endpoint = document.getElementById('endpoints').value;
+        const response = await fetch(`http://localhost:8080/api/lookup/${endpoint}`);
+        const data = await response.json();
+        document.getElementById('jsonOutput').value = JSON.stringify(data, null, 2);
+    }
+</script>
