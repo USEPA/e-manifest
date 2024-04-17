@@ -6,6 +6,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
+import java.time.ZonedDateTime;
+
 @Component
 public class AuthClient {
 
@@ -16,9 +18,14 @@ public class AuthClient {
 
     @Value("${rcrainfo.api-id}")
     private String apiId;
+    private ZonedDateTime tokenExpiration;
 
     AuthClient(RcraClientConfiguration rcraClientConfiguration) {
         this.client = rcraClientConfiguration.getClient();
+    }
+
+    public ZonedDateTime getTokenExpiration() {
+        return tokenExpiration;
     }
 
     public RestClient authenticate() {
@@ -30,6 +37,7 @@ public class AuthClient {
         if (data == null) {
             throw new RuntimeException("Failed to authenticate");
         }
+        tokenExpiration = data.expiration();
         return client.mutate()
                 .defaultHeader("Authorization", "Bearer " + data.token()).build();
     }

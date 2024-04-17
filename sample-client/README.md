@@ -17,12 +17,13 @@ an account in the Pre-Production environment with an API ID and Key.
     ```shell
     ./mvnw spring-boot:run
     ```
-3. Make a curl request or use a browser to access the application
+3. Make a request to the client API
     ```shell
     curl http://localhost:8080/api/lookup/container-types
     ```
+   or visit the sample client local UI at http://localhost:8080
 
-## Help
+## Spring Boot Help
 
 ### Reference Documentation
 
