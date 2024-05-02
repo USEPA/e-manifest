@@ -1,5 +1,6 @@
 package gov.epa.rcra.rest.manifest;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ public class ManifestController {
         this.manifestService = manifestService;
     }
 
-    @GetMapping("/{manifestTrackingNumber}")
+    @GetMapping(value = "/{manifestTrackingNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getManifest(@PathVariable String manifestTrackingNumber) {
         return manifestService.getEmanifest(manifestTrackingNumber);
     }
