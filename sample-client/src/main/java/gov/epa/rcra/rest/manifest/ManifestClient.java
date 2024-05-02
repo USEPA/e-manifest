@@ -4,6 +4,7 @@ package gov.epa.rcra.rest.manifest;
 import gov.epa.rcra.rest.auth.AuthClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -18,10 +19,13 @@ class ManifestClient {
     }
 
 
-    public String getEmanifest(String manifestTrackingNumber) {
+    public String getEmanifest(String manifestTrackingNumber) throws ManifestException {
         return rcraClient.get()
                 .uri("api/v1/emanifest/manifest/" + manifestTrackingNumber)
                 .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+                    throw new ManifestException(response.getStatusCode().value());
+                })
                 .body(new ParameterizedTypeReference<String>() {
                 });
     }

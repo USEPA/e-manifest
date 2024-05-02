@@ -11,7 +11,7 @@ public class ManifestService {
         this.manifestClient = manifestClient;
     }
 
-    public String getEmanifest(String manifestTrackingNumber) {
+    public String getEmanifest(String manifestTrackingNumber) throws ManifestException {
         return manifestClient.getEmanifest(manifestTrackingNumber);
     }
 }
