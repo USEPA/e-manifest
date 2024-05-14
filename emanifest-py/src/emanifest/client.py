@@ -941,7 +941,20 @@ class RcrainfoClient(Session):
         """
         endpoint = f"{self.base_url}v1/emanifest/manifest/quicker-sign"
         return self.__rcra_request("POST", endpoint, **kwargs)
+        
+    def get_available_manifests(self, mtn: str) -> RcrainfoResponse:
+        """
+        Returns previous and future signature-related information about manifest and respective sites
 
+        Args:
+            mtn (str): Manifest tracking number
+
+        Returns:
+            dict: object containing manifest signature details
+        """
+        endpoint = f"{self.base_url}v1/emanifest/manifest/available-to-sign/{mtn}"
+        return self.__rcra_request("GET", endpoint)
+        
     def save_manifest(
         self, manifest_json: dict, zip_file: bytes = None
     ) -> RcrainfoResponse:
