@@ -87,12 +87,13 @@ Visit the [test site](https://rcrainfopreprod.epa.gov/rcrainfo/)
 
 - Click the "Register" link.
 - Click the "Continue to Industry User Registration" button
-- Fill out Title and Name and click the "Next" button.
-- Create your username, password, and password retrieval questions
-- Review and agree to the Terms and Conditions, and click the "Next" button
-- Fill out the information for your Organization (not necessarily your site), Job title, phone and email address.
-- Click the "Send Verification Code via Email" button
-- After entering the verification code from your email click the "Register" button
+- Create a CDX user ID and enter in your email address that you will use (or have) in the login.gov test environment
+- Agree to the terms and conditions and click the Continue to LOGIN.GOV
+- In Login.gov, follow the prompts and establish your multi-factor authentication methods
+- Click the "Agree and continue" button which will take you back to RCRAInfo
+- Verify your email
+- Complete setting up your RCRAInfo account
+- Click the "Complete Registration"
 - You will be taken to the My Sites page to register your handler(s)
 
 **Handler Registration:**
