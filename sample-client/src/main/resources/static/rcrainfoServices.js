@@ -35,6 +35,11 @@ class ApiClient {
             return await this.#fetchData(`http://localhost:8080/api/lookup/${lookup}`);
         }
     }
+    static fetchManifestData = (mtn) => {
+        return async () => {
+            return await this.#fetchData(`http://localhost:8080/api/manifest/${mtn}`);
+        }
+    }
 
     static #fetchData = async (url) => {
         const response = await fetch(url);

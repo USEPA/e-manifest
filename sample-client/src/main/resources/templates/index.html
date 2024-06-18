@@ -80,6 +80,30 @@
             </button>
         </div>
     </div>
+
+    <div class="my-3">
+        <h2>Manifest Services</h2>
+        <form action="javascript:executeService('getManifest')">
+            <div class="row d-flex align-items-end mb-3">
+                <div class="col-6">
+                    <label for="getManifestMTN">Enter Manifest Tracking Number</label>
+                    <input class="form-control" id="getManifestMTN" required type="text"/>
+                </div>
+                <div class="col-3 d-flex justify-content-end">
+                    <button class="btn btn-primary" type="submit">Fetch Manifest Data</button>
+                </div>
+            </div>
+        </form>
+        <div class="position-relative">
+            <textarea aria-label="Site Service output" class="form-control" id="getManifestOutput" readonly
+                      style="width: 100%; height: 200px;"></textarea>
+            <button class="position-absolute btn btn-secondary top-0 end-0 m-2" id="mtnCopyButton"
+                    onclick="copyToClipboard('getManifestOutput')"
+            >Copy
+            </button>
+        </div>
+    </div>
+
 </div>
 <div class="toast-container position-fixed bottom-0 end-0 m-3">
     <div aria-atomic="true" aria-live="assertive" class="toast" data-bs-delay="2000" id="liveToast" role="alert">
@@ -117,6 +141,12 @@
             case 'lookup':
                 const lookupServiceName = document.getElementById('lookupService').value;
                 return {service: ApiClient.fetchLookup(lookupServiceName), outputElement: 'lookupOutput'};
+            case 'getManifest':
+                const manifestTrackingNumber = document.getElementById('getManifestMTN').value;
+                return {
+                    service: ApiClient.fetchManifestData(manifestTrackingNumber),
+                    outputElement: 'getManifestOutput'
+                };
             default:
                 alert('There was an error, unrecognized service invoked');
         }
