@@ -681,10 +681,13 @@ class RcrainfoClient(Session):
         Keyword Args:
             stateCode (str): Two-letter US postal state code
             siteId (str): EPA Site ID
+            submissionType (str): FullElectronic, Hybrid, Image, DataImage5Copy
             status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete,
             UnderCorrection, Corrected. Case-sensitive
-            dateType (str): CertifiedDate, ReceivedDate, ShippedDate, UpdatedDate. Case-sensitive
             siteType (str): Generator, Tsdf, Transporter, RejectionInfo_AlternateTsdf. Case-sensitive
+            transporterOrder (int): Number representing the order of a transporter on the manifest
+            comments (dict): {label (str), description (str), handlerId (str)}
+            dateType (str): CertifiedDate, ReceivedDate, ShippedDate, UpdatedDate, QuickSignDate. Case-sensitive
             startDate (date): Start date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
             endDate (date): End date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
 
