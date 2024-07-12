@@ -6,7 +6,7 @@ on:
       - 'e-manifest-py/*'
   pull_request:
     paths:
-      - 'e-manifest-py/*'
+      - 'emanifest-py/**/*'
 
 jobs:
   test:
