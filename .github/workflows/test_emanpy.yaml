@@ -3,10 +3,10 @@ name: Test e-Manifest Python Package
 on:
   push:
     paths:
-      - 'e-manifest-py/*'
+      - 'emanifest-py/*'
   pull_request:
     paths:
-      - 'e-manifest-py/*'
+      - 'emanifest-py/**/*'
 
 jobs:
   test:
@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: e-manifest-py
+        working-directory: emanifest-py
     strategy:
       matrix:
-        python-version: [ "3.10", "3.11" ]
+        python-version: [ "3.10", "3.11", "3.12" ]
 
     steps:
       - name: Checkout Repo

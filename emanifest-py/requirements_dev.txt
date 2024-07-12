@@ -1,4 +1,4 @@
-pytest==7.4.0
+pytest==8.2.2
+ruff==0.5.1
+responses==0.25.3
 -r requirements.txt
-ruff==0.0.284
-responses==0.23.3

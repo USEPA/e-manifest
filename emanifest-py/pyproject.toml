@@ -1,6 +1,6 @@
 [project]
 name = "emanifest"
-version = "4.1.0"
+version = "4.1.1"
 description = "An API utility wrapper for accessing the e-Manifest hazardous waste tracking system maintained by the US Environmental Protection Agency"
 readme = "README.md"
 authors = [
@@ -14,14 +14,10 @@ maintainers = [
 ]
 
 license = { text = "CCO 1.0" }
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 dependencies = [
-    "requests==2.31.0",
-    "certifi==2023.5.7",
-    "requests-toolbelt==1.0.0",
-    "charset-normalizer==3.1.0",
-    "idna==3.4",
-    "urllib3==2.0.2"
+    "requests<=2.27.0",
+    "requests-toolbelt<=1.0.0",
 ]
 
 [project.urls]

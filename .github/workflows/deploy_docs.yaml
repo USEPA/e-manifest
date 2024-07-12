@@ -9,8 +9,7 @@ on:
       - 'master'
       - 'main'
     paths:
-      - '.github/workflows/*'
-      - 'docs/*'
+      - 'docs/**/*'
   workflow_dispatch:
 
 permissions:

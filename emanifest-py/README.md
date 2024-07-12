@@ -12,16 +12,16 @@ RCRAInfo national electronic hazardous waste management system.
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
-  - [Authentication](#authentication)
-  - [Methods](#methods)
-  - [Regulator Usage](#regulators)
-  - [Advanced Usage](#advanced-usage-and-help)
+    - [Authentication](#authentication)
+    - [Methods](#methods)
+    - [Regulator Usage](#regulators)
+    - [Advanced Usage](#advanced-usage-and-help)
 - [Contact](#contact)
 - [License](LICENSE.txt)
 
 ## Requirements
 
-- Python 3.7
+- Python 3.10 or higher
 
 ## Installation
 
