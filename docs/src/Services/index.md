@@ -7,14 +7,14 @@ The service. The services are secured using a [token-based authentication system
 1. [All users] [Authentication services](authentication.md)
 2. [All users] [e-Manifest Lookup Services](./Lookup/e-manifest-lookup.md)
 3. [All users] [Lookup Services](./Lookup/lookup.md)
-4. [All users] Site Services
-5. [All users] User Services
+4. [All users] [Site Services](./Site)
+5. [All users] [User Services](./user.md)
 6. [Industry users] [e-Manifest Services](Manifest/save.md)
 7. [Industry users] [e-Manifest UI Link Services](./Manifest/ui-link.md)
 8. [Regulator users] CM&E Evaluation Services
 9. [Regulator users] [e-Manifest Services](Manifest/states.md)
-10. [Regulator users] [Handler Services](./site-handler.md)
-11. [Regulator users] User Services
+10. [Regulator users] [Handler Services](./Site)
+11. [Regulator users] [User Services](./user.md)
 
 ## Base URL
 
