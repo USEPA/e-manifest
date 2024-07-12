@@ -1,4 +1,4 @@
 pytest==8.2.2
--r requirements.txt
 ruff==0.5.1
 responses==0.25.3
+-r requirements.txt
