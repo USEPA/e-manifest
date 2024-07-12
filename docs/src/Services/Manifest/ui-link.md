@@ -24,18 +24,19 @@ It can be used for the following use cases:
     - `Edit`
     - `Dashboard`
     - `BulkSign`
-  - `epaSiteId`: the epa site ID of either the generator, transporter(s) or TSDF participating in the manifest. This
-    is
-    a required parameter.
+    - `BulkQuickSign`
+  - `epaSiteId`: the EPA site ID of either the generator, transporter(s) or TSDF participating in the manifest. This
+    is a required parameter.
   - `manifestTrackingNumber`: the tracking number of the manifest. This is a required parameter if the
-    provided `page`
-    value is either `View`, `Edit`, or `Sign`. This parameter may not be provided is the `page` value is equal
-    to `Dashboard` or `BulkSign`.
+    provided `page` value is either `View`, `Edit`, or `Sign`. This parameter may not be provided if
+     the `page` value is equal to `Dashboard`, `BulkSign`, or `BulkQuickSign`.
   - `filter`: An array of manifest tracking number(s) which should be displayed on the manifest Dashboard or bulk
-    sign
-    page. This is a required parameter if the provided `page` value is either `Dashboard` or `BulkSign`. This
-    parameter
-    may not be provided is the `page` value is equal to `View`, `Edit`, or `Sign`.
+    sign page. This parameter may not be provided if the `page` value is equal to `View`, `Edit`, or `Sign`.
+  - `view` : A string value specifying the view the page should take in the UI.  This parameter may not be provided
+    if the `page` value is equal to `View`, `Edit`, or `Sign`. Values include `Incoming`, `Outgoing`,
+    `All`, `Transporting`, `Broker`, and `CorrectionRequests` if the provided `page` value is `Dashboard`. Values
+    include `Original`, `Corrections`, and `CorrectionRequests` if the provided `page` value is `BulkSign`. Values
+    include `Incoming`, `Outgoing`, and `Transporting` if the provided `page` value is `BulkQuickSign`. 
 
 ## Examples
 
