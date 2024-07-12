@@ -12,13 +12,14 @@ Returns a list of manifests matching the search criteria. The service can be use
     provided.
   - `siteId`: TSDF, Generator, or Transporter Site ID. This is one of two Mandatory Parameters. Either `stateCode` or
     `siteId` shall be provided.
-  - `siteType`: The type of the site (Generator, Transporter, TSDF) which will be used for the search. If the site
+  - `siteType`: The type of the site (Generator, Transporter, TSDF, Alternate TSDF) which will be used for the search. If the site
     location address state code is equal to the provided `stateCode` then this search criteria is a match. One of the
     following values may be provided:
 
     - `Generator`
     - `Transporter`
     - `Tsdf`
+    - `RejectionInfo_AlternateTsdf`
 
     If a parameter is not provided then the search will be performed for all Generators and Transporters and
     TSDFs. This is an optional Parameter.
@@ -37,6 +38,29 @@ Returns a list of manifests matching the search criteria. The service can be use
     If the parameter is provided the manifests which are in the provided status will match the search criteria. If
     this parameter is not provided manifests which are in any of the above statuses will match the search
     criteria. This is an optional parameter.
+    
+  - `transporterOrder`: Transporter Order. Integer value representing the order of a transporter on the manifest.
+
+    If the parameter is provided the manifests for which the given transporter matches the search criteria will be returned. If
+    this parameter is not provided manifests will match the other search criteria. This is an optional parameter.
+
+  - `correctionRequestStatus`: Correction Request Status. Following values can be provided:
+
+    - `NotSent`
+    - `Sent`
+    - `IndustryResponded`
+    - `Cancelled`
+
+    If the parameter is provided the manifests which are in the provided status will match the search criteria. If
+    this parameter is not provided manifests which are in any of the above statuses will match the search
+    criteria. This is an optional parameter.
+
+  - `comments`: Comments. Dictionaries can be provided matching the following format:
+
+    - `{label (str), description (str), handlerId (str)}`
+
+    Providing the `handlerId` is optional. If the parameter is provided the manifests which match the search criteria will
+    be returned. If this parameter is not provided manifests will match the other search criteria. This is an optional parameter.
 
   - `dateType`: type of the Date which will be used for the date range search. The following values can be provided:
 

@@ -681,12 +681,16 @@ class RcrainfoClient(Session):
         Keyword Args:
             stateCode (str): Two-letter US postal state code
             siteId (str): EPA Site ID
+            submissionType (str): FullElectronic, Hybrid, Image, DataImage5Copy
             status (str): Pending, Scheduled, InTransit, Received, ReadyForSignature, Signed, SignedComplete,
             UnderCorrection, Corrected. Case-sensitive
-            dateType (str): CertifiedDate, ReceivedDate, ShippedDate, UpdatedDate. Case-sensitive
+            dateType (str): CertifiedDate, ReceivedDate, ShippedDate, UpdatedDate, QuickSignDate. Case-sensitive
             siteType (str): Generator, Tsdf, Transporter, RejectionInfo_AlternateTsdf. Case-sensitive
+            transporterOrder (int): Number representing the order of a transporter on the manifest
             startDate (date): Start date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
             endDate (date): End date for search period (yyyy-MM-dd'T'HH:mm:ssZ or yyyy-MM-dd'T'HH:mm:ss.SSSZ)
+            correctionRequestStatus (str) : NotSent, Sent, IndustryResponded, Cancelled
+            comments (dict) : {label (str), description (str), handlerId (str)}
 
         Returns:
             dict: object containing manifest tracking numbers matching criteria
@@ -1002,10 +1006,11 @@ class RcrainfoClient(Session):
 
         Keyword Args:
             page (str): Dashboard, BulkSign, BulkQuickSign, Edit, View, Sign. Case-sensitive
-            epaSiteId (Str): EPA Site ID
+            epaSiteId (str): EPA Site ID
             manifestTrackingNumber (str): Manifest tracking number (optional)
             filter (list): List of MTNs (optional)
-
+            view (str) : Incoming, Outgoing, All, Transporting, Broker, CorrectionRequests, Original, Corrections
+            
         Returns:
             dict: object containing link to UI
         """
