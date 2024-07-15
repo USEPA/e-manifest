@@ -4,7 +4,7 @@ import pytest
 import requests
 import responses
 
-from . import RCRAINFO_PREPROD, RcrainfoClient, RcrainfoResponse, new_client
+from . import RCRAINFO_PREPROD, RcrainfoClient, new_client
 
 MOCK_MTN = "100032437ELC"
 MOCK_GEN_ID = "VATESTGEN001"
@@ -71,7 +71,7 @@ class TestRcrainfoClient:
             },
         )
         # Act
-        resp: RcrainfoResponse = rcrainfo.get_site(MOCK_GEN_ID)
+        resp = rcrainfo.get_site(MOCK_GEN_ID)
         # Assert
         assert resp.response.json() == resp.json()
 
@@ -84,7 +84,7 @@ class TestRcrainfoClientIsExtendable:
         def retrieve_id(self, api_id=None) -> str:
             """
             This example method on our test subclass shows we can override the set_api_id method
-            if the user wants to get their api ID from somewhere else (e.g., a service, or database)
+            if the user wants to get their api ID from somewhere else (e.g., a service, database)
             """
             returned_string = (
                 self.mock_api_id_from_external
@@ -216,11 +216,13 @@ class TestNewClientConstructor:
     def test_returns_instance_of_client(self):
         rcrainfo = new_client("prod")
         preprod = new_client("preprod")
-        blank = new_client()
         assert isinstance(rcrainfo, RcrainfoClient)
         assert isinstance(preprod, RcrainfoClient)
-        assert isinstance(blank, RcrainfoClient)
 
     def test_new_client_defaults_to_preprod(self):
-        rcrainfo = new_client()
+        rcrainfo = new_client("preprod")
         assert rcrainfo.base_url == RCRAINFO_PREPROD
+
+    def test_no_base_url_raises_exception(self):
+        with pytest.raises(ValueError):
+            new_client()
