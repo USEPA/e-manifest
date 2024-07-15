@@ -192,6 +192,15 @@ class CorrectionVersionSearchParams(TypedDict, total=False):
     versionNumber: str
 
 
+class CorrectionRevert(TypedDict):
+    """Information returned after successfully reverting a manifest under correction"""
+
+    currentVersionNumber: int
+    date: str
+    manifestTrackingNumber: str
+    operationStatus: str
+
+
 class RcrainfoResponse(Generic[T]):
     """
     RcrainfoResponse wraps around the requests library's Response object.
@@ -886,7 +895,7 @@ class RcrainfoClient(Session):
         endpoint = f"{self.base_url}v1/emanifest/manifest/correct"
         return self.__rcra_request("PUT", endpoint, multipart=multipart)
 
-    def revert_manifest(self, mtn: str) -> RcrainfoResponse:
+    def revert_manifest(self, mtn: str) -> RcrainfoResponse[CorrectionRevert]:
         """
         Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version
 
@@ -899,33 +908,37 @@ class RcrainfoClient(Session):
         endpoint = f"{self.base_url}v1/emanifest/manifest/revert/{mtn}"
         return self.__rcra_request("GET", endpoint)
 
-    def patch_update_manifest(self, mtn: str, body: dict) -> RcrainfoResponse:
+    def patch_update_manifest(self, mtn: str, data: dict) -> RcrainfoResponse:
         """
         Update a portion of a manifest via the patch process
 
         Args:
             mtn (str): Manifest tracking number
-            body (dict): Dictionary containing manifest portion details
+            data (dict): Partial manifest to be applied to the existing manifest
 
         Returns:
             dict: message of success or failure
         """
         endpoint = f"{self.base_url}v1/emanifest/manifest/patch-update/{mtn}"
-        return self.__rcra_request("PATCH", endpoint, body)
+        return self.__rcra_request(
+            "PATCH", endpoint, headers={"Content-Type": "application/json-patch+json"}, **data
+        )
 
-    def patch_correct_manifest(self, mtn: str, body: dict) -> RcrainfoResponse:
+    def patch_correct_manifest(self, mtn: str, data: dict) -> RcrainfoResponse:
         """
         Update a portion of a manifest via the patch process
 
         Args:
             mtn (str): Manifest tracking number
-            body (dict): Dictionary containing manifest portion details
+            data (dict): Partial manifest to be applied as a correction
 
         Returns:
             dict: message of success or failure
         """
         endpoint = f"{self.base_url}v1/emanifest/manifest/patch-correct/{mtn}"
-        return self.__rcra_request("PATCH", endpoint, body)
+        return self.__rcra_request(
+            "PATCH", endpoint, headers={"Content-Type": "application/json-patch+json"}, **data
+        )
 
     def update_manifest(self, manifest_json: dict, zip_file: bytes = None) -> RcrainfoResponse:
         """
