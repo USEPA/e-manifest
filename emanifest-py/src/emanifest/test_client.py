@@ -61,9 +61,7 @@ class TestRcrainfoClient:
 
     def test_extracted_response_json_matches(self, mock_response):
         # Arrange
-        rcrainfo = new_client(
-            "preprod", api_id=self.api_id, api_key=self.api_key, auto_renew=True
-        )
+        rcrainfo = new_client("preprod", api_id=self.api_id, api_key=self.api_key, auto_renew=True)
         mock_response.add(
             # Add mock response for site-details endpoint
             responses.GET,
@@ -154,9 +152,7 @@ class TestAutoAuthentication:
     def test_authenticates_when_auto_renew_set_to_true(self):
         # Arrange
         # create a new auto authenticating client
-        rcrainfo = new_client(
-            "preprod", api_id=self.api_id, api_key=self.api_key, auto_renew=True
-        )
+        rcrainfo = new_client("preprod", api_id=self.api_id, api_key=self.api_key, auto_renew=True)
         responses.add(
             # Add mock response for site-details endpoint
             responses.GET,
