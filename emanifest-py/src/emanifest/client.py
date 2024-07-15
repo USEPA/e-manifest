@@ -871,7 +871,7 @@ class RcrainfoClient(Session):
             dict: message of success or failure
         """
         endpoint = f"{self.base_url}v1/emanifest/manifest/patch-update/{mtn}"
-        return self.__rcra_request("PATCH", endpoint)
+        return self.__rcra_request("PATCH", endpoint, body)
 
     def patch_correct_manifest(self, mtn: str, body: dict) -> RcrainfoResponse:
         """
@@ -885,7 +885,7 @@ class RcrainfoClient(Session):
             dict: message of success or failure
         """
         endpoint = f"{self.base_url}v1/emanifest/manifest/patch-correct/{mtn}"
-        return self.__rcra_request("PATCH", endpoint)
+        return self.__rcra_request("PATCH", endpoint, body)
 
     def update_manifest(
         self, manifest_json: dict, zip_file: bytes = None
