@@ -15,6 +15,15 @@
 					"description": "EPA site Id. One of the required parameter. Either statecode or siteId must be provided",
 					"type": "string"
 				},
+				"submissionType": {
+					"type": "string",
+					"enum": [
+						"FullElectronic",
+						"Hybrid",
+						"Image",
+						"DataImage5Copy"
+					]
+				},
 				"status": {
 					"description": "Manifest Status",
 					"type": "string",
@@ -38,6 +47,9 @@
 						"Transporter"
 					]
 				},
+				"transporterOrder": {
+					"type": "integer"
+				},
 				"dateType": {
 					"description": "Type of the Date/time of the search",
 					"type": "string",
@@ -45,7 +57,8 @@
 						"CertifiedDate",
 						"ReceivedDate",
 						"ShippedDate",
-						"UpdatedDate"
+						"UpdatedDate",
+						"QuickSignDate"
 					]
 				},
 				"startDate": {
@@ -55,9 +68,40 @@
 				"endDate": {
 					"type": "string",
 					"format": "date-time"
+				},
+				"correctionRequestStatus": {
+					"description": "Correction Request Status",
+					"type": "string",
+					"enum": [
+						"NotSent",
+						"Sent",
+						"IndustryResponded",
+						"Cancelled"
+					]
+				},
+				"comments": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/SearchComment"
+					}
 				}
 			},
 			"additionalProperties": false
+		},
+		"SearchComment": {
+			"description": "Search criteria for search in comments",
+			"type": "object",
+			"properties": {
+				"label": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"handlerId": {
+					"type": "string"
+				}
+			}
 		}
-	}
+	  }
 }
