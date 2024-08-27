@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 src/
+**/*.tgz
 **/tests/
 docs/
 .github/
