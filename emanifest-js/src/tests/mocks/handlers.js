@@ -9,7 +9,11 @@ import {
 import { RCRAINFO_PREPROD } from '../../client';
 
 export const handlers = [
-  http.get(`${RCRAINFO_PREPROD}/v1/auth/${MOCK_API_ID}/${MOCK_API_KEY}`, () => {
+  http.get(`${RCRAINFO_PREPROD}/v1/auth/:apiId/:apiKey`, (info) => {
+    const { apiId, apiKey } = info.params;
+    if (apiId !== MOCK_API_ID || apiKey !== MOCK_API_KEY) {
+      return HttpResponse.json('', { status: 400 });
+    }
     return HttpResponse.json(
       {
         token: `${MOCK_TOKEN}`,

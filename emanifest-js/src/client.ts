@@ -198,15 +198,13 @@ class RcraClient {
     shippingName?: string;
     idNumber?: string;
   } = {}): Promise<AxiosResponse<string[] | string>> => {
-    if (shippingName || idNumber) {
-      // if either shippingName or idNumber is provided, attempt to get by shipping name and id number
-      if (!shippingName || !idNumber) {
-        // if only one is provided, throw an error
-        throw new Error('Please provide both a shipping name and an ID number.');
-      }
+    // either both are required, or neither should be provided
+    if (shippingName && idNumber) {
       return this.apiClient.get(
         `/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/${shippingName}/${idNumber}`
       );
+    } else if (shippingName || idNumber) {
+      throw new Error('Please provide both a shipping name and an ID number.');
     }
     return this.apiClient.get('/v1/emanifest/lookup/packing-groups');
   };

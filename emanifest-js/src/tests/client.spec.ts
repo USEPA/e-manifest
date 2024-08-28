@@ -72,6 +72,29 @@ describe('RcraClient', () => {
         console.log('error', err);
       });
   });
+  it('throws an error if API ID or Key is missing during auto-authentication', async () => {
+    const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, autoAuth: true });
+    await expect(rcrainfo.getPackingGroups()).rejects.toThrowError();
+  });
+
+  it('throws an error if authentication fails', async () => {
+    const rcrainfo = newClient({
+      apiBaseURL: RCRAINFO_PREPROD,
+      apiID: MOCK_API_ID,
+      apiKey: 'INVALID_KEY',
+      autoAuth: true,
+    });
+    await expect(rcrainfo.getPackingGroups()).rejects.toThrowError();
+  });
+  it('does not add Authorization header if URL contains "auth"', async () => {
+    const rcrainfo = newClient({
+      apiBaseURL: RCRAINFO_PREPROD,
+      apiID: MOCK_API_ID,
+      apiKey: MOCK_API_KEY,
+    });
+    const resp: AxiosResponse = await rcrainfo.authenticate();
+    expect(resp.config.headers.Authorization).toBeUndefined();
+  });
 });
 
 describe('RcraClient validation', () => {
