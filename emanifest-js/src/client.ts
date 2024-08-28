@@ -22,7 +22,7 @@ import {
 } from './types';
 
 export const RCRAINFO_PREPROD = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api';
-export const RCRAINFO_PROD = 'https://rcrainfo.epa.gov/rcrainfo/rest/api';
+export const RCRAINFO_PROD = 'https://rcrainfo.epa.gov/rcrainfoprod/rest/api';
 
 export type RcrainfoEnv = typeof RCRAINFO_PREPROD | typeof RCRAINFO_PROD | string | undefined;
 
@@ -30,8 +30,8 @@ interface RcraClientConfig {
   apiBaseURL?: RcrainfoEnv;
   apiID?: string;
   apiKey?: string;
-  authAuth?: Boolean;
-  validateInput?: Boolean;
+  autoAuth?: boolean;
+  validateInput?: boolean;
 }
 
 export type RcraClientClass = typeof RcraClient;
@@ -41,16 +41,17 @@ export type RcraClientClass = typeof RcraClient;
  * @param apiBaseURL - The base URL for the RCRAInfo API. defaults to RCRAINFO_PREPROD.
  * @param apiID - The API ID for the RCRAInfo.
  * @param apiKey - The API key for the RCRAInfo.
- * @param authAuth - Automatically authenticate if necessary. By default, this is disabled.
+ * @param autoAuth - Automatically authenticate if necessary. Disabled by default.
+ * @param validateInput - Apply input validation to requests. Disabled by default.
  */
 export const newClient = ({
   apiBaseURL,
   apiID,
   apiKey,
-  authAuth = false,
+  autoAuth = false,
   validateInput = false,
 }: RcraClientConfig = {}) => {
-  return new RcraClient(apiBaseURL, apiID, apiKey, authAuth, validateInput);
+  return new RcraClient(apiBaseURL, apiID, apiKey, autoAuth, validateInput);
 };
 
 /**
@@ -69,15 +70,15 @@ class RcraClient {
   private readonly apiKey?: string;
   token?: string;
   expiration?: string;
-  autoAuth?: Boolean;
-  validateInput?: Boolean;
+  autoAuth?: boolean;
+  validateInput?: boolean;
 
   constructor(
     apiBaseURL: RcrainfoEnv,
     apiID?: string,
     apiKey?: string,
-    autoAuth: Boolean = false,
-    validateInput: Boolean = false,
+    autoAuth = false,
+    validateInput = false
   ) {
     this.env = apiBaseURL || RCRAINFO_PREPROD;
     this.apiID = apiID;
@@ -92,26 +93,20 @@ class RcraClient {
       },
     });
 
-    // Intercept all requests, make call to RCRAInfo auth service if necessary and add Authorization header
+    // Intercept requests, request Bearer token, if necessary, and add Authorization header
     this.apiClient.interceptors.request.use(async (config) => {
-      // if the request is for auth service, don't add the token
       if (config.url?.includes('auth')) {
         return config;
       }
-      // if autoAuth is enabled, check if we already have a token.
-      if (this.autoAuth) {
-        // If we do not have a token, check if we have an apiID and apiKey.
-        if (!this.token) {
-          // If we have an apiID and apiKey, try to authenticate.
-          if (!this.apiID || !this.apiKey) {
-            // If there's no token and no apiID or apiKey, throw an error. We can't authenticate.
-            throw new Error('Please add API ID and Key to authenticate.');
-          }
-          // If there's no token, but there is an apiID and apiKey, try to authenticate.
-          await this.authenticate().catch((err) => {
-            throw new Error(`Received an error while attempting to authenticate: ${err}`);
-          });
+
+      // if autoAuth is enabled, and there is no token, attempt to authenticate
+      if (this.autoAuth && !this.token) {
+        if (!this.apiID || !this.apiKey) {
+          throw new Error('Please add API ID and Key to authenticate.');
         }
+        await this.authenticate().catch(() => {
+          throw new Error(`Error while authenticating with ${this.env}`);
+        });
       }
       config.headers.Authorization = `Bearer ${this.token}`;
       return config;
@@ -132,12 +127,8 @@ class RcraClient {
       });
   };
 
-  /**
-   * Returns true if the client has a valid token.
-   */
-  public isAuthenticated = (): boolean => {
-    return this.token !== undefined;
-  };
+  /** Returns true if the client has a valid token.*/
+  public isAuthenticated = (): boolean => this.token !== undefined;
 
   // RCRAInfo Lookup Services
 
@@ -152,53 +143,33 @@ class RcraClient {
     return this.apiClient.get(`/v1/lookup/state-waste-codes/${stateCode}`);
   };
 
-  /**
-   * Returns a list of all available federal waste codes.
-   */
-  public getFederalWasteCodes = async (): Promise<AxiosResponse<RcraCode[]>> => {
-    return this.apiClient.get('/v1/lookup/federal-waste-codes');
-  };
+  /** Returns a list of all available federal waste codes.*/
+  public getFederalWasteCodes = async (): Promise<AxiosResponse<RcraCode[]>> =>
+    this.apiClient.get('/v1/lookup/federal-waste-codes');
 
-  /**
-   * Returns a list of all available density units of measurement (UOM).
-   */
-  public getDensityUOMs = async (): Promise<AxiosResponse<RcraCode[]>> => {
-    return this.apiClient.get('/v1/lookup/density-uom');
-  };
+  /** Returns a list of all available density units of measurement (UOM).*/
+  public getDensityUOMs = async (): Promise<AxiosResponse<RcraCode[]>> =>
+    this.apiClient.get('/v1/lookup/density-uom');
 
-  /**
-   * Returns a list of all available source codes (type of activity or process that produced the waste).
-   */
-  public getSourceCodes = async (): Promise<AxiosResponse<RcraCode[]>> => {
-    return this.apiClient.get('/v1/lookup/source-codes');
-  };
+  /** Returns a list of all available source codes (type of activity or process that produced the waste).*/
+  public getSourceCodes = async (): Promise<AxiosResponse<RcraCode[]>> =>
+    this.apiClient.get('/v1/lookup/source-codes');
 
-  /**
-   * Returns a list of all available management method codes (how the waste is managed).
-   */
-  public getManagementMethodCodes = async (): Promise<AxiosResponse<RcraCode[]>> => {
-    return this.apiClient.get('/v1/lookup/management-method-codes');
-  };
+  /** Returns a list of all available management method codes (how the waste is managed).*/
+  public getManagementMethodCodes = async (): Promise<AxiosResponse<RcraCode[]>> =>
+    this.apiClient.get('/v1/lookup/management-method-codes');
 
-  /**
-   * Returns a list of all available waste minimization codes.
-   */
-  public getWasteMinimizationCodes = async (): Promise<AxiosResponse<RcraCode[]>> => {
-    return this.apiClient.get('/v1/lookup/waste-minimization-codes');
-  };
+  /** Returns a list of all available waste minimization codes.*/
+  public getWasteMinimizationCodes = async (): Promise<AxiosResponse<RcraCode[]>> =>
+    this.apiClient.get('/v1/lookup/waste-minimization-codes');
 
-  /**
-   * Returns a list of all available ports of entry where the waste can enter/exit the United States.
-   */
-  public getPortsOfEntry = async (): Promise<AxiosResponse<PortOfEntry[]>> => {
-    return this.apiClient.get('/v1/lookup/ports-of-entry');
-  };
+  /** Returns a list of all available ports of entry where the waste can enter/exit the United States.*/
+  public getPortsOfEntry = async (): Promise<AxiosResponse<PortOfEntry[]>> =>
+    this.apiClient.get('/v1/lookup/ports-of-entry');
 
   // e-Manifest Lookup Services
 
-  /**
-   * Returns a list of all available DOT Hazard classes.
-   */
+  /** Returns a list of all available DOT Hazard classes.*/
   public getHazardClasses = async ({
     shippingName,
     idNumber,
@@ -213,15 +184,13 @@ class RcraClient {
         throw new Error('Please provide both a shipping name and an ID number.');
       }
       return this.apiClient.get(
-        `/v1/emanifest/lookup/hazard-classes-by-shipping-name-id-number/${shippingName}/${idNumber}`,
+        `/v1/emanifest/lookup/hazard-classes-by-shipping-name-id-number/${shippingName}/${idNumber}`
       );
     }
     return this.apiClient.get('/v1/emanifest/lookup/hazard-classes');
   };
 
-  /**
-   * Returns a list of all available DOT packing groups.
-   */
+  /** Returns a list of all available DOT packing groups.*/
   public getPackingGroups = async ({
     shippingName,
     idNumber,
@@ -229,24 +198,20 @@ class RcraClient {
     shippingName?: string;
     idNumber?: string;
   } = {}): Promise<AxiosResponse<string[] | string>> => {
-    if (shippingName || idNumber) {
-      // if either shippingName or idNumber is provided, attempt to get by shipping name and id number
-      if (!shippingName || !idNumber) {
-        // if only one is provided, throw an error
-        throw new Error('Please provide both a shipping name and an ID number.');
-      }
+    // either both are required, or neither should be provided
+    if (shippingName && idNumber) {
       return this.apiClient.get(
-        `/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/${shippingName}/${idNumber}`,
+        `/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/${shippingName}/${idNumber}`
       );
+    } else if (shippingName || idNumber) {
+      throw new Error('Please provide both a shipping name and an ID number.');
     }
     return this.apiClient.get('/v1/emanifest/lookup/packing-groups');
   };
 
   // Site Services
 
-  /**
-   * Get a site by its EPA ID.
-   */
+  /** Get a site by its EPA ID.*/
   public getSite = async (siteID: string): Promise<AxiosResponse> => {
     if (this.validateInput) {
       this.validateSiteID(siteID);
@@ -254,29 +219,27 @@ class RcraClient {
     return this.apiClient.get(`/v1/site-details/${siteID}`);
   };
 
-  /**
-   * Returns true if the site, by EPA ID, exists in RCRAInfo.
-   */
-  public getSiteExists = async (siteID: string): Promise<AxiosResponse<{ result: boolean; epaSiteId: string }>> => {
+  /** Returns true if the site, by EPA ID, exists in RCRAInfo.*/
+  public getSiteExists = async (
+    siteID: string
+  ): Promise<AxiosResponse<{ result: boolean; epaSiteId: string }>> => {
     if (this.validateInput) {
       this.validateSiteID(siteID);
     }
     return this.apiClient.get(`/v1/site-exists/${siteID}`);
   };
 
-  /**
-   * Search for sites by name, address (city, state, zip, etc.) EPA ID, or type.
-   */
-  public searchSites = async (searchParameters: SiteSearchParameters): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('/v1/site-search', searchParameters);
-  };
+  /** Search for sites by name, address (city, state, zip, etc.) EPA ID, or type.*/
+  public searchSites = async (
+    searchParameters: SiteSearchParameters
+  ): Promise<AxiosResponse<any>> => this.apiClient.post('/v1/site-search', searchParameters);
 
   // User Services
 
-  /**
-   * Search for RCRAInfo registered users
-   */
-  public searchUsers = async (searchParameters: UserSearchParameters): Promise<AxiosResponse<any>> => {
+  /** Search for RCRAInfo registered users*/
+  public searchUsers = async (
+    searchParameters: UserSearchParameters
+  ): Promise<AxiosResponse<any>> => {
     return this.apiClient.post('/v1/user/user-search', searchParameters);
   };
 
@@ -286,14 +249,13 @@ class RcraClient {
    * Returns info on bill, required to be paid by TSDFs, for incurred fees for each manifest submitted.
    * @param searchParameters
    */
-  public getBill = async (searchParameters: BillGetParameters): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('/v1/emanifest/billing/bill', searchParameters);
-  };
+  public getBill = async (searchParameters: BillGetParameters): Promise<AxiosResponse<any>> =>
+    this.apiClient.post('/v1/emanifest/billing/bill', searchParameters);
 
-  /**
-   * Search for bills by the given parameters.
-   */
-  public searchBill = async (searchParameters: BillSearchParameters): Promise<AxiosResponse<any>> => {
+  /** Search for bills by the given parameters.*/
+  public searchBill = async (
+    searchParameters: BillSearchParameters
+  ): Promise<AxiosResponse<any>> => {
     return this.apiClient.post('/v1/emanifest/billing/bill-search', searchParameters);
   };
 
@@ -301,9 +263,10 @@ class RcraClient {
    * Search for a TSDF's bill history by the given parameters.
    * @param searchParameters
    */
-  public getBillHistory = async (searchParameters: BillHistoryParameters): Promise<AxiosResponse<any>> => {
-    return this.apiClient.post('/v1/emanifest/billing/bill-history', searchParameters);
-  };
+  public getBillHistory = async (
+    searchParameters: BillHistoryParameters
+  ): Promise<AxiosResponse<any>> =>
+    this.apiClient.post('/v1/emanifest/billing/bill-history', searchParameters);
 
   // ToDo
   // public updateManifest = async (): Promise<AxiosResponse<any>> => {
@@ -333,35 +296,35 @@ class RcraClient {
     manifestTrackingNumber: string;
     parseResponse?: boolean;
   }): Promise<AxiosResponse<OutputPart>> => {
-    let response = await this.apiClient.get(`/v1/emanifest/manifest/${manifestTrackingNumber}/attachments`);
+    const response = await this.apiClient.get(
+      `/v1/emanifest/manifest/${manifestTrackingNumber}/attachments`
+    );
     if (parseResponse) {
       response.data = await parseAttachments(response.data, response.headers['content-type']);
     }
     return response;
   };
 
-  /**
-   * Retrieve information about all manifest correction versions by manifest tracking number
-   */
-  public getManifestCorrections = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
+  /** Retrieve information about all manifest correction versions by manifest tracking number*/
+  public getManifestCorrections = async (
+    manifestTrackingNumber: string
+  ): Promise<AxiosResponse<any>> => {
     if (this.validateInput) {
       this.validateMTN(manifestTrackingNumber);
     }
-    return this.apiClient.get(`/v1/emanifest/manifest/correction-details/${manifestTrackingNumber}`);
+    return this.apiClient.get(
+      `/v1/emanifest/manifest/correction-details/${manifestTrackingNumber}`
+    );
   };
 
-  /**
-   * Retrieve details of manifest correction version
-   */
+  /** Retrieve details of manifest correction version*/
   public getManifestCorrectionVersion = async (
-    parameters: ManifestCorrectionParameters,
+    parameters: ManifestCorrectionParameters
   ): Promise<AxiosResponse<any>> => {
     return this.apiClient.post('/v1/emanifest/manifest/correction-version', parameters);
   };
 
-  /**
-   * Retrieve details of manifest correction version including attachments.
-   */
+  /** Retrieve details of manifest correction version including attachments.*/
   public getManifestCorrectionAttachments = async ({
     parameters,
     parseResponse = false,
@@ -369,16 +332,17 @@ class RcraClient {
     parameters: ManifestCorrectionParameters;
     parseResponse?: boolean;
   }): Promise<AxiosResponse<any>> => {
-    let response = await this.apiClient.post('/v1/emanifest/manifest/correction-version/attachments', parameters);
+    const response = await this.apiClient.post(
+      '/v1/emanifest/manifest/correction-version/attachments',
+      parameters
+    );
     if (parseResponse) {
       response.data = await parseAttachments(response.data, response.headers['content-type']);
     }
     return response;
   };
 
-  /**
-   * Retrieve Manifest Tracking Numbers for provided site id.
-   */
+  /** Retrieve Manifest Tracking Numbers for provided site id.*/
   public getSiteMTN = async (siteID: string): Promise<AxiosResponse<string[]>> => {
     if (this.validateInput) {
       this.validateSiteID(siteID);
@@ -386,9 +350,7 @@ class RcraClient {
     return this.apiClient.get(`/v1/emanifest/manifest-tracking-numbers/${siteID}`);
   };
 
-  /**
-   * Retrieve site ids for provided state (code) and site type (i.e. Generator, Tsdf, Transporter).
-   */
+  /** Retrieve site ids for provided state (code) and site type (i.e. Generator, Tsdf, Transporter).*/
   public getStateSites = async ({
     stateCode,
     siteType,
@@ -403,9 +365,7 @@ class RcraClient {
     return this.apiClient.get(`/v1/emanifest/site-ids/${stateCode}/${siteType}`);
   };
 
-  /**
-   * Retrieve e-Manifest by provided manifest tracking number.
-   */
+  /** Retrieve e-Manifest by provided manifest tracking number.*/
   public getManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
     if (this.validateInput) {
       this.validateMTN(manifestTrackingNumber);
@@ -413,10 +373,10 @@ class RcraClient {
     return this.apiClient.get(`/v1/emanifest/manifest/${manifestTrackingNumber}`);
   };
 
-  /**
-   * Retrieve manifest tracking numbers based on provided search criteria in JSON format.
-   */
-  public searchManifest = async (parameters: ManifestSearchParameters): Promise<AxiosResponse<any>> => {
+  /** Retrieve manifest tracking numbers based on provided search criteria in JSON format.*/
+  public searchManifest = async (
+    parameters: ManifestSearchParameters
+  ): Promise<AxiosResponse<any>> => {
     if (this.validateInput) {
       // Many of the search parameters are optional, we only want to validate them if they are provided.
       if (parameters.dateType) {
@@ -432,16 +392,14 @@ class RcraClient {
     return this.apiClient.post('/v1/emanifest/manifest/search', parameters);
   };
 
-  /**
-   * Check if Manifest Tracking Number exists. Unless system error happens, this service always returns 200 HTTP code.
-   */
-  public getMTNExists = async (manifestTrackingNumber: string): Promise<AxiosResponse<ManifestExistsResponse>> => {
+  /** Check if Manifest Tracking Number exists. Unless system error happens, this service always returns 200 HTTP code.*/
+  public getMTNExists = async (
+    manifestTrackingNumber: string
+  ): Promise<AxiosResponse<ManifestExistsResponse>> => {
     return this.apiClient.get(`/v1/emanifest/manifest/mtn-exists/${manifestTrackingNumber}`);
   };
 
-  /**
-   * Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version.
-   */
+  /** Revert manifest in 'UnderCorrection' status to previous 'Corrected' or 'Signed' version.*/
   public revertManifest = async (manifestTrackingNumber: string): Promise<AxiosResponse<any>> => {
     if (this.validateInput) {
       this.validateMTN(manifestTrackingNumber);

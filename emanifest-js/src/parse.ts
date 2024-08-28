@@ -75,7 +75,10 @@ function checkBoundary(headerBoundary: string): string {
  * @param multipartBodyBuffer
  * @param headerBoundary
  */
-export async function parseAttachments(multipartBodyBuffer: Buffer, headerBoundary: string): Promise<OutputPart[]> {
+export async function parseAttachments(
+  multipartBodyBuffer: Buffer,
+  headerBoundary: string
+): Promise<OutputPart[]> {
   const boundary = checkBoundary(headerBoundary);
   // Set initial state before looping through the multipartBodyBuffer
   let lastLine = ''; // The current line buffer
@@ -135,7 +138,9 @@ export async function parseAttachments(multipartBodyBuffer: Buffer, headerBounda
       if (lastLine == boundary) {
         const j = buffer.length - lastLine.length;
         const data = buffer.slice(0, j - 1);
-        allParts.push(process({ contentTypeHeader: header, contentDispositionHeader: info, data: data }));
+        allParts.push(
+          process({ contentTypeHeader: header, contentDispositionHeader: info, data: data })
+        );
         buffer = [];
         lastLine = '';
         state = ParsingState.POST_READING_DATA;
@@ -162,9 +167,12 @@ export async function parseAttachments(multipartBodyBuffer: Buffer, headerBounda
  */
 function process(part: InputPart): OutputPart {
   const contentType = part.contentTypeHeader.split(':')[1].trim();
-  let outputPart: OutputPart = {
+  const outputPart: OutputPart = {
     contentType: contentType as 'application/json' | 'application/octet-stream',
-    data: contentType === 'application/json' ? JSON.parse(Buffer.from(part.data).toString()) : Buffer.from(part.data),
+    data:
+      contentType === 'application/json'
+        ? JSON.parse(Buffer.from(part.data).toString())
+        : Buffer.from(part.data),
   };
   if (part.contentDispositionHeader) {
     outputPart.contentDisposition = part.contentDispositionHeader.split(':')[1].trim();
