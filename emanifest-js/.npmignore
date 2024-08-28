@@ -7,7 +7,7 @@ docs/
 .github/
 tsconfig.json
 tslint.json
-.prettierrc
+.prettierrc.json
 .env
 .eslintrc.json
 .gitignore

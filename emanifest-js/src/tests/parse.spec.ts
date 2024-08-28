@@ -5,7 +5,6 @@ import { describe, it, expect } from 'vitest';
 const fileBoundary = 'Boundary_10_712184523_1692837126159';
 const mockContentType = `multipart/mixed;boundary=${fileBoundary}`;
 
-// @ts-ignore
 async function readMultipartBodyForTesting() {
   try {
     const filename = `${__dirname}/100035569ELC-multipart-mixed.bin`;
@@ -39,7 +38,9 @@ describe('Parse module', () => {
     if (body && boundary) {
       parseAttachments(body, boundary).then((parts) => {
         parts.forEach(
-          (part) => part.contentType === 'application/json' || part.contentType === 'application/octet-stream',
+          (part) =>
+            part.contentType === 'application/json' ||
+            part.contentType === 'application/octet-stream'
         );
       });
     } else {

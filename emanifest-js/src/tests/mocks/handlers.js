@@ -1,15 +1,21 @@
 import { http, HttpResponse } from 'msw';
-import { MOCK_API_ID, MOCK_API_KEY, MOCK_BAD_SITE_ID, MOCK_PACKING_GROUPS, MOCK_TOKEN } from '../mockConstants';
+import {
+  MOCK_API_ID,
+  MOCK_API_KEY,
+  MOCK_BAD_SITE_ID,
+  MOCK_PACKING_GROUPS,
+  MOCK_TOKEN,
+} from '../mockConstants';
 import { RCRAINFO_PREPROD } from '../../client';
 
 export const handlers = [
-  http.get(`${RCRAINFO_PREPROD}/v1/auth/${MOCK_API_ID}/${MOCK_API_KEY}`, (info) => {
+  http.get(`${RCRAINFO_PREPROD}/v1/auth/${MOCK_API_ID}/${MOCK_API_KEY}`, () => {
     return HttpResponse.json(
       {
         token: `${MOCK_TOKEN}`,
         expiration: '2021-01-01T00:00:00.000Z',
       },
-      { status: 200 },
+      { status: 200 }
     );
   }),
   http.get(`${RCRAINFO_PREPROD}/v1/emanifest/lookup/packing-groups`, (info) => {
@@ -28,7 +34,7 @@ export const handlers = [
           errorId: '41cb95ed-f477-41aa-83af-fc4a28efbfa5',
           errorDate: '2023-08-11T18:10:45.979+00:00',
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
     return HttpResponse.json('', { status: 401 });
