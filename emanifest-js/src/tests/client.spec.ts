@@ -32,7 +32,7 @@ describe('RcraClient', () => {
       apiBaseURL: RCRAINFO_PREPROD,
       apiID: MOCK_API_ID,
       apiKey: MOCK_API_KEY,
-      authAuth: true,
+      autoAuth: true,
     });
     const resp: AxiosResponse = await rcrainfo.getPackingGroups();
     expect(rcrainfo.token).toEqual(MOCK_TOKEN);
@@ -66,7 +66,7 @@ describe('RcraClient validation', () => {
       apiBaseURL: RCRAINFO_PREPROD,
       apiID: MOCK_API_ID,
       apiKey: MOCK_API_KEY,
-      authAuth: true,
+      autoAuth: true,
     });
     await expect(() => rcrainfo.getSite(MOCK_BAD_SITE_ID)).rejects.toThrowError();
   });
