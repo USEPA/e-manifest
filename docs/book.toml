@@ -8,7 +8,9 @@ description = "Documentation for developer looking to use the RCRAInfo/e-Manifes
 
 [output.html]
 git-repository-url = "https://github.com/USEPA/e-manifest"
-edit-url-template = "https://github.com/USEPA/e-manifest/edit/master/docs/emanifest_book/{path}"
+edit-url-template = "https://github.com/USEPA/e-manifest/edit/master/docs/{path}"
+additional-css = ["theme/pagetoc.css"]
+additional-js = ["theme/pagetoc.js"]
 
 [output.html.fold]
 enable = true
