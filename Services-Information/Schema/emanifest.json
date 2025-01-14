@@ -13,25 +13,6 @@
           "type": "string",
           "format": "date-time"
         },
-  			"updatedBy": {
-					"description": "Contains the user id of the Manifest version updater",
-					"type": "object",
-					"properties": {
-						"firstName": {
-							"type": "string",
-							"minLength": 1,
-							"maxLength": 38
-						},
-						"lastName": {
-							"type": "string",
-							"minLength": 1,
-							"maxLength": 38
-						},
-						"userId": {
-							"type": "string"
-						}
-					}
-				},
         "updatedDate": {
           "description": "Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest.  Example: 2018-01-22T05:07:00.00Z",
           "type": "string",
@@ -101,6 +82,10 @@
         },
         "certifiedBy": {
           "description": "Will be returned by Get Manifest. Shall not be provided for Save and Update Manifest.",
+          "$ref": "#/definitions/Signer"
+        },
+        "lastUpdatedBy": {
+          "description": "Will be returned by Get Manifest. Will not have any effect if provided on Save, Update, Correct",
           "$ref": "#/definitions/Signer"
         },
         "generator": {
@@ -268,7 +253,9 @@
             "DataEntryInProgress",
             "PendingDataQc",
             "PendingDataQa",
-            "DataQaCompleted"
+            "DataQaCompleted",
+            "PendingIndustryCorrections",
+            "IndustryCorrected"
           ]
         },
         "mtnValidationInfo": {
@@ -773,6 +760,17 @@
         "gisPrimary": {
           "description": "Indicates if site address1 is lat/long primary. Will be returned by get manifest service. Shall not be provided for save, update, correct services.",
           "type": "boolean"
+        },
+        "signatureType": {
+          "description": "Indicates type of last signature provided for this site entity:  NotSigned, TypedName, QuickSign, CROMERRSign, QuickerSign;",
+          "type": "string",
+          "enum": [
+            "NotSigned",
+            "TypedName",
+            "QuickSign",
+            "CROMERRSign",
+            "QuickerSign"
+          ]
         }
       },
       "additionalProperties": false
@@ -813,13 +811,13 @@
           "type": "string"
         },
         "signerRole": {
-          "description": "Indicates which entity signed the manifest. Industry, State, Ppc, Epa",
+          "description": "Indicates which entity signed the manifest. Industry, State, PPC, EPA",
           "type": "string",
           "enum": [
             "Industry",
             "State",
-            "Ppc",
-            "Epa"
+            "PPC",
+            "EPA"
           ]
         },
         "signatureMethod": {
@@ -894,7 +892,7 @@
           "$ref": "#/definitions/Phone"
         },
         "email": {
-          "type": "string"
+          "type": ["string","null"]
         },
         "companyName": {
           "description": "max length 80",
@@ -1106,17 +1104,17 @@
         "epaSiteId": {
           "$ref": "#/definitions/EpaSiteId"
         },
-        "initiatorRole ": {
+        "initiatorRole": {
           "description": "Indicates if the manifest is under correction by the Industry, State, Ppc, Epa. Will be returned by Correction Details, Correction Version, Get Manifest. Shall not be provided for Save and Update Manifest.",
           "type": "string",
           "enum": [
             "Industry",
             "State",
-            "Ppc",
-            "Epa"
+            "PPC",
+            "EPA"
           ]
         },
-        "updateRole ": {
+        "updateRole": {
           "description": "Indicates if the manifest is under correction by the Industry, State, Ppc, Epa. Will be returned by Correction Details, Correction Version, Get Manifest. Shall not be provided for Save and Update Manifest.",
           "type": "string",
           "enum": [
