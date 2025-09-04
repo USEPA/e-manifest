@@ -1,0 +1,3618 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://usepa.github.io/e-manifest/src/Services/Lookup/e-manifest-lookup/">
+      
+      
+        <link rel="prev" href="../../user/">
+      
+      
+        <link rel="next" href="../lookup/">
+      
+      
+      <link rel="icon" href="../../../../assets/img/favicon-128x128.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>e-Manifest Lookup Services - e-Manifest Services</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/css/epa.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#e-manifest-lookup-services" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="e-Manifest Services" class="md-header__button md-logo" aria-label="e-Manifest Services" data-md-component="logo">
+      
+  <img src="../../../../assets/img/favicon-128x128.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            e-Manifest Services
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              e-Manifest Lookup Services
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="e-Manifest Services" class="md-nav__button md-logo" aria-label="e-Manifest Services" data-md-component="logo">
+      
+  <img src="../../../../assets/img/favicon-128x128.png" alt="logo">
+
+    </a>
+    e-Manifest Services
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference Material
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Intro
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Intro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Intro/registration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Registration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Intro/terminology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Terminology
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Intro/the-manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Services
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Services/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Authentication and User Authorization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Services/user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lookup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Lookup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Services/Lookup/e-manifest-lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Lookup Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Services/Lookup/lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lookup Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Site
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Services/Site/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Services/Site/site-details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Details Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Services/Site/site-exists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Exists Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Services/Site/site-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Search Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Components
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../components/footer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Footer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../components/manifest-json-link/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest json link
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../components/mtn-validation-steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mtn validation steps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Src
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Src
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference Material
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Intro
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Intro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Intro/registration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Registration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Intro/terminology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Terminology
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Intro/the-manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Services
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Authentication and User Authorization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_4" id="__nav_6_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lookup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Lookup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Lookup Services
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Lookup Services
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hazardous-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hazardous classes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hazardous classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hazard-class-by-shipping-name-and-id-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hazard class by shipping name and ID number
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hazard class by shipping name and ID number">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#printed-tracking-number-suffixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Printed tracking number suffixes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Printed tracking number suffixes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#container-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Container types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantity-units-of-measure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quantity units of measure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quantity units of measure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Load Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proper-shipping-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proper shipping names
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proper shipping names">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proper-shipping-names-by-id-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proper shipping names by ID number
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proper shipping names by ID number">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-error-response-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Error Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#id-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      ID numbers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ID numbers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#id-numbers-by-shipping-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      ID numbers by shipping name
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ID numbers by shipping name">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-error-response-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Error Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packing-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packing groups
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Packing groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packing-groups-by-shipping-name-and-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packing groups by shipping name and ID
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Packing groups by shipping name and ID">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-error-response-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Error Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lookup Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_5" id="__nav_6_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Manifest
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Manifest
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/billing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Billing Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/correct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Correct Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/delete/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Delete Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/get/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Retrieve Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/manifest-attachments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Attachments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Data Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/revert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Revert Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/save/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifests Save Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Search Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/sign/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Sign Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/states/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Services for states
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/ui-link/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest User Interface (UI) Link service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Update Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Manifest/validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Field Validations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_6" id="__nav_6_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            Site
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Site/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Site/site-details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Details Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Site/site-exists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Exists Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Site/site-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Search Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Components
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../components/footer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Footer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../components/manifest-json-link/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest json link
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../components/mtn-validation-steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mtn validation steps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hazardous-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hazardous classes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hazardous classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hazard-class-by-shipping-name-and-id-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hazard class by shipping name and ID number
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hazard class by shipping name and ID number">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#printed-tracking-number-suffixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Printed tracking number suffixes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Printed tracking number suffixes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#container-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Container types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantity-units-of-measure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quantity units of measure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quantity units of measure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Load Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proper-shipping-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proper shipping names
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proper shipping names">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proper-shipping-names-by-id-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proper shipping names by ID number
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proper shipping names by ID number">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-error-response-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Error Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#id-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      ID numbers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ID numbers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#id-numbers-by-shipping-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      ID numbers by shipping name
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ID numbers by shipping name">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-error-response-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Error Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packing-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packing groups
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Packing groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packing-groups-by-shipping-name-and-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packing groups by shipping name and ID
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Packing groups by shipping name and ID">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-error-response-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Error Response Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="e-manifest-lookup-services">e-Manifest Lookup Services</h1>
+<p>The e-Manifest Lookup Services are a set of services that can be used by industry and regulators to retrieve information
+relevant to manifests, such as the list of possible waste codes (federal or state), DOT hazard classes, acceptable units
+of measurement, and more.</p>
+<h2 id="hazardous-classes">Hazardous classes</h2>
+<p>Returns the list of all Hazard Classes</p>
+<h4 id="parameters">Parameters</h4>
+<p>none</p>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/hazard-classes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>The system will process the request return the response. If successful, the response body will contain JSON encoded
+   list of DOT hazard classes.</li>
+</ol>
+<h4 id="completed-response-example">Completed Response Example</h4>
+<pre><code class="language-json">[
+  &quot;1.2H&quot;,
+  &quot;1.2J&quot;,
+  &quot;1.2K&quot;,
+  &quot;1.2L&quot;,
+  &quot;1.3C&quot;,
+  &quot;1.3G&quot;,
+  &quot;1.3H&quot;,
+  &quot;1.3J&quot;,
+  &quot;1.3K&quot;,
+  &quot;1.3L&quot;,
+  &quot;1.4B&quot;,
+  &quot;1.4C&quot;
+]
+</code></pre>
+<h2 id="hazard-class-by-shipping-name-and-id-number">Hazard class by shipping name and ID number</h2>
+<ul>
+<li>Retrieve DOT Hazard Classes by DOT Proper Shipping name and ID Number</li>
+</ul>
+<h4 id="parameters_1">Parameters</h4>
+<ol>
+<li>Proper Shipping Name</li>
+<li>ID Number</li>
+</ol>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/hazard-class-by-shipping-name-id-number/{shippingName}/{idNumber} HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_1">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>The system will process the request return the response. If successful, the response body will contain JSON encoded
+   list of DOT hazard classes.</li>
+</ol>
+<h4 id="completed-response-example_1">Completed Response Example</h4>
+<pre><code class="language-json">[&quot;2.2&quot;, &quot;2.3&quot;]
+</code></pre>
+<h2 id="printed-tracking-number-suffixes">Printed tracking number suffixes</h2>
+<p>Returns the list of all Printed Manifest Tracking Number suffixes (e.g., ELC, JJK, FLE, etc.) and the Owner Companies</p>
+<h4 id="parameters_2">Parameters</h4>
+<p>None</p>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/printed-tracking-number-suffixes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_2">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>The system will process the request return the response. If successful, the response body will contain JSON encoded
+   list of manifest tracking number suffixes.</li>
+</ol>
+<h4 id="completed-response-example_2">Completed Response Example</h4>
+<pre><code class="language-json">[
+  {
+    &quot;code&quot;: &quot;ELC&quot;,
+    &quot;description&quot;: &quot;Electronic Manifest&quot;
+  },
+  {
+    &quot;code&quot;: &quot;CTN&quot;,
+    &quot;description&quot;: &quot;Nutmeg Environmental&quot;
+  },
+  {
+    &quot;code&quot;: &quot;DAT&quot;,
+    &quot;description&quot;: &quot;Databar Inc.&quot;
+  },
+  {
+    &quot;code&quot;: &quot;FLE&quot;,
+    &quot;description&quot;: &quot;The Flesh Company&quot;
+  },
+  {
+    &quot;code&quot;: &quot;GBF&quot;,
+    &quot;description&quot;: &quot;Genoa Business Forms&quot;
+  },
+  {
+    &quot;code&quot;: &quot;GRR&quot;,
+    &quot;description&quot;: &quot;Giant Resource Recovery&quot;
+  },
+  {
+    &quot;code&quot;: &quot;JJK&quot;,
+    &quot;description&quot;: &quot;J.J. Keller &amp; Associates, Inc.&quot;
+  },
+  {
+    &quot;code&quot;: &quot;MWI&quot;,
+    &quot;description&quot;: &quot;RR Donnelley&quot;
+  },
+  {
+    &quot;code&quot;: &quot;PSC&quot;,
+    &quot;description&quot;: &quot; PSC, LLC &quot;
+  }
+]
+</code></pre>
+<h2 id="container-types">Container types</h2>
+<p>Returns the list of all Container Types and Container Type Descriptions.</p>
+<h4 id="parameters_3">Parameters</h4>
+<p>None</p>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/container-types HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_3">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>The system will process the request return the response. If successful, the response body will contain JSON encoded
+   list of container types.</li>
+</ol>
+<h4 id="completed-response-example_3">Completed Response Example</h4>
+<pre><code class="language-json">[
+  {
+    &quot;code&quot;: &quot;BA&quot;,
+    &quot;description&quot;: &quot;Burlap, cloth, paper, or plastic bags&quot;
+  },
+  {
+    &quot;code&quot;: &quot;DT&quot;,
+    &quot;description&quot;: &quot;Dump truck&quot;
+  },
+  {
+    &quot;code&quot;: &quot;CF&quot;,
+    &quot;description&quot;: &quot;Fiber or plastic boxes, cartons, cases&quot;
+  },
+  {
+    &quot;code&quot;: &quot;DW&quot;,
+    &quot;description&quot;: &quot;Wooden drums, barrels, kegs&quot;
+  }
+]
+</code></pre>
+<h2 id="quantity-units-of-measure">Quantity units of measure</h2>
+<p>Returns the list of Quantity UOM Codes and Descriptions</p>
+<h4 id="parameters_4">Parameters</h4>
+<p>None</p>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/quantity-uom HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_4">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>The system will process the request return the response. If successful, the response body will contain JSON encoded
+   list of quantity units of measurement .</li>
+</ol>
+<h4 id="completed-response-example_4">Completed Response Example</h4>
+<pre><code class="language-json">[
+  {
+    &quot;code&quot;: &quot;P&quot;,
+    &quot;description&quot;: &quot;Pounds&quot;
+  },
+  {
+    &quot;code&quot;: &quot;K&quot;,
+    &quot;description&quot;: &quot;Kilogram&quot;
+  },
+  {
+    &quot;code&quot;: &quot;M&quot;,
+    &quot;description&quot;: &quot;Metric Tons (1000 Kilograms) &quot;
+  },
+  {
+    &quot;code&quot;: &quot;G&quot;,
+    &quot;description&quot;: &quot;Gallons&quot;
+  },
+  {
+    &quot;code&quot;: &quot;L&quot;,
+    &quot;description&quot;: &quot;Liters&quot;
+  },
+  {
+    &quot;code&quot;: &quot;Y&quot;,
+    &quot;description&quot;: &quot;Cubic Yards &quot;
+  }
+]
+</code></pre>
+<h2 id="load-types">Load Types</h2>
+<p>List of Polychlorinated biphenyl (PCB) load type</p>
+<h4 id="parameters_5">Parameters</h4>
+<p>None</p>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/load-types HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_5">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>The system will process the request return the response. If successful, the response body will contain JSON encoded
+   list of PCB load types.</li>
+</ol>
+<h4 id="completed-response-example_5">Completed Response Example</h4>
+<pre><code class="language-json">[
+  {
+    &quot;code&quot;: &quot;ArticleInContainer&quot;,
+    &quot;description&quot;: &quot;Article in Container&quot;
+  },
+  {
+    &quot;code&quot;: &quot;ArticleNotInContainer&quot;,
+    &quot;description&quot;: &quot;Article Not in Container&quot;
+  },
+  {
+    &quot;code&quot;: &quot;BulkWaste&quot;,
+    &quot;description&quot;: &quot;Bulk Waste&quot;
+  },
+  {
+    &quot;code&quot;: &quot;Container&quot;,
+    &quot;description&quot;: &quot;Container&quot;
+  }
+]
+</code></pre>
+<h2 id="proper-shipping-names">Proper shipping names</h2>
+<p>Returns the list of all DOT Proper Shipping Names. Proper Shipping Name Comments and
+Technical Name Indicators</p>
+<h4 id="parameters_6">Parameters</h4>
+<p>None</p>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/proper-shipping-names HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_6">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>The system will process the request return the response. If successful, the response body will contain JSON encoded
+   list of all DOT proper shipping names.</li>
+</ol>
+<h4 id="completed-response-example_6">Completed Response Example</h4>
+<pre><code class="language-json">[
+  {
+    &quot;psn&quot;: &quot;1,1,1-Trifluoroethane or Refrigerant gas, R 143a&quot;,
+    &quot;technicalNameIndicator&quot;: false
+  },
+  {
+    &quot;psn&quot;: &quot;1,1-Difluoroethane or Refrigerant gas R 152a&quot;,
+    &quot;technicalNameIndicator&quot;: false
+  },
+  {
+    &quot;psn&quot;: &quot;1,1-Difluoroethylene or Refrigerant gas R 1132a&quot;,
+    &quot;technicalNameIndicator&quot;: false
+  },
+  {
+    &quot;psn&quot;: &quot;Carbamate pesticides, liquid, toxic, flammable&quot;,
+    &quot;psnComments&quot;: [&quot;flash point not less than 23 degrees C&quot;],
+    &quot;technicalNameIndicator&quot;: true
+  }
+]
+</code></pre>
+<h2 id="proper-shipping-names-by-id-number">Proper shipping names by ID number</h2>
+<p>Returns list of DOT Proper Shipping names by DOT ID Number</p>
+<h4 id="parameters_7">Parameters</h4>
+<ol>
+<li>ID Number</li>
+</ol>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/proper-shipping-names-by-id-number HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_7">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>
+<p>The system will process the request</p>
+</li>
+<li>
+<p>2.1 The system will check if provided ID Number has valid format.</p>
+</li>
+<li>2.2 Provided ID Number shall be compliant with the following format:<ul>
+<li>length: 6 characters</li>
+<li>first 2 characters either "UN" of "NA"</li>
+<li>last 4 characters are numeric</li>
+</ul>
+</li>
+<li>2.3 if ID number is invalid, will return error
+     <code>E_InvalidIdNumber: Invalid Id Number</code></li>
+<li>
+<p>2.4 If no ID number is found in the system, will return error
+     <code>E_IdNumberNotFound: Id Number not found</code></p>
+</li>
+<li>
+<p>return the response. If successful, the response body will contain JSON encoded
+   list of all DOT proper shipping names.</p>
+</li>
+</ol>
+<h4 id="completed-response-example_7">Completed Response Example</h4>
+<pre><code class="language-json">[
+  &quot;Chemical kit&quot;,
+  &quot;Compounds, cleaning liquid&quot;,
+  &quot;Compounds, tree killing, liquid or Compounds, weed killing, liquid&quot;
+]
+</code></pre>
+<h4 id="validation-error-response-example">Validation Error Response Example</h4>
+<pre><code class="language-json">{
+  &quot;code&quot;: &quot; E_InvalidIdNumber &quot;,
+  &quot;message&quot;: &quot;Invalid Id Number&quot;,
+  &quot;errorId&quot;: &quot;9v7a9808-s35a5-4874-928f-12fc3def4b56&quot;,
+  &quot;date&quot;: &quot;2017-06-23T23:15:45.095+0000&quot;
+}
+</code></pre>
+<h2 id="id-numbers">ID numbers</h2>
+<p>Returns a list of DOT ID Numbers</p>
+<h4 id="parameters_8">Parameters</h4>
+<p>None</p>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/id-numbers HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_8">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>The system will process the request return the response. If successful, the response body will contain JSON encoded
+   list of all DOT ID numbers.</li>
+</ol>
+<h4 id="completed-response-example_8">Completed Response Example</h4>
+<pre><code class="language-json">[
+  &quot;UN2035&quot;,
+  &quot;UN1030&quot;,
+  &quot;UN1959&quot;,
+  &quot;UN2517&quot;,
+  &quot;UN2044&quot;,
+  &quot;UN1001&quot;,
+  &quot;UN1950&quot;,
+  &quot;UN1950&quot;,
+  &quot;UN1011&quot;
+]
+</code></pre>
+<h2 id="id-numbers-by-shipping-name">ID numbers by shipping name</h2>
+<p>Returns the list of ID Numbers by the Proper Shipping Name.</p>
+<h4 id="parameters_9">Parameters</h4>
+<ol>
+<li>Proper Shipping Name</li>
+</ol>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/proper-shipping-names-by-id-number HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_9">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>
+<p>The system will process the request</p>
+</li>
+<li>
+<p>2.1 if provided shipping name exceeds 300 characters, the system will return error
+     <code>E_InvalidProperShippingName: Invalid Proper Shipping Name</code></p>
+</li>
+<li>
+<p>2.2 f no ID Numbers were found the system stops processing and generates the following error:
+     <code>E_ProperShippingNameNotFound: Proper Shipping Name Not Found</code></p>
+</li>
+<li>
+<p>return the response. If successful, the response body will contain JSON encoded
+   list of all DOT ID numbers.</p>
+</li>
+</ol>
+<h4 id="completed-response-example_9">Completed Response Example</h4>
+<pre><code class="language-json">[&quot;UN1339&quot;, &quot;UN1340&quot;, &quot;UN1341&quot;]
+</code></pre>
+<h4 id="validation-error-response-example_1">Validation Error Response Example</h4>
+<pre><code class="language-json">{
+  &quot;code&quot;: &quot; E_InvalidProperShippingName &quot;,
+  &quot;message&quot;: &quot;Invalid Proper Shipping Name&quot;,
+  &quot;errorId&quot;: &quot;9v7a9808-s35a5-4874-928f-12fc3def4b56&quot;,
+  &quot;date&quot;: &quot;2017-06-23T23:15:45.095+0000&quot;
+}
+</code></pre>
+<h2 id="packing-groups">Packing groups</h2>
+<p>Returns list of all DOT Packing Groups</p>
+<h4 id="parameters_10">Parameters</h4>
+<p>None</p>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/packing-groups HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_10">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>The system will process the request return the response. If successful, the response body will contain JSON encoded
+   list of all DOT Packing Groups.</li>
+</ol>
+<h4 id="completed-response-example_10">Completed Response Example</h4>
+<pre><code class="language-json">[&quot;I&quot;, &quot;II&quot;, &quot;III&quot;]
+</code></pre>
+<h2 id="packing-groups-by-shipping-name-and-id">Packing groups by shipping name and ID</h2>
+<p>Returns list of DOT Packing Groups by DOT Proper Shipping name and ID Number</p>
+<h4 id="parameters_11">Parameters</h4>
+<ol>
+<li>Proper Shipping Name</li>
+<li>ID Number</li>
+</ol>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/emanifest/lookup/packing-groups-by-shipping-name-id-number/{shippingNmae}/{idNumber} HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+</code></pre>
+<h4 id="sequence-of-steps_11">Sequence of Steps</h4>
+<ol>
+<li><a href="../../authentication/#security-token-validation">Security Token Validation</a>.</li>
+<li><a href="../../authentication/#user-authorization">User Authorization</a>.</li>
+<li>
+<p>The system will process the request</p>
+</li>
+<li>
+<p>2.1 f the size of provided Proper Shipping Name exceeds 300 characters the system stops processing and generate
+     the following error:
+     <code>E_InvalidProperShippingName: Invalid Proper Shipping Name</code></p>
+</li>
+<li>2.2 The system will check if provided ID Number has valid format via the following rules:<ul>
+<li>length: 6 characters</li>
+<li>first 2 characters either "UN" of "NA"</li>
+<li>last 4 characters are numeric
+   <code>E_InvalidIdNumber: Invalid Id Number</code></li>
+</ul>
+</li>
+<li>2.3 The system will obtain the Packing Group for the provided shipping name and ID number:</li>
+<li>2.4 If Proper Shipping Name was not found the system stops processing and generates following error:
+     <code>E_ProperShippingNameNotFound: Proper Shipping Name Not Found</code></li>
+<li>2.5 If ID Number was not found the system stops processing and generates following error:
+     <code>E_IdNumberNotFound: ID Number Not Found</code></li>
+<li>
+<p>2.6 If combination of Proper Shipping Name and ID Number was not found the system stops processing and generates
+     following error:
+     <code>E_CombinationProperShippingNameIdNumberNotFound: combination of Proper Shipping Name and Id Number was not found</code></p>
+</li>
+<li>
+<p>return the response. If successful, the response body will contain JSON encoded
+   list of the appropriate DOT packing group.</p>
+</li>
+</ol>
+<h4 id="completed-response-example_11">Completed Response Example</h4>
+<pre><code class="language-json">[&quot;I&quot;, &quot;II&quot;]
+</code></pre>
+<h4 id="validation-error-response-example_2">Validation Error Response Example</h4>
+<pre><code class="language-json">{
+  &quot;code&quot;: &quot;E_CombinationProperShippingNameIdNumberNotFound&quot;,
+  &quot;message&quot;: &quot;Combination of Proper Shipping Name and Id Number was not found&quot;,
+  &quot;errorId&quot;: &quot;9v7a9808-s35a5-4874-928f-12fc3def4b56&quot;,
+  &quot;date&quot;: &quot;2017-06-23T23:15:45.095+0000&quot;
+}
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["search.highlight", "search.suggest", "search.share"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

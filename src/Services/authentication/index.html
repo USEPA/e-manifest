@@ -1,0 +1,2582 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://usepa.github.io/e-manifest/src/Services/authentication/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../user/">
+      
+      
+      <link rel="icon" href="../../../assets/img/favicon-128x128.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Authentication and User Authorization - e-Manifest Services</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/epa.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#authentication-and-user-authorization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="e-Manifest Services" class="md-header__button md-logo" aria-label="e-Manifest Services" data-md-component="logo">
+      
+  <img src="../../../assets/img/favicon-128x128.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            e-Manifest Services
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Authentication and User Authorization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="e-Manifest Services" class="md-nav__button md-logo" aria-label="e-Manifest Services" data-md-component="logo">
+      
+  <img src="../../../assets/img/favicon-128x128.png" alt="logo">
+
+    </a>
+    e-Manifest Services
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference Material
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Intro
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Intro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Intro/registration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Registration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Intro/terminology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Terminology
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Intro/the-manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Services
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Services/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Authentication and User Authorization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Services/user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lookup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Lookup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Services/Lookup/e-manifest-lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Lookup Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Services/Lookup/lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lookup Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Site
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Services/Site/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Services/Site/site-details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Details Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Services/Site/site-exists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Exists Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Services/Site/site-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Search Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Components
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../components/footer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Footer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../components/manifest-json-link/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest json link
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../components/mtn-validation-steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mtn validation steps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Src
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Src
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference Material
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Intro
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Intro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Intro/registration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Registration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Intro/terminology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Terminology
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Intro/the-manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Services
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Authentication and User Authorization
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Authentication and User Authorization
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#api-id-and-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      API ID and Keys
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Tokens
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#token-expirations-and-refreshing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Token Expirations and Refreshing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authenticate-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authenticate Service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authenticate Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Errors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-token-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Token Validation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Authorization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Authorization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-user-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base User Authorization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manifest-services-user-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manifest Services User Authorization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_4" id="__nav_6_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lookup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Lookup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lookup/e-manifest-lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Lookup Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lookup/lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lookup Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_5" id="__nav_6_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Manifest
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Manifest
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/billing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Billing Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/correct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Correct Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/delete/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Delete Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/get/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Retrieve Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/manifest-attachments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Attachments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Data Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/revert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Revert Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/save/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifests Save Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Search Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/sign/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Sign Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/states/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    e-Manifest Services for states
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/ui-link/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest User Interface (UI) Link service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Update Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manifest/validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest Field Validations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_6" id="__nav_6_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            Site
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Site/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Site/site-details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Details Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Site/site-exists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Exists Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Site/site-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site Search Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Components
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/footer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Footer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/manifest-json-link/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manifest json link
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/mtn-validation-steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mtn validation steps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#api-id-and-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      API ID and Keys
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Tokens
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#token-expirations-and-refreshing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Token Expirations and Refreshing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authenticate-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authenticate Service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authenticate Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completed-response-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Completed Response Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-of-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence of Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Errors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-token-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Token Validation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Authorization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Authorization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-user-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base User Authorization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manifest-services-user-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manifest Services User Authorization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="authentication-and-user-authorization">Authentication and User Authorization</h1>
+<p>Users looking to use the RCRAInfo API need to register and obtain the necessary permissions for the site they're looking
+to operate as. For information on registration and permission levels, see the chapter
+on <a href="../../Intro/registration/">registration</a>.</p>
+<p>After registration, you can use our
+Pre-production <a href="https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger">Open API (swagger)</a> page.</p>
+<h3 id="api-id-and-keys">API ID and Keys</h3>
+<p>The system uses a combination of API ID and API key for user authentication and authorization. The API ID and key
+(credentials) are generated by the RCRAInfo. An API ID/key pair is unique to a user, however the
+same API ID/key pair is used for all EPA sites that the user has (Site Manager) access to.</p>
+<p><a href="../../Intro/registration/#permission-levels">Site Managers</a> are the only permission level that can generate API
+credentials in RCRAInfo. API ID/key pairs do not expire, however keys can be regenerated at any time from within
+RCRAInfo if the key is lost, compromised, or need to be rotated. An API ID/key pair is
+terminated is the user account is deactivated or no longer has Site Manager level access for any EPA site. API ID are
+static.</p>
+<h3 id="security-tokens">Security Tokens</h3>
+<p>The RCRAInfo web services use (Bearer) token authentication. A bearer token is a JSON Web Token (JWT) that is
+generated by RCRAInfo and is used to authorize users to protected resources. A client must first obtain a security token
+through the <a href="#authenticate-service">Authentication (auth)</a> service; all requests must send this token in
+the <code>Authorization</code> header when making requests to protected resources.</p>
+<p>An example HTTP request to the federal waste codes service would look like the following...</p>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/lookup/federal-waste-codes HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Authorization: Bearer theSecurityTokenObtainedFromTheAuthService
+Accept: application/json
+
+</code></pre>
+<h3 id="token-expirations-and-refreshing">Token Expirations and Refreshing</h3>
+<p>The auth service also returns an expiration date-time for the security token. A token expires 20 minutes after creation.
+Currently, RCRAinfo does not provide refresh tokens or a method to
+obtain a new tokens without performing a complete authentication (i.e., using
+the <a href="#authenticate-service">Authentication Service</a> again).</p>
+<p>The expiration datetime follows the ISO 8601 profile, the international standard for representing dates and times. Times
+are expressed in Coordinated Universal Time (UTC) using
+the <a href="https://www.w3.org/TR/NOTE-datetime">time zone offset designator ("+hh:mm")</a> down to the
+millisecond <code>"expiration": "2023-05-10T19:10:05.923+00:00"</code>.</p>
+<h2 id="authenticate-service">Authenticate Service</h2>
+<p>Authenticates the user and returns the Security Token. The Security token is used on all subsequent calls and is
+submitted in the HTTP header using the Authorization in the Key with a value of Bearer.</p>
+<h3 id="parameters">parameters</h3>
+<ul>
+<li><code>API ID</code>: API ID generated through the RCRAInfo web application. This is not the user's username.</li>
+<li><code>API key</code>: API key generated through the RCRAInfo web application. Keys can be regenerated when necessary.</li>
+</ul>
+<h3 id="examples">Examples</h3>
+<p>Pre-Production</p>
+<pre><code class="language-http">GET /rcrainfo/rest/api/v1/auth/myApiID/myApiKey HTTP/1.1
+Host: rcrainfopreprod.epa.gov
+Accept: application/json
+
+</code></pre>
+<p>See also <a href="https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger">Pre-production Open API (swagger) page</a></p>
+<p>Production</p>
+<pre><code class="language-http">GET /rcrainfoprod/rest/api/v1/auth/myApiID/myApiKey HTTP/1.1
+Host: rcrainfo.epa.gov
+Accept: application/json
+
+</code></pre>
+<pre><code class="language-java">/**
+ * Main.java
+ * makes a request to the Pre-production Auth endpoint and prints the response to std out
+ * open JDK 19
+ */
+package org.example;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+public class Main {
+    public static void main(String[] args) {
+        String baseURL = &quot;https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/&quot;;
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(baseURL + &quot;/&quot; + &quot;myApiID&quot; + &quot;/&quot; + &quot;apiKey&quot;))
+                .build();
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenAccept(System.out::println)
+                .join();
+    }
+}
+</code></pre>
+<p>For a python example, check out the <a href="https://pypi.org/project/emanifest/">emanifest package</a> on PyPI (source hosted
+on <a href="https://github.com/USEPA/e-manifest">USEPA/e-manifest</a> repo).</p>
+<p>For a TypeScript example, check out the <a href="https://www.npmjs.com/package/emanifest">emanifest package</a> on NPM (source
+hosted in <a href="https://github.com/USEPA/e-manifest">USEPA/e-manifest</a> repo)</p>
+<h3 id="completed-response-example">Completed Response Example</h3>
+<pre><code class="language-json">{
+  &quot;token&quot;: &quot;eyJhbGciOiJIUzUxMiJ9.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_PGyN6for1GHwf6zqp0OJS10hwK8jEgRyRI0JpFUducwDKj5paWRTEsCky_06pryEve3Yw2w1bbBzqGdSnnw&quot;,
+  &quot;expiration&quot;: &quot;2023-06-23T23:15:45.095+0000&quot;
+}
+</code></pre>
+<h3 id="sequence-of-steps">Sequence of Steps</h3>
+<ol>
+<li>System will check if one of the credentials is empty or incorrect. If so, the following error will be generated:</li>
+<li><code>E_SecurityApiInvalidCredentials: Invalid API ID/Key Specified</code></li>
+<li>System will check if API ID was disabled by the Administrator. If so following error will be generated:</li>
+<li><code>E_SecurityApiInvalidStatus: API ID Status Invalid</code></li>
+<li>If the System detects 3 unsuccessful attempts for authentication then following error will be generated:</li>
+<li><code>E_SecurityApiIDLocked: API ID is locked. If API id was locked the User shall request API ID/API key re-generation</code></li>
+<li>The System will generate JWT and token expiration Date. Security Token contains User Profile and User Role
+   Information in encrypted format. Security Token expiration time is 20 minutes.</li>
+<li>If successful the system will return JSON containing following information:</li>
+<li>token</li>
+<li>expiration</li>
+<li>If failed Authentication the System will return JSON containing the following field:</li>
+<li><code>code</code> : Error code which designated for automated processing</li>
+<li><code>message</code>: "Human readable" Error message corresponding to the error code</li>
+<li><code>errorId</code>: Unique error id for auditing and tracking purpose</li>
+<li><code>errorDate</code>: Error Date/Time for auditing and tracking purpose</li>
+</ol>
+<h3 id="errors">Errors</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Message</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E_SecurityApiInvalidCredentials</td>
+<td>Invalid API Id/Key Specified</td>
+</tr>
+<tr>
+<td>E_SecurityApiInvalidStatus</td>
+<td>API Id Status Invalid</td>
+</tr>
+<tr>
+<td>E_SecurityApiIdLocked</td>
+<td>API Id is Locked</td>
+</tr>
+<tr>
+<td>E_SystemError</td>
+<td>Message describing system error</td>
+</tr>
+</tbody>
+</table>
+<p>An example JSON body would contain the following information:</p>
+<pre><code class="language-json">{
+  &quot;code&quot;: &quot;E_SecurityInvalidCredentials&quot;,
+  &quot;message&quot;: &quot;Invalid API Id was specified.&quot;,
+  &quot;errorId&quot;: &quot;470c188a-82ce-488e-8e85-3e1b71c72ab8&quot;,
+  &quot;errorDate&quot;: &quot;2023-05-11T12:27:59.332+00:00&quot;
+}
+</code></pre>
+<h2 id="security-token-validation">Security Token Validation</h2>
+<p>After a security token is obtained, it must be validated before it can be used to access protected resources. The
+following steps are taken to validate a security token:</p>
+<ol>
+<li>The System will validate the Security Token</li>
+</ol>
+<p>1.1 If Web Security Token is invalid, the system stops the submission and generates the following error:</p>
+<ul>
+<li><code>E_SecurityApiTokenInvalid: Invalid Security Token</code></li>
+</ul>
+<p>1.2. If Web Security Token expired, the system stops the submission and generates the following
+   error:</p>
+<ul>
+<li><code>E_SecurityApiTokenExpired: Security Token is Expired</code></li>
+</ul>
+<p>1.3. If Account was inactivated after the token was issued, the system stops the submission and
+   generates the following error:</p>
+<ul>
+<li><code>E_SecurityApiInvalidStatus: This API ID is no longer active</code></li>
+</ul>
+<h2 id="user-authorization">User Authorization</h2>
+<p>The system will perform User Authorization for protected resources
+after<a href="#security-token-validation">Security Token Validation</a>. Depending on the service, additional user authorization
+checks may apply (see below).</p>
+<h3 id="base-user-authorization">Base User Authorization</h3>
+<p>the following checks are performed for all protected resources:</p>
+<ol>
+<li>For all requests, the system will perform base user authorization.</li>
+</ol>
+<p>1.1. System will check if the User has Site Manager (Industry) permissions for any Site. If the User does not have
+   permission the System will stop processing and generate the following error:</p>
+<ul>
+<li>
+<p><code>E_IndustryPermissions: The user does not have industry permissions for any Site</code></p>
+</li>
+<li>
+<p>The System will validate the Security Token</p>
+</li>
+</ul>
+<p>1.1 If Web Security Token is invalid, the system stops the submission and generates the following error:</p>
+<ul>
+<li><code>E_SecurityApiTokenInvalid: Invalid Security Token</code></li>
+</ul>
+<p>1.2. If Web Security Token expired, the system stops the submission and generates the following
+   error:</p>
+<ul>
+<li><code>E_SecurityApiTokenExpired: Security Token is Expired</code></li>
+</ul>
+<p>1.3. If Account was inactivated after the token was issued, the system stops the submission and
+   generates the following error:</p>
+<ul>
+<li><code>E_SecurityApiInvalidStatus: This API ID is no longer active</code></li>
+</ul>
+<h3 id="manifest-services-user-authorization">Manifest Services User Authorization</h3>
+<ol>
+<li>For requests include an <code>Image</code> or <code>"DataImage5Copy"</code> submission type, the user must be authorized for the site
+   that is required to submit the manifest to EPA.</li>
+</ol>
+<p>2.1. If rejection = false and user is not authorized for the designatedFacility.epaSiteId, the following error is
+   generated:</p>
+<ul>
+<li><code>E_DesignatedFacilityAuthorizationSave: User is not authorized for the Designated Facility. Cannot create Image or DataImage5Copy manifests.</code></li>
+</ul>
+<p>2.2 If <code>rejection</code> is true, <code>rejectionInfo.transporterOnSite</code> is true, <code>alternateDesignatedFacilityType</code> is "Tsdf"
+   and user is not authorized for <code>rejectionInfo.alternateDesignatedFacility.epaSiteId</code>, the following error is
+   generated:</p>
+<ul>
+<li><code>E_AltFacilityAuthorizationSave: User is not authorized for the Alternate Designated Facility. Cannot create Image or DataImage5Copy manifests.</code></li>
+</ul>
+<p>2.3. If <code>containsPreviousRejectOrResidue</code> is true, <code>additionalInfo.newManifestDestination</code> is <code>OriginalGenerator</code>
+   and user is not authorized for <code>generator.epaSiteId</code>, the following error is generated:</p>
+<ul>
+<li>
+<p><code>E_GeneratorAuthorizationSave: User is not authorized for the Generator. Cannot create Image or DataImage5Copy manifests</code></p>
+</li>
+<li>
+<p>If the user is associated with a Broker site and the manifest submission type is "Image", then the System will stop
+   the processing and generates the following error:</p>
+</li>
+<li>
+<p><code>E_BrokerAuthorizationSave: Brokers are not authorized to create Image manifests</code></p>
+</li>
+<li>
+<p>For the <a href="../Manifest/delete/">Delete</a>, <a href="../Manifest/correct/">Correct</a>, and <a href="../Manifest/revert/">Revert</a>
+   services, the system will check if the user has industry permissions for the TSDF, the Generator, or the Alternate
+   TSDF, any of the listed Transporters, of Broker sites on the manifest. If the user does not have permissions, teh
+   system will stop the processing and generate the following error:</p>
+</li>
+<li>
+<p><code>E_SitePermissions: The user does not have Industry Permissions for either the TSDF Site or Generator Site or Alternate TSDF site, any Transporter site, or Broker site specified in provided JSON</code></p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["search.highlight", "search.suggest", "search.share"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
