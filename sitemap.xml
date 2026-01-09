@@ -2,70 +2,130 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://usepa.github.io/e-manifest/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/references/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Intro/registration/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Intro/terminology/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Intro/the-manifest/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Services/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Services/authentication/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Services/user/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Services/Lookup/e-manifest-lookup/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Services/Lookup/lookup/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/billing/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/correct/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/delete/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/get/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/manifest-attachments/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/other/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/revert/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/save/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/search/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/sign/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/states/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/ui-link/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/update/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://usepa.github.io/e-manifest/Services/Manifest/validation/</loc>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Services/Site/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Services/Site/site-details/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Services/Site/site-exists/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/Services/Site/site-search/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/components/footer/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/components/manifest-json-link/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
     <url>
          <loc>https://usepa.github.io/e-manifest/components/mtn-validation-steps/</loc>
-         <lastmod>2025-09-04</lastmod>
+         <lastmod>2026-01-09</lastmod>
     </url>
 </urlset>

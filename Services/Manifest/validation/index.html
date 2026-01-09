@@ -1,0 +1,4209 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://usepa.github.io/e-manifest/Services/Manifest/validation/">
+      
+      
+        <link rel="prev" href="../update/">
+      
+      
+        <link rel="next" href="../../Site/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/img/favicon-128x128.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Manifest Field Validations - e-Manifest Services</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/epa.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#manifest-field-validations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="e-Manifest Services" class="md-header__button md-logo" aria-label="e-Manifest Services" data-md-component="logo">
+      
+  <img src="../../../assets/img/favicon-128x128.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            e-Manifest Services
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Manifest Field Validations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="e-Manifest Services" class="md-nav__button md-logo" aria-label="e-Manifest Services" data-md-component="logo">
+      
+  <img src="../../../assets/img/favicon-128x128.png" alt="logo">
+
+    </a>
+    e-Manifest Services
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    e-Manifest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference Material
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Intro
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Intro/registration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Registration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Intro/terminology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    e-Manifest Terminology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Intro/the-manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Manifest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication and User Authorization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lookup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lookup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lookup/e-manifest-lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    e-Manifest Lookup Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lookup/lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lookup Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Manifest
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    e-Manifest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../billing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    e-Manifest Billing Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../correct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Correct Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../delete/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Delete Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Retrieve Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifest-attachments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Attachments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Data Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../revert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Revert Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../save/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifests Save Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Search Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sign/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Sign Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../states/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    e-Manifest Services for states
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-link/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest User Interface (UI) Link service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Update Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Field Validations
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest Field Validations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#section-validations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section Validations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section Validations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generator-information-validation-for-the-image-submission-type-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generator information validation for the Image submission type manifests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#facility-information-validation-for-image-submission-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Facility Information Validation for "Image" submission type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transporter-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transporter Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#designated-facility-tsdfgenerator-site-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designated Facility (TSDF)/Generator Site Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-manifest-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New Manifest Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generator-site-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generator Site Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper-signature-info-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paper Signature Info Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waste-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waste Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dot-information-fields-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DOT Information Fields Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containers-and-quantity-fields-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers and quantity fields validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waste-additional-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waste Additional Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pcb-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PCB Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#management-method-code-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Management Method Code Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rejection-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rejection Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discrepancy-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discrepancy Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#residue-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Residue Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biennial-report-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Biennial Report Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Site
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Site/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Site/site-details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site Details Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Site/site-exists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site Exists Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Site/site-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site Search Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Components
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../components/footer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Footer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../components/manifest-json-link/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manifest json link
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../components/mtn-validation-steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mtn validation steps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#section-validations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section Validations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section Validations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generator-information-validation-for-the-image-submission-type-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generator information validation for the Image submission type manifests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#facility-information-validation-for-image-submission-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Facility Information Validation for "Image" submission type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transporter-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transporter Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#designated-facility-tsdfgenerator-site-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designated Facility (TSDF)/Generator Site Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-manifest-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New Manifest Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generator-site-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generator Site Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper-signature-info-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paper Signature Info Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waste-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waste Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dot-information-fields-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DOT Information Fields Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containers-and-quantity-fields-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers and quantity fields validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waste-additional-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waste Additional Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pcb-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PCB Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#management-method-code-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Management Method Code Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rejection-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rejection Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discrepancy-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discrepancy Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#residue-information-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Residue Information Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biennial-report-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Biennial Report Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="manifest-field-validations">Manifest Field Validations</h1>
+<p>The following validations are performed on the manifest fields:</p>
+<h2 id="section-validations">Section Validations</h2>
+<h3 id="generator-information-validation-for-the-image-submission-type-manifests">Generator information validation for the Image submission type manifests</h3>
+<p>The manifest fee will be determined based on the Generator signature date (if provided).</p>
+<ol>
+<li>Generator information and Generator signature date can be provided for Image submission type
+   manifests for the save and update services. See modification details in sections Facility
+   Information Validation for "Image" submission type, Generator Site IDand Site Information
+   Validation and Paper Signature Info Validation. If Generator information and Generator printed
+   signature date is provided and data is valid, the following applies</li>
+</ol>
+<p>1.1. The save and update services will store this data as a part of the manifest</p>
+<p>1.2. The services will set Emanifest.provideImageGeneratorInfo = true</p>
+<p>1.3. The manifest fee will be determined based on the Generator printed signature date upon electronic signature from
+   the receiving facility</p>
+<ol>
+<li>If Generator information and Generator printed signature date is not provided or some of the
+   provided data is invalid, the following applies
+   2.1. The save and update services will generate the following warning:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Not all required Generator site and signature information is provided so system cannot determine which price to charge for this manifest. To ensure that this manifest is billed accurately, please update the manifest with all required generator site and signature information.",
+     "field": "Emanifest.generator"
+   }</code></p>
+<p>2.2. The save and update services will also generate warning(s)</p>
+<p>2.3. The services will not store Generator information as a part of the manifest data</p>
+<p>2.4. The services will set Emanifest.provideImageGeneratorInfo = false</p>
+<p>2.5. The manifest fee will be determined based on the receiving facility electronic signature date</p>
+<h3 id="facility-information-validation-for-image-submission-type">Facility Information Validation for "Image" submission type</h3>
+<ol>
+<li>For the Image submission type one of the following facility EPA Site IDs must be provided: Designated Facility EPA
+   Site ID, Generator EPA Site IDor Alternate Designated Facility Site ID</li>
+<li>The following Facility EPA site IDs shall be provided for the following scenarios:</li>
+<li>Original Manifest, no Full Rejection: Designated Facility EPA SiteID shall be provided.</li>
+<li>Original Manifest, Full Rejection to Alternate Designated Facility: Alternate Designated Facility EPA Site ID
+     shall be provided.</li>
+<li>Original Manifest, Full Rejection to the Generator: Designated Facility EPA siteID shall be provided.</li>
+<li>New Manifest shipping waste back to original Generator (New Manifest is the manifest created as a "result" of the
+     Original manifest rejection or residue): Generator Facility EPA SiteID shall be provided. This EPA SiteID shall
+     contain the Original Designated Facility Site ID.</li>
+<li>New Manifest shipping rejected waste to another Designated Facility: Designated Facility EPA SiteID shall be
+     provided.</li>
+<li>If one of the following IDs: Emanifest.designatedFacility.epaSiteID and Emanifest.generator.epaSiteId and
+   Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is not provided then the service will return an
+   authorization error.</li>
+<li>If the provided EPA SiteIDis not registered, then the service will return an authorization error.</li>
+<li>If Emanifest.designatedFacility.epaSiteId or Emanifest.generator.epaSiteId or
+   Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is provided, the following applies</li>
+</ol>
+<p>5.1. If any of the following Site information is provided then the service generates the following warning:</p>
+<ul>
+<li>Site Name</li>
+<li>Site Address</li>
+<li>Mailing Address</li>
+</ul>
+<p><code>json
+   {
+     "message": "Registered site was found. Provided site information will be ignored and replaced with registered information",
+     "field": "Emanifest.designatedFacility.name /siteAddress/mailingAddress",
+     "value": "name/siteAddress/mailingAddress"
+   }</code></p>
+<p>5.2. Validation of the Contact information is identical to #2 in section</p>
+<p>5.3. Designated Facility (TSDF)/Generator SiteIDand Site Information Validation</p>
+<p>5.4. If Emanifest.wastes are provided then the service generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored.",
+     "field": "Emanifest.wastes"
+   }</code></p>
+<p>5.5. If Emanifest.residue == true then the service generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored. Emanifest.residue = false will be assigned",
+     "field": "Emanifest.residue",
+     "value": "residue value"
+   }</code></p>
+<p>5.6. If Emanifest.import == true then the service generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored. Emanifest.import = false will be assigned",
+     "field": "Emanifest.import",
+     "value": "import value"
+   }</code></p>
+<p>5.7. The service stores following information as a part of the manifest data:</p>
+<ul>
+<li>Emanifest.residue = false</li>
+<li>
+<p>Emanifest.import = false</p>
+</li>
+<li>
+<p>If Emanifest.designatedFacility.epaSiteId or Emanifest.generator.epaSiteId is provided then the
+   following applies</p>
+</li>
+</ul>
+<p>6.1. If Emanifest.rejection == true, the service generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored. Emanifest.rejection = false will be assigned",
+     "field": "Emanifest.rejection",
+     "value": " rejection value"
+   }</code></p>
+<p>6.2. If any of the Emanifest.rejectionInfo fields are provided, the service generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored.",
+     "field": "Emanifest.rejectionInfo.{field}",
+     "value": "field value"
+   }</code></p>
+<ol>
+<li>If Emanifest.designatedFacility.epaSiteId or Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is provided,
+   the following applies</li>
+</ol>
+<p>7.1. If Emanifest.containsPreviousRejectOrResidue == true, the service generates the following
+   warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored. Emanifest.containsPreviousRejectOrResidue = false will be assigned",
+     "field": "Emanifest.containsPreviousRejectOrResidue",
+     "value": "containsPreviousRejectOrResidue value"
+   }</code></p>
+<ol>
+<li>If Emanifest.rejectionInfo.alternateDesignatedFacility.siteId is provided, the following applies</li>
+</ol>
+<p>8.1. If Emanifest.rejection == false, the service generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored. Emanifest.rejection = true will be assigned",
+     "field": "Emanifest.rejection",
+     "value": " rejection value"
+   }</code></p>
+<p>8.2. If Emanifest.rejectionInfo.transporterOnSite ==false, the service generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored. Emanifest.rejectionInfo.transporterOnSite = true will be assigned",
+     "field": "Emanifest.rejectionInfo.transporterOnSite",
+     "value": "rejectionInfo.transporterOnSite value"
+   }</code></p>
+<p>8.3. If Emanifest.rejectionInfo.rejectionType =="PartiaReject", the service generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored. Emanifest.rejectionInfo.rejectionType = 'FullReject' will be assigned",
+     "field": "Emanifest.rejectionInfo.rejectionType",
+     "value": "rejectionInfo.rejectionType value"
+   }</code></p>
+<p>8.4. If Emanifest.rejectionInfo.alternateDesignatedFacilityType =="Generator" the service generates the following
+   warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored. Emanifest.rejectionInfo.alternateDesignatedFacilityType = 'Tsdf' will be assigned",
+     "field": "Emanifest.rejectionInfo.alternateDesignatedFacilityType",
+     "value": "rejectionInfo.alternateDesignatedFacilityType value"
+   }</code></p>
+<p>8.5. If rejectionInfo.newManifestTrackingNumbers are provided, the service generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Provided Value will be Ignored. New Manifest(s) are not created if Transporter is On Site",
+     "field": "Emanifest.rejectionInfo.newManifestTrackingNumbers",
+     "value": "rejectionInfo.newManifestTrackingNumbers value"
+   }</code></p>
+<p>8.6. The service stores following information as a part of the manifest data:</p>
+<ul>
+<li>Emanifest.rejection = true</li>
+<li>Emanifest.rejectionInfo.transporterOnSite = true</li>
+<li>Emanifest.rejectionInfo.rejectionType = "FullReject"</li>
+<li>Emanifest.rejectionInfo.alternateDesignatedFacilityType = "Tsdf"</li>
+</ul>
+<h3 id="transporter-information-validation">Transporter Information Validation</h3>
+<ol>
+<li>
+<p>If <code>submissionType</code> is "FullElectronic" or "Hybrid", then the Transporter is valid if the Transporter is registered
+   in RCRAInfo and the Transporter has at least one User with the e-Manifest Certifier Role and this user has a Received
+   ESA.</p>
+</li>
+<li>
+<p>1.1. If the Transporter Site ID is not provided, the service generates schema validation error.</p>
+</li>
+<li>1.2. If the Transporter Site ID has an invalid format, the service generates schema validation error.</li>
+<li>1.3. If the Transporter Site ID is not registered, the service generates the following error:
+     <code>json
+     {
+       "message": "For FullElectronic submission type registered Transporter Site Id must be provided",
+       "field": "Emanifest.transporter.epaSiteId",
+       "value": "Site ID value"
+     }</code></li>
+<li>1.4. If the Transporter Site ID is registered and there are no users with the e-Manifest Certifier role for the
+     provided Transporter, the service generates the following error:
+     <code>json
+     {
+       "message": "Site doesn't have any users with Certifier role or with ESA status 'Received",
+       "field": "Emanifest.transporter.epaSiteId",
+       "value": "Site ID value"
+     }</code></li>
+<li>
+<p>1.5. If the Transporter Site ID is registered and there are no users with a received ESA, the service generates
+     the following error:
+     <code>json
+     {
+       "message": "Site doesn't have any users with Certifier role or with ESA status 'Received",
+       "field": "Emanifest.transporter.epaSiteId",
+       "value": "Site ID value"
+     }</code></p>
+</li>
+<li>
+<p>If <code>submissionType</code> is "DataImage5Copy", then registered and non-registered Transporters are valid.</p>
+</li>
+<li>
+<p>2.1. If the Transporter is registered in RCRAInfo as a Transporter, then only the epaSiteId must be provided. All
+     the site information will be obtained from RCRAInfo. If other site information is provided it will be ignored with
+     warnings.</p>
+</li>
+<li>2.2. If the Transporter is not registered in RCRAInfo, then the following site information must be provided:<ul>
+<li>Site Address</li>
+<li>Site Name</li>
+<li>Contact phone</li>
+</ul>
+</li>
+<li>
+<p>2.3. If Site ID AND Site Information are not provided, the system generates errors.</p>
+<p><code>json
+ {
+   "message": "Value is not provided",
+   "field": "Emanifest.transporter.epaSiteId"
+ }</code></p>
+<p><code>json
+ {
+   "message": "Value is not provided",
+   "field": "Emanifest.transporter.siteAddress"
+ }</code></p>
+<p><code>json
+ {
+   "message": "Mandatory field is not provided",
+   "field": "Emanifest.transporter.name"
+ }</code></p>
+<p><code>json
+ {
+   "message": "Value is not provided",
+   "field": "Emanifest.transporter.contact.phone.number"
+ }</code></p>
+</li>
+<li>
+<p>2.4. If Site ID is provided AND Site Information is not provided, the system performs the following steps: -
+     2.4.1. Validate Site ID format. - 2.4.2. If Site ID is not valid, the service generates the following error:</p>
+<p><code>json
+ {
+   "message": "Provided Value is not Valid. Does not match format of: Two Letter Activity Location Code + Up to 10 alphanumeric characters",
+   "field": "Emanifest.transporter.epaSiteId"
+ }</code></p>
+<ul>
+<li>2.4.3. If the Site ID is valid, the system will search in RCRAInfo by Site ID. - 2.4.4. If the site is found,
+   the system obtains Site Information from RCRAInfo and stores it into the Manifest. - 2.4.5. If the site is not
+   found, the service generates the following error:</li>
+</ul>
+<p><code>json
+ {
+   "message": "Site with the provided EPA Site ID is not registered",
+   "field": "Emanifest.transporter.epaSiteId"
+ }</code></p>
+</li>
+<li>
+<p>2.5. If the Site ID is provided AND Site Information is provided, the site information will be ignored with
+     warnings,
+     and the system will perform the following steps:</p>
+<ul>
+<li>2.5.1. Validate provided Site ID.</li>
+<li>2.5.2. If Site ID is not valid, the service generates an error:
+   <code>json
+   {
+     "message": "Provided value is not valid. Does not match format of: Two Letter Activity Location Code + Up to 10 alphanumeric characters",
+     "field": "Emanifest.transporter.epaSiteId",
+     "value": "EPA Site ID value"
+   }</code></li>
+<li>2.5.3. If Site ID is valid, check if the site is registered.</li>
+<li>2.5.4. If the site is not registered, the service generates a warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Site with provided EPA Site ID is not registered",
+     "field": "Emanifest.transporter.epaSiteId",
+     "value": "Site ID value"
+   }</code></p>
+</li>
+<li>
+<p>2.6. If Site ID is not provided AND Site Information is provided, the system will perform the following
+     steps: -</p>
+<ul>
+<li>2.6.1. Validate the provided Site Information. - 2.6.2. Validate the Site Name. - 2.6.3. If the Site Name
+   is not
+   valid, the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Value is not Valid",
+     "field": "Emanifest.transporter.name",
+     "value": "site name value"
+   }</code></p>
+<ul>
+<li>
+<p>2.6.4. Validate the mandatory site address fields: - address1 (50 Character maximum) - city (25
+     Character
+     maximum) - state.code (2 Character State Abbreviation) - zip (14 Character maximum) - 2.6.5. If any of
+     the
+     mandatory
+     location address fields are not provided or invalid, the service generates the
+     following error:</p>
+<p><code>json
+ {
+   "message": "Value is not Provided/Provided Value is not Valid",
+   "field": "Emanifest.transporter.siteAddress.address1/city/state/zip",
+   "value": "address1/city/state/zip value"
+ }</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>2.7. If Emanifest.submissionType is "Hybrid" or "FullElectronic" and Emanifest.status &gt; Scheduled and provided
+     transporter information is different from currently stored, the service generates the following warning:</p>
+<p><code>json
+ {
+   "message": "Provided Transporter information will be ignored. Transporter Information cannot be updated if the manifest status is InTransit or thereafter",
+   "field": "Emanifest.transporter.epaSiteId"
+ }</code></p>
+</li>
+</ol>
+<h3 id="designated-facility-tsdfgenerator-site-information-validation">Designated Facility (TSDF)/Generator Site Information Validation</h3>
+<ol>
+<li>If submissionType is "FullElectronic" and status &gt;= Scheduled then the following applies
+   1.1. If Emanifest.generator.epaSiteId is not provided then the service generates the following error:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.generator.epaSiteId"
+   }</code></p>
+<ul>
+<li>1.2. If Emanifest. generator.epaSiteId has an incorrect format then the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Invalid Field Format",
+     "field": "Emanifest. generator.epaSiteId",
+     "value": " epa siteIDvalue"
+   }</code></p>
+<ul>
+<li>1.3. If Emanifest.generator.epaSiteId is not registered in RCRAInfo then the service generates the following
+     error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Generator FacilityIDis not registered in RCRAInfo",
+     "field": "Emanifest. generator.epaSiteId",
+     "value": " epa siteIDvalue"
+   }</code></p>
+<ol>
+<li>
+<p>If submissionType is "FullElectronic" or "Hybrid" and status &gt;= Scheduled, or submissionType is "DataImage5Copy" then
+   the following applies</p>
+</li>
+<li>
+<p>2.1. If Emanifest.designatedFacility.epaSiteId is not provided then the service generates the following error:</p>
+</li>
+</ol>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.designatedFacility.epaSiteId"
+   }</code></p>
+<ul>
+<li>2.2. If Emanifest.designatedFacility.epaSiteId has an incorrect format then service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Invalid Field Format",
+     "field": "Emanifest.designatedFacility.epaSiteId",
+     "value": " epa siteIDvalue"
+   }</code></p>
+<ul>
+<li>2.3. If Emanifest.designatedFacility.epaSiteId is not registered in RCRAInfo then service generates the following
+     error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Designated FacilityIDis not registered in RCRAInfo",
+     "field": "Emanifest.designatedFacility.epaSiteId",
+     "value": " epa siteIDvalue"
+   }</code></p>
+<ul>
+<li>2.4. If the Site Contact Phone number is not provided and registered in RCRAInfo Site does not contain the Site
+     Contact Phone Number, the system generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.designatedFacility.contact.phone.number"
+   }</code></p>
+<ul>
+<li>
+<p>2.5. If the Site Contact Phone number is provided, the system will check the format.</p>
+</li>
+<li>
+<p>If the provided phone number has a valid format the system will store site contact phone number into e-Manifest
+     database</p>
+</li>
+<li>If the provided phone number has an incorrect format the system generates the following warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "String \"{provided phone value}\" is too long (length: { provided phone value length}, maximum allowed: 12)",
+     "field": "Emanifest.designatedFacility.contact.phone.number",
+     "value": "number value"
+   }</code></p>
+<ul>
+<li>
+<p>2.6. If the Site Contact Phone Extension is provided, the system will check the format.</p>
+<ul>
+<li>2.6.1If provided phone extension has a valid format, the system will store the site contact phone extension
+   into
+   e-Manifest database</li>
+<li>2.6.2 If the provided phone has an incorrect format, the system generates the following warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "String \"{provided phone extension value}\" is too long (length: {provided phone value length}, maximum allowed: 6 )",
+     "field": "Emanifest.designatedFacility.contact.phone.extension",
+     "value": "extension value"
+   }</code></p>
+</li>
+<li>
+<p>2.7. If any of the following TSDF Site Information entities were provided:</p>
+<ul>
+<li>Site Name</li>
+<li>Site Address</li>
+<li>Mailing Address</li>
+</ul>
+</li>
+</ul>
+<p>The system generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Registered site was found. Provided site information will be ignored and replaced with registered information",
+     "field": "Emanifest.designatedFacility.name /siteAddress",
+     "value": "name/siteAddress"
+   }</code></p>
+<ul>
+<li>
+<p>2.8. If the user is authorized to use the e-Manifest Save service for the provided Generator SiteID(It means that
+     TSDF acts as Generator), then the provided SiteIDwas already validated during authorization and the system will
+     perform following steps:</p>
+</li>
+<li>
+<p>2.9. If the Site Contact Phone number is not provided in the JSON and site the is registered in RCRAInfo, the
+     system
+     checks if the site has a Contact Phone value registered for the site. If the Contact Phone is not registered in
+     the
+     system for that site, the system generates the following error:</p>
+</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.designatedFacility.contact.phone.number"
+   }</code></p>
+<ul>
+<li>
+<p>2.10. If the Site Contact Phone number is provided and registered in RCRAinfo the system checks that the phone
+     number
+     is in the correct format.</p>
+<ul>
+<li>
+<p>2.10.1. If the provided phone number has a valid format, the system will store site contact phone number into
+   the e-Manifest database</p>
+</li>
+<li>
+<p>2.10.2. If provided phone number has an incorrect format, the system will store registered in RCRAInfo Contact
+   Phone number into e-Manifest database and generate the following warning:</p>
+</li>
+</ul>
+<p><code>json
+ {
+   "message": "String \"{provided phone value}\" is too long (length: { provided phone value length}, maximum allowed: 12)",
+   "field": "Emanifest.designatedFacility.contact.phone.number",
+   "value": "number value"
+ }</code></p>
+</li>
+<li>
+<p>2.11. If the Site Contact Phone number is provided and registered in RCRAinfo site does not contain Contact Phone.</p>
+<ul>
+<li>2.11.1. If the provided phone number has valid format, the system will store site contact phone number into
+   e-Manifest database</li>
+<li>2.11.2. If provided phone number has incorrect format, the system generates the following error:</li>
+</ul>
+<p><code>json
+ {
+   "message": "String \"{provided phone value}\" is too long (length: { provided phone value length}, maximum allowed: 12)",
+   "field": "Emanifest.designatedFacility.contact.phone.number",
+   "value": "number value"
+ }</code></p>
+</li>
+<li>
+<p>2.12. Validate emergency phone</p>
+<ul>
+<li>2.12.1. If emergency phone number is not provided, the system generates the following error:</li>
+</ul>
+<p><code>json
+ {
+   "message": "Mandatory Field is not provided",
+   "field": "Emanifest.designatedFacility.emergencyPhone.number"
+ }</code></p>
+<ul>
+<li>2.12.2. If emergency phone number is provided and has an invalid format, the system generates the following
+   error:</li>
+</ul>
+<p><code>json
+ {
+   "message": "String \"{provided phone value}\" is too long (length: { provided phone value length}, maximum allowed: 12)",
+   "field": "Emanifest.designatedFacility.emergencyPhone.number ",
+   "value": "phone number value"
+ }</code></p>
+<ul>
+<li>2.12.3. If emergency phone extension is provided and has an invalid format, the system generates the following
+   warning:</li>
+</ul>
+<p><code>json
+ {
+   "message": "String \"{provided phone value}\" is too long (length: { provided phone value length}, maximum allowed: 6)",
+   "field": "Emanifest.generator.emergencyPhone.extension ",
+   "value": "extension value"
+ }</code></p>
+<ul>
+<li>2.13. If Site Name, Site Location, Site Mailing Address are provided, the system generates the following
+   warning:</li>
+</ul>
+<p><code>json
+ {
+   "message": "Provided Values will be Ignored. RCRAInfo values will be used",
+   "field": "Emanifest.generator.name/mailingAddress/siteAddress ",
+   "value": "name/mailingAddress/siteAddress value"
+ }</code></p>
+</li>
+<li>
+<p>2.14. If the contact email was provided, the system will check the format</p>
+<ul>
+<li>2.14.1. If provided contact email has a valid format the system will store site contact email into e-Manifest
+   database</li>
+<li>2.14.2. If the provided contact email has an incorrect format the system generates the following warning:</li>
+</ul>
+<p><code>json
+ {
+   "message": "Invalid Field format. Valid email format is expected.",
+   "field": "Emanifest.designatedFacility.contact.email",
+   "value": "email value"
+ }</code></p>
+</li>
+</ul>
+<h3 id="new-manifest-information-validation">New Manifest Information Validation</h3>
+<p>json</p>
+<ol>
+<li>
+<p>If the New Manifest is created for shipping the waste to another TSDF or back to the Generator</p>
+</li>
+<li>
+<p>If Emanifest.status &gt;= "ReadyForSignature" and Emanifest.containsPreviousRejectOrResidue is not provided then the
+     service generates the following error:
+     <code>json
+     {
+       "message": "Mandatory Field is not Provided.",
+       "field": "Emanifest.containsPreviousRejectOrResidue"
+     }</code></p>
+</li>
+<li>If Emanifest.containsPreviousRejectOrResidue == true and
+     Emanifest.additionalInfo.newManifestDestination is not provided then the service
+     generates the following error:
+     <code>json
+     {
+       "message": "Mandatory Field is not Provided.",
+       "field": "Emanifest.additionalInfo.newManifestDestination"
+     }</code></li>
+<li>If Emanifest.containsPreviousRejectOrResidue == true and
+     Emanifest.additionalInfo.originalManifestTrackingNumbers are not valid the service
+     generates the following warning:
+     <code>json
+     {
+       "message": "Invalid value provided. Provided Field will be ignored.",
+       "field": "Emanifest.additionalInfo.originalManifestTrackingNumbers",
+       "value": "provided value"
+     }</code></li>
+<li>If Emanifest.additionalInfo.newManifestDestination == "OriginalGenerator" and
+     Emanifest.rejection == true the service generates the following errors:
+     <code>json
+     {
+       "message": "New Manifest cannot be rejected if shipped back to the original Generator",
+       "field": "Emanifest.additionalInfo.newManifestDestination",
+       "value": "newManifestDestination value"
+     }</code>
+     <code>json
+     {
+       "message": "New Manifest cannot be rejected if shipped back to the original Generator",
+       "field": "Emanifest.rejection",
+       "value": "rejection value"
+     }</code></li>
+</ol>
+<h3 id="generator-site-information-validation">Generator Site Information Validation</h3>
+<ol>
+<li>If submissionType is "FullElectronic" then the Generator is valid if the Generator SiteIDis registered in RCRAInfo
+   and the Generator has at least one User with the e-Manifest Certifier Role and this user has a Received ESA.</li>
+<li>If submissionType is "FullElectronic" the following applies</li>
+</ol>
+<p>2.1. If the Generator SiteIDis not provided, the service generates the following error:</p>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided. For FullElectronic submission type registered Generator SiteIDmust be provided",
+     "field": "Emanifest.designatedFacility.epaSiteId"
+   }</code></p>
+<p>2.2. If the Generator SiteIDhas an invalid format the service generates the following error:</p>
+<p><code>json
+   {
+     "message": "Invalid Field Format. For FullElectronic submission type registered Generator SiteIDmust be provided",
+     "field": "Emanifest.generator.epaSiteId",
+     "value": "SiteIDvalue"
+   }</code></p>
+<p>2.3. If the Generator SiteIDis not registered in RCRAInfo the service generates the following error:</p>
+<p><code>json
+   {
+     "message": "Provided Generator FacilityIDis not registered in RCRAInfo",
+     "field": "Emanifest.generator.epaSiteId",
+     "value": "SiteIDvalue"
+   }</code></p>
+<p>2.4. If the Generator SiteIDis registered in RCRAInfo and there are no users with the e-Manifest Certifier role for
+   the provided Generator the service generates the following error:</p>
+<p><code>json
+   {
+     "message": "Site doesn't have any users with Certifier role or with ESA status Received",
+     "field": "Emanifest.designatedFacility.epaSiteId",
+     "value": "SiteIDvalue"
+   }</code></p>
+<p>2.5. If the Generator with the provided SiteIDis registered and there are no users with a received ESA, the service
+   generates the following error:</p>
+<p><code>json
+   {
+     "message": "Site doesn't have any users with Certifier role or with ESA status Received",
+     "field": "Emanifest.designatedFacility.epaSiteId",
+     "value": "SiteIDvalue"
+   }</code></p>
+<ol>
+<li>If submissionType is "DataImage5Copy" or "Hybrid", then registered and non-registered Generators are valid and the
+   following cases are possible for the Generator SiteIDand Generator Information:</li>
+</ol>
+<p>3.1. If the Generator is registered in RCRAInfo and service requester does not intend to provide different (than
+   registered) Site Information, then only the epaSiteId shall be provided. All site information will be obtained from
+   RCRAInfo.</p>
+<p>3.2. If the Generator is registered in RCRAInfo and service requester intends to provide different (than registered)
+   Site Information, then the following site information entities must be provided:</p>
+<ul>
+<li>Site ID</li>
+<li>Site Name</li>
+<li>Site Address (all fields)</li>
+<li>Mailing Address (all fields)</li>
+<li>Contact Phone</li>
+<li>
+<p>Provided Site Information will be validated and if valid will be stored in e-Manifest.</p>
+<p>3.3. If Generator is not registered in RCRAInfo, then following site information must be provided:</p>
+</li>
+<li>
+<p>Site Name</p>
+</li>
+<li>Site Address (all fields)</li>
+<li>Mailing Address (all fields)</li>
+<li>
+<p>Contact phone</p>
+<p>Requester also can provide SiteID which is an optional field for this case. If Site ID is provided,
+ the system will check if there is a registered Generator for the provided Site ID</p>
+<p>3.4. For all above cases Emergency Phone Number must be provided</p>
+<p>3.5. If the manifest status is InTransit or thereafter then Generator information cannot be updated.</p>
+<p>3.6. If different from currently stored Generator information is provided, the service generates the following
+ warning:</p>
+</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Generator information will be ignored. Generator Information cannot be updated if the manifest status is InTransit or thereafter",
+     "field": "Emanifest.generator"
+   }</code></p>
+<p>3.7. If the Site ID is not provided AND any of the mandatory Site information entities are not provided, the service
+   generates the following error(s):</p>
+<p><code>json
+   {
+     "message": "Mandatory Field is not provided",
+     "field": "Emanifest.generator.epaSiteId"
+   }</code></p>
+<p><code>json
+   {
+     "message": "Mandatory Field is not provided",
+     "field": "Emanifest.generator.siteAddress"
+   }</code></p>
+<p><code>json
+   {
+     "message": "Mandatory Field is not provided",
+     "field": "Emanifest.generator.mailingAddress"
+   }</code></p>
+<p>3.8. If the Site ID is provided AND Site Address information is not provided, the system performs the following
+   steps:</p>
+<ul>
+<li>If Site ID is not valid the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Value is not Valid. Does not match format of: Two Letter Activity Location Code + Up to 10 alphanumeric characters",
+     "field": "Emanifest.generator.epaSiteId ",
+     "value": "EPA siteIDvalue"
+   }</code></p>
+<ul>
+<li>If Site ID is valid and found in RCRAInfo, the system will obtain the Site information from RCRAInfo and store it
+     into the Manifest. System sets modified= false, registered = true</li>
+<li>If the Site ID is not found, the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Value is not Found",
+     "field": "Emanifest.generator.epaSiteId",
+     "value": "EPA Site ID value"
+   }</code></p>
+<p>3.9. If the Site ID is provided and the Site Information entities are provided, the system performs the following
+   steps:</p>
+<ul>
+<li>If the site name is not provided, the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.generator.name"
+   }</code></p>
+<ul>
+<li>If the site name is not valid (exceeds maximum length), the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Value is not Valid. Exceeded maximum length of 80",
+     "field": "Emanifest.generator.name",
+     "value": "name value"
+   }</code></p>
+<ul>
+<li>
+<p>Validate the mandatory location address fields:</p>
+<ul>
+<li>address1 (50 Character maximum)</li>
+<li>city (25 Character maximum)</li>
+<li>state.code (2 Character State abbreviation)</li>
+<li>zip (14 Character maximum)</li>
+</ul>
+</li>
+<li>
+<p>If any of the mandatory location address fields are not provided or invalid, the service generates the following
+     error:</p>
+</li>
+</ul>
+<p><code>json
+   {
+     "message": "Value is not Provided/Provided Value is not Valid",
+     "field": "Emanifest.generator.siteAddress.address1/city/state/zip",
+     "value": "address1/city/state/zip value"
+   }</code></p>
+<ul>
+<li>Validate the mailing address fields. If country is not provided, the service generates the following warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Field not Provided. Other mailing address fields will be validated assuming this site is located in the US",
+     "field": "Emanifest.generator.mailingAddress.country"
+   }</code></p>
+<ul>
+<li>
+<p>If the provided country == US then Following address fields must be provided:</p>
+</li>
+<li>
+<p>address1 (50 Character maximum)</p>
+</li>
+<li>city (25 Character Maximum)</li>
+<li>state.code (2 Character State Abbreviation)</li>
+<li>
+<p>zip (14 Character Maximum)</p>
+<p>If any of the mandatory mailing address fields are not provided or invalid, the service generates the following
+ error:</p>
+</li>
+</ul>
+<p><code>json
+   {
+     "message": "Value is not Provided/Provided Value is not Valid",
+     "field": "Emanifest.generator.mailingAddress.address1/city/state/zip",
+     "value": "address1/city/state/zip provided value"
+   }</code></p>
+<ul>
+<li>
+<p>If provided country == Canada or Mexico then following applies address fields must be provided:</p>
+<ul>
+<li>address1 (50 Character maximum)</li>
+<li>city (25 Character Maximum)</li>
+<li>zip (50 Character Maximum)</li>
+</ul>
+</li>
+</ul>
+<p>If any of the mandatory mailing address fields are not provided or invalid, the service generates the following
+   error:</p>
+<p><code>json
+   {
+     "message": "Value is not Provided/Provided Value is not Valid",
+     "field": "Emanifest.generator.mailingAddress.address1/city/zip",
+     "value": "address1/city/zip provided value"
+   }</code></p>
+<ul>
+<li>If provided state.code is not valid, the service generates following warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Value is not Valid",
+     "field": "Emanifest.generator.mailingAddress.state.code",
+     "value": "address1/city/zip provided value"
+   }</code></p>
+<ul>
+<li>
+<p>If provided country != "United States", "Canada" or "Mexico" then following fields must be provided:</p>
+<ul>
+<li>address1 (50 Character maximum)</li>
+<li>city (25 Character Maximum)</li>
+<li>zip (50 Character Maximum)
+   If any of the mandatory mailing address fields are not provided or invalid, the service generates the
+   following error:</li>
+</ul>
+</li>
+</ul>
+<p><code>json
+   {
+     "message": "Value is not Provided/Provided Value is not Valid",
+     "field": "Emanifest.generator.mailingAddress.address1/city/zip",
+     "value": "address1/city/zip provided value"
+   }</code></p>
+<p>3.10. Validate provided Site ID</p>
+<ul>
+<li>If Site ID is not valid, the service generates the following warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided value is not valid. Two Letter Activity Location Code + Up to 10 alphanumeric characters",
+     "field": "Emanifest.generator.epaSiteId",
+     "value": "EPA Site ID value"
+   }</code></p>
+<ul>
+<li>If the Site ID is valid the system checks if the site is registered</li>
+<li>
+<p>If the site is registered, the system validates if the provided site address state code matches Site ID activity
+     location.</p>
+</li>
+<li>
+<p>If the state code does not match the Site ID activity location, the service generates the following error:
+     <code>json
+     {
+       "message": "Location State Code is different than Site Id Activity Location",
+       "field": "Emanifest.generator.siteAddress.state.code",
+       "value": "site address state code value"
+     }</code></p>
+</li>
+<li>If the site is not registered, the service generates a warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Site with provided EPA Site ID is not registered",
+     "field": "Emanifest.generator.epaSiteId",
+     "value": "Site ID value"
+   }</code></p>
+<ul>
+<li>Store provided Site Information (if no other manifest errors were found)</li>
+</ul>
+<h3 id="paper-signature-info-validation">Paper Signature Info Validation</h3>
+<ol>
+<li>If submissionType is "FullElectronic" and any (Transporter(s), designatedFacility) of the paperSignature
+   Information (printedName or signatureDate) is provided, the service generates a warning:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Provided Field will be ignored. Paper Signature Information is not applicable for FullElectronic/Image submission type",
+     "field": "Emanifest. transporter/designatedFacility.paperSignatureInfo",
+     "value": "printedName or signatureDate value"
+   }</code></p>
+<ol>
+<li>If submissionType is "Hybrid" and Emanifest.status &gt; Scheduled and generator.PaperSignature is provided, the service
+   generates the following warning:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Provided value will be ignored. Generator paper signature Date/Printed Name shall not be provided after Scheduled status.",
+     "field": "emanifest.generatorPaperSignature.signatureDate/printedName",
+     "value": " value"
+   }</code></p>
+<ol>
+<li>If submissionType is "Image", the following applies:</li>
+</ol>
+<p>3.1. If Generator Printed Name is not provided, the service generates a warning:</p>
+<p><code>json
+   {
+     "message": "Field is not Provided",
+     "field": "Emanifest.generator.paperSignature.printedName"
+   }</code></p>
+<p>3.2. If the Generator Printed Name is provided, validate the format. If an invalid format is provided, the service
+   generates the following warning:</p>
+<p><code>json
+   {
+     "message": "String \"{provided printed name value}\" is too long (length: { provided printed name length}, maximum allowed: 255)",
+     "field": "Emanifest.generator.paperSignature.printedName",
+     "value": "value"
+   }</code></p>
+<p>3.3. If the Generator Signature Date is not provided, the service generates the following warning:</p>
+<p><code>json
+   {
+     "message": "Field is not Provided",
+     "field": "Emanifest.generator.paperSignatureInfo.signatureDate"
+   }</code></p>
+<p>3.4. If Generator Signature Date is provided, validate format. If format is invalid the service generates the
+   following warning:</p>
+<p><code>json
+   {
+     "message": "String \"{provided signature date}\" is invalid against requested date format(s) [yyyy-MM-dd'T'HH:mm:ssZ, yyyy-MM-dd'T'HH:mm:ss.SSSZ]",
+     "field": "Emanifest.generator.paperSignatureInfo. signatureDate",
+     "value": "value"
+   }</code></p>
+<p>3.5. If provided Generator Signature Date is later than Emanifest.createdDate the service generates the following
+   warning:</p>
+<p><code>json
+   {
+     "message": "Provided Generator Signature Date is later than manifest created Date",
+     "field": "Emanifest.generator.paperSignatureInfo.signatureDate",
+     "value": "value"
+   }</code></p>
+<ol>
+<li>If submissionType is "DataImage5Copy", the following applies:</li>
+</ol>
+<p>4.1. If Generator/Transporter/designatedFacility Printed Names are not provided, the service generates a warning:</p>
+<p><code>json
+   {
+     "message": "Field is not Provided",
+     "field": "Emanifest.generator/transporter/designatedFacility.paperSignature.printedName"
+   }</code></p>
+<p>4.2. If the Generator/Transporter/designatedFacility Printed Names are provided, validate the format. If an invalid
+   format is provided, the service generates the following error:</p>
+<p><code>json
+   {
+     "message": "String \"{provided printed name value}\" is too long (length: { provided printed name length}, maximum allowed: 255)",
+     "field": "Emanifest.generator/transporter/designatedFacility.paperSignature.printedName",
+     "value": "value"
+   }</code></p>
+<p>4.3. If the Generator/Transporter/designatedFacility Signature Dates are not provided, the service generates the
+   following error</p>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.generator/transporter/designatedFacility.paperSignatureInfo.signatureDate"
+   }</code></p>
+<p>4.4. If Generator/Transporter/TSDF Signature Dates are provided, validate format. If format is invalid the service
+   generates the following error (for this example: TSDF is used)</p>
+<p><code>json
+   {
+     "message": "String \"{provided signature date}\" is invalid against requested date format(s) [yyyy-MM-dd'T'HH:mm:ssZ, yyyy-MM-dd'T'HH:mm:ss.SSSZ]",
+     "field": "Emanifest.generator/transporter/designatedFacility.paperSignatureInfo.signatureDate",
+     "value": "value"
+   }</code></p>
+<ol>
+<li>The system will perform the following validation for consecutive of Signature Dates for DataImage5Copy:</li>
+</ol>
+<p>5.1. If the signature dates for Generator, all Transporters, and designated Facility are provided and have a valid
+   format, and more than one transporter is provided, the system performs the following steps:</p>
+<ul>
+<li>Check if Generator signatureDate &lt;= First Transporter signature date (Transporter.order will be used to determine
+     consecutive of transporters). If not, the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Transporter Signature date must be on or after Generator Signature date",
+     "field": "Emanifest.generator.paperSignatureInfo.signatureDate",
+     "value": "Generator Signature Date value"
+   }</code></p>
+<p><code>json
+   {
+     "message": "Generator Signature Date must be earlier or the same date as the first Transporter Signature Date",
+     "field": "Emanifest.transporter.paperSignatureInfo.signatureDate",
+     "value": "Transporter Signature Date value"
+   }</code></p>
+<ul>
+<li>Check the order of the Transporters signature dates. If there is more than one Transporter provided, check if
+     signature dates of transporters are in order or the same. For example, if there are two transporters and the
+     signature date of transporter which has order = 2 is earlier than signature date of transporter with order = 1,
+     the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Signature Date of previous transporter must be before this transporter's signature date",
+     "field": "Emanifest.transporters[1].paperSignatureInfo.signatureDate",
+     "value": " Second Transporter Signature Date value "
+   }</code></p>
+<p>5.1.3. Check if the Designated Facility signature date &gt;= Last Transporter signature date. If not, the service
+   generates the following error:</p>
+<p><code>json
+   {
+     "message": "Signature of designated facility must be on or after the last transporter's signature date",
+     "field": "Emanifest.designatedFacility.paperSignatureInfo.signatureDate",
+     "value": "Designated Facility Signature Date value "
+   }</code></p>
+<p>5.1.4. If any of the Signature Dates &gt; current date the service generates the following error:</p>
+<p><code>json
+   {
+     "message": "Generator/Transporter/Designated Facility Signature Date cannot be in the future",
+     "field": "Emanifest.generator/transporter/designatedFacility.paperSignatureInfo.signatureDate",
+     "value": "Signature Date value"
+   }</code></p>
+<p>5.2. If Emanifest.rejectionInfo.rejectionType = "FullReject" and Emanifest.rejectionInfo.transporterOnsite == true
+   the following applies</p>
+<ul>
+<li>If Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Tsdf" the following applies</li>
+<li>If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate is not provided, the
+     service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory field is not provided",
+     "field": "Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate"
+   }</code></p>
+<ul>
+<li>If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.printed Name is not provided, the
+     service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory field is not provided",
+     "field": "Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.printedName"
+   }</code></p>
+<ul>
+<li>If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate is invalid the service
+     generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "String \"{provided signature date}\" is invalid against requested date format(s) [yyyy-MM-dd'T'HH:mm:ssZ, yyyy-MM-dd'T'HH:mm:ss.SSSZ]",
+     "field": "Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate",
+     "value": "value"
+   }</code></p>
+<ul>
+<li>If Emanifest.rejectionInfo.alternateDesignatedFacility.paperSignatureInfo.signatureDate &lt;
+     Emanifest.designatedFacility.paperSignatureInfo.signatureDate then the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Signature of alternate designated facility must be on or after the designated facility’s signature date",
+     "field": "Emanifest.designatedFacility.paperSignatureInfo.signatureDate",
+     "value": "Alternate Designated Facility Signature Date value "
+   }</code></p>
+<ul>
+<li>
+<p>If Emanifest.rejectionInfo.alternateDesignatedFacilityType == "Generator" the following applies</p>
+</li>
+<li>
+<p>If Emanifest.rejectionInfo.generator.paperSignatureInfo.signatureDate is not provided, the service generates the
+     following error:</p>
+</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory field is not provided",
+     "field": "Emanifest.rejectionInfo.generator.PaperSignatureInfo.signatureDate"
+   }</code></p>
+<ul>
+<li>If Emanifest.rejectionInfo.generator.paperSignatureInfo.printedName is not provided, the service generates the
+     following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory field is not provided",
+     "field": "Emanifest.rejectionInfo. generator.paperSignatureInfo.printedName"
+   }</code></p>
+<ul>
+<li>If Emanifest.rejectionInfo.generator.paperSignatureInfo.signatureDate is invalid the service generates the
+     following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "String \"{provided signature date}\" is invalid against requested date format(s) [yyyy-MM-dd'T'HH:mm:ssZ, yyyy-MM-dd'T'HH:mm:ss.SSSZ]",
+     "field": "Emanifest.rejectionInfo.generator.paperSignatureInfo.signatureDate",
+     "value": "value"
+   }</code></p>
+<ul>
+<li>If Emanifest.rejectionInfo.generator.paperSignatureInfo.signatureDate &lt;
+     Emanifest.designatedFacility.paperSignatureInfo.signatureDate then the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Invalid Value. Generator Signature Date must be the same or later than Designated Facility Signature Date",
+     "field": " Emanifest.rejectionInfo. generator.paperSignatureInfo.signatureDate",
+     "value": "value"
+   }</code></p>
+<h3 id="waste-validation">Waste Validation</h3>
+<ol>
+<li>If the waste field is not provided for a manifest with status &gt;= <code>Scheduled</code>. The service generates the following
+   error:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.waste"
+   }</code></p>
+<ol>
+<li>
+<p>If the waste element is provided, the system will perform the following steps:</p>
+</li>
+<li>
+<p>2.1. If <code>waste.dotHazardous</code> is not provided, the service generates the following error:
+     <code>json
+     {
+       "message": "Object has missing required properties (['dotHazardous'])",
+       "field": "Emanifest.wastes.{i}.dotHazardous"
+     }</code></p>
+</li>
+<li>2.2. If <code>waste.epaWaste</code> is not provided, the service generates the following error:
+     <code>json
+     {
+       "message": "Object has missing required properties (['epaWaste'])",
+       "field": "Emanifest.waste.{i}.epaWaste"
+     }</code></li>
+<li>2.3. If <code>waste.pcb</code> is not provided, the service generates the following error:
+     <code>json
+     {
+       "message": "Object has missing required properties (['pcb'])",
+       "field": "Emanifest.waste.{i}.pcb"
+     }</code></li>
+<li>2.4. If <code>waste.pcb</code> is true, then the system will validate <code>pcbInfos</code>. See details in PCB Information Validation
+     section.</li>
+<li>2.5. If <code>waste.br</code> is not provided, the service generates the following error:
+     <code>json
+     {
+       "message": "Object has missing required properties (['br'])",
+       "field": "Emanifest.waste.{i}.br"
+     }</code></li>
+<li>2.6. If the <code>waste.br</code> is true, the system will validate <code>brInfo</code>. See details in Biennial Report Information
+     Validation section.</li>
+<li>
+<p>2.7. Validate <code>dotInformation/wasteDescription</code>.</p>
+<ul>
+<li>2.7.1. If the element <code>dotHazardous</code> is true, the waste must contain <code>dotInformation</code>.</li>
+<li>2.7.2. If the element <code>dotHazardous</code> is false, the waste must contain <code>wasteDescription</code>.</li>
+<li>2.7.3. If the element <code>dotHazardous</code> is true, and <code>dotInformation</code> is not provided, the service generates the
+   following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.waste.dotInformation"
+   }</code></li>
+<li>2.7.4. If the element <code>dotHazardous</code> is true and <code>dotInformation</code> is provided, the service will validate
+   the <code>dotInformation</code> fields. See section DOT Information fields validation for details.</li>
+<li>2.7.5. If the element <code>dotHazardous</code> is false and <code>dotInformation</code> is provided, the service generates the
+   following warning:
+   <code>json
+   {
+     "message": "For non-hazardous Waste Dot Information will be ignored.",
+     "field": "Emanifest.waste.dotInformation"
+   }</code></li>
+<li>2.7.6. If the element <code>dotHazardous</code> is false and the element <code>wasteDescription</code> is not provided, then the
+   service
+   generates the following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.waste.wasteDescription"
+   }</code></li>
+<li>2.7.7. If the element <code>dotHazardous</code> is false and the element <code>wasteDescription</code> is provided, then the service
+   validates <code>wasteDescription</code>. If <code>wasteDescription</code> is not valid, the service generates the following error:
+   <code>json
+   {
+     "message": "Invalid Field format. Value of no longer than 500 characters is expected",
+     "field": "Emanifest.waste.wasteDescription",
+     "value": "wasteDescription value"
+   }</code></li>
+<li>2.7.8. If the element <code>dotHazardous</code> is true and the element <code>wasteDescription</code> is provided, the service
+   generates
+   the following warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "For hazardous Waste, wasteDescription will be ignored.",
+     "field": "Emanifest.waste.wasteDescription"
+   }</code></p>
+</li>
+<li>
+<p>2.8 Validate Management Method Code. See section Management Method Code Validation for details</p>
+</li>
+<li>2.9 Validate Waste.consentNumber<ul>
+<li>2.9.1 if Emanifest.import is true, Waste.consentNumber can be provided at any status.</li>
+<li>2.91. if Emanifest.import is false, Waste.consentNumber shall not be provided.</li>
+</ul>
+</li>
+<li>2.10 Validate DOT Information. See that section for further details</li>
+<li>2.11 Validate Containers and Quantity. See that section for further details</li>
+<li>2.12 Validate Hazardous Waste Codes. See that section for further details</li>
+<li>2.13Validate Instructions and Additional Information. See that section for further details</li>
+<li>2.14 Validate Biennial Report Information. See that section for further details</li>
+</ol>
+<h3 id="dot-information-fields-validation">DOT Information Fields Validation</h3>
+<p>The system will perform the following steps on the DOT Information fields:</p>
+<ol>
+<li>Validate ID Number</li>
+<li>There are Proper Shipping Names which do not have corresponding ID Numbers in the DOT specifications. For these
+     Proper Shipping Names the Emanifest requires ID Number value of
+     "NOID"</li>
+<li>If dotInformation.IdNumber is not provided, the service generates the following error:
+   <code>json
+   {
+     "message": "Mandatory Field is Not Provided",
+     "field": "Emanifest.wastes.dotInformation.idNumber "
+   }</code></li>
+<li>If dotInformation.IdNumber is provided and not found in Id Number Lookup, the service generates the following
+     error:
+   <code>json
+   {
+     "message": "Provided Value is not Found",
+     "field": "Emanifest.wastes.dotInformation.IdNumber",
+     "value": "value ofIDNumber"
+   }</code></li>
+<li>Validate Printed Dot Information.</li>
+<li>If printedDotInformation is not provided, the service generates the following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.wastes.dotInformation.printedDotInformation "
+   }</code></li>
+<li>If printedDotInformation exceeds the 500-character limit, the service generates the following error:
+   <code>json
+   {
+     "message": "Invalid Field Format. Printed Dot Information exceeds the 500 character length",
+     "field": "Emanifest.wastes.dotInformation.printedDotInformation ",
+     "value": "value of printedDotInformation"
+   }</code></li>
+</ol>
+<h3 id="containers-and-quantity-fields-validation">Containers and quantity fields validation</h3>
+<ol>
+<li>Containers and Quantity fields are mandatory</li>
+<li>If the quantity entity is not provided, the system generates the following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.waste.quantity"
+   }</code></li>
+<li>If any of the Containers and Quantity fields are not provided, the service generates the following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.waste.quantity.containerNumber/containerType/quantity/quantityUnitOfMeasurement"
+   }</code></li>
+<li>If the element containerNumber is provided, the service validates containerNumber format. If
+   format is not valid the service generates the following error:
+   <code>json
+   {
+     "message": "Numeric instance is greater than the required maximum (maximum: 9999, found:{provided container number})",
+     "field": "Emanifest.wastes.quantity.containerNumber",
+     "value": "value of container number"
+   }</code></li>
+<li>If the element containerType code is provided, the service validates the containerType code. If
+   containerType code is not valid the service generates the following error:
+   <code>json
+   {
+     "message": "Instance value (\"AB\") not found in enum (possible values: [\"BA\",\"DT\",\"CF\",\"DW\",\"CM\",\"HG\",\"CW\",\"TC\",\"CY\",\"TP\",\"DF\",\"TT\",\"DM\"])",
+     "field": "Emanifest.wastes.quantity.containerType.code",
+     "value": "value of container type code "
+   }</code></li>
+<li>If the element quantity is provided, the service validates the quantity format. If the format is not valid the
+   service generates the following error:
+   <code>json
+   {
+     "message": " Numeric instance is greater than the required maximum (maximum: 99999999999, found: {provided quantity})",
+     "field": "Emanifest.wastes.quantity.quantity ",
+     "value": "value of quantity "
+   }</code></li>
+<li>If the quantityUnitOfMeasurement code is provided, the service validates the quantityUnitOfMeasurement code. If the
+   quantityUnitOfMeasurement code is not valid, the service generates the following error:</li>
+</ol>
+<pre><code class="language-json">{
+  &quot;message&quot;: &quot;Instance value (\&quot;{provided code}\&quot;) not found in enum (possible values: [\&quot;P\&quot;,\&quot;T\&quot;,\&quot;K\&quot;,\&quot;M\&quot;,\&quot;G\&quot;,\&quot;L\&quot;,\&quot;Y\&quot;,\&quot;N\&quot;])&quot;,
+  &quot;field&quot;: &quot;Emanifest.wastes.quantity.quantityUnitOfMeasurement.code &quot;,
+  &quot;value&quot;: &quot;value of container type&quot;
+}
+</code></pre>
+<h3 id="waste-additional-information-validation">Waste Additional Information Validation</h3>
+<ol>
+<li>All Additional Information fields are optional. If any of the fields are invalid, they will be ignored with a
+   warning.</li>
+<li>
+<p>Handling Instructions Validation.</p>
+</li>
+<li>
+<p>If handling instructions is invalid, the service generates the following warning:</p>
+</li>
+</ol>
+<p><code>json
+   {
+     "message": "Invalid Field format. Text can be no longer than 4000 characters",
+     "field": "Emanifest.wastes.additionalInformation.handlingInstructions",
+     "value": "value of handling instructions"
+   }</code></p>
+<ol>
+<li>
+<p>Comments Validation</p>
+</li>
+<li>
+<p>3.1. handlerId validation</p>
+<ul>
+<li>3.1.1. If the handler Id is not provided, then the comment will be ignored and generate the following warning:
+   <code>json
+   {
+     "message": "Comment will be ignored. Field is not Provided",
+     "field": "Emanifest.wastes[i].additionalInfo.comments.handlerId"
+   }</code></li>
+<li>3.1.2. If the handlerId has an invalid format provided, then the comment will be ignored and generate the
+   following warning:
+   <code>json
+   {
+     "message": "Comment will be ignored, due to an invalid Site ID format being submitted",
+     "field": "Emanifest.wastes[i].additionalInfo.comments.handlerId",
+     "value": "Handler ID value"
+   }</code></li>
+<li>3.1.3. If the provided handlerId does not match the Generator or TSDF or any of Transporter Site IDs in the
+   manifest, the comment will be ignored and generate the following warning:
+   <code>json
+   {
+     "message": "Comment will be ignored. Provided handlerId does not match Generator or TSDF or any of Transporter Site IDs",
+     "field": "Emanifest.wastes[i].additionalInfo.comments.handlerId",
+     "value": "Handler ID value"
+   }</code></li>
+</ul>
+</li>
+<li>
+<p>3.2. Label validation</p>
+<ul>
+<li>3.2.1. If the label element is not provided, then the comment will be ignored and generate the following
+   warning:
+   <code>json
+   {
+     "message": "Comment will be ignored. Field is not Provided",
+     "field": "Emanifest.wastes[i].additionalInfo.comments.label"
+   }</code></li>
+<li>3.2.2. If the label element has an invalid format provided, then the comment will be ignored and generate the
+   following warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Comment will be ignored. Invalid Value. Text can be no longer than 250 characters.",
+     "field": "Emanifest.wastes[i].additionalInfo.comments.label",
+     "value": "Label value"
+   }</code></p>
+</li>
+<li>
+<p>3.3. Description validation</p>
+<ul>
+<li>3.3.1. If the description element is not provided, then the comment will be ignored and generate the following
+   warning:
+   <code>json
+   {
+     "message": "Comment will be ignored. Field is not Provided",
+     "field": "Emanifest.wastes[i].additionalInfo.comments.description"
+   }</code></li>
+<li>3.3.2. If the description element has an invalid format, the provided comment will be ignored and generate the
+   following warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Comment will be ignored. Invalid Value. Text can be no longer than 250 characters.",
+     "field": "Emanifest.wastes[i].additionalInfo.comments.description",
+     "value": "Description value"
+   }</code></p>
+</li>
+<li>
+<p>3.4. If originalManifestTrackingNumbers are provided then the service generates the following warning:
+     <code>json
+     {
+       "message": "originalManifestTrackingNumbers will be ignored. This field shall not be provided for the Waste.additionalInfo",
+       "field": "Emanifest.wastes[i].additionalInfo.originalManifestTrackingNumbers",
+       "value": "originalManifestTrackingNumbers value"
+     }</code></p>
+</li>
+<li>3.5. If newManifestDestination is provided then the service generates the following warning:</li>
+</ol>
+<p><code>json
+   {
+     "message": "newManifestDestination will be ignored. This field shall not be provided for the Waste.additionalInfo",
+     "field": "Emanifest.wastes[i].additionalInfo.newManifestDestination",
+     "value": "newManifestDestination value"
+   }</code></p>
+<h3 id="pcb-information-validation">PCB Information Validation</h3>
+<ol>
+<li>If <code>pcb</code> is <code>false</code> and any of the <code>pcbInfos</code> entities or fields are provided, the service generates the following
+   warning:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Provided value will be ignored. PcbInfos provided but pcb flag equals false",
+     "field": "Emanifest.waste.pcbInfos",
+     "value": "pcbsInfo value"
+   }</code></p>
+<ol>
+<li>If <code>pcb</code> is <code>true</code> and <code>pcbInfos</code> are not provided, the service generates the following error:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.waste.pcbInfos"
+   }</code></p>
+<ol>
+<li>
+<p>If at least one <code>PcbInfos</code> element is provided, then the service validates pcbInfo fields</p>
+</li>
+<li>
+<p>3.1. Validate <code>PcbInfos.loadType.code</code></p>
+<ul>
+<li>3.1.1. If <code>PcbInfos.loadType</code> is not provided, the service generates the following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided",
+     "field": "Emanifest.wastes.pcbInfos.loadType.code"
+   }</code></li>
+<li>3.1.2. If <code>pcbInfos.loadType.code</code> is provided, the service validates it against LoadType lookup. If the field
+   is not valid, the service generates the following error:
+   <code>json
+   {
+     "message": "Invalid Field Format. One of the following values is expected: 'Container', 'ArticleInContainer', 'ArticleNotInContainer', 'BulkWaste'",
+     "field": "Emanifest.waste.pcbInfos.loadType.code",
+     "value": "loadType.code value"
+   }</code></li>
+</ul>
+</li>
+<li>
+<p>3.2. Validate <code>pcbInfos.articleContainerId</code></p>
+<ul>
+<li>3.2.1. If <code>pcbInfos.loadType.code</code> is "Container", "ArticleInContainer", or "ArticleNotInContainer"
+   and <code>PcbInfos.articleContainerId</code> is not provided, the service generates the following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided. Fields must be provided if PCB load type is 'Container', 'ArticleInContainer', or 'ArticleNotInContainer'",
+     "field": "Emanifest.waste.pcbInfos.articleContainerId"
+   }</code></li>
+<li>3.2.2. If <code>pcbInfos.articleContainerId</code> is provided, the service checks the field length. If the field is
+   invalid, the service generates the following error:
+   <code>json
+   {
+     "message": "Invalid Field Format. Text no longer than 255 characters is expected",
+     "field": "Emanifest.waste.pcbInfos.articleContainerId",
+     "value": "articleContainerId value"
+   }</code></li>
+<li>3.2.3. If <code>pcbInfos.loadType.code</code> is "BulkWaste" and <code>articleContainerId</code> is provided, then the service
+   generates the following warning:
+   <code>json
+   {
+     "message": "Field will be ignored",
+     "field": "Emanifest.waste.pcbInfos.articleContainerId",
+     "value": "articleContainerId value"
+   }</code></li>
+</ul>
+</li>
+<li>
+<p>3.3. Validate <code>PcbInfo.dateOfRemoval</code></p>
+<ul>
+<li>3.3.1. If <code>pcbInfos.dateOfRemoval</code> is not provided, the service generates the following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.waste.pcbInfos.dateOfRemoval"
+   }</code></li>
+<li>3.3.2. If <code>PcbInfos.dateOfRemoval</code> is provided, the service validates field format. If the field format is
+   invalid, the service generates the following error:
+   <code>json
+   {
+     "message": "Invalid Field Format.",
+     "field": "Emanifest.waste.pcbInfos.dateOfRemoval",
+     "value": "dateOfRemoval value"
+   }</code></li>
+</ul>
+</li>
+<li>
+<p>3.4. Validate <code>pcbInfos.weight</code></p>
+<ul>
+<li>3.4.1. If <code>pcbInfos.weight</code> is not provided, the service generates the following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.waste.pcbInfos.weight"
+   }</code></li>
+<li>3.4.2. If <code>PcbInfos.weight</code> is provided, the service validates field format. If the field format is invalid,
+   the
+   service generates the following error:
+   <code>json
+   {
+     "message": "Invalid Field Format. Value containing no more than 11 whole digit(s) and 6 decimal digit(s) is expected",
+     "field": "Emanifest.waste.pcbInfo.weight",
+     "value": "weight value"
+   }</code></li>
+</ul>
+</li>
+<li>
+<p>3.5. Validate <code>PcbInfos.wasteType</code></p>
+<ul>
+<li>3.5.1. If <code>pcbInfos.loadType</code> is "Container" or "ArticleInContainer" and <code>wasteType</code> is not provided, the
+   service
+   generates the following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.waste.pcbInfos.wasteType"
+   }</code></li>
+<li>3.5.2. If <code>PcbInfos.loadType</code> is "BulkWaste" and <code>wasteType</code> is provided, the service generates the following
+   warning:
+   <code>json
+   {
+     "message": "Field will be ignored",
+     "field": "Emanifest.waste.pcbInfos.wasteType",
+     "value": "containerType value"
+   }</code></li>
+<li>3.5.3. If <code>PcbInfos.wasteType</code> is provided, the service checks the field length. If the field is invalid, the
+   service generates the following error:
+   <code>json
+   {
+     "message": "Invalid Field Format. Text no longer than 255 characters is expected",
+     "field": "Emanifest.waste.pcbInfos.wasteType",
+     "value": "containerType value"
+   }</code></li>
+</ul>
+</li>
+<li>
+<p>3.6. Validate <code>PcbInfos.bulkIdentity</code></p>
+<ul>
+<li>3.6.1. If <code>PcbInfos.loadType</code> is "BulkWaste" and <code>bulkIdentity</code> is not provided, the service generates the
+   following error:
+   <code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.waste.pcbInfos.bulkIdentity"
+   }</code></li>
+<li>3.6.2. If <code>PcbInfos.loadType</code> is "Container" or "ArticleInContainer" and <code>bulkIdentity</code> is provided, the
+   service
+   generates the following warning:
+   <code>json
+   {
+     "message": "Field will be ignored",
+     "field": "Emanifest.waste.pcbInfos.bulkIdentity",
+     "value": "bulkIdentity value"
+   }</code></li>
+<li>3.6.3. If <code>PcbInfos.bulkIdentity</code> is provided, the service checks the field length. If the field is invalid,
+   the
+   service generates the following error:
+   <code>json
+   {
+     "message": "Invalid Field Format. Text no longer than 255 characters is expected",
+     "field": "Emanifest.waste.pcbInfos. bulkIdentity",
+     "value": "bulkIdentity value"
+   }</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="management-method-code-validation">Management Method Code Validation</h3>
+<ol>
+<li>
+<p>If <code>submissionType</code> is "DataImage5Copy" the following applies</p>
+</li>
+<li>
+<p>1.1. If <code>epaWaste</code> is <code>true</code> and <code>Waste.managementMethod.code</code> is not provided, the service generates the
+     following error:
+     <code>json
+     {
+       "message": "Field is Not Provided",
+       "field": "Emanifest.wastes.managementMethod.code"
+     }</code></p>
+</li>
+<li>
+<p>1.2. If the <code>Waste.managementMethod.code</code> is provided, validate if the code is in the lookup. If the provided code
+     is not found, the service generates the following error:
+     <code>json
+     {
+       "message": "Provided Value not Found",
+       "field": "Emanifest.wastes.managementMethod.code",
+       "value": "code value"
+     }</code></p>
+</li>
+<li>
+<p>If <code>submissionType</code> is "FullElectronic" or "Hybrid" the following applies</p>
+</li>
+<li>
+<p>2.1. If <code>Emanifest.status</code> is "Scheduled," "InTransit," or "ReadyForSignature," the following applies</p>
+<ul>
+<li>2.1.1. If the <code>Waste.managementMethod.code</code> is provided, validate if the code is in the lookup. If the
+   provided code is not found, the service generates a warning:
+   <code>json
+   {
+     "message": "Provided Value not Found",
+     "field": "Emanifest.wastes.managementMethod.code",
+     "value": "code value"
+   }</code></li>
+</ul>
+</li>
+<li>
+<p>2.2. If <code>Emanifest.status</code> is "Signed," the following applies</p>
+<ul>
+<li>2.2.1. If the <code>Waste.managementMethod.code</code> is provided, then the service updates <code>Emanifest.validationStatus</code>
+   to <code>true</code></li>
+<li>2.2.2. If the <code>Waste.managementMethod.code</code> is not provided, the service generates the following error:
+   <code>json
+   {
+     "message": "Field is Not Provided",
+     "field": "Emanifest.wastes.managementMethod.code"
+   }</code></li>
+<li>2.2.3. If the <code>Waste.managementMethod.code</code> is provided, validate if the code is in the lookup. If the
+   provided code is not found, the service generates the following error:
+   <code>json
+   {
+     "message": "Provided Value not Found",
+     "field": "Emanifest.wastes.managementMethod.code",
+     "value": "code value"
+   }</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="rejection-information-validation">Rejection Information Validation</h3>
+<ol>
+<li>
+<p>If an Original Manifest is rejected then Emanifest.rejection shall be specified as "true".</p>
+</li>
+<li>
+<p>Emanifest.rejection and RejectionInfo shall be provided at the "ReadyForSignature" status. If provided for earlier
+   statuses these fields will be ignored.</p>
+</li>
+<li>
+<p>2.1 If Emanifest.status &lt; "ReadyForSignature" and either Emanifest.rejection or RejectionInfo fields are provided
+     then the service generates the following warning:
+     <code>json
+     {
+       "message": "Provided Field will be ignored. Rejection information shall be provided at ReadyForSignature status",
+       "field": "Emanifest.rejection/Emanifest.rejectionInfo",
+       "value": "provided value"
+     }</code></p>
+</li>
+<li>
+<p>If submissionStatus &gt;= "ReadyForSignature" and Emanifest.rejection is not provided then the service generates the
+   following error:</p>
+</li>
+</ol>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.rejection"
+   }</code></p>
+<ol>
+<li>Emanifest.containsPreviousRejectOrResidue is not provided then the service generates the following error:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.containsPreviousRejectOrResidue"
+   }</code></p>
+<ol>
+<li>
+<p>If Emanifest.rejection == true then the following applies</p>
+</li>
+<li>
+<p>5.1. If RejectionInfo.rejectionComments is not provided then the service generates the following error:</p>
+<p><code>json
+ {
+   "message": "Mandatory Field is not Provided.",
+   "field": "Emanifest.RejectionInfo. rejectionComments"
+ }</code></p>
+</li>
+<li>
+<p>5.2. If RejectionInfo.rejectionComments are not valid then the service generates the following error:</p>
+<p><code>json
+ {
+   "message": "String \"{provided rejection comments value}\" is too long (length: { provided rejection comments length}, maximum allowed: 255)",
+   "field": "Emanifest.RejectionInfo.rejectionComments",
+   "vale": "rejectionComments value"
+ }</code></p>
+</li>
+<li>
+<p>5.3. If RejectionInfo.transporterOnSite is not provided then the service generates the following error:</p>
+<p><code>json
+ {
+   "message": "Mandatory Field is not Provided.",
+   "field": "Emanifest.RejectionInfo.transporterOnSite"
+ }</code></p>
+</li>
+<li>
+<p>5.4. If RejectionInfo.transporterOnSite is provided and not valid then the service generates the following error:</p>
+<p><code>json
+ {
+   "message": "Invalid Field Format. Boolean value is expected",
+   "field": "Emanifest.RejectionInfo.transporterOnSite",
+   "value": "transporterOnSite value"
+ }</code></p>
+</li>
+<li>
+<p>5.4. If Emanifest.submissionType == "DataImage5Copy" and RejectionInfo.transporterOnSite == true the following
+     applies</p>
+</li>
+<li>
+<p>5.4.1. If RejectionInfo.rejectionType == "PartialReject" then the service sets RejectionInfo.rejectionType =
+     "FullReject" and generates the following warning:</p>
+<p><code>json
+ {
+   "message": "Provided value will be Ignored. If Transporter is On Site rejection type must be "FullReject",
+   "field": "Emanifest.RejectionInfo.rejectionType",
+   "value": "rejectionType value"
+ }</code></p>
+</li>
+<li>
+<p>5.4.2. e-Manifest sets rejectionInfo.rejectionType as "FullReject" in the e-Manifest database</p>
+</li>
+<li>
+<p>5.4.3. If RejectionInfo.newManifestTrackingNumbers is provided then the service generates the following warning:</p>
+<p><code>json
+ {
+   "message": "Provided Field will be Ignored. New Manifest(s) are not created if Transporter is On Site",
+   "field": "Emanifest.RejectionInfo.newManifestTrackingNumbers"
+ }</code></p>
+</li>
+<li>
+<p>5.4.4. If RejectionInfo.alternateDesignatedFacilityType is not provided then the service generates the following
+     error:</p>
+<p><code>json
+ {
+   "message": "Mandatory Field is not Provided.",
+   "field": "Emanifest.RejectionInfo.alternateDesignatedFacilityType"
+ }</code></p>
+</li>
+<li>
+<p>5.4.5. If RejectionInfo.alternateDesignatedFacilityType == "Generator then the following applies</p>
+<ul>
+<li>5.4.5.1. If generatorPaperSignatureInfo.printedName is not provided then the service generates the following
+   warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.RejectionInfo.generatorPaperSignature.printedName "
+   }</code></p>
+<ul>
+<li>5.4.5.2. If generatorPaperSignature.printedName has an invalid format then the service generates the following
+   warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "String \"{provided printed name value}\" is too long (length: {provided printed name length}, maximum allowed: 255)",
+     "field": "Emanifest.RejectionInfo.generatorPaperSignature.printedName ",
+     "value": "printedName value"
+   }</code></p>
+<ul>
+<li>5.4.5.3. If generatorPaperSignature.signatureDate is not provided then the service generates the following
+   error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.RejectionInfo.generatorPaperSignature.signatureDate "
+   }</code></p>
+<ul>
+<li>5.4.5.4. If generatorPaperSignature.signatureDate &lt; Emanifest.designatedFacility.paperSignature.signatureDate
+   then the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Invalid Value Provided. Generator signature date (signing as alternate Facility) shall be on or later than TSDF signature",
+     "field": "Emanifest.RejectionInfo.generatorPaperSignature.signatureDate ",
+     "value": "signatureDate value"
+   }</code></p>
+<ul>
+<li>5.4.5.5. If generatorPaperSignature.signatureDate &gt; current Date then the service generates the following
+   error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Invalid Value Provided. Generator signature date (signing as alternate Facility) cannot be in the future",
+     "field": "Emanifest.RejectionInfo.generatorPaperSignature.signatureDate ",
+     "value": "signatureDate value"
+   }</code></p>
+</li>
+<li>
+<p>5.4.6. If RejectionInfo.alternateDesignatedFacilityType == "Tsdf" the following applies</p>
+<ul>
+<li>5.4.6.1. If RejectionInfo.alternateDesignatedFacility.epaSiteId is not provided then the service generates the
+   following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.RejectionInfo. alternateDesignatedFacility.epaSiteId"
+   }</code></p>
+<ul>
+<li>5.4.6.2. If RejectionInfo.alternateDesignatedFacility.epaSiteId has an invalid format then the service
+   generates
+   the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Value is not Valid. Does not match the format of: Two Letter Activity Location Code + Up to 10 alphanumeric characters",
+     "field": "Emanifest.RejectionInfo.alternateDesignatedFacility.epaSiteId",
+     "value": "epaSiteId value"
+   }</code></p>
+<ul>
+<li>
+<p>5.4.6.3. If epaSiteId is valid, the system will search RCRAInfo by Site ID. If the Site ID is found the system
+   will obtain the Site information from RCRAInfo and store it into the Manifest.</p>
+</li>
+<li>
+<p>5.4.6.4. If the epaSiteId is not found, the service generates the following error:</p>
+</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Value is not Found",
+     "field": "Emanifest.RejectionInfo.alternateDesignatedFacility.epaSiteId",
+     "value": "epaSiteId value"
+   }</code></p>
+<ul>
+<li>5.5. If Emanifest.submissionType == "FullElectronic" or "Hybrid" and provided
+   RejectionInfo.transporterOnSite == true
+   then the service generates the following warning:</li>
+</ul>
+<p><code>json
+ {
+   "message": "Provided Value will be ignored",
+   "field": "Emanifest.rejectionInfo.transporterOnSite",
+   "value": "transporterOnSite value"
+ }</code></p>
+</li>
+<li>
+<p>5.6. If RejectionInfo.transporterOnSite == false the following applies</p>
+<ul>
+<li>5.6.1. If RejectionInfo.rejectionType is not provided then the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.RejectionInfo.rejectionType"
+   }</code></p>
+<ul>
+<li>5.6.2. If RejectionInfo.newManifestTrackingNumber(s) is provided and not valid, the service generates the
+   following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Invalid Field Format. 9 digits followed by 3 upper case letters is expected",
+     "field": "Emanifest.RejectionInfo.newManifestTrackingNumbers",
+     "value": "newManifestTrackingNumber value"
+   }</code></p>
+<ul>
+<li>5.6.3. If manifestTrackingNumber has a valid format, the service checks if the provided manifestTrackingNumber
+   suffix is valid. If the suffix is invalid, the service generates the following error:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Invalid Manifest Tracking Number Suffix is Provided",
+     "field": "Emanifest.RejectionInfo.newManifestTrackingNumber",
+     "value": "manifestTrackingNumber value"
+   }</code></p>
+<ul>
+<li>
+<p>5.6.4. If any of the following fields are provided:</p>
+</li>
+<li>
+<p>RejectionInfo.alternateDesignatedFacilityType</p>
+</li>
+<li>RejectionInfo.generatorPaperSignature</li>
+<li>RejectionInfo.alternateDesignatedFacility
+     the service generates the following warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Provided Field will be Ignored. alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility not applicable if Transporter is Off Site",
+     "field": "Emanifest.RejectionInfo.alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility",
+     "value": "alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility value"
+   }</code></p>
+</li>
+<li>
+<p>If Emanifest.rejection == false and If any of the following RejectionInfo fields are provided:</p>
+</li>
+<li>
+<p>RejectionInfo.rejectionType</p>
+</li>
+<li>RejectionInfo.transporterOnSite</li>
+<li>RejectionInfo.alternateDesignatedFacilityType</li>
+<li>RejectionInfo.generatorPaperSignature</li>
+<li>RejectionInfo.alternateDesignatedFacility
+     the service generates the following warning:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Provided Field will be Ignored. {Field} not applicable if Manifest is not Rejected",
+     "field": "Emanifest.RejectionInfo.rejectionType /transporterOnSite/alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility",
+     "value": "rejectionType/transporterOnSite/alternateDesignatedFacilityType/generatorPaperSignature/alternateDesignatedFacility value"
+   }</code></p>
+<h3 id="discrepancy-information-validation">Discrepancy Information Validation</h3>
+<ol>
+<li>If status &gt;= ReadyForSignature and DiscrepancyResidueInfo.wasteQuantity is not provided then the service generates
+   the following error:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.discrepancyResidueInfo.wasteQuantity"
+   }</code></p>
+<ol>
+<li>If status &gt;= ReadyForSignature and DiscrepancyResidueInfo.wasteType is not provided then the service generates the
+   following error:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.discrepancyResidueInfo.wasteType"
+   }</code></p>
+<ol>
+<li>If DiscrepancyResidueInfo.wasteQuantity == true or DiscrepancyResidueInfo.wasteType == true and
+   DiscrepancyResidueInfo.discrepancyComments is not provided then the service generates the following error:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.discrepancyResidueInfo.discrepancyComments"
+   }</code></p>
+<ol>
+<li>If DiscrepancyResidueInfo.discrepancyComments has an invalid format then the service generates the following error:</li>
+</ol>
+<p><code>json
+   {
+     "message": "String \"{provided discrepancyComments value}\" is too long (length: {provided discrepancyComments value length}, maximum allowed: 255)",
+     "field": "Emanifest.discrepancyResidueInfo.discrepancyComments",
+     "value": "discrepancyComments value"
+   }</code></p>
+<ol>
+<li>If DiscrepancyResidueInfo.wasteQuantity == false and DiscrepancyResidueInfo.wasteType == false and
+   DiscrepancyResidueInfo.discrepancyComments is provided then the service generates the following warning:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Provided Field will be Ignored.",
+     "field": "Emanifest.discrepancyResidueInfo.discrepancyComments",
+     "value": "discrepancyComments value"
+   }</code></p>
+<ol>
+<li>
+<p>If DiscrepancyResidueInfo.wasteQuantity == true or DiscrepancyResidueInfo.wasteType == true then the service sets
+   Emanifest.discrepancy = true</p>
+</li>
+<li>
+<p>If DiscrepancyResidueInfo.wasteQuantity == false and DiscrepancyResidueInfo.wasteType == false then the service sets
+   Emanifest.discrepancy</p>
+</li>
+</ol>
+<h3 id="residue-information-validation">Residue Information Validation</h3>
+<ol>
+<li>If status &gt;= ReadyForSignature and DiscrepancyResidueInfo.residue is not provided, then the service generates the
+   following error:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Mandatory Field is not Provided.",
+     "field": "Emanifest.discrepancyResidueInfo.residue"
+   }</code></p>
+<ol>
+<li>If DiscrepancyResidueInfo.residue == true and DiscrepancyResidueInfo.residueComments is provided, the service
+   validates if DiscrepancyResidueInfo.residueComments has valid format. If DiscrepancyResidueInfo.residueComments has
+   invalid format, the service generates the following error:</li>
+</ol>
+<p><code>json
+   {
+     "message": "String \"{provided residueComments value}\" is too long (length: {provided residueComments value length}, maximum allowed: 255)",
+     "field": "Emanifest.discrepancyResidueInfo.residueComments",
+     "value": "residueComments value"
+   }</code></p>
+<ol>
+<li>If DiscrepancyResidueInfo.residue == false and DiscrepancyResidueInfo.residueComments is provided, then the service
+   generates the following warning:</li>
+</ol>
+<p><code>json
+   {
+     "message": "Provided Field will be Ignored.",
+     "field": "Emanifest.discrepancyResidueInfo.residueComments",
+     "value": "residueComments value"
+   }</code></p>
+<ol>
+<li>If DiscrepancyResidueInfo.residue == true then the service sets Emanifest.residue = true</li>
+<li>
+<p>If DiscrepancyResidueInfo.residue == true then the Emanifest. residueNewManifestTrackingNumber(s) can be provided.</p>
+</li>
+<li>
+<p>5.1. If no Emanifest.residueNewManifestTrackingNumber(s) is provided, the service generates the following warning:</p>
+<p><code>json
+ {
+   "message": "One of the Waste has residue. Manifest Tracking Number(s) for shipping waste to another Facility(ies) is not provided",
+   "field": "Emanifest.residueNewManifestTrackingNumber",
+   "value": "residueNewManifestTrackingNumber value"
+ }</code></p>
+</li>
+<li>
+<p>5.2. If Emanifest.residueNewManifestTrackingNumber(s) are provided then the service validates the format of
+     residueNewManifestTrackingNumber(s). If it has an invalid format, the service generates the following warning:</p>
+<p><code>json
+ {
+   "message": "Field will be ignored. Invalid Field Format. 9 digits followed by 3 upper case letters is expected",
+   "field": "Emanifest.residueNewManifestTrackingNumbers",
+   "value": "residueNewManifestTrackingNumbers value"
+ }</code></p>
+</li>
+<li>
+<p>5.3. If the residueNewManifestTrackingNumber has a valid format, the service checks if the provided
+     residueNewManifestTrackingNumber suffix is valid. If the suffix is invalid, the service generates the following
+     warning:
+     <code>json
+     {
+       "message": "Field will be ignored. Invalid Manifest Tracking Number Suffix is Provided",
+       "field": "Emanifest.residueNewManifestTrackingNumber",
+       "value": "residueNewManifestTrackingNumber value"
+     }</code></p>
+</li>
+</ol>
+<h3 id="biennial-report-validation">Biennial Report Validation</h3>
+<h1 id="json">JSON</h1>
+<ol>
+<li>
+<p>If the Waste.br == true and the Waste.brInfo is not provided or empty, then the following applies</p>
+</li>
+<li>
+<p>1.1. The system generates the following warning:
+     <code>json
+     {
+       "message": "If brInfo is not Provided/Provided brInfo contains no fields, provided br shall be false",
+       "field": "Emanifest.waste.br",
+       "value": "Emanifest.waste.br value"
+     }</code></p>
+</li>
+<li>
+<p>1.2. The system sets Waste.br = false and stores it as a part of the manifest</p>
+</li>
+<li>
+<p>If the Waste.br == true and none of the provided Waste.brInfo fields are valid, then the following applies</p>
+</li>
+<li>
+<p>2.1. The system generates the following warning:
+     <code>json
+     {
+       "message": "None of the provided brInfo are valid, provided br will be set to false",
+       "field": "Emanifest.waste.br",
+       "value": "Emanifest.waste.br value"
+     }</code></p>
+</li>
+<li>
+<p>2.2. The system sets Waste.br = false and stores it as a part of the manifest</p>
+</li>
+<li>
+<p>If Waste.br == false or not provided and at least one of the provided Waste.brInfo fields is valid, then the
+   following applies:</p>
+</li>
+<li>
+<p>3.1. The system generates the following warning:
+     <code>json
+     {
+       "message": "Provided brInfo is valid, provided br will be set to true",
+       "field": "Emanifest.waste.br",
+       "value": "Emanifest.waste.br value"
+     }</code></p>
+</li>
+<li>
+<p>3.2. The system sets Waste.br = true and stores it as a part of the manifest</p>
+</li>
+<li>
+<p>If Waste.br == true and Waste.brInfo fields are provided, then the following applies:</p>
+</li>
+<li>
+<p>Source Codes</p>
+</li>
+<li>
+<p>5.1. Validate Source Code</p>
+<ul>
+<li>5.1.1. If the Source Code is not provided, the service generates the following warning:
+   <code>json
+   {
+     "message": "Field is not Provided",
+     "field": "Emanifest.waste.brInfo.sourceCode.code"
+   }</code></li>
+</ul>
+</li>
+<li>
+<p>5.2. Validate Form Code</p>
+<ul>
+<li>5.2.1. If Form Code is not provided, the service generates the following warning:
+   <code>json
+   {
+     "message": "Field is not Provided",
+     "field": "Emanifest.waste.brInfo.formCode.code"
+   }</code></li>
+</ul>
+</li>
+<li>
+<p>5.3. Validate Waste Minimization Code</p>
+<ul>
+<li>5.3.1. If Waste Minimization is not provided, the service generates the following warning:
+   <code>json
+   {
+     "message": "Field is not Provided",
+     "field": "Emanifest.waste.brInfo.wasteMinimization.code"
+   }</code></li>
+</ul>
+</li>
+<li>
+<p>5.4. Validate Density and Density Units Of Measurement</p>
+<ul>
+<li>
+<p>5.4.1. If Waste.UnitOfMeasurement.code is not G, L, Y, or N (volumes), then the following applies:</p>
+</li>
+<li>
+<p>5.4.1.1. If Density is provided, the service generates the following warning:
+     <code>json
+     {
+       "message": "Provided field will be ignored. Density shall be provided only if the quantity units of measurement is the volume (G, L, N, Y)",
+       "field": "Emanifest.waste.brInfo.density",
+       "value": "density value"
+     }</code></p>
+</li>
+<li>
+<p>5.4.1.2. If Density Units Of Measurement is provided, the service generates the following warning:</p>
+<p><code>json
+ {
+   "message": "Provided field will be ignored. Units Of Measurement shall be provided only if the quantity units of measurement is the volume (G, L, N, Y)",
+   "field": "Emanifest.waste.brInfo.densityUnitOfMeasurement",
+   "value": "densityUnitOfMeasurement value"
+ }</code></p>
+</li>
+<li>
+<p>5.4.2. If Waste.UnitOfMeasurement.code is G, L, Y, or N (volumes), then the following applies:</p>
+<ul>
+<li>5.4.2.1. The service will store the provided density and the densityUnitOfMeasurement.code if both are
+   valid.</li>
+<li>5.4.2.2. The service will not store the valid density if densityUnitOfMeasurement.code is not provided
+   or
+   provided densityUnitOfMeasurement.code is not valid.</li>
+<li>5.4.2.3. The service will not store the valid densityUnitOfMeasurement.code if density is not provided
+   or
+   provided density is not valid.</li>
+<li>5.4.2.4. If Density and densityUnitOfMeasurement.code are not provided, the system will generate a
+   warning:</li>
+</ul>
+<p><code>json
+   {
+     "message": "Density and densityUnitOfMeasurement.code are not provided. Both fields – Density and densityUnitOfMeasurement.code fields shall be provided",
+     "field": "Emanifest.waste.brInfo.density densityUnitOfMeasurement.code"
+   }</code></p>
+</li>
+<li>
+<p>5.4.2.5. If either Density or densityUnitOfMeasurement.code is not provided, the system will generate a
+     warning:</p>
+<p><code>json
+ {
+   "message": "Density/densityUnitOfMeasurement.code is not provided. Both fields – Density and densityUnitOfMeasurement.code fields shall be provided",
+   "field": "Emanifest.waste.brInfo.density"
+ }</code></p>
+</li>
+<li>
+<p>5.4.2.6. If provided Density is invalid, the service generates the following warning:</p>
+<p><code>json
+ {
+   "message": "Invalid Field Format. Numeric value containing no more than 3 whole digit(s) and 2 decimal digit(s) expected",
+   "field": "Emanifest.waste.brInfo.density",
+   "value": "density value"
+ }</code></p>
+</li>
+<li>
+<p>5.4.2.7. If provided densityUnitOfMeasurement.code is not valid, the service generates the following
+     warning:</p>
+<p><code>json
+ {
+   "message": "Invalid Field Format. Numeric value 1 ('lbs/gal') or 2 ('sg') shall be provided",
+   "field": "Emanifest.waste.brInfo.densityUnitOfMeasurement.code",
+   "value": "code value"
+ }</code></p>
+</li>
+</ul>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["search.highlight", "search.suggest", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
