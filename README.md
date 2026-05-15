@@ -56,8 +56,7 @@ the [test site](https://rcrainfopreprod.epa.gov/rcrainfo/). If you are intereste
 read [our services docs](https://usepa.github.io/e-manifest/Intro/registration.html#user-registration). Please note,
 this test user account will be used for this review and all subsequent reviews and/or testing of e-Manifest software.
 
-- Once you have completed this registration you may use either https://test.epacdx.net/
-  or https://rcrainfopreprod.epa.gov/rcrainfo/ to log on to the application.
+- Once you have completed this registration you will use https://rcrainfopreprod.epa.gov/rcrainfo/ to log on to the application.
 
 ## Upcoming Iterations
 
