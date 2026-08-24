@@ -107,13 +107,13 @@
 				"tsdfReport": {
 					"$ref": "#/definitions/EntityReport"
 				},
-				"transportersReports": {
+				"transporterReports": {
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/EntityReport"
 					}
 				},
-				"wastesReports": {
+				"wasteReports": {
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/EntityReport"
